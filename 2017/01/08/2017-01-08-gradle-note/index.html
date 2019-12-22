@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="gradle,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础 Gradle Guides Creating New Gradle Builds  命令 # 多任务顺序执行 gradlew clean jar Groovy 基本D:\workspace\project\gradle\basic-demo\build.gradle Gradle Task 语法 D:\workspace\project\gradle\basic-demo\build.gra">
+<meta name="keywords" content="gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle 学习积累">
+<meta property="og:url" content="http://linz.tech/2017/01/08/2017-01-08-gradle-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="基础 Gradle Guides Creating New Gradle Builds  命令 # 多任务顺序执行 gradlew clean jar Groovy 基本D:\workspace\project\gradle\basic-demo\build.gradle Gradle Task 语法 D:\workspace\project\gradle\basic-demo\build.gra">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://cdn.linz.tech/basic-demo-build-scan.png">
+<meta property="og:image" content="http://cdn.linz.tech/logger_level-2019-6-13.webp">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle 学习积累">
+<meta name="twitter:description" content="基础 Gradle Guides Creating New Gradle Builds  命令 # 多任务顺序执行 gradlew clean jar Groovy 基本D:\workspace\project\gradle\basic-demo\build.gradle Gradle Task 语法 D:\workspace\project\gradle\basic-demo\build.gra">
+<meta name="twitter:image" content="http://cdn.linz.tech/basic-demo-build-scan.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2017/01/08/2017-01-08-gradle-note/">
+
+
+
+
+
+  <title>Gradle 学习积累 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2017/01/08/2017-01-08-gradle-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gradle 学习积累</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-08T21:52:31+08:00">
+                2017-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/coder/" itemprop="url" rel="index">
+                    <span itemprop="name">coder</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/08/2017-01-08-gradle-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/08/2017-01-08-gradle-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><hr>
+<h2 id="Gradle-Guides"><a href="#Gradle-Guides" class="headerlink" title="Gradle Guides"></a>Gradle Guides</h2><ul>
+<li><a href="https://guides.gradle.org/creating-new-gradle-builds/" target="_blank" rel="noopener">Creating New Gradle Builds</a></li>
+</ul>
+<p>命令</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 多任务顺序执行
+gradlew clean jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="Groovy-基本"><a href="#Groovy-基本" class="headerlink" title="Groovy 基本"></a>Groovy 基本</h2><p>D:\workspace\project\gradle\basic-demo\build.gradle</p>
+<h2 id="Gradle-Task-语法"><a href="#Gradle-Task-语法" class="headerlink" title="Gradle Task 语法"></a>Gradle Task 语法</h2><blockquote>
+<p>D:\workspace\project\gradle\basic-demo\build.gradle</p>
+</blockquote>
+<ol>
+<li>task create</li>
+<li>task dependon</li>
+<li>myTask.doFirst</li>
+</ol>
+<h2 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h2><h3 id="1-查看当前依赖关系"><a href="#1-查看当前依赖关系" class="headerlink" title="1. 查看当前依赖关系"></a>1. 查看当前依赖关系</h3><p>gradlew  :sample:dependencies</p>
+<pre class="line-numbers language-xml"><code class="language-xml">+--- project :jobslibs
+|    +--- com.android.support:appcompat-v7:27.1.1
+|    |    +--- com.android.support:support-annotations:27.1.1
+|    |    +--- com.android.support:support-core-utils:27.1.1
+|    |    |    +--- com.android.support:support-annotations:27.1.1
+|    |    |    \--- com.android.support:support-compat:27.1.1
+|    |    |         +--- com.android.support:support-annotations:27.1.1
+|    |    |         \--- android.arch.lifecycle:runtime:1.1.0
+|    |    |              +--- android.arch.lifecycle:common:1.1.0
+|    |    |              \--- android.arch.core:common:1.1.0
+|    |    +--- com.android.support:support-fragment:27.1.1
+|    |    |    +--- com.android.support:support-compat:27.1.1 (*)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-排除传递依赖"><a href="#2-排除传递依赖" class="headerlink" title="2. 排除传递依赖"></a>2. 排除传递依赖</h3><p>参考：<a href="http://www.paincker.com/gradle-dependencies" target="_blank" rel="noopener">Gradle依赖项学习总结</a></p>
+<p>指定某个模块</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">dependencies <span class="token punctuation">{</span>
+    <span class="token function">compile</span> <span class="token punctuation">(</span><span class="token string">'org.codehaus.cargo:cargo-ant:1.3.1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        exclude group<span class="token punctuation">:</span> <span class="token string">'xml-apis'</span><span class="token punctuation">,</span> module<span class="token punctuation">:</span> <span class="token string">'xml-apis'</span>
+    <span class="token punctuation">}</span>
+    compile  <span class="token string">'xml-apis:xml-apis:2.0.2'</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>中断引用库的依赖，不引用引用的引用</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">dependencies <span class="token punctuation">{</span>
+    <span class="token function">compile</span> <span class="token punctuation">(</span><span class="token string">'org.codehaus.cargo:cargo-ant:1.3.1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        transitive<span class="token operator">=</span><span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>版本冲突 Force强制使用某个模块</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">configurations<span class="token operator">.</span>all <span class="token punctuation">{</span>
+   resolutionStrategy <span class="token punctuation">{</span>
+       force <span class="token string">'org.hamcrest:hamcrest-core:1.3'</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+dependencies <span class="token punctuation">{</span>
+   <span class="token function">androidTestCompile</span><span class="token punctuation">(</span><span class="token string">'com.android.support.test:runner:0.2'</span><span class="token punctuation">)</span>
+   <span class="token function">androidTestCompile</span><span class="token punctuation">(</span><span class="token string">'com.android.support.test:rules:0.2'</span><span class="token punctuation">)</span>
+   <span class="token function">androidTestCompile</span><span class="token punctuation">(</span><span class="token string">'com.android.support.test.espresso:espresso-core:2.1'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="配置相关"><a href="#配置相关" class="headerlink" title="配置相关"></a>配置相关</h3><p>强制刷新依赖</p>
+<pre class="line-numbers language-shell"><code class="language-shell">gradlew --refresh-dependencies assemble<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><h3 id="查看属性-ext"><a href="#查看属性-ext" class="headerlink" title="查看属性(ext)"></a>查看属性(ext)</h3><p>设置属性 <code>gradle.properties</code></p>
+<pre class="line-numbers language-gradle"><code class="language-gradle">description = "A trivial Gradle build"
+version = "1.0"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>查看</p>
+<pre><code>./gradlew properties</code></pre><h3 id="任务调试"><a href="#任务调试" class="headerlink" title="任务调试"></a>任务调试</h3><pre class="line-numbers language-shell"><code class="language-shell">./gradlew task_cmd --scan<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="http://cdn.linz.tech/basic-demo-build-scan.png" alt></p>
+<p>打印堆栈信息</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># --stacktrace
+./gradlew task_cmd -s
+# --full-stacktrace
+./gradlew task_cmd -S<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>自定义日志级别输出</p>
+<p><img src="http://cdn.linz.tech/logger_level-2019-6-13.webp" alt></p>
+<pre class="line-numbers language-shell"><code class="language-shell"># out quiet > level log 
+gradle -q task_cmd
+# out info > level log 
+gradle -i task_cmd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用gradle内置 logger 日志</p>
+<pre class="line-numbers language-shell"><code class="language-shell">task logTask {
+  doLast {
+    println 'Hello world!'
+    logger.quiet('quiet log ...')
+    logger.error('error log ...')
+    logger.lifecycle('lifecycle log info ...')
+    logger.info('info log...')
+    logger.debug('debug ... ')
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>获取Task命令的命令选项，例如：</p>
+<p><code>gradlew help --task init</code></p>
+<p>输出如下：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">> Task :help 
+Detailed task information for init
+
+Path
+     :init
+
+Type
+     InitBuild (org.gradle.buildinit.tasks.InitBuild)
+
+Options
+     --dsl     Set alternative build script DSL to be used.
+               Available values are:
+                    groovy
+                    kotlin
+
+     --test-framework     Set alternative test framework to be used.
+                          Available values are:
+                               spock
+                               testng
+
+     --type     Set type of build to create.
+                Available values are:
+                     basic
+                     groovy-application
+                     groovy-library
+                     java-application
+                     java-library
+                     pom
+                     scala-library
+
+Description
+     Initializes a new Gradle build.
+
+Group
+     Build Setup<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h3><ul>
+<li><a href="https://www.jianshu.com/nb/10954931" target="_blank" rel="noopener">构建工具-Gradle</a></li>
+<li><a href="https://www.jianshu.com/p/9df3c3b6067a" target="_blank" rel="noopener">Gradle 完整指南（Android）</a> android Gradle 基础的使用看</li>
+<li><a href="https://www.jianshu.com/p/b7fc7a6abffb" target="_blank" rel="noopener">Gradle实战及学习建议</a> Gradle for android 的一些学习资源的罗列</li>
+<li><a href="https://docs.gradle.org/current/userguide/custom_plugins.html" target="_blank" rel="noopener">Writing Custom Plugins</a> gradle官方文档，自定义插件拿到<a href="https://docs.gradle.org/current/javadoc/org/gradle/api/Project.html" target="_blank" rel="noopener">Project</a>类，就可以拿到几乎所有工程配置的属性和方法，然后发挥想象控制你的工程。</li>
+</ul>
+<h3 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h3><ul>
+<li><a href="https://docs.gradle.org/current/userguide/dependency_management.html" target="_blank" rel="noopener">Chapter 23. Dependency Management</a> 【待研究】</li>
+<li><a href="https://docs.gradle.org/current/userguide/java_plugin.html" target="_blank" rel="noopener">Chapter 45. The Java Plugin</a></li>
+<li><a href="https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.DependencyHandler.html" target="_blank" rel="noopener">DependencyHandler</a></li>
+<li><a href="http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Types" target="_blank" rel="noopener">Gradle Plugin User Guide</a> Android Studio 官网提供的Gradle实用教程</li>
+<li><a href="http://google.github.io/android-gradle-dsl/current/" target="_blank" rel="noopener">Android Plugin DSL Reference</a>  build.gradle  android{….} API</li>
+</ul>
+<h3 id="Google"><a href="#Google" class="headerlink" title="Google"></a>Google</h3><p>*<em>Android Studio Project Site *</em></p>
+<ul>
+<li><a href="http://tools.android.com/tech-docs/new-build-system/user-guide" target="_blank" rel="noopener">Gradle Plugin User Guide</a></li>
+<li><a href="http://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.BuildType.html" target="_blank" rel="noopener">Android BuildType的可配置属性</a></li>
+</ul>
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><ul>
+<li><strong><a href="https://github.com/JakeWharton/hugo" target="_blank" rel="noopener">hugo</a></strong>  JakeWharton 不必介绍了。项目中使用Gradle plugin 和自定义Task 顺便学习一些Process Annotation.</li>
+<li><a href="https://plugins.gradle.org/" target="_blank" rel="noopener">https://plugins.gradle.org/</a> plugins gradle plugin确定</li>
+</ul>
+<h2 id="开源插件"><a href="#开源插件" class="headerlink" title="开源插件"></a>开源插件</h2><hr>
+<ul>
+<li><a href="https://github.com/vanniktech/gradle-android-junit-jacoco-plugin" target="_blank" rel="noopener">gradle-android-junit-jacoco-plugin</a><br>可以生成代码单元测试覆盖率报告的 Gradle 插件。</li>
+<li><a href="https://github.com/vanniktech/gradle-android-javadoc-plugin" target="_blank" rel="noopener">gradle-android-javadoc-plugin</a><br>可以生成 java doc 的 Gradle 插件。</li>
+<li><a href="https://github.com/vanniktech/gradle-android-apk-size-plugin" target="_blank" rel="noopener">gradle-android-apk-size-plugin</a><br>可以将 Apk 大小记录到 CSV 文件的 Gradle 插件。</li>
+<li><a href="http://github.com/adwiv/android-fat-aar" target="_blank" rel="noopener">android-fat-aar </a> Gradle script that allows you to merge and embed dependencies in generted aar file.</li>
+<li><strong><a href="https://github.com/JcMinarro/ProperDroid" target="_blank" rel="noopener">ProperDroid</a></strong>  simplifies the way that config different variant on your project.</li>
+<li><strong><a href="https://github.com/KeepSafe/dexcount-gradle-plugin" target="_blank" rel="noopener">dexcount-gradle-plugin</a></strong>  A Gradle plugin to report the number of method references in your APK on every build.</li>
+</ul>
+<h1 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h1><ul>
+<li><p><a href="http://blog.csdn.net/qinxiandiqi/article/details/44458707" target="_blank" rel="noopener">  建立企业内部maven服务器并使用Android Studio发布公共项目</a>。</p>
+</li>
+<li><p><a href="https://blog.csdn.net/csdn_mm/article/details/78364444" target="_blank" rel="noopener">Android 将Android项目打包成aar文件并在其他项目中引用,打包成jar包</a></p>
+</li>
+</ul>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><hr>
+<h2 id="依赖更新"><a href="#依赖更新" class="headerlink" title="依赖更新"></a><strong>依赖更新</strong></h2><p>项目依赖的远程包如果有更新，会有提醒或者自动更新吗？ 不会的，需要你手动设置changing标记为true，这样gradle会每24小时检查更新，通过更改resolutionStrategy可以修改检查周期。</p>
+<pre class="line-numbers language-gradle"><code class="language-gradle">configurations.all {
+// check for updates every build
+resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+dependencies {
+compile group: "group", name: "projectA", version: "1.1-SNAPSHOT", changing: true
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>之前上传aar同一版本到maven仓库，但依赖却没有更新，该怎么办呢?可以直接删除本地缓存，缓存在~/.gradle/caches目录下，删除缓存后，下次运行就会自动重新下载远程依赖了。</p>
+<h2 id="Gradle下载慢5个解决方案"><a href="#Gradle下载慢5个解决方案" class="headerlink" title="Gradle下载慢5个解决方案"></a>Gradle下载慢5个解决方案</h2><blockquote>
+<p>原因: 由于 services.gradle.org 国内下载速度很慢(一般为45kb/s), 而每个gradle-xx.xx.-all.zip 版本至少60MB, 也就正常是需要40分钟左右,花都谢了</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">#Mon Oct 22 23:20:47 CST 2018
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+#把*4.6-all.zip 改为4.6-bin.zip 需要下载的更小
+distributionUrl=https\://services.gradle.org/distributions/gradle-4.6-all.zip
+# 解决Gradle下载慢的问题
+#方案一：使用本地缓存，修改.. distributions/gradle-4.6-all.zip 为本地已经有的版本
+
+#方案二 1.把下载好的 gradle-x.x.x-all.zip 如：gradle-4.6-all.zip
+# 1.1直接复制到 gradle-wrapper.properties 同在目录
+# 1.2 如下：
+#distributionUrl=gradle-4.6-all.zip
+
+#方案三：引用本地文件地址
+#1. Window
+#distributionUrl=file:///E://software//2.coder//env//gradle-4.6-all.zip
+#2. Unix
+#distributionUrl=file\:/tmp/gradle-2.2.1-all.zip
+
+#方案四：手动（国内或者浏览器）下载一般比较快，解压到gradle缓存目录
+# 参考：https://www.cnblogs.com/rainboy2010/p/7062279.html
+# 1. 缓存目录
+# 1.1 window默认 : C:\Users\xxx(用户名)\.gradle\wrapper\dists\gradle-3.3-all\55gk2rcmfc6p2dg9u9ohc3hw9
+# 1.2 unix默认： ~/.gradle/...
+# 2. 获取base36值，参考FileTest#getDistMD5方法
+#messageDigest = MessageDigest.getInstance("MD5");
+#messageDigest.update(distributionUrl.getBytes());
+#String str = new BigInteger(1, messageDigest.digest()).toString(36);
+# 3. 在dist\gradle-3.3-all\ 下
+# 3.1 新建文件，名为获取base36值
+# 3.2 拷贝下载好的gradle-x.x.x-all.zip 到新建的文件，并解压
+
+#方案五： 直接更改 distributionUrl的下载路径为国内服务器，例如：http://mirrors.flysnow.org/
+#如：distributionUrl=http\://mirrors.flysnow.org/gradle/gradle-4.1-bin.zip
+#注意 1. 镜像网站有指定版本；2. 不要设置代理
+#如果你在 gradle.properties 配置了代理，请添加一个不走代理的配置，否则 gralde 无法安装
+#systemProp.http.proxyHost=mirrors.neusoft.edu.cn
+#systemProp.http.proxyPort=80
+## 添加不走代理的 host，会影响 package 的安装
+#systemProp.http.nonProxyHosts=172.1.1.227|localhost|mirrors.flysnow.org<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="依赖下载慢，使用阿里云国内镜像"><a href="#依赖下载慢，使用阿里云国内镜像" class="headerlink" title="依赖下载慢，使用阿里云国内镜像"></a>依赖下载慢，使用阿里云国内镜像</h2><p>单个项目生效</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">buildscript <span class="token punctuation">{</span>
+    repositories <span class="token punctuation">{</span>
+        maven <span class="token punctuation">{</span> url <span class="token string">'http://maven.aliyun.com/nexus/content/groups/public/'</span> <span class="token punctuation">}</span>
+        maven<span class="token punctuation">{</span> url <span class="token string">'http://maven.aliyun.com/nexus/content/repositories/jcenter'</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    dependencies <span class="token punctuation">{</span>
+        classpath <span class="token string">'com.android.tools.build:gradle:2.2.3'</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+allprojects <span class="token punctuation">{</span>
+    repositories <span class="token punctuation">{</span>
+        maven <span class="token punctuation">{</span> url <span class="token string">'http://maven.aliyun.com/nexus/content/groups/public/'</span> <span class="token punctuation">}</span>
+        maven<span class="token punctuation">{</span> url <span class="token string">'http://maven.aliyun.com/nexus/content/repositories/jcenter'</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对所有项目生效，在USER_HOME/.gradle/下创建init.gradle文件</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">allprojects<span class="token punctuation">{</span>
+    repositories <span class="token punctuation">{</span>
+        <span class="token keyword">def</span> ALIYUN_REPOSITORY_URL <span class="token operator">=</span> <span class="token string">'http://maven.aliyun.com/nexus/content/groups/public'</span>
+        <span class="token keyword">def</span> ALIYUN_JCENTER_URL <span class="token operator">=</span> <span class="token string">'http://maven.aliyun.com/nexus/content/repositories/jcenter'</span>
+        all <span class="token punctuation">{</span> ArtifactRepository repo <span class="token operator">-></span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>repo <span class="token keyword">instanceof</span> <span class="token class-name">MavenArtifactRepository</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">def</span> url <span class="token operator">=</span> repo<span class="token operator">.</span>url<span class="token operator">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>url<span class="token operator">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span><span class="token string">'https://repo1.maven.org/maven2'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    project<span class="token operator">.</span>logger<span class="token operator">.</span>lifecycle <span class="token string">"Repository ${repo.url} replaced by $ALIYUN_REPOSITORY_URL."</span>
+                    remove repo
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>url<span class="token operator">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span><span class="token string">'https://jcenter.bintray.com/'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    project<span class="token operator">.</span>logger<span class="token operator">.</span>lifecycle <span class="token string">"Repository ${repo.url} replaced by $ALIYUN_JCENTER_URL."</span>
+                    remove repo
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        maven <span class="token punctuation">{</span>
+            url ALIYUN_REPOSITORY_URL
+            url ALIYUN_JCENTER_URL
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="gradle-lt-gt-maven"><a href="#gradle-lt-gt-maven" class="headerlink" title="gradle &lt;=&gt; maven"></a>gradle &lt;=&gt; maven</h2><h3 id="1-gradle-gt-maven"><a href="#1-gradle-gt-maven" class="headerlink" title="1. gradle -&gt; maven"></a>1. gradle -&gt; maven</h3><p>build.gradle  <project></project></p>
+<pre class="line-numbers language-gradle"><code class="language-gradle">apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.101tec'
+version = '0.7-dev'
+sourceCompatibility = 1.6
+
+task writeNewPom << {
+    pom {
+        project {
+            inceptionYear '2008'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/pom.xml")
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-maven-gt-gradle"><a href="#2-maven-gt-gradle" class="headerlink" title="2. maven -&gt; gradle"></a>2. maven -&gt; gradle</h3><pre class="line-numbers language-shell"><code class="language-shell">gradle init --type pom<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gradle/" rel="tag"># gradle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/27/2016-12-27-Archtecture-for-Android/" rel="next" title="Android 架构相关笔记">
+                <i class="fa fa-chevron-left"></i> Android 架构相关笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/01/2017-02-01-rx-learning-note/" rel="prev" title="RxJava 学习笔记">
+                RxJava 学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2017/01/08/2017-01-08-gradle-note/" data-title="Gradle 学习积累" data-url="http://linz.tech/2017/01/08/2017-01-08-gradle-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Guides"><span class="nav-number">1.1.</span> <span class="nav-text">Gradle Guides</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Groovy-基本"><span class="nav-number">1.2.</span> <span class="nav-text">Groovy 基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Task-语法"><span class="nav-number">1.3.</span> <span class="nav-text">Gradle Task 语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖管理"><span class="nav-number">1.4.</span> <span class="nav-text">依赖管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查看当前依赖关系"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 查看当前依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-排除传递依赖"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 排除传递依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置相关"><span class="nav-number">1.4.3.</span> <span class="nav-text">配置相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试"><span class="nav-number">1.5.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看属性-ext"><span class="nav-number">1.5.1.</span> <span class="nav-text">查看属性(ext)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务调试"><span class="nav-number">1.5.2.</span> <span class="nav-text">任务调试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">1.6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#博客"><span class="nav-number">1.6.1.</span> <span class="nav-text">博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资料"><span class="nav-number">1.6.2.</span> <span class="nav-text">资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Google"><span class="nav-number">1.6.3.</span> <span class="nav-text">Google</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件"><span class="nav-number">2.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开源插件"><span class="nav-number">2.1.</span> <span class="nav-text">开源插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用案例"><span class="nav-number">3.</span> <span class="nav-text">使用案例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题解决"><span class="nav-number">4.</span> <span class="nav-text">问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖更新"><span class="nav-number">4.1.</span> <span class="nav-text">依赖更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle下载慢5个解决方案"><span class="nav-number">4.2.</span> <span class="nav-text">Gradle下载慢5个解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖下载慢，使用阿里云国内镜像"><span class="nav-number">4.3.</span> <span class="nav-text">依赖下载慢，使用阿里云国内镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradle-lt-gt-maven"><span class="nav-number">4.4.</span> <span class="nav-text">gradle &lt;=&gt; maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-gradle-gt-maven"><span class="nav-number">4.4.1.</span> <span class="nav-text">1. gradle -&gt; maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-maven-gt-gradle"><span class="nav-number">4.4.2.</span> <span class="nav-text">2. maven -&gt; gradle</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

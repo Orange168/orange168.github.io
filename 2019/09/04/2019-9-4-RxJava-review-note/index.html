@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="RxJava,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="操作符Createcreate range(10,5) -&amp;gt; 10,11,12,13,14(5个数) defer（订阅重新创建）/just from interval（1，TimeUnit.SECONDES） Observable.just(1).repeat(5);#重复发送5数 Observable.timer(1, TimeUnit.SECONDS) # 1s后发送 Transforming">
+<meta name="keywords" content="RxJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava 复习笔记">
+<meta property="og:url" content="http://linz.tech/2019/09/04/2019-9-4-RxJava-review-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="操作符Createcreate range(10,5) -&amp;gt; 10,11,12,13,14(5个数) defer（订阅重新创建）/just from interval（1，TimeUnit.SECONDES） Observable.just(1).repeat(5);#重复发送5数 Observable.timer(1, TimeUnit.SECONDS) # 1s后发送 Transforming">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxJava 复习笔记">
+<meta name="twitter:description" content="操作符Createcreate range(10,5) -&amp;gt; 10,11,12,13,14(5个数) defer（订阅重新创建）/just from interval（1，TimeUnit.SECONDES） Observable.just(1).repeat(5);#重复发送5数 Observable.timer(1, TimeUnit.SECONDS) # 1s后发送 Transforming">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/09/04/2019-9-4-RxJava-review-note/">
+
+
+
+
+
+  <title>RxJava 复习笔记 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/09/04/2019-9-4-RxJava-review-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxJava 复习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-04T22:12:08+08:00">
+                2019-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/04/2019-9-4-RxJava-review-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/04/2019-9-4-RxJava-review-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-1/" target="_blank" rel="noopener">Create</a></h3><pre class="line-numbers language-TXT"><code class="language-TXT">create
+range(10,5) -> 10,11,12,13,14(5个数)
+defer（订阅重新创建）/just
+from
+interval（1，TimeUnit.SECONDES）
+Observable.just(1).repeat(5);#重复发送5数
+Observable.timer(1, TimeUnit.SECONDS) # 1s后发送<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Transforming-Observables"><a href="#Transforming-Observables" class="headerlink" title="Transforming Observables"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-2/" target="_blank" rel="noopener">Transforming Observables</a></h3><p>buffer –&gt; Window 返回的是Observe</p>
+<pre class="line-numbers language-txt"><code class="language-txt">buffer(3) #缓存3个统一发出
+buffer(2,3)#接收1,2,3,4,5,6->发送1,2    4,5(缓存2个，skip第三个)
+buffer(3,TimeUnit.SECONDS) #缓存3s,统一发出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>FlatMap –&gt; flatMapIterable 顺序输出</p>
+<pre class="line-numbers language-java"><code class="language-java">Observable<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span>integer <span class="token operator">-</span><span class="token operator">></span> Observable<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span> integer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+# <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>GroupBy</p>
+<pre><code>Observable
+.just(1, 2, 3, 4, 5, 6, 7, 8, 9)
+.groupBy(integer -&gt; integer % 2, integer -&gt; &quot;groupByKeyValue:&quot; + integer);
+# keyValue 分别输出：2,4,6,8
+Observable
+.just(1, 2, 3, 4, 5, 6, 7, 8, 9)
+.groupBy(integer -&gt; integer % 2)
+.subscribe(groupedObservable -&gt; 
+    groupedObservable
+            .count()
+            .subscribe(integer -&gt;
+                XLog.e(&quot;key&quot; + groupedObservable.getKey() + &quot; contains:&quot; + integer + &quot; numbers&quot;)));
+#输出
+key 0 contains:4 numbers 
+key 1 contains:5 numbers</code></pre><p>Map、Cast</p>
+<ul>
+<li><a href="https://blog.csdn.net/axuanqq/article/details/50738464" target="_blank" rel="noopener">switch()和flatMap()</a> switch 会丢弃旧数据</li>
+</ul>
+<p>Scan 上一次的结果给下一次使用，类似于递归 </p>
+<h3 id="Filtering"><a href="#Filtering" class="headerlink" title="Filtering"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-3/" target="_blank" rel="noopener">Filtering</a></h3><ul>
+<li>debounce (500,Unit) 两个500 内有多给发射取最后一个<br>throttleWithTimeOut 限流,debounce可以根据函数限流（被限流的数据会被丢弃）</li>
+<li>Distinct和DistinctUtilChanged</li>
+<li>ElementAt、Filter</li>
+<li>First、Last</li>
+<li>Skip(2) 跳过前2个、Take(2) 取前2个</li>
+<li>throttleFirst(1000, TimeUnit.MILLISECONDS)  1秒中最先到达的数据</li>
+<li>sample(1000, TimeUnit.MILLISECONDS)  1秒中最后到达的数据<h3 id="Combining"><a href="#Combining" class="headerlink" title="Combining"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-4/" target="_blank" rel="noopener">Combining</a></h3></li>
+<li>CombineLatest 2~9个Observable每个都发射一个然后组装 【直到最后一个发出才组装】<pre><code>Observable.combineLatest(createObserver(1), createObserver(2), (num1, num2) -&gt; {
+      log(&quot;left:&quot; + num1 + &quot; right:&quot; + num2);
+      return num1 + num2;
+  }</code></pre></li>
+<li>Join/groupJoin Observable（时间窗内有效）<pre><code>// 分别匹配
+private Observable&lt;String&gt; createObserver2() {
+  return Observable.create(new ObservableOnSubscribe&lt;String&gt;() {
+    @Override public void subscribe(ObservableEmitter&lt;String&gt; emitter) throws Exception {
+      for (int i = 1; i &lt; 5; i++) {
+        emitter.onNext(&quot;Right-&quot; + i);
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  });
+}
+Observable.just(&quot;Left-&quot;,&quot;L2&quot;).join(createObserver2(),
+      integer -&gt; Observable.timer(3000, TimeUnit.MILLISECONDS),//源Observable
+      integer -&gt; Observable.timer(1000, TimeUnit.MILLISECONDS),//加入Ob
+      (i, j) -&gt; i + j
+  ).subscribe(new Consumer&lt;String&gt;() {
+    @Override public void accept(String s) throws Exception {
+      Log.e(&quot;TAG&quot;,&quot;join:&quot; + s + &quot;\n&quot;);
+    }
+  });</code></pre></li>
+<li>Merege 多个发射整合，有交错（没交错cconcat）/ mergeDelayError 合并完成才发送错误</li>
+<li>StartWith、Switch（多为一个Observable，后面覆盖前面） <pre class="line-numbers language-java"><code class="language-java">Observable<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">startWith</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//输出：-1,0,1,2,3 可以插入list Observable</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>Zip，zipWith 按顺序，每个数据只能组合一次，发射次数由最少的决定<pre><code>//只发射了2次
+createObserver(2).zipWith(createObserver(3), (s, s2) -&gt; s + &quot;-&quot; + s2);
+//只发射2次
+Observable
+  .zip(createObserver(2), createObserver(3), createObserver(4), (s, s2, s3) -&gt; s + &quot;-&quot; + s2 + &quot;-&quot; + s3);</code></pre><h3 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-5/" target="_blank" rel="noopener">Error Handling</a></h3><h4 id="一、Catch"><a href="#一、Catch" class="headerlink" title="一、Catch"></a>一、Catch</h4></li>
+<li>OnErrorReturn 返回预先值</li>
+<li>OnErrorResume 返回另一个Observable</li>
+<li>OnExceptionResumeNext 如果是Exception（同Resume），否专递给Subscriber<h4 id="Retry-，RetryWhen"><a href="#Retry-，RetryWhen" class="headerlink" title="Retry ，RetryWhen"></a>Retry ，RetryWhen</h4>尝试了几次还是产生错误后，retry会将错误分发给观察者，而retryWhen会正常结束，并不会讲错误分发出去<pre class="line-numbers language-gradle"><code class="language-gradle">createObserver().retry(2)
+createObserver().retryWhen(observable -> observable.zipWith(Observable.just(1, 2, 3),
+          (throwable, integer) -> throwable.getMessage() + integer)
+          .flatMap(throwable -> {
+              log(throwable);
+              return Observable.timer(1, TimeUnit.SECONDS);
+          }))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Utility"><a href="#Utility" class="headerlink" title="Utility"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-6/" target="_blank" rel="noopener">Utility</a></h3></li>
+<li>toList : 把数据转换成 List 集合<pre><code>Observable
+        .just(1, 2, 3, 4)
+        .toList()
+        .subscribe(new Consumer&lt;List&lt;Integer&gt;&gt;() {
+             @Override
+             public void accept(List&lt;Integer&gt; integers) throws Exception {
+               Log.e(&quot;zhao&quot;, &quot;accept: &quot; + integers);
+         }
+   });</code></pre></li>
+<li>Delay / DelaySubscription</li>
+<li>Doxxx<blockquote>
+<p>Observable的生命周期的各个阶段加上一系列的回调监听，当Observable执行到这个阶段的时候，这些回调就会被触发</p>
+</blockquote>
+</li>
+<li>Meterialize 将OnNext/OnError/OnComplete都转化为一个Notification</li>
+<li>TimeInterval 拦截发射/取两次间隔时间 &lt;==&gt; TimeStamp 为每次发射打时间戳  <blockquote>
+<p> stringTimed.value() 获得onNext()的值</p>
+</blockquote>
+</li>
+<li>Timeout 没次重置，超时抛出超时异常</li>
+<li>using 限时销毁资源<h3 id="Conditional-and-Boolean"><a href="#Conditional-and-Boolean" class="headerlink" title="Conditional and Boolean"></a><a href="http://mushuichuan.com/2015/12/14/rxjava-operator-7/" target="_blank" rel="noopener">Conditional and Boolean</a></h3></li>
+<li>All(全true 否 false  )/Amb (至多9个Observable，先发先用其他丢弃)</li>
+<li>Contains、IsEmpty</li>
+<li>DefaultIfEmpty(10)  <pre><code>public void call(Subscriber&lt;? super Integer&gt; subscriber) {
+          //没有调用onNext()，返回 DefaultIfEmpty：10
+          subscriber.onCompleted();
+}</code></pre></li>
+<li>SequenceEqual Obd对比 数据，序列，结束状态相同</li>
+<li>TakeUntil、TakeWhile、TakeUntil、TakeWhile<pre><code>Observable
+.interval(1, TimeUnit.SECONDS)
+.skipUntil(Observable.timer(3, TimeUnit.SECONDS)) //可以加时间</code></pre><h3 id="Aggregate"><a href="#Aggregate" class="headerlink" title="Aggregate"></a><a href="http://mushuichuan.com/2015/12/14/rxjava-operator-8/" target="_blank" rel="noopener">Aggregate</a></h3></li>
+<li>Concat vs merge vs startWith </li>
+<li>Count Observable 没有发送完不触发</li>
+<li>Reduce（类似Scan，单只输出最后结果）、Collect(容器，)<pre><code>Observable.from(list)
+.collect(() -&gt; new ArrayList&lt;&gt;(), (integers, integer) -&gt; integers.add(integer));
+}</code></pre><h3 id="背压"><a href="#背压" class="headerlink" title="背压"></a>背压</h3><blockquote>
+<p>错误：MissingBackpressureException, 直接用Observable默认处理不了的存在内存中，容易导致内存溢出</p>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java">Flowable<span class="token punctuation">.</span><span class="token function">interval</span><span class="token punctuation">(</span> <span class="token number">1</span> <span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//onBackpressureDrop 一定要放在 interval 后面否则不会生效</span>
+      <span class="token punctuation">.</span><span class="token function">onBackpressureDrop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+      <span class="token punctuation">.</span><span class="token function">subscribeOn</span><span class="token punctuation">(</span>Schedulers<span class="token punctuation">.</span><span class="token function">io</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">observeOn</span><span class="token punctuation">(</span>Schedulers<span class="token punctuation">.</span><span class="token function">newThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Consumer</span><span class="token operator">&lt;</span>Long<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+             <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">accept</span><span class="token punctuation">(</span>Long aLong<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+                 Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                 Log<span class="token punctuation">.</span><span class="token function">e</span><span class="token punctuation">(</span><span class="token string">"zhao"</span><span class="token punctuation">,</span> <span class="token string">"onNext: "</span> <span class="token operator">+</span> aLong<span class="token punctuation">)</span><span class="token punctuation">;</span>
+             <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>onBackpressureDrop</li>
+<li>onBackpressureLatest</li>
+<li>onBackpressureBuffer( 1000 ) //设置缓冲队列大小为 1000</li>
+</ul>
+<h2 id="常用类详解"><a href="#常用类详解" class="headerlink" title="常用类详解"></a>常用类详解</h2><h3 id="CompositeDisposable"><a href="#CompositeDisposable" class="headerlink" title="CompositeDisposable"></a>CompositeDisposable</h3><p>CompositeDisposable Disposable 的管理类，类似于list</p>
+<pre class="line-numbers language-java"><code class="language-java">CompositeDisposable<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>mDisposable <span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 得到</span>
+CompositeDisposable<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//退出时</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><ul>
+<li>PublishSubject 通知每个观察者<pre class="line-numbers language-java"><code class="language-java">PublishSubject<span class="token operator">&lt;</span>String<span class="token operator">></span> publishSubject <span class="token operator">=</span> PublishSubject<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+publishSubject <span class="token punctuation">.</span><span class="token function">onNext</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//触发</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>BehaviorSubject 最后一次onNext()缓存给下一个观察者<pre><code>BehaviorSubject&lt;Integer&gt; behaviorSubject = BehaviorSubject.create();</code></pre></li>
+<li>AsyncSubject  onComplete()前其他操作都会被缓存</li>
+</ul>
+<h3 id="subscribe"><a href="#subscribe" class="headerlink" title="subscribe"></a>subscribe</h3><h4 id="Single"><a href="#Single" class="headerlink" title="Single"></a>Single</h4><blockquote>
+<p>onSubscribe (onSuccess | onError)?</p>
+</blockquote>
+<p>  一个只包含一个item或error的流</p>
+<h4 id="Completable"><a href="#Completable" class="headerlink" title="Completable"></a>Completable</h4><blockquote>
+<p>onSubscribe (onComplete | onError)?</p>
+</blockquote>
+<p>只包含completion或error信号的流</p>
+<h4 id="io-reactivex-Maybe"><a href="#io-reactivex-Maybe" class="headerlink" title="io.reactivex.Maybe"></a>io.reactivex.Maybe</h4><p>只包含一个maybe value或者error的流</p>
+<blockquote>
+<p>onSubscribe (onSuccess | onError | onComplete)?</p>
+</blockquote>
+<ul>
+<li><a href="https://www.jianshu.com/p/9b1304435564" target="_blank" rel="noopener">Flowable request</a></li>
+</ul>
+<p>0..N个流，支持Reactive-Streams和背压(backpressure)</p>
+<pre><code>Flowable&lt;Integer&gt; upstream = Flowable.create(new FlowableOnSubscribe&lt;Integer&gt;() {
+            @Override
+            public void subscribe(FlowableEmitter&lt;Integer&gt; emitter) throws Exception {}
+        }, BackpressureStrategy.ERROR); //增加了一个参数
+
+      Subscriber&lt;Integer&gt; downstream = new Subscriber&lt;Integer&gt;() {
+            @Override
+            public void onSubscribe(Subscription s) {
+                Log.d(TAG, &quot;onSubscribe&quot;);
+                s.request(Long.MAX_VALUE);  //注意这句代码
+            }  
+            .......
+        };
+upstream.subscribe(downstream);</code></pre><h3 id="subscribers"><a href="#subscribers" class="headerlink" title="subscribers"></a>subscribers</h3><p> DefaultObserver </p>
+<ul>
+<li><p>支持异步取消cancel //onNext中取消订阅</p>
+</li>
+<li><p>onStart()</p>
+</li>
+<li><p>thread-safe<br>DisposableObserver</p>
+</li>
+<li><p>implementing Disposable</p>
+</li>
+<li><p>thread-safe<br>ResourceObserver</p>
+</li>
+<li><p>支持多个Disposable监控</p>
+<h3 id="线程的类型"><a href="#线程的类型" class="headerlink" title="线程的类型"></a>线程的类型</h3><p>Schedulers.</p>
+</li>
+<li><p>一眼看出：computation()/from(Executor executor)/io( )</p>
+</li>
+<li><p>trampoline( )排队类型/single()公用一个线程，带研究</p>
+</li>
+</ul>
+<p>AndroidSchedulers<br>AndroidSchedulers.from(Looper looper)</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>案例一：</p>
+<pre class="line-numbers language-java"><code class="language-java">Maybe<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>v <span class="token operator">-</span><span class="token operator">></span> v <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>v <span class="token operator">-</span><span class="token operator">></span> v <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">defaultIfEmpty</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">assertResult</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.jianshu.com/p/464fa025229e" target="_blank" rel="noopener">给初学者的RxJava2.0教程(一)</a></li>
+<li><a href="https://www.jianshu.com/p/c935d0860186" target="_blank" rel="noopener">RxJava2 实战知识梳理</a></li>
+<li><a href="https://blog.csdn.net/shangmingchao/article/details/72247730" target="_blank" rel="noopener">RxJava2详解（一）–基础</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RxJava/" rel="tag"># RxJava</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/12/2019-8-12-ecommerce-cache-learning/" rel="next" title="亿级电商缓存项目学习">
+                <i class="fa fa-chevron-left"></i> 亿级电商缓存项目学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/09/2018-9-9-json-server/" rel="prev" title="自建-模拟JSON REST API-从入门到精通-前端必备技能-你还在等你后台API吗？">
+                自建-模拟JSON REST API-从入门到精通-前端必备技能-你还在等你后台API吗？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/09/04/2019-9-4-RxJava-review-note/" data-title="RxJava 复习笔记" data-url="http://linz.tech/2019/09/04/2019-9-4-RxJava-review-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符"><span class="nav-number">1.</span> <span class="nav-text">操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create"><span class="nav-number">1.1.</span> <span class="nav-text">Create</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transforming-Observables"><span class="nav-number">1.2.</span> <span class="nav-text">Transforming Observables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filtering"><span class="nav-number">1.3.</span> <span class="nav-text">Filtering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Combining"><span class="nav-number">1.4.</span> <span class="nav-text">Combining</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-Handling"><span class="nav-number">1.5.</span> <span class="nav-text">Error Handling</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、Catch"><span class="nav-number">1.5.1.</span> <span class="nav-text">一、Catch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Retry-，RetryWhen"><span class="nav-number">1.5.2.</span> <span class="nav-text">Retry ，RetryWhen</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Utility"><span class="nav-number">1.6.</span> <span class="nav-text">Utility</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conditional-and-Boolean"><span class="nav-number">1.7.</span> <span class="nav-text">Conditional and Boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Aggregate"><span class="nav-number">1.8.</span> <span class="nav-text">Aggregate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背压"><span class="nav-number">1.9.</span> <span class="nav-text">背压</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用类详解"><span class="nav-number">2.</span> <span class="nav-text">常用类详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CompositeDisposable"><span class="nav-number">2.1.</span> <span class="nav-text">CompositeDisposable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subject"><span class="nav-number">2.2.</span> <span class="nav-text">Subject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subscribe"><span class="nav-number">2.3.</span> <span class="nav-text">subscribe</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Single"><span class="nav-number">2.3.1.</span> <span class="nav-text">Single</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Completable"><span class="nav-number">2.3.2.</span> <span class="nav-text">Completable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#io-reactivex-Maybe"><span class="nav-number">2.3.3.</span> <span class="nav-text">io.reactivex.Maybe</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subscribers"><span class="nav-number">2.4.</span> <span class="nav-text">subscribers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的类型"><span class="nav-number">2.5.</span> <span class="nav-text">线程的类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="正在研究 SUtils 封装有许多实用的开发工具类 APKParser parceler通过注解的方式序列化对象more: Transfuse Transfuse is a Java Dependency Injection (DI) and integration library geared specifically for the Google Android API.  数据持久化  Aw">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 常用开源库">
+<meta property="og:url" content="http://linz.tech/2018/04/14/2018-4-14-android-open-source-tools/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="正在研究 SUtils 封装有许多实用的开发工具类 APKParser parceler通过注解的方式序列化对象more: Transfuse Transfuse is a Java Dependency Injection (DI) and integration library geared specifically for the Google Android API.  数据持久化  Aw">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://camo.githubusercontent.com/b0cdc1242d8170b8184ef2a92d8afd5af4152563/68747470733a2f2f692e696d6775722e636f6d2f706a44456a576c2e676966">
+<meta property="og:image" content="https://raw.githubusercontent.com/mike14u/shimmer-recyclerview-x/master/screenshots/second_list_demo.gif">
+<meta property="og:image" content="https://github.com/lingochamp/FileDownloader/raw/master/art/parallel_tasks_demo.gif">
+<meta property="og:image" content="https://github.com/kexanie/MathView/raw/master/screenshot/screenshot.png">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 常用开源库">
+<meta name="twitter:description" content="正在研究 SUtils 封装有许多实用的开发工具类 APKParser parceler通过注解的方式序列化对象more: Transfuse Transfuse is a Java Dependency Injection (DI) and integration library geared specifically for the Google Android API.  数据持久化  Aw">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/b0cdc1242d8170b8184ef2a92d8afd5af4152563/68747470733a2f2f692e696d6775722e636f6d2f706a44456a576c2e676966">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2018/04/14/2018-4-14-android-open-source-tools/">
+
+
+
+
+
+  <title>Android 常用开源库 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2018/04/14/2018-4-14-android-open-source-tools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 常用开源库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-14T16:22:19+08:00">
+                2018-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/14/2018-4-14-android-open-source-tools/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/14/2018-4-14-android-open-source-tools/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="正在研究"><a href="#正在研究" class="headerlink" title="正在研究"></a>正在研究</h2><ul>
+<li><strong><a href="https://github.com/albert-lii/SUtils" target="_blank" rel="noopener">SUtils</a></strong> 封装有许多实用的开发工具类</li>
+<li><strong><a href="https://github.com/jaredrummler/APKParser" target="_blank" rel="noopener">APKParser</a></strong></li>
+<li><strong><a href="https://github.com/johncarl81/parceler" target="_blank" rel="noopener">parceler</a></strong>通过注解的方式序列化对象<br><a href="http://androidtransfuse.org/" target="_blank" rel="noopener">more: Transfuse</a> Transfuse is a Java Dependency Injection (DI) and integration library geared specifically for the Google Android API.</li>
+</ul>
+<h2 id="数据持久化"><a href="#数据持久化" class="headerlink" title="数据持久化"></a>数据持久化</h2><hr>
+<ul>
+<li><a href="https://github.com/skydoves/Awesome-Android-Persistence" target="_blank" rel="noopener">Awesome-Android-Persistence</a> 数据持久化优秀的开源库列表 【重点】</li>
+<li><strong><a href="https://github.com/jgilfelt/android-sqlite-asset-helper" target="_blank" rel="noopener">android-sqlite-asset-helper</a></strong></li>
+</ul>
+<h2 id="构建工具"><a href="#构建工具" class="headerlink" title="构建工具"></a>构建工具</h2><hr>
+<p><strong><a href="https://github.com/seven456/MultiChannelPackageTool" target="_blank" rel="noopener">MultiChannelPackageTool</a></strong> 快速多渠道打包工具。</p>
+<h2 id="开发中实用的工具"><a href="#开发中实用的工具" class="headerlink" title="开发中实用的工具"></a>开发中实用的工具</h2><hr>
+<ul>
+<li><strong><a href="https://github.com/izacus/RoboGif" target="_blank" rel="noopener">RoboGif</a></strong>  A small utility to record Android device screen to a GIF</li>
+<li><a href="https://github.com/venshine/AppUninstall" target="_blank" rel="noopener">AppUninstall Android App监听自身卸载，反馈统计</a></li>
+<li><a href="https://github.com/ljuns/LogCollector" target="_blank" rel="noopener">LogCollector</a> 一个收集 app 输出日志的工具</li>
+</ul>
+<h2 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h2><hr>
+<ul>
+<li><strong><a href="https://github.com/romannurik/AndroidDesignPreview" target="_blank" rel="noopener">AndroidDesignPreview</a></strong></li>
+<li><a href="https://github.com/romannurik/AndroidAssetStudio" target="_blank" rel="noopener">AndroidAssetStudio</a> Android常用图标生成Web</li>
+<li><a href="http://bigertech.com/post/assistor-ps-1/" target="_blank" rel="noopener">切图标记外挂神器 Assistor PS 介绍</a></li>
+<li><a href="https://github.com/JcMinarro/Philology" target="_blank" rel="noopener">动态修改App字符开源库 Philology</a></li>
+</ul>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><ul>
+<li><a href="https://github.com/jaredrummler/Cyanea" target="_blank" rel="noopener">Cyanea</a><br><img src="https://camo.githubusercontent.com/b0cdc1242d8170b8184ef2a92d8afd5af4152563/68747470733a2f2f692e696d6775722e636f6d2f706a44456a576c2e676966" alt></li>
+</ul>
+<h3 id="显示效果"><a href="#显示效果" class="headerlink" title="显示效果"></a>显示效果</h3><ul>
+<li>闪光 Shimmer<ul>
+<li><a href="https://github.com/mike14u/shimmer-recyclerview-x" target="_blank" rel="noopener">shimmer-recyclerview-x</a> 闪光list<br><img src="https://raw.githubusercontent.com/mike14u/shimmer-recyclerview-x/master/screenshots/second_list_demo.gif" alt><h2 id="检测优化工具"><a href="#检测优化工具" class="headerlink" title="检测优化工具"></a>检测优化工具</h2></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="http://github.com/square/leakcanary" target="_blank" rel="noopener">LeakCanary</a> Android 和 Java 内存泄露检测<br>Tutorial <a href="http://www.liaohuqiu.net/cn/posts/leak-canary-read-me/" target="_blank" rel="noopener">Chinese</a><a href="http://https//corner.squareup.com/2015/05/leak-canary.html" target="_blank" rel="noopener">English</a><br>phrof file path: /storage/sdcard0/Download/leakcanary/<br>hprof-conv leakCanary</li>
+<li><a href="http://inloop.github.io/apk-method-count/" target="_blank" rel="noopener">apk-method-count</a> 上传Apk，可以根据包名统计方法数量的网站，UI很友好。</li>
+<li><strong><a href="https://github.com/google/battery-historian" target="_blank" rel="noopener">battery-historian</a></strong> Google 官网方 针对 Api21 5.0以上系统开发的电量使用情况分析工具</li>
+</ul>
+<h2 id="功能性开发工具"><a href="#功能性开发工具" class="headerlink" title="功能性开发工具"></a>功能性开发工具</h2><hr>
+<ul>
+<li><p><a href="http://github.com/card-io/card.io-Android-source" target="_blank" rel="noopener">card.io-Android-source</a> 信用卡扫描ＳＤＫ</p>
+</li>
+<li><p><a href="http://https//github.com/ajalt/reprint" target="_blank" rel="noopener">reprint</a> A simple, unified fingerprint authentication library for Android with ReactiveX extensions.</p>
+</li>
+<li><p><a href="http://github.com/ng2Kaming/DimensCodeTools" target="_blank" rel="noopener">DimensCodeTools </a> 一个可以支持生成二维码，条形码和扫描的库</p>
+</li>
+<li><p>Permission</p>
+<ul>
+<li>Dexter  Dexter is an Android library that simplifies the process of requesting permissions at runtime.</li>
+<li><a href="http://github.com/k0shk0sh/PermissionHelper" target="_blank" rel="noopener">PermissionHelper</a>  </li>
+<li><a href="https://github.com/googlesamples/easypermissions" target="_blank" rel="noopener">easypermissions</a> </li>
+</ul>
+</li>
+<li><p>图片加载<br>Picasso<br>Universal-ImageLoader<br>Volley<br><a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">Glide</a>  <a href="http://www.jianshu.com/p/4a3177b57949?utm_campaign=maleskine&utm_content=note&utm_medium=writer_share&utm_source=weibo" target="_blank" rel="noopener">Tutorial Chinese</a><br>综合：  <a href="http://blog.csdn.net/richiezhu/article/details/46968569" target="_blank" rel="noopener">开源组件加载网络图片的优缺点比较
+</a></p>
+</li>
+<li><p><strong>FileDownload</strong></p>
+<ul>
+<li><a href="http://github.com/majidgolshadi/Android-Download-Manager-Pro" target="_blank" rel="noopener">Android-Download-Manager-Pro</a></li>
+<li><a href="https://github.com/AigeStudio/MultiThreadDownloade" target="_blank" rel="noopener">MultiThreadDownloader</a>  下载 </li>
+<li><a href="http://github.com/lingochamp/FileDownloader" target="_blank" rel="noopener">FileDownloader</a>  Multitask、Breakpoint-resume、High-concurrency、Simple to use、Single-process<br><img src="https://github.com/lingochamp/FileDownloader/raw/master/art/parallel_tasks_demo.gif" alt></li>
+</ul>
+</li>
+<li><p><a href="http://https//github.com/jonfinerty/Once" target="_blank" rel="noopener">Once</a>  some info may show once in a new app in a update or first time install this via share sharedPreferences sore the timestamp</p>
+</li>
+</ul>
+<h2 id="基础的开发工具"><a href="#基础的开发工具" class="headerlink" title="基础的开发工具"></a>基础的开发工具</h2><hr>
+<ul>
+<li><strong><a href="https://github.com/VerbalExpressions/JavaVerbalExpressions" target="_blank" rel="noopener">JavaVerbalExpressions</a></strong> Java regular expressions made easy. 帮助简单的实现正则表达</li>
+<li>joda-time-android／ThreeTenABP Java8 的Date包移植到Android中来的库</li>
+<li><a href="http://github.com/kexanie/MathView" target="_blank" rel="noopener">MathView</a>    A library for displaying math formula in Android apps.<img src="https://github.com/kexanie/MathView/raw/master/screenshot/screenshot.png" alt></li>
+</ul>
+<h2 id="崩溃错误处理"><a href="#崩溃错误处理" class="headerlink" title="崩溃错误处理"></a>崩溃错误处理</h2><h3 id="LoadSir-优雅地处理加载中，重试，无数据等"><a href="#LoadSir-优雅地处理加载中，重试，无数据等" class="headerlink" title="LoadSir 优雅地处理加载中，重试，无数据等"></a><strong><a href="https://github.com/KingJA/LoadSir" target="_blank" rel="noopener">LoadSir</a></strong> 优雅地处理加载中，重试，无数据等</h3><p><em>配置:</em> compile ‘com.kingja.loadsir:loadsir:1.3.6’<br>ProGuard:</p>
+<pre><code>-dontwarn com.kingja.loadsir.**
+-keep class com.kingja.loadsir.** {*;}</code></pre><h3 id="YCStateLayout-特殊状态提示"><a href="#YCStateLayout-特殊状态提示" class="headerlink" title="YCStateLayout 特殊状态提示"></a>YCStateLayout 特殊状态提示</h3><blockquote>
+<p>状态切换，让 View 状态的切换和 Activity 彻底分离开。</p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/yangchong211/YCStateLayout" target="_blank" rel="noopener">YCStateLayout</a></li>
+</ul>
+<h2 id="BufferKnife"><a href="#BufferKnife" class="headerlink" title="BufferKnife"></a><a href="http://jakewharton.github.io/butterknife/" target="_blank" rel="noopener">BufferKnife</a></h2><h3 id="VIEW-LISTS"><a href="#VIEW-LISTS" class="headerlink" title="VIEW LISTS"></a>VIEW LISTS</h3><p>@OnClick({ R.id.door1, R.id.door2, R.id.door3 })</p>
+<pre><code>@BindViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
+List&lt;EditText&gt; nameViews;
+
+// The apply method allows you to act on all the views in a list at once.
+
+ButterKnife.apply(nameViews, DISABLE);
+ButterKnife.apply(nameViews, ENABLED, false);
+//Action and Setter interfaces allow specifying simple behavior.
+static final ButterKnife.Action&lt;View&gt; DISABLE = new ButterKnife.Action&lt;View&gt;() {
+  @Override public void apply(View view, int index) {
+    view.setEnabled(false);
+  }
+};
+static final ButterKnife.Setter&lt;View, Boolean&gt; ENABLED = new ButterKnife.Setter&lt;View, Boolean&gt;() {
+  @Override public void set(View view, Boolean value, int index) {
+    view.setEnabled(value);
+  }
+};</code></pre><p>An Android <a href="https://developer.android.com/reference/android/util/Property.html" target="_blank" rel="noopener"><code>Property</code></a> can also be used with the <code>apply</code> method.<br><code>ButterKnife.apply(nameViews,  View.ALPHA,  0.0f);</code></p>
+<h3 id="RESOURCE-BINDING"><a href="#RESOURCE-BINDING" class="headerlink" title="RESOURCE BINDING"></a>RESOURCE BINDING</h3><pre><code>class ExampleActivity extends Activity {
+  @BindString(R.string.title) String title;
+  @BindDrawable(R.drawable.graphic) Drawable graphic;
+  @BindColor(R.color.red) int red; // int or ColorStateList field
+  @BindDimen(R.dimen.spacer) Float spacer; // int (for pixel size) or float (for exact value) field
+  // ...
+}</code></pre><h3 id="automatically-be-cast"><a href="#automatically-be-cast" class="headerlink" title="automatically be cast."></a>automatically be cast.</h3><pre><code>@OnClick(R.id.submit)
+public void sayHi(Button button) {
+  button.setText(&quot;Hello!&quot;);
+}</code></pre><h3 id="OPTIONAL-BINDINGS"><a href="#OPTIONAL-BINDINGS" class="headerlink" title="OPTIONAL BINDINGS"></a>OPTIONAL BINDINGS</h3><pre><code>@Optional @OnClick(R.id.maybe_missing) void onMaybeMissingClicked() {
+  // TODO ...
+}</code></pre><h3 id="BINDING-RESET-on-Fragments"><a href="#BINDING-RESET-on-Fragments" class="headerlink" title="BINDING RESET on Fragments"></a>BINDING RESET on Fragments</h3><pre><code> @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fancy_fragment, container, false);
+    unbinder = ButterKnife.bind(this, view);
+    // TODO Use fields...
+    return view;
+  }
+
+@Override public void onDestroyView() {
+    super.onDestroyView();
+    unbinder.unbind();
+  }</code></pre><h3 id="模块化的开发工具"><a href="#模块化的开发工具" class="headerlink" title="模块化的开发工具"></a>模块化的开发工具</h3><ul>
+<li><a href="https://github.com/rosuH/AndroidFilePicker" target="_blank" rel="noopener">AndroidFilePicker</a> FilePicker 是一个小巧快速的文件选择器框架，以快速集成、高自定义化和可配置化为目标不断前进</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/14/2018-4-14-android-standards/" rel="next" title="Android 代码规范化笔记">
+                <i class="fa fa-chevron-left"></i> Android 代码规范化笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/15/2018-4-15-android-studio-usage/" rel="prev" title="IntelliJ IDEA 使用总结">
+                IntelliJ IDEA 使用总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/04/14/2018-4-14-android-open-source-tools/" data-title="Android 常用开源库" data-url="http://linz.tech/2018/04/14/2018-4-14-android-open-source-tools/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正在研究"><span class="nav-number">1.</span> <span class="nav-text">正在研究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据持久化"><span class="nav-number">2.</span> <span class="nav-text">数据持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建工具"><span class="nav-number">3.</span> <span class="nav-text">构建工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发中实用的工具"><span class="nav-number">4.</span> <span class="nav-text">开发中实用的工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI"><span class="nav-number">5.</span> <span class="nav-text">UI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主题"><span class="nav-number">5.1.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示效果"><span class="nav-number">5.2.</span> <span class="nav-text">显示效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测优化工具"><span class="nav-number">6.</span> <span class="nav-text">检测优化工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性开发工具"><span class="nav-number">7.</span> <span class="nav-text">功能性开发工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础的开发工具"><span class="nav-number">8.</span> <span class="nav-text">基础的开发工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃错误处理"><span class="nav-number">9.</span> <span class="nav-text">崩溃错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LoadSir-优雅地处理加载中，重试，无数据等"><span class="nav-number">9.1.</span> <span class="nav-text">LoadSir 优雅地处理加载中，重试，无数据等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YCStateLayout-特殊状态提示"><span class="nav-number">9.2.</span> <span class="nav-text">YCStateLayout 特殊状态提示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BufferKnife"><span class="nav-number">10.</span> <span class="nav-text">BufferKnife</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VIEW-LISTS"><span class="nav-number">10.1.</span> <span class="nav-text">VIEW LISTS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESOURCE-BINDING"><span class="nav-number">10.2.</span> <span class="nav-text">RESOURCE BINDING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#automatically-be-cast"><span class="nav-number">10.3.</span> <span class="nav-text">automatically be cast.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OPTIONAL-BINDINGS"><span class="nav-number">10.4.</span> <span class="nav-text">OPTIONAL BINDINGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BINDING-RESET-on-Fragments"><span class="nav-number">10.5.</span> <span class="nav-text">BINDING RESET on Fragments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块化的开发工具"><span class="nav-number">10.6.</span> <span class="nav-text">模块化的开发工具</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

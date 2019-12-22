@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,cmake,tool,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础知识1.cmake是什么？ CMake是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的makefile或者project文件，能测试编译器所支持的C++特性,类似UNIX下的automake。 谷歌从AndroidStudio2.2以上就添加了Cmake方式来编译NDK代码，并从NDK例子看出，默认编译的方式就是cmake方式。 创建And">
+<meta name="keywords" content="Android,cmake,tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AndroidStudio用Cmake方式编译NDK代码">
+<meta property="og:url" content="http://linz.tech/2018/08/01/2018-8-1-cmake-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="基础知识1.cmake是什么？ CMake是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的makefile或者project文件，能测试编译器所支持的C++特性,类似UNIX下的automake。 谷歌从AndroidStudio2.2以上就添加了Cmake方式来编译NDK代码，并从NDK例子看出，默认编译的方式就是cmake方式。 创建And">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohlb58e07.bkt.clouddn.com/2018-08-04-AS-New-NDK-Project">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.485Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AndroidStudio用Cmake方式编译NDK代码">
+<meta name="twitter:description" content="基础知识1.cmake是什么？ CMake是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的makefile或者project文件，能测试编译器所支持的C++特性,类似UNIX下的automake。 谷歌从AndroidStudio2.2以上就添加了Cmake方式来编译NDK代码，并从NDK例子看出，默认编译的方式就是cmake方式。 创建And">
+<meta name="twitter:image" content="http://ohlb58e07.bkt.clouddn.com/2018-08-04-AS-New-NDK-Project">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2018/08/01/2018-8-1-cmake-note/">
+
+
+
+
+
+  <title>AndroidStudio用Cmake方式编译NDK代码 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2018/08/01/2018-8-1-cmake-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AndroidStudio用Cmake方式编译NDK代码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T00:00:00+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/01/2018-8-1-cmake-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/08/01/2018-8-1-cmake-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p><strong>1.cmake是什么？</strong></p>
+<p>CMake是一个跨平台的安装（<a href="http://baike.baidu.com/view/69568.htm" target="_blank" rel="noopener">编译</a>）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的makefile或者project文件，能测试<a href="http://baike.baidu.com/view/487018.htm" target="_blank" rel="noopener">编译器</a>所支持的C++特性,类似UNIX下的automake。</p>
+<p>谷歌从AndroidStudio2.2以上就添加了Cmake方式来编译NDK代码，并从NDK例子看出，默认编译的方式就是cmake方式。</p>
+<h3 id="创建Android-studio-ndk工程"><a href="#创建Android-studio-ndk工程" class="headerlink" title="创建Android studio ndk工程"></a>创建Android studio ndk工程</h3><h4 id="傻瓜式操作"><a href="#傻瓜式操作" class="headerlink" title="傻瓜式操作"></a>傻瓜式操作</h4><ol>
+<li>新建一个工程点击如下：然后把C/Cpp代码复制到<code>src/main/cpp</code>下，配置 CMakeLists.txt<br><img src="http://ohlb58e07.bkt.clouddn.com/2018-08-04-AS-New-NDK-Project" alt></li>
+</ol>
+<h4 id="手动配置"><a href="#手动配置" class="headerlink" title="手动配置"></a>手动配置</h4><ol>
+<li>在<code>src/main</code>下新建<code>jni</code>或者<code>cpp</code>目录，</li>
+<li>新建CMakeLists.txt,推荐目录<code>/src/main/jni/CMakeLists.txt</code>, 如下为默认生成的格式：</li>
+</ol>
+<pre class="line-numbers language-shell"><code class="language-shell"># For more information about using CMake with Android Studio, read the
+# documentation: https://d.android.com/studio/projects/add-native-code.html
+# Sets the minimum version of CMake required to build the native library.
+cmake_minimum_required(VERSION 3.4.1)
+
+# Creates and names a library, sets it as either STATIC
+# or SHARED, and provides the relative paths to its source code.
+# You can define multiple libraries, and CMake builds them for you.
+# Gradle automatically packages shared libraries with your APK.
+
+add_library( # Sets the name of the library.
+             native-lib
+
+             # Sets the library as a shared library.
+             SHARED
+
+             # Provides a relative path to your source file(s).
+             src/main/cpp/native-lib.cpp )
+
+# Searches for a specified prebuilt library and stores the path as a
+# variable. Because CMake includes system libraries in the search path by
+# default, you only need to specify the name of the public NDK library
+# you want to add. CMake verifies that the library exists before
+# completing its build.
+find_library( # Sets the name of the path variable.
+              log-lib
+
+              # Specifies the name of the NDK library that
+              # you want CMake to locate.
+              log )
+
+# Specifies libraries CMake should link to your target library. You
+# can link multiple libraries, such as libraries you define in this
+# build script, prebuilt third-party libraries, or system libraries.
+
+target_link_libraries( # Specifies the target library.
+                       native-lib
+
+                       # Links the target library to the log library
+                       # included in the NDK.
+                       ${log-lib} )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li><p>并在build.gradle下关联CMakeLists.txt</p>
+<pre><code>externalNativeBuild {
+ cmake {
+   //默认和build.gradle同一目录： path &quot;CMakeLists.txt&quot;
+   path &quot;/src/main/jni/CMakeLists.txt&quot;
+ }
+}</code></pre></li>
+<li><p>配置gradle脚本</p>
+<pre class="line-numbers language-gradle"><code class="language-gradle">android {
+compileSdkVersion 28
+defaultConfig {
+ ...
+ externalNativeBuild {
+   cmake {
+
+      // Passes optional arguments to CMake.
+       arguments "-DCMAKE_VERBOSE_MAKEFILE=TRUE"
+
+       // Sets optional flags for the C compiler.
+       cFlags "-D_EXAMPLE_C_FLAG1", "-D_EXAMPLE_C_FLAG2"
+
+       // Sets a flag to enable format macro constants for the C++ compiler.
+       // -frtti: Runtime Type Information Support
+       // -fexceptions : Exception Support
+       //-std=c++14 : C++ Library Support
+       cppFlags "-D__STDC_FORMAT_MACROS"
+     //更多 arguments https://developer.android.com/ndk/guides/cmake           
+   }
+ }
+ ndk {
+   //    'x86', 'x86_64', 'armeabi', 'armeabi-v7a',
+   //指定生成的CPU架构 Specifies the ABI configurations of your native
+   abiFilters 'armeabi-v7a' 
+ }
+}
+
+externalNativeBuild {
+ cmake {
+   //默认和build.gradle同一目录： path "CMakeLists.txt"
+   path "/src/main/jni/CMakeLists.txt"
+ }
+}
+buildTypes {
+...
+}
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h3 id="配置-CMake-构建脚本"><a href="#配置-CMake-构建脚本" class="headerlink" title="配置 CMake 构建脚本"></a>配置 CMake 构建脚本</h3><p>如果您的原生源文件还没有 CMake 构建脚本，则您需要自行创建一个并包含适当的 CMake 命令。CMake 构建脚本是一个纯文本文件，您必须将其命名为 <code>CMakeLists.txt</code>。本部分介绍了您应包含到构建脚本中的一些基本命令，用于在创建原生库时指示 CMake 应使用哪些源文件。</p>
+<p><strong>注</strong>：如果您的项目使用 ndk-build，则不需要创建 CMake 构建脚本。提供一个指向您的 <a href="https://developer.android.google.cn/ndk/guides/android_mk.html" target="_blank" rel="noopener"><code>Android.mk</code></a> 文件的路径，<a href="https://developer.android.google.cn/studio/projects/add-native-code.html#link-gradle" target="_blank" rel="noopener">将 Gradle 关联到您的原生库</a>。</p>
+<p>要创建一个可以用作 CMake 构建脚本的纯文本文件，请按以下步骤操作：</p>
+<ol>
+<li><p>从 IDE 的左侧打开 <strong>Project</strong> 窗格并从下拉菜单中选择 <strong>Project</strong> 视图。</p>
+</li>
+<li><p>右键点击<strong>您的模块</strong>的根目录并选择 <strong>New &gt; File</strong>。</p>
+<p><strong>注</strong>：您可以在所需的任意位置创建构建脚本。不过，在配置构建脚本时，原生源文件和库的路径将与构建脚本的位置相关。</p>
+</li>
+<li><p>输入“CMakeLists.txt”作为文件名并点击 <strong>OK</strong>。</p>
+</li>
+</ol>
+<h4 id="add-library"><a href="#add-library" class="headerlink" title="add_library"></a>add_library</h4><p>现在，您可以添加 CMake 命令，对您的构建脚本进行配置。要指示 CMake 从原生源代码创建一个原生库，请将 <a href="https://cmake.org/cmake/help/latest/command/cmake_minimum_required.html" target="_blank" rel="noopener"><code>cmake_minimum_required()</code></a> 和 <a href="https://cmake.org/cmake/help/latest/command/add_library.html" target="_blank" rel="noopener"><code>add_library()</code></a> 命令添加到您的构建脚本中：</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># Sets the minimum version of CMake required to build your native library.
+# This ensures that a certain set of CMake features is available to
+# your build.
+
+cmake_minimum_required(VERSION 3.4.1)
+
+# Specifies a library name, specifies whether the library is STATIC or
+# SHARED, and provides relative paths to the source code. You can
+# define multiple libraries by adding multiple add.library() commands,
+# and CMake builds them for you. When you build your app, Gradle
+# automatically packages shared libraries with your APK.
+
+add_library( # Specifies the name of the library.
+             native-lib
+
+             # Sets the library as a shared library.
+             SHARED
+
+             # Provides a relative path to your source file(s).
+             src/main/cpp/native-lib.cpp )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用 <code>add_library()</code> 向您的 CMake 构建脚本添加源文件或库时，Android Studio 还会在您同步项目后在 <strong>Project</strong> 视图下显示关联的标头文件。不过，为了确保 CMake 可以在编译时定位您的标头文件，您需要将 <a href="https://cmake.org/cmake/help/latest/command/include_directories.html" target="_blank" rel="noopener"><code>include_directories()</code></a> 命令添加到 CMake 构建脚本中并指定标头的路径：</p>
+<pre><code>add_library(...)
+
+\# Specifies a path to native header files.
+include_directories(src/main/cpp/include/)</code></pre><p>CMake 使用以下规范来为库文件命名：</p>
+<blockquote>
+<p><code>lib库名称.so</code></p>
+</blockquote>
+<p>例如，如果您在构建脚本中指定“native-lib”作为共享库的名称，CMake 将创建一个名称为 <code>libnative-lib.so</code> 的文件。不过，在 Java 代码中加载此库时，请使用您在 CMake 构建脚本中指定的名称：</p>
+<p>static { System.loadLibrary(“native-lib”); }</p>
+<blockquote>
+<p><strong>注</strong>：如果您在 CMake 构建脚本中<font color="#FF0000">重命名或移除某个库</font>，您需要先清理项目，Gradle 随后才会应用更改或者从 APK 中移除旧版本的库。要清理项目，请从菜单栏中选择 <strong>Build &gt; Clean Project</strong>。</p>
+</blockquote>
+<p>Android Studio 会自动将源文件和标头添加到 <strong>Project</strong> 窗格的 <strong>cpp</strong> 组中。使用多个 <code>add_library()</code> 命令，您可以为 CMake 定义要从其他源文件构建的更多库。</p>
+<h4 id="添加-NDK-API"><a href="#添加-NDK-API" class="headerlink" title="添加 NDK API"></a>添加 NDK API</h4><p>Android NDK 提供了一套实用的原生 API 和库。通过将 <a href="https://developer.android.google.cn/ndk/guides/stable_apis.html" target="_blank" rel="noopener">NDK 库</a>包含到项目的 <code>CMakeLists.txt</code> 脚本文件中，您可以使用这些 API 中的任意一种。</p>
+<p>预构建的 NDK 库已经存在于 Android 平台上，因此，您无需再构建或将其封装到 APK 中。由于 NDK 库已经是 CMake 搜索路径的一部分，您甚至不需要在您的本地 NDK 安装中指定库的位置 - 只需要向 CMake 提供您希望使用的库的名称，并将其关联到您自己的原生库。</p>
+<p>将 <a href="https://cmake.org/cmake/help/latest/command/find_library.html" target="_blank" rel="noopener"><code>find_library()</code></a> 命令添加到您的 CMake 构建脚本中以定位 NDK 库，并将其路径存储为一个变量。您可以使用此变量在构建脚本的其他部分引用 NDK 库。以下示例可以定位 <a href="https://developer.android.google.cn/ndk/guides/stable_apis.html#a3" target="_blank" rel="noopener">Android 特定的日志支持库</a>并将其路径存储在 <code>log-lib</code> 中：</p>
+<pre><code>
+find_library( # Defines the name of the path variable that stores the
+              # location of the NDK library.
+              log-lib
+
+              # Specifies the name of the NDK library that
+              # CMake needs to locate.
+              log )
+</code></pre><p>为了确保您的原生库可以在 <code>log</code> 库中调用函数，您需要使用 CMake 构建脚本中的 <a href="https://cmake.org/cmake/help/latest/command/target_link_libraries.html" target="_blank" rel="noopener"><code>target_link_libraries()</code></a> 命令关联库：</p>
+<pre><code>
+find_library(...)
+
+\# Links your native library against one or more other native libraries.
+target_link_libraries( # Specifies the target library.
+                       native-lib
+
+                       # Links the log library to the target library.
+                       ${log-lib} )
+</code></pre><p>NDK 还以源代码的形式包含一些库，您在构建和关联到您的原生库时需要使用这些代码。您可以使用 CMake 构建脚本中的 <code>add_library()</code> 命令，将源代码编译到原生库中。要提供本地 NDK 库的路径，您可以使用 <code>ANDROID_NDK</code> 路径变量，Android Studio 会自动为您定义此变量。</p>
+<p>以下命令可以指示 CMake 构建 <code>android_native_app_glue.c</code>，后者会将 <a href="https://developer.android.google.cn/reference/android/app/NativeActivity.html" target="_blank" rel="noopener"><code>NativeActivity</code></a> 生命周期事件和触摸输入置于静态库中并将静态库关联到 <code>native-lib</code>：</p>
+<pre><code>
+add_library( app-glue
+             STATIC
+             ${ANDROID\_NDK}/sources/android/native\_app\_glue/android\_native\_app\_glue.c )
+
+\# You need to link static libraries against your shared native library.
+target_link_libraries( native-lib app-glue ${log-lib} )
+</code></pre><h4 id="添加其他预构建库"><a href="#添加其他预构建库" class="headerlink" title="添加其他预构建库"></a>添加其他预构建库</h4><h5 id="导入so库"><a href="#导入so库" class="headerlink" title="导入so库"></a>导入so库</h5><p>添加预构建库与为 CMake 指定要构建的另一个原生库类似。不过，由于库已经预先构建，您需要使用 <a href="https://cmake.org/cmake/help/latest/prop_tgt/IMPORTED.html#prop_tgt:IMPORTED" target="_blank" rel="noopener"><code>IMPORTED</code></a> 标志告知 CMake 您只希望将库导入到项目中：</p>
+<pre><code>add_library( imported-lib
+             SHARED
+             IMPORTED )</code></pre><p>然后，您需要使用 <a href="https://cmake.org/cmake/help/latest/command/set_target_properties.html" target="_blank" rel="noopener">set_target_properties()</a> 命令指定库的路径，如下所示。</p>
+<p>某些库为特定的 CPU 架构（或<a href="https://developer.android.google.cn/ndk/guides/abis.html" target="_blank" rel="noopener">应用二进制接口 (ABI)</a>）提供了单独的软件包，并将其组织到单独的目录中。此方法既有助于库充分利用特定的 CPU 架构，又能让您仅使用所需的库版本。要向 CMake 构建脚本中添加库的多个 ABI 版本，而不必为库的每个版本编写多个命令，您可以使用 <code>ANDROID_ABI</code> 路径变量。此变量使用 <a href="https://developer.android.google.cn/ndk/guides/abis.html#sa" target="_blank" rel="noopener">NDK 支持的一组默认 ABI</a>，或者<a href="https://developer.android.google.cn/studio/projects/add-native-code.html#specify-abi" target="_blank" rel="noopener">您手动配置 Gradle</a> 而让其使用的一组经过筛选的 ABI。例如：</p>
+<pre><code>
+add_library(...)
+set_target_properties( # Specifies the target library.
+                       imported-lib
+
+                       # Specifies the parameter you want to define.
+                       PROPERTIES IMPORTED_LOCATION
+
+                       # Provides the path to the library you want to import.
+                       imported-lib/src/${ANDROID_ABI}/libimported-lib.so )
+</code></pre><p>为了确保 CMake 可以在编译时定位您的标头文件，您需要使用 <code>include_directories()</code> 命令，并包含标头文件的路径：</p>
+<pre><code>include_directories( imported-lib/include/ )</code></pre><blockquote>
+<p><strong>注</strong>：如果您希望封装一个并不是构建时依赖项的预构建库（例如在添加属于 <code>imported-lib</code> 依赖项的预构建库时），则不需要执行以下说明来关联库。</p>
+</blockquote>
+<p>要将预构建库关联到您自己的原生库，请将其添加到 CMake 构建脚本的 <code>target_link_libraries()</code> 命令中：</p>
+<p><code>target_link_libraries( native-lib imported-lib app-glue ${log-lib} )</code></p>
+<p>在您构建应用时，Gradle 会自动将导入的库封装到 APK 中。您可以使用 <a href="https://developer.android.google.cn/studio/build/apk-analyzer.html" target="_blank" rel="noopener">APK 分析器</a>验证 Gradle 将哪些库封装到您的 APK 中。如需了解有关 CMake 命令的详细信息，请参阅 <a href="https://cmake.org/cmake/help/latest/manual/cmake-commands.7.html" target="_blank" rel="noopener">CMake 文档</a>。</p>
+<h5 id="导入-a静态库"><a href="#导入-a静态库" class="headerlink" title="导入.a静态库"></a><a href="https://blog.csdn.net/yoyo_newbie/article/details/74427938" target="_blank" rel="noopener"><strong>导入.a静态库</strong></a></h5><p>android studio cmake 配置.a连接库</p>
+<h3 id="实战小案例"><a href="#实战小案例" class="headerlink" title="实战小案例"></a>实战小案例</h3><h4 id="指定-C-标准"><a href="#指定-C-标准" class="headerlink" title="指定 C++标准"></a>指定 C++标准</h4><pre><code>externalNativeBuild {
+  cmake {
+    cppFlags &quot;-frtti -fexceptions -std=c++14&quot;
+    arguments &#39;-DANDROID_STL=c++_shared&#39;
+  }
+}</code></pre><h4 id="编译一个目录中所有源文件"><a href="#编译一个目录中所有源文件" class="headerlink" title="编译一个目录中所有源文件"></a>编译一个目录中所有源文件</h4><pre><code># aux_source_directory 方法将路径列表全部放到一个变量中
+aux_source_directory(${CMAKE_HOME_DIRECTORY}/src/api SRC_LIST)
+aux_source_directory(${CMAKE_HOME_DIRECTORY}/src/core CORE_SRC_LIST)
+# 拼接到路径列表
+list(APPEND SRC_LIST ${CORE_SRC_LIST})
+add_library(native-lib SHARED ${SRC_LIST})</code></pre><h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><ul>
+<li>message 方法打印<pre><code>cmake_minimum_required(VERSION 3.4.1)
+message(STATUS &quot;execute CMakeLists&quot;)
+# 日志输出==&gt; .externalNativeBuild/cmake/debug/{abi}/cmake_build_output.txt</code></pre><h4 id="CMakeLists-txt-改动什么时候执行"><a href="#CMakeLists-txt-改动什么时候执行" class="headerlink" title="CMakeLists.txt 改动什么时候执行"></a>CMakeLists.txt 改动什么时候执行</h4><code>sync</code> 其他的时候只是出来缓存<blockquote>
+<p>测试了下，好像在 sync 的时候会执行。执行一次后会生成 makefile 的文件缓存之类的东西放在 externalNativeBuild 中。所以如果 CMakeLists.txt 中没有修改的话再次同步好像是不会重新执行的。（或者删除 .externalNativeBuild 目录）<br>真正编译的时候好像只是读取.externalNativeBuild 目录中已经解析好的 makefile 去编译。不会再去执行 CMakeLists.txt</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h3><ul>
+<li>官方7step入门教程： <a href="https://cmake.org/cmake-tutorial/" target="_blank" rel="noopener">cmake-tutorial</a> 【英文】<br> 翻译： <a href="https://www.zybuluo.com/khan-lau/note/254724" target="_blank" rel="noopener">CMAKE官网教程</a> 并有相关方法的详解</li>
+</ul>
+<p><strong>进阶</strong><br>Book: Mastering CMake </p>
+<h3 id="资料文献"><a href="#资料文献" class="headerlink" title="资料文献"></a>资料文献</h3><ul>
+<li><p><a href="https://www.cnblogs.com/coderfenghc/archive/2012/06/16/CMake_ch_01.html" target="_blank" rel="noopener">CMake 手册详解（一）</a></p>
+</li>
+<li><p><a href="https://developer.android.com/ndk/guidesLibraries/" target="_blank" rel="noopener">android ndk guides</a></p>
+<ul>
+<li>Introduction</li>
+<li>Building </li>
+<li>Architectures and CPUs</li>
+<li>Debugging and Profiling</li>
+<li>Libraries 安卓各版本提供可调用ndk库</li>
+<li>High-Performance Audio</li>
+<li>一些流行的底层的第三方库Simpleperf/ OpenSL ES/Vulkan/Machine Learning</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/googlesamples/android-ndk" target="_blank" rel="noopener">googlesamples/android-ndk</a></p>
+</li>
+<li><p><a href="https://cmake.org/documentation/" target="_blank" rel="noopener"> CMake 官方文档 </a></p>
+</li>
+<li><p><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/jniTOC.html" target="_blank" rel="noopener">JNI 框架官方文档</a></p>
+</li>
+</ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://blog.csdn.net/czg13548930186/article/details/78331692" target="_blank" rel="noopener">gcc程序的编译过程和链接原理</a></li>
+<li><a href="https://www.cnblogs.com/fnlingnzb-learner/p/7593488.html" target="_blank" rel="noopener">AndroidStudio用Cmake方式编译NDK代码</a></li>
+<li><a href="https://blog.csdn.net/myatlantis/article/details/52874227" target="_blank" rel="noopener">Android增量更新与CMake构建工具</a></li>
+<li><a href="https://blog.csdn.net/haoel/article/details/2886" target="_blank" rel="noopener">跟我一起写 Makefile</a> </li>
+<li><a href="https://www.jianshu.com/p/6332418b12b1" target="_blank" rel="noopener">Android NDK开发扫盲及最新CMake的编译使用</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/cmake/" rel="tag"># cmake</a>
+          
+            <a href="/tags/tool/" rel="tag"># tool</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/01/2018-6-1-font-img-tools/" rel="next" title="Android 图片和文字开源库">
+                <i class="fa fa-chevron-left"></i> Android 图片和文字开源库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/03/2018-8-3-coder-software/" rel="prev" title="编程中好用工具">
+                编程中好用工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/08/01/2018-8-1-cmake-note/" data-title="AndroidStudio用Cmake方式编译NDK代码" data-url="http://linz.tech/2018/08/01/2018-8-1-cmake-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Android-studio-ndk工程"><span class="nav-number">2.</span> <span class="nav-text">创建Android studio ndk工程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#傻瓜式操作"><span class="nav-number">2.1.</span> <span class="nav-text">傻瓜式操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动配置"><span class="nav-number">2.2.</span> <span class="nav-text">手动配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-CMake-构建脚本"><span class="nav-number">3.</span> <span class="nav-text">配置 CMake 构建脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#add-library"><span class="nav-number">3.1.</span> <span class="nav-text">add_library</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加-NDK-API"><span class="nav-number">3.2.</span> <span class="nav-text">添加 NDK API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加其他预构建库"><span class="nav-number">3.3.</span> <span class="nav-text">添加其他预构建库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导入so库"><span class="nav-number">3.3.1.</span> <span class="nav-text">导入so库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#导入-a静态库"><span class="nav-number">3.3.2.</span> <span class="nav-text">导入.a静态库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战小案例"><span class="nav-number">4.</span> <span class="nav-text">实战小案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#指定-C-标准"><span class="nav-number">4.1.</span> <span class="nav-text">指定 C++标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译一个目录中所有源文件"><span class="nav-number">4.2.</span> <span class="nav-text">编译一个目录中所有源文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调试"><span class="nav-number">4.3.</span> <span class="nav-text">调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMakeLists-txt-改动什么时候执行"><span class="nav-number">4.4.</span> <span class="nav-text">CMakeLists.txt 改动什么时候执行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#教程"><span class="nav-number">5.</span> <span class="nav-text">教程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资料文献"><span class="nav-number">6.</span> <span class="nav-text">资料文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

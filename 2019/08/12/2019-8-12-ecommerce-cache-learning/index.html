@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="缓存,Java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一章 环境搭建1.1 CentOS1.1.1 网络设置第一步： IP设置  配置虚拟机网络环境为桥接 修改I虚拟机网络设置  vi /etc/sysconfig/network-scripts/ifcfg-eth0 修改为 DEVICE=eth0 TYPE=Ethernet ONBOOT=yes BOOTPROTO=dhcp 重启网络分配IP service network restart固定I">
+<meta name="keywords" content="缓存,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="亿级电商缓存项目学习">
+<meta property="og:url" content="http://linz.tech/2019/08/12/2019-8-12-ecommerce-cache-learning/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="第一章 环境搭建1.1 CentOS1.1.1 网络设置第一步： IP设置  配置虚拟机网络环境为桥接 修改I虚拟机网络设置  vi /etc/sysconfig/network-scripts/ifcfg-eth0 修改为 DEVICE=eth0 TYPE=Ethernet ONBOOT=yes BOOTPROTO=dhcp 重启网络分配IP service network restart固定I">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.497Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="亿级电商缓存项目学习">
+<meta name="twitter:description" content="第一章 环境搭建1.1 CentOS1.1.1 网络设置第一步： IP设置  配置虚拟机网络环境为桥接 修改I虚拟机网络设置  vi /etc/sysconfig/network-scripts/ifcfg-eth0 修改为 DEVICE=eth0 TYPE=Ethernet ONBOOT=yes BOOTPROTO=dhcp 重启网络分配IP service network restart固定I">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/08/12/2019-8-12-ecommerce-cache-learning/">
+
+
+
+
+
+  <title>亿级电商缓存项目学习 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/08/12/2019-8-12-ecommerce-cache-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">亿级电商缓存项目学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-12T08:22:52+08:00">
+                2019-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/12/2019-8-12-ecommerce-cache-learning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/08/12/2019-8-12-ecommerce-cache-learning/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第一章-环境搭建"><a href="#第一章-环境搭建" class="headerlink" title="第一章 环境搭建"></a>第一章 环境搭建</h1><h2 id="1-1-CentOS"><a href="#1-1-CentOS" class="headerlink" title="1.1 CentOS"></a>1.1 CentOS</h2><h3 id="1-1-1-网络设置"><a href="#1-1-1-网络设置" class="headerlink" title="1.1.1 网络设置"></a>1.1.1 网络设置</h3><p>第一步： IP设置</p>
+<ol>
+<li>配置虚拟机网络环境为桥接</li>
+<li>修改I虚拟机网络设置</li>
+</ol>
+<p><code>vi /etc/sysconfig/network-scripts/ifcfg-eth0</code> 修改为</p>
+<pre class="line-numbers language-shell"><code class="language-shell">DEVICE=eth0
+TYPE=Ethernet
+ONBOOT=yes
+BOOTPROTO=dhcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>重启网络分配IP</p>
+<pre><code>service network restart</code></pre><p>固定IP地址</p>
+<pre class="line-numbers language-shell"><code class="language-shell">BOOTPROTO=static
+IPADDR=192.168.1.9
+GATWAY=192.168.1.1
+NETMASK= 255.255.255.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>到此，系统可以连接局域和互联网</p>
+<p>第二步： hosts设置</p>
+<p>修改<code>hosts</code>  vi /etc/hosts</p>
+<pre class="line-numbers language-shell"><code class="language-shell">192.168.1.9  ec-01
+192.168.1.12 ec-02
+192.168.1.11 ec-03
+192.168.1.13 ec-04<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：关闭防火墙</p>
+<blockquote>
+<p>开启防火墙导致，大数据开发中机器本地无法互联</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">service iptables stop 
+service ip6tables stop 
+chkconfig iptables off 
+chkconfig ip6tables off <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>vi /etc/selinux/config 关闭selinux</p>
+<pre><code>SELINUX=disable</code></pre><p>第四步：关闭window防火墙关闭</p>
+<h3 id="1-1-3-CentOS-7-设置开启启动"><a href="#1-1-3-CentOS-7-设置开启启动" class="headerlink" title="1.1.3 CentOS 7 设置开启启动"></a>1.1.3 CentOS 7 设置开启启动</h3><p>第一步：脚本准备</p>
+<pre class="line-numbers language-shell"><code class="language-shell">mv /opt/script/inotify.sh /etc/rc.d/init.d
+chmod +x /etc/rc.d/init.d/inotify.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>第二步：脚本启动配置，脚本顶部增加如下配置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/bash
+#chkconfig: 345 88 14<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>第三步：添加脚本到开机自动启动项目中</p>
+<pre class="line-numbers language-shell"><code class="language-shell">cd /etc/rc.d/init.d
+chkconfig --add inotify.sh
+chkconfig inotify.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="1-1-4-CentOS-7-设置开机自动联网"><a href="#1-1-4-CentOS-7-设置开机自动联网" class="headerlink" title="1.1.4 CentOS 7 设置开机自动联网"></a>1.1.4 CentOS 7 设置开机自动联网</h3><p>第一步：找到自己的网卡配置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">cd /etc/sysconfig/network-scripts/
+ll <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>一般为，<code>ifcfg-eno16777736</code></p>
+<p>第二步：设置`ONBOOT=yes</p>
+<h3 id="1-1-2-配置yum"><a href="#1-1-2-配置yum" class="headerlink" title="1.1.2 配置yum"></a>1.1.2 配置yum</h3><pre class="line-numbers language-shell"><code class="language-shell">yum clean all
+yum makechache
+yum install wget<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="1-2-软件安装"><a href="#1-2-软件安装" class="headerlink" title="1.2 软件安装"></a>1.2 软件安装</h2><h3 id="1-2-1-JDK"><a href="#1-2-1-JDK" class="headerlink" title="1.2.1 JDK"></a>1.2.1 JDK</h3><p>tar安装</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ tar -zxvf jdk-8u5-linux-x64.tar.gz
+
+export JAVA_HOME=/usr/local/java/jdk1.8.0_45
+export CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+export PATH=:$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
+source /etc/profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>rpm 方式安装</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> rpm -ivh jdk-7u65-linux-i586.rpm
+ vi ~/.bashrc 
+ export JAVA_HOME=/usr/java/latest
+ export PATH=$PATH:$JAVA_HOME/bin
+ source ~/.bashrc <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="1-2-2-Perl"><a href="#1-2-2-Perl" class="headerlink" title="1.2.2 Perl"></a>1.2.2 Perl</h3><p><a href="http://www.cpan.org/src/" target="_blank" rel="noopener">http://www.cpan.org/src/</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">   yum install -y gcc
+   wget https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz
+     tar -xzf perl-5.30.0.tar.gz
+     cd perl-5.30.0
+     ./Configure -des -Dprefix=/usr/local/perl
+     make && make test && make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="1-2-3-redis"><a href="#1-2-3-redis" class="headerlink" title="1.2.3 redis"></a>1.2.3 redis</h3><p>安装</p>
+<pre class="line-numbers language-shell"><code class="language-shell">wget http://downloads.sourceforge.net/tcl/tcl8.6.9-src.tar.gz \
+&& tar -xzvf tcl8.6.9-src.tar.gz \
+&& cd  ./tcl8.6.9/unix/ \
+&& ./configure  \
+&& make && make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a href="https://redis.io/download" target="_blank" rel="noopener">https://redis.io/download</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">wget http://download.redis.io/releases/redis-5.0.5.tar.gz && \
+&& tar xzf redis-5.0.5.tar.gz \
+&& cd redis-5.0.5             \
+&& make && make test && make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>测试</p>
+<pre><code>$ src/redis-server
+$ src/redis-cli
+redis&gt; set foo bar
+OK
+redis&gt; get foo
+&quot;bar&quot;</code></pre><h4 id="1-生产环境启动方案"><a href="#1-生产环境启动方案" class="headerlink" title="(1) 生产环境启动方案"></a>(1) 生产环境启动方案</h4><p>第一步：修改redis.conf</p>
+<pre class="line-numbers language-shell"><code class="language-shell">vi redis.conf
+daemonize    yes                            #让redis以daemon进程运行
+pidfile        /var/run/redis_6379.pid       #设置redis的pid文件位置
+port        6379                        #设置redis的监听端口号
+dir         /var/redis/6379                 #设置持久化文件的存储位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">cp src/redis-server /usr/local/bin/ \
+&& cp src/redis-cli /usr/local/bin/ \
+&& cp utils/redis_init_script /etc/init.d/redis_6379 \
+&& mkdir /etc/redis/ -p && mkdir /var/redis/6379 -p \
+&& cp redis.conf /etc/redis/6379.conf \
+&& cd /etc/init.d && chmod 777 redis_6379 && ./redis_6379 start<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：测试redis是否正常启动 vi /etc/init.d/redis_6379</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ps -ef | grep redis<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第四步：让redis跟随系统启动自动启动</p>
+<p><code>vi /etc/init.d/redis_6379</code>, 最上面，加入两行注释，保存退出</p>
+<pre class="line-numbers language-shell"><code class="language-shell">
+# chkconfig:   2345 90 10
+# description:  Redis is a persistent key-value database<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>chkconf 参数概述</p>
+<p>​    参数一<code>2345</code> -&gt; 这个服务以什么样的运行级别开始</p>
+<p>​    第二个参数<code>90</code> -&gt; 启动的优先等级</p>
+<p>​    第三个参数<code>10</code> -&gt; 停止优先级</p>
+</blockquote>
+<p>配置生效</p>
+<pre class="line-numbers language-shell"><code class="language-shell">chkconfig redis_6379 on
+#查看是否生效
+chkconfig -list <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-主从架构搭建"><a href="#2-主从架构搭建" class="headerlink" title="(2) 主从架构搭建"></a>(2) 主从架构搭建</h4><p>第一步：slave基本配置好配置， 步骤同上 <code>（1）生产环境启动方案</code></p>
+<p>第二步：配置slave连接主机IP，搜索<code>masterip</code> 看是如下那种，配置master IP和端口</p>
+<pre class="line-numbers language-shell"><code class="language-shell">replicaof <masterip> <masterport>
+slaveof <masterip> <masterport><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></masterport></masterip></masterport></masterip></code></pre>
+<p>redis.5.0.5 案例</p>
+<pre class="line-numbers language-shell"><code class="language-shell">replicaof 192.168.1.1 6379<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第三步：强制读写分离 <code>replica-read-only yes</code> 默认开启</p>
+<p>第四步：集群安全认证</p>
+<p>master 配置访问密码</p>
+<pre><code>requirepass foobared</code></pre><p>slave 配置master的连接口令</p>
+<pre class="line-numbers language-shell"><code class="language-shell">masterauth <master-password><span aria-hidden="true" class="line-numbers-rows"><span></span></span></master-password></code></pre>
+<p>第五步：网络设置</p>
+<p>1、 master 开启网络监听</p>
+<pre><code>bind 127.0.0.1 192.168.1.x</code></pre><p>注意：只开启<code>127.0.0.1</code>， slave无法连接master</p>
+<p>2.、开启端口访问权限</p>
+<ul>
+<li><p>CentOS 7,使用firewall</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#添加端口权限
+firewall-cmd --add-port=6379/tcp
+#删除端口：
+firewall-cmd --remove-port=6379/tcp
+#查看端口
+firewall-cmd --query-port=6379/tcp
+#永久开放端口
+firewall-cmd --permanent --add-port=6379/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>CentOS 7 以下</p>
+<pre class="line-numbers language-shell"><code class="language-shell">iptables -A INPUT -p tcp --dport  6379 -j ACCEPT<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<p>Notice：master and slave must open the 6379 port permission </p>
+<h4 id="3-哨兵集群配置"><a href="#3-哨兵集群配置" class="headerlink" title="(3) 哨兵集群配置"></a>(3) 哨兵集群配置</h4><p>哨兵详细文档： <a href="http://doc.redisfans.com/topic/sentinel.html" target="_blank" rel="noopener">http://doc.redisfans.com/topic/sentinel.html</a></p>
+<p>第一步：新建文件</p>
+<pre class="line-numbers language-shell"><code class="language-shell">mkdir /etc/sentinal \
+&& mkdir -p /var/sentinal/5000 \
+&& mkdir -p /var/log/sentinal/ \
+#&& touch /var/log/sentinal/5000 \
+&& vi /etc/sentinal/5000.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：哨兵配置模板文件修改，简化版，详细配置查看附录一<code>sentinal.conf</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell"># port <sentinel-port>
+port 5000
+## bind 127.0.0.1
+bind 192.168.1.13
+#dir <working-directory>
+dir /var/sentinal/5000
+# sentinel monitor <master-name> <ip> <redis-port> <quorum>
+sentinel monitor mymaster 192.168.1.13 6379 2
+#超过多少毫秒跟一个redis实例断了连接，哨兵就可能认为这个redis实例挂了
+#sentinel down-after-milliseconds <master-name> <milliseconds> 
+sentinel down-after-milliseconds mymaster 60000
+#执行故障转移的timeout超时时长
+##sentinel failover-timeout <master-name> <milliseconds>
+sentinel failover-timeout mymaster 180000
+#新的master切换之后 最多可以有多少个从服务器同时对新的主服务器进行同步， 这个数字越小， 完成故障转移所需的时间就越长。
+sentinel parallel-syncs mymaster 1
+# sentinel auth-pass <master-name> <password>
+sentinel auth-pass mymaster redis-pass
+#后台运行
+daemonize yes 
+logfile /var/log/sentinal/5000.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></password></master-name></milliseconds></master-name></milliseconds></master-name></quorum></redis-port></ip></master-name></working-directory></sentinel-port></code></pre>
+<p>Notice:  所有的sentinal都是相同的配置只需改如下两点：</p>
+<ul>
+<li>bind <local_ip> 本机的IP地址</local_ip></li>
+<li>sentinel monitor mymaster <master_ip> </master_ip></li>
+</ul>
+<p>第三步：启动所有哨兵</p>
+<p>1、 redis-server方式，推荐</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-server /etc/sentinal/5000.conf --sentinel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>2、redis-sentinel 方式</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-sentinel /etc/sentinal/5000.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第四步：检查哨兵状态</p>
+<p>1、连接哨兵</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli -h 192.168.1.12 -p 5000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>2、连接成功后，基本状态查询</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#列出所有被监视的主服务器，以及这些主服务器的当前状态。
+192.168.1.12:5000> sentinel master mymaster
+#列出给定主服务器的所有从服务器，以及这些从服务器的当前状态。
+192.168.1.12:5000> SENTINEL slaves mymaster
+192.168.1.12:5000> SENTINEL sentinels mymaster
+192.168.1.12:5000> SENTINEL get-master-addr-by-name mymaster<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="4-测试"><a href="#4-测试" class="headerlink" title="(4) 测试"></a>(4) 测试</h4><p>1、 测试端口是否开放</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yum install -y nc 
+nc -v host port <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>2、查看主从架构状态</p>
+<pre class="line-numbers language-shell"><code class="language-shell">127.0.0.1:6379> info replication 
+
+# Replication
+role:slave
+master_host:192.168.1.12
+master_port:6379
+master_link_status:up # 主从连接成功 down为失败
+master_last_io_seconds_ago:2
+master_sync_in_progress:0
+slave_repl_offset:1736
+slave_priority:100
+slave_read_only:1
+connected_slaves:0
+master_replid:f9acbb0bc2a6d662b6a5c4c3edcdec831b14a351
+master_replid2:0000000000000000000000000000000000000000
+master_repl_offset:1736
+second_repl_offset:-1
+repl_backlog_active:1
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:1
+repl_backlog_histlen:1736<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3、测试QPS</p>
+<p>在redis源码目录<code>src/redis-benchmark</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">./redis-benchmark -h 192.168.1.12
+-c <clients>       Number of parallel connections (default 50)
+-n <requests>      Total number of requests (default 100000)
+-d <size>          Data size of SET/GET value in bytes (default 2)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></size></requests></clients></code></pre>
+<p>1核1G，虚拟机，自己用redis5.0.5搭建的3500.00 qps少了个数量级</p>
+<pre class="line-numbers language-plain"><code class="language-plain">====== PING_INLINE ======
+  100000 requests completed in 1.28 seconds
+  50 parallel clients
+  3 bytes payload
+  keep alive: 1
+
+99.78% <= 1 3 50 100 300 450 600 100000 milliseconds 99.93% <="2" 99.97% 100.00% 78308.54 requests per second="=====" ping_bulk="=====" completed in 1.30 seconds parallel clients bytes payload keep alive: 99.87% 76804.91 set="=====" 2.50 5.95% 99.63% 99.99% 40032.03 get="=====" 99.73% 76628.35 incr="=====" 1.90 80.92% 99.81% 99.95% 99.96% 52548.61 lpush="=====" 2.58 3.76% 99.61% 38684.72 rpush="=====" 2.47 6.87% 99.69% 40469.45 lpop="=====" 2.26 28.39% 99.83% 44306.60 rpop="=====" 2.18 36.08% 99.75% 45871.56 sadd="=====" 1.23 99.94% 81168.83 spop="=====" 1.28 99.80% 78369.91 (needed to benchmark lrange)="=====" 15.29% 99.64% 40420.37 lrange_100 (first elements)="=====" 3.69 30.86% 96.99% 27085.59 lrange_300 10.22 0.03% 5.90% 90.68% 95.46% 97.67% 99.12% 99.98% 9784.74 lrange_500 14.71 0.00% 0.07% 1.59% 89.26% 97.90% 99.24% 99.89% 6799.48 lrange_600 18.56 0.23% 1.75% 91.17% 98.16% 99.04% 5387.35 mset (10 keys)="=====" 4.02 0.01% 53.22% 99.55% 99.70% 99.90% 24869.44 second<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></=></code></pre>
+<h3 id="1-2-4-ruby"><a href="#1-2-4-ruby" class="headerlink" title="1.2.4 ruby"></a>1.2.4 ruby</h3><p>第一步：编译</p>
+<p><a href="http://www.ruby-lang.org/en/downloads/" target="_blank" rel="noopener">ruby 官网下载地址</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">version=2.3.1
+tar -zxvf ruby-${version}.tar.gz 
+cd ruby-${version}
+./configure -prefix=/usr/local/ruby 
+make && make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：配置路径</p>
+<p>vi ~/.bash_profile</p>
+<pre class="line-numbers language-shell"><code class="language-shell">PATH=$PATH:$HOME/bin:/usr/local/ruby/bin
+export PATH<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>第三步：<code>gem install redis</code></p>
+<h2 id="1-3-连接配置"><a href="#1-3-连接配置" class="headerlink" title="1.3 连接配置"></a>1.3 连接配置</h2><p>第一步：配置机器ssh免密钥登录</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> ssh-keygen -t rsa \
+ cd /root/.ssh/
+ cp id_rsa.pub authorized_keys <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>测试：ssh连接本机成功</p>
+<p>第二步： 机器之间互相ssh免密钥登录</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ssh-copy-id -i <per_host_name><span aria-hidden="true" class="line-numbers-rows"><span></span></span></per_host_name></code></pre>
+<p>案例：</p>
+<p>ec-01 拷贝到ec-02，当前在ec01下操作</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ssh-copy-id -i ec-02
+ssh-copy-id -i ec-03
+ssh-copy-id -i ec-04<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>ec-01 至ec-04 重复上面动作, <code>ssh ec-x</code> 测试相互连接是否免密钥</p>
+<h3 id="1-3-2-CentOS-开启端口"><a href="#1-3-2-CentOS-开启端口" class="headerlink" title="1.3.2 CentOS 开启端口"></a>1.3.2 CentOS 开启端口</h3><p>1、 master 开启网络监听</p>
+<pre><code>bind 127.0.0.1 192.168.1.x</code></pre><p>注意：只开启<code>127.0.0.1</code>， slave无法连接master</p>
+<p>2.、开启端口访问权限</p>
+<ul>
+<li><p>CentOS 7,使用firewall</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#添加端口权限
+firewall-cmd --add-port=6379/tcp
+#删除端口：
+firewall-cmd --remove-port=6379/tcp
+#查看端口
+firewall-cmd --query-port=6379/tcp
+#永久开放端口
+firewall-cmd --permanent --add-port=6379/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>CentOS 7 以下</p>
+<pre class="line-numbers language-shell"><code class="language-shell">iptables -A INPUT -p tcp --dport  6379 -j ACCEPT<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<p>Notice：master and slave must open the 6379 port permission </p>
+<h3 id="1-3-3-测试端口是否开放"><a href="#1-3-3-测试端口是否开放" class="headerlink" title="1.3.3 测试端口是否开放"></a>1.3.3 测试端口是否开放</h3><pre class="line-numbers language-shell"><code class="language-shell">yum install -y nc 
+nc -v host port <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="1-3-4-CentOS-7-关闭防火墙"><a href="#1-3-4-CentOS-7-关闭防火墙" class="headerlink" title="1.3.4 CentOS 7 关闭防火墙"></a>1.3.4 CentOS 7 关闭防火墙</h3><pre class="line-numbers language-shell"><code class="language-shell">systemctl stop firewalld.service  关闭防火墙
+systemctl disable firewalld          永久关闭防火墙<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="第二章-软件使用"><a href="#第二章-软件使用" class="headerlink" title="第二章 软件使用"></a>第二章 软件使用</h1><h2 id="2-1-Redis"><a href="#2-1-Redis" class="headerlink" title="2.1  Redis"></a>2.1  Redis</h2><h3 id="2-1-1-基本应用"><a href="#2-1-1-基本应用" class="headerlink" title="2.1.1 基本应用"></a>2.1.1 基本应用</h3><p>四个方向应用</p>
+<ul>
+<li>redis各种数据结构和命令的使用，包括java api的使用</li>
+<li>redis一些特殊的解决方案的使用，pub/sub消息系统，分布式锁，输入的自动完成，等等</li>
+<li>redis日常的管理相关的命令</li>
+<li>redis企业级的集群部署和架构</li>
+</ul>
+<p>进阶</p>
+<p>深入集群架构的底层原理，哨兵的底层原理，用一线的经验，告诉你，redis的大规模的架构师如何去支撑海量数<br>据、高并发、高可用的</p>
+<p>常用命令</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#密码认证
+127.0.0.1:6379> auth "yourpassword"  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>‘</p>
+<p>常用地址</p>
+<pre><code>#持久化RDB存储地址
+/var/redis/6379/dump.rdb
+# redis 启动时需要删除的文件
+/var/run/redis_6379.pid
+#redis日志，可以查看redis启动状态
+/var/log/redis/</code></pre><h3 id="2-1-2-Redis持久化"><a href="#2-1-2-Redis持久化" class="headerlink" title="2.1.2 Redis持久化"></a>2.1.2 Redis持久化</h3><blockquote>
+<h4 id="1-redis持久化机对于生产环境中的灾难恢复的意义"><a href="#1-redis持久化机对于生产环境中的灾难恢复的意义" class="headerlink" title="1. redis持久化机对于生产环境中的灾难恢复的意义"></a>1. redis持久化机对于生产环境中的灾难恢复的意义</h4></blockquote>
+<blockquote>
+<p>通过持久化将数据搞一份儿在磁盘上去，然后定期比如说同步和备份到一些云存储服务上去，那么就可以保证数据不丢失全部，还是可以恢复一部分数据回来的</p>
+</blockquote>
+<h4 id="1-RDB"><a href="#1-RDB" class="headerlink" title="1. RDB"></a>1. RDB</h4><p>默认开启</p>
+<p>快照设置</p>
+<p><code>vi /etc/redis/6379.conf</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">save 60 1000 #每隔60s，如果有超过1000个key发生了变更，那么就生成一个新的dump.rdb文件
+dir ./ #rdb保存位置
+dbfilename dump.rdb #保存文件名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-AOF"><a href="#2-AOF" class="headerlink" title="2. AOF"></a>2. AOF</h4><p>知识点一：开启配置AOF</p>
+<p>AOF持久化的配置默认是关闭的,开启后会优先使用AOF进行数据恢复</p>
+<pre class="line-numbers language-shell"><code class="language-shell">appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>appendfsync</code>三种选项 </p>
+<p>always</p>
+<pre><code>-  每次写入一条数据，立即将这个数据对应的写日志fsync到磁盘上去
+-  性能非常非常差，吞吐量很低; 确保说redis里的数据一条都不丢，那就只能这样了</code></pre><p>everysec</p>
+<pre><code>- 每秒将os cache中的数据fsync到磁盘
+- 性能很高，QPS还是可以上万的</code></pre><p>no</p>
+<p>​    - 仅仅redis负责将数据写入os cache就撒手不管了，然后后面os自己会时不时有自己的策略将数据刷入磁盘，不可控了</p>
+<p>知识点二： AOF rewrite</p>
+<blockquote>
+<p>rewrite 原因：很多数据可能会自动过期，可能会被用户删除，可能会被redis用缓存清除的算法清理掉。redis中的数据会不断淘汰掉旧的，就一部分常用的数据会被自动保留在redis内存中，所以很多之前的已经被清理掉的数据，对应的写日志还停留在AOF中，AOF日志文件就一个，会不断的膨胀，到很大很大</p>
+</blockquote>
+<ol>
+<li>配置rewrite策略</li>
+</ol>
+<pre class="line-numbers language-shell"><code class="language-shell">auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>注解：</p>
+<p>然后就会接着128mb继续写AOF的日志，如果发现增长的比例，超过了之前的100%，256mb，就可能会去触发一次rewrite，但是此时还要去跟min-size，64mb去比较，256mb &gt; 64mb，才会去触发rewrite</p>
+<ol start="2">
+<li><p>AOF破损文件的修复</p>
+<p>当aof文件格式错误无法加载时，使用 <code>redis-check-aof --fix</code> 命令来修复破损的AOF文件</p>
+</li>
+</ol>
+<h4 id="3-RDB-和-AOF同时使用时"><a href="#3-RDB-和-AOF同时使用时" class="headerlink" title="3. RDB 和 AOF同时使用时"></a>3. RDB 和 AOF同时使用时</h4><ul>
+<li>rdb 和 aof 文件同时存在持久化数据，把aof删除，redisc重启时也不会使用rdb数据</li>
+</ul>
+<h3 id="2-1-3-企业级的数据方案配置及容灾方案"><a href="#2-1-3-企业级的数据方案配置及容灾方案" class="headerlink" title="2.1.3 企业级的数据方案配置及容灾方案"></a>2.1.3 企业级的数据方案配置及容灾方案</h3><h4 id="1-配置策略"><a href="#1-配置策略" class="headerlink" title="1. 配置策略"></a>1. 配置策略</h4><ul>
+<li><p>AOF一定要打开，fsync，everysec</p>
+</li>
+<li><p>RDB的生成策略，用默认的也差不多，可以根据业务量来处理</p>
+</li>
+<li><p>rewrite配置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">auto-aof-rewrite-percentage 100: 就是当前AOF大小膨胀到超过上次100%，上次的两倍
+auto-aof-rewrite-min-size 64mb: 根据你的数据量来定，16mb，32mb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="2-数据备份方案"><a href="#2-数据备份方案" class="headerlink" title="2. 数据备份方案"></a>2. 数据备份方案</h4><p>使用RDB进行冷备份</p>
+<p>（1）写crontab定时调度脚本去做数据备份<br>（2）每小时都copy一份rdb的备份，到一个目录中去，仅仅保留最近48小时的备份<br>（3）每天都保留一份当日的rdb的备份，到一个目录中去，仅仅保留最近1个月的备份<br>（4）每次copy备份的时候，都把太旧的备份给删了<br>（5）每天晚上将当前服务器上所有的数据备份，发送一份到远程的云服务上去</p>
+<p>第一步：每1小时备份</p>
+<p>  <code>redis_rdb_copy_hourly.sh</code> </p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh 
+
+cur_date=`date +%Y%m%d`
+rm -rf /usr/local/redis/snapshotting/$cur_date
+mkdir /usr/local/redis/snapshotting/$cur_date
+cp /var/redis/6379/dump.rdb /usr/local/redis/snapshotting/$cur_date
+#删除一个月之前的备份
+del_date=`date -d -1month +%Y%m%d`
+rm -rf /usr/local/redis/snapshotting/$del_date<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>定时一小时启动 crontab -e  </p>
+<pre class="line-numbers language-shell"><code class="language-shell">0 0 * * * sh /usr/local/redis/copy/redis_rdb_copy_daily.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第二步：每天copy一次备份</p>
+<p>redis_rdb_copy_daily.sh</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh 
+
+cur_date=`date +%Y%m%d`
+rm -rf /usr/local/redis/snapshotting/$cur_date
+mkdir /usr/local/redis/snapshotting/$cur_date
+cp /var/redis/6379/dump.rdb /usr/local/redis/snapshotting/$cur_date
+
+del_date=`date -d -1month +%Y%m%d`
+rm -rf /usr/local/redis/snapshotting/$del_date<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>crontab -e</p>
+<pre class="line-numbers language-shell"><code class="language-shell">0 0 * * * sh /usr/local/redis/copy/redis_rdb_copy_daily.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第三步：每天一次将所有数据上传一次到远程的云服务器上去</p>
+<p>第四步：基于dump.rdb的数据进行数据恢复</p>
+<ul>
+<li>redis.conf 关闭 <code>appendonly no</code> </li>
+<li>拷贝rdb备份，重启redis，确认数据恢复</li>
+<li>命令行热修改redis配置 <code>127.0.0.1:6379&gt; config set appendonly yes</code>, aof同步rdb</li>
+<li>redis.conf 开启 <code>appendonly yes</code> ，重启redis </li>
+</ul>
+<p>第五步：应用</p>
+<ol>
+<li>如果当前机器上的所有RDB文件全部损坏，那么从远程的云服务上拉取最新的RDB快照回来恢复数据</li>
+<li>如果是发现有重大的数据错误，比如某个小时上线的程序一下子将数据全部污染了，数据全错了，那么可以选择某个更早的时间点，对数据进行恢复</li>
+</ol>
+<h3 id="2-1-4-redis读写分离来承载读请求QPS超过10万"><a href="#2-1-4-redis读写分离来承载读请求QPS超过10万" class="headerlink" title="2.1.4 redis读写分离来承载读请求QPS超过10万+"></a>2.1.4 redis读写分离来承载读请求QPS超过10万+</h3><blockquote>
+<p>redis高并发跟整个系统的高并发之间的关系</p>
+<p>redis 是支撑高并发的架构里面，非常重要的一个环节</p>
+<ol>
+<li>首先，你的底层的缓存中间件，缓存系统，必须能够支撑的起我们说的那种高并发，</li>
+<li>其次，再经过良好的整体的缓存架构的设计（多级缓存架构、热点缓存），支撑真正的上十万，甚至上百万的高并发</li>
+</ol>
+</blockquote>
+<p>架构思路</p>
+<p>主从架构 -&gt; 读写分离 -&gt; 支撑10万+读QPS的架构</p>
+<h4 id="1-redis主从架构"><a href="#1-redis主从架构" class="headerlink" title="(1) redis主从架构"></a>(1) redis主从架构</h4><ul>
+<li>如果采用了主从架构，那么建议必须开启master node的持久化！如果你关掉master的持久化，可能在master宕机重启的时候数据是空的，然后可能一经过复制，salve node数据也丢了</li>
+<li>使采用了后续讲解的高可用机制，slave node可以自动接管master node，但是也可能sentinal还没有检测到master failure，master node就自动重启了，还是可能导致上面的所有slave node数据清空故障</li>
+</ul>
+<p>全量复制</p>
+<ol>
+<li>master执行bgsave，在本地生成一份rdb快照文件</li>
+<li>master node 专递rdb快照到slave,超时时间<code>repl-timeout</code>默认为60秒</li>
+<li>client-output-buffer-limit slave 256MB 64MB 60，如果在复制期间，内存缓冲区持续消耗超过64MB，或者一次性超过256MB，那么停止复制，复制失败</li>
+<li>如果slave node开启了AOF，那么会立即执行BGREWRITEAOF，重写AOF</li>
+</ol>
+<blockquote>
+<p> 注意：如果复制的数据量在4G~6G之间，那么很可能全量复制时间消耗到1分半到2分钟</p>
+</blockquote>
+<p>增量复制</p>
+<p>（1）如果全量复制过程中，master-slave网络连接断掉，那么salve重新连接master时，会触发增量复制<br>（2）master直接从自己的backlog中获取部分丢失的数据，发送给slave node，默认backlog就是1MB<br>（3）msater就是根据slave发送的psync中的offset来从backlog中获取数据的</p>
+<p>slave 转化成master的机制</p>
+<p>如果一个slave跟master断开连接已经超过了down-after-milliseconds的10倍，外加master宕机的时长，那么slave就被认为不适合选举为master</p>
+<p>(down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state</p>
+<p>接下来会对slave进行排序</p>
+<p>（1）按照slave优先级进行排序，slave priority越低，优先级就越高<br>（2）如果slave priority相同，那么看replica offset，哪个slave复制了越多的数据，offset越靠后，优先级就越高<br>（3）如果上面两个条件都相同，那么选择一个run id比较小的那个slave</p>
+<h4 id="2-QPS压测以及水平扩容支撑更高QPS"><a href="#2-QPS压测以及水平扩容支撑更高QPS" class="headerlink" title="(2) QPS压测以及水平扩容支撑更高QPS"></a>(2) QPS压测以及水平扩容支撑更高QPS</h4><p><a href="https://redis.io/topics/benchmarks" target="_blank" rel="noopener">https://redis.io/topics/benchmarks</a></p>
+<p>在redis源码目录<code>src/redis-benchmark</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">./redis-benchmark -h 192.168.1.12
+-c <clients>       Number of parallel connections (default 50)
+-n <requests>      Total number of requests (default 100000)
+-d <size>          Data size of SET/GET value in bytes (default 2)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></size></requests></clients></code></pre>
+<p>1核1G，虚拟机，自己用redis5.0.5搭建的3500.00 qps少了个数量级</p>
+<pre class="line-numbers language-plain"><code class="language-plain">====== PING_INLINE ======
+  100000 requests completed in 1.28 seconds
+  50 parallel clients
+  3 bytes payload
+  keep alive: 1
+
+99.78% <= 1 3 50 100 300 450 600 100000 milliseconds 99.93% <="2" 99.97% 100.00% 78308.54 requests per second="=====" ping_bulk="=====" completed in 1.30 seconds parallel clients bytes payload keep alive: 99.87% 76804.91 set="=====" 2.50 5.95% 99.63% 99.99% 40032.03 get="=====" 99.73% 76628.35 incr="=====" 1.90 80.92% 99.81% 99.95% 99.96% 52548.61 lpush="=====" 2.58 3.76% 99.61% 38684.72 rpush="=====" 2.47 6.87% 99.69% 40469.45 lpop="=====" 2.26 28.39% 99.83% 44306.60 rpop="=====" 2.18 36.08% 99.75% 45871.56 sadd="=====" 1.23 99.94% 81168.83 spop="=====" 1.28 99.80% 78369.91 (needed to benchmark lrange)="=====" 15.29% 99.64% 40420.37 lrange_100 (first elements)="=====" 3.69 30.86% 96.99% 27085.59 lrange_300 10.22 0.03% 5.90% 90.68% 95.46% 97.67% 99.12% 99.98% 9784.74 lrange_500 14.71 0.00% 0.07% 1.59% 89.26% 97.90% 99.24% 99.89% 6799.48 lrange_600 18.56 0.23% 1.75% 91.17% 98.16% 99.04% 5387.35 mset (10 keys)="=====" 4.02 0.01% 53.22% 99.55% 99.70% 99.90% 24869.44 second<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></=></code></pre>
+<p>我们这个读写分离这一块的第一讲</p>
+<p>大部分情况下来说，看你的服务器的机器性能和配置，机器越牛逼，配置越高</p>
+<p>单机上十几万，单机上二十万</p>
+<p>很多公司里，给一些低配置的服务器，操作复杂度</p>
+<p>大公司里，都是公司会提供统一的云平台，比如京东、腾讯、BAT、其他的一些、小米、美团</p>
+<p>虚拟机，低配</p>
+<p>搭建一些集群，专门为某个项目，搭建的专用集群，4核4G内存，比较复杂的操作，数据比较大</p>
+<p>几万，单机做到，差不多了</p>
+<p>redis提供的高并发，至少到上万，没问题</p>
+<p>几万~十几万/二十万不等</p>
+<p>QPS，自己不同公司，不同服务器，自己去测试，跟生产环境还有区别</p>
+<p>生产环境，大量的网络请求的调用，网络本身就有开销，你的redis的吞吐量就不一定那么高了</p>
+<p>QPS的两个杀手：一个是复杂操作，lrange，挺多的; value很大，2 byte，我之前用redis做大规模的缓存</p>
+<p>做商品详情页的cache，可能是需要把大串数据，拼接在一起，作为一个json串，大小可能都几k，几个byte</p>
+<p>2、水平扩容redis读节点，提升度吞吐量</p>
+<p>就按照上一节课讲解的，再在其他服务器上搭建redis从节点，单个从节点读请QPS在5万左右，两个redis从节点，所有的读请求打到两台机器上去，承载整个集群读QPS在10万+</p>
+<h3 id="2-1-5-sentinel-哨兵"><a href="#2-1-5-sentinel-哨兵" class="headerlink" title="2.1.5  sentinel 哨兵"></a>2.1.5  sentinel 哨兵</h3><blockquote>
+<p>知识点1： 每一个哨兵都可以去监控多个maser-slaves的主从架构</p>
+</blockquote>
+<p>1、哨兵是redis集群架构中非常重要的一个组件，主要功能如下</p>
+<p>（1）集群监控，负责监控redis master和slave进程是否正常工作<br>（2）消息通知，如果某个redis实例有故障，那么哨兵负责发送消息作为报警通知给管理员<br>（3）故障转移，如果master node挂掉了，会自动转移到slave node上<br>（4）配置中心，如果故障转移发生了，通知client客户端新的master地址</p>
+<p>2、哨兵的核心知识</p>
+<p>（1）哨兵至少需要3个实例，来保证自己的健壮性<br>（2）哨兵 + redis主从的部署架构，是不会保证数据零丢失的，只能保证redis集群的高可用性<br>（3）对于哨兵 + redis主从这种复杂的部署架构，尽量在测试环境和生产环境，都进行充足的测试和演练</p>
+<p>3、分布式选举的问题</p>
+<p>（1）master宕机判定，不是由一个哨兵判断，而是由有多数（2个哨兵的majority=2，3的majority=2，5的majority=3，4的majority=2）哨兵判断</p>
+<p>经典3节点哨兵集群</p>
+<pre class="line-numbers language-shell"><code class="language-shell">       +----+
+       | M1 |
+       | S1 |
+       +----+
+          |
++----+    |    +----+
+| R2 |----+----| R3 |
+| S2 |         | S3 |
++----+         +----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>4、每一个哨兵都可以去监控多个maser-slaves的主从架构，同理一套套哨兵集群，监控不同的多个redis主从集群，配置如下:</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sentinel monitor mymaster 127.0.0.1 6379 2
+#超过多少毫秒跟一个redis实例断了连接，哨兵就可能认为这个redis实例挂了    
+sentinel down-after-milliseconds mymaster 60000
+#执行故障转移的timeout超时时长
+sentinel failover-timeout mymaster 180000
+#新的master切换之后 最多可以有多少个从服务器同时对新的主服务器进行同步， 这个数字越小， 完成故障转移所需的时间就越长。
+sentinel parallel-syncs mymaster 1
+
+sentinel monitor resque 192.168.1.3 6380 4
+sentinel down-after-milliseconds resque 10000
+sentinel failover-timeout resque 180000
+sentinel parallel-syncs resque 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="1-哨兵主备切换的数据丢失问题：异步复制、集群脑裂"><a href="#1-哨兵主备切换的数据丢失问题：异步复制、集群脑裂" class="headerlink" title="(1) 哨兵主备切换的数据丢失问题：异步复制、集群脑裂"></a>(1) 哨兵主备切换的数据丢失问题：异步复制、集群脑裂</h4><p>第一、主备切换的过程，可能会导致数据丢失</p>
+<ul>
+<li><p>异步复制中断<br>因为master -&gt; slave的复制是异步的，所以可能有部分数据还没复制到slave，master就宕机了，此时这些部分数据就丢失了</p>
+</li>
+<li><p>脑裂导致</p>
+<blockquote>
+<p>脑裂，也就是说，某个master所在机器突然脱离了正常的网络，跟其他slave机器不能连接，但是实际上master还运行着</p>
+<p>此时哨兵可能就会认为master宕机了，然后开启选举，将其他slave切换成了master</p>
+<p>这个时候，集群里就会有两个master，也就是所谓的脑裂</p>
+<p>此时虽然某个slave被切换成了master，但是可能client还没来得及切换到新的master，还继续写向旧master的数据可能也丢失了</p>
+</blockquote>
+</li>
+</ul>
+<p>第二、解决方案</p>
+<pre class="line-numbers language-shell"><code class="language-shell">min-slaves-to-write 1
+min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>配置解析：要求至少有1个slave，数据复制和同步的延迟不能超过10秒，一旦所有的slave，数据复制和同步的延迟都超过了10秒钟，那么这个时候，master就不会再接收任何请求了</p>
+<p>1、 减少异步复制的数据丢失</p>
+<p>slave复制超过<code>min-slaves-max-lag</code>配置时间，master就会拒绝写请求，样可以把master宕机时由于部分数据未同步到slave导致的数据丢失降低的可控范围内</p>
+<p>2、减少脑裂的数据丢失</p>
+<p>如果跟任何一个slave丢了连接，在10秒后发现没有slave给自己ack，那么就拒绝新的写请求因此在脑裂场景下，最多就丢失10秒的数据</p>
+<h4 id="2-哨兵的常用操作"><a href="#2-哨兵的常用操作" class="headerlink" title="(2) 哨兵的常用操作"></a>(2) 哨兵的常用操作</h4><p><a href="http://doc.redisfans.com/topic/sentinel.html" target="_blank" rel="noopener">http://doc.redisfans.com/topic/sentinel.html</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">#列出所有被监视的主服务器，以及这些主服务器的当前状态。
+192.168.1.12:5000> sentinel master mymaster
+#列出给定主服务器的所有从服务器，以及这些从服务器的当前状态。
+192.168.1.12:5000> SENTINEL slaves mymaster
+192.168.1.12:5000> SENTINEL sentinels mymaster
+192.168.1.12:5000> SENTINEL get-master-addr-by-name mymaster<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1、哨兵节点的增加和删除</p>
+<p>增加sentinal，会自动发现</p>
+<p>删除sentinal的步骤</p>
+<p>（1）停止sentinal进程<br>（2）SENTINEL RESET *，在所有sentinal上执行，清理所有的master状态<br>（3）SENTINEL MASTER mastername，在所有sentinal上执行，查看所有sentinal对数量是否达成了一致</p>
+<h4 id="3-容灾演练"><a href="#3-容灾演练" class="headerlink" title="(3) 容灾演练"></a>(3) 容灾演练</h4><p>第一步：参考第一章哨兵集群配置，设置成非后台启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">daemonize no<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第二步：把master节点kill -9掉，pid文件也删除掉</p>
+<p>第三步：观察sentinel日志</p>
+<p>是否出现+sdown字样，识别出了master的宕机问题; 然后出现+odown字样，就是指定的quorum哨兵数量，都认为master宕机了</p>
+<p>1、过程分析</p>
+<p>（1）三个哨兵进程都认为master是sdown了<br>（2）超过quorum指定的哨兵进程都认为sdown之后，就变为odown<br>（3）哨兵1是被选举为要执行后续的主备切换的那个哨兵<br>（4）哨兵1去新的master（slave）获取了一个新的config version<br>（5）尝试执行failover<br>（6）投票选举出一个slave区切换成master，每隔哨兵都会执行一次投票<br>（7）让salve，slaveof noone，不让它去做任何节点的slave了; 把slave提拔成master; 旧的master认为不再是master了<br>（8）哨兵就自动认为之前的187:6379变成了slave了，19:6379变成了master了<br>（9）哨兵去探查了一下187:6379这个salve的状态，认为它sdown了</p>
+<p>2、尝试连接新master测试</p>
+<p>SENTINEL get-master-addr-by-name mymaster</p>
+<p>3、恢复故障master查看是否切换成slave节点</p>
+<h3 id="2-1-6-redis-cluster"><a href="#2-1-6-redis-cluster" class="headerlink" title="2.1.6 redis cluster"></a>2.1.6 redis cluster</h3><blockquote>
+<p>知识点：</p>
+<ol>
+<li>redis单机，读吞吐是5w/s，写吞吐2w/s</li>
+<li>扩展redis更多master，那么如果有5台master，不就读吞吐可以达到总量25w/s QPS，写可以达到10w/s QPS</li>
+<li>redis单机，内存不要过大，6G，8G，fork类操作的时候很耗时</li>
+</ol>
+</blockquote>
+<h4 id="1-cluster-vs-replication"><a href="#1-cluster-vs-replication" class="headerlink" title="(1) cluster vs replication"></a>(1) cluster vs replication</h4><p>如果你的数据量很少，主要是承载高并发高性能的场景，比如你的缓存一般就几个G，单机足够了</p>
+<p>replication，一个mater，多个slave，要几个slave跟你的要求的读吞吐量有关系，然后自己搭建一个sentinal集群，去保证redis主从架构的高可用性，就可以了</p>
+<p>redis cluster，主要是针对海量数据+高并发+高可用的场景，海量数据，如果你的数据量很大，那么建议就用redis cluster</p>
+<h4 id="2-数据分布式算法"><a href="#2-数据分布式算法" class="headerlink" title="(2) 数据分布式算法"></a>(2) 数据分布式算法</h4><p>1、最老土的hash算法和弊端（大量缓存重建）</p>
+<p>2、 一致性hash算法（自动缓存迁移）+虚拟节点（自动负载均衡）</p>
+<p>3、redis cluster的hash slot算法</p>
+<p>redis cluster有固定的16384个hash slot，对每个key计算CRC16值，然后对16384取模，可以获取key对应的hash slot</p>
+<p>redis cluster中每个master都会持有部分slot，比如有3个master，那么可能每个master持有5000多个hash slot</p>
+<p>hash slot让node的增加和移除很简单，增加一个master，就将其他master的hash slot移动部分过去，减少一个master，就将它的hash slot移动到其他master上去</p>
+<p>移动hash slot的成本是非常低的    </p>
+<h4 id="3-redis-cluster-搭建"><a href="#3-redis-cluster-搭建" class="headerlink" title="(3) redis cluster 搭建"></a>(3) redis cluster 搭建</h4><p><a href="https://www.cnblogs.com/zhaocaim/p/10112989.html" target="_blank" rel="noopener">Redis集群Redis-cluster搭建及故障、性能测试</a></p>
+<p>1、 重要配置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">cluster-enabled <yes no><span aria-hidden="true" class="line-numbers-rows"><span></span></span></yes></code></pre>
+<ul>
+<li>cluster-config-file <filename><br>这是指定一个文件，供cluster模式下的redis实例将集群状态保存在那里，包括集群中其他机器的信息，比如节点的上线和下限，故障转移，不是我们去维护的，给它指定一个文件，让redis自己去维护的</filename></li>
+<li>cluster-node-timeout <milliseconds></milliseconds></li>
+<li>正式环境下，建议都是说在6台机器上去搭建，至少3台机器</li>
+</ul>
+<p>2、3台机器搭建6个redis实例集群</p>
+<p>第一步：开放指定端口</p>
+<p>1、 CentOS6</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/usr/bin/env bash
+for port in 7000 7001 17000 17001; do
+  iptables -A INPUT -p tcp --dport ${port} -j ACCEPT
+  iptables -A OUTPUT -p tcp --sport ${port} -j ACCEPT
+done
+service iptables save
+iptables -L -n<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2、CentOS 7</p>
+<pre class="line-numbers language-shell"><code class="language-shell">firewall-cmd --add-port=6379/tcp
+firewall-cmd --permanent --add-port=6379/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>第二步：准备同一的配置文件，如下6379.conf</p>
+<pre class="line-numbers language-shell"><code class="language-shell">port 7001
+cluster-enabled yes
+cluster-config-file /etc/redis-cluster/node-7001.conf
+cluster-node-timeout 15000
+
+daemonize    yes                            
+pidfile        /var/run/redis_7001.pid                         
+dir         /var/redis/7001        
+logfile /var/log/redis/7001.log
+bind 192.168.31.187        
+appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>【注意重点】</p>
+<ul>
+<li>bind  不能是 <code>127.0.0.1 192.168.1.11</code> 否则无法创建连接，出现<code>Waiting for the cluster to join</code>的问题</li>
+<li>同一台电脑，每一份conf， port必不同</li>
+</ul>
+<p>第三步：设置部署redis个数并启动</p>
+<p>redis-cluster-deploy.sh</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/usr/bin/env bash
+
+mkdir -p /etc/redis-cluster
+
+mkdir -p /var/log/redis
+
+port=7000
+while (( ${port} <= 7001 )) do mkdir -p var redis "$port" cp . 6379.conf "$port".conf sed -i ``s __port__ g`` `grep -rl $port.conf` mv etc -f redis_6379 redis_"$port" redis_"$port"` init.d rm run redis_"$port".pid source start echo "port="$port"" let "port++" done <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></=></code></pre>
+<p>第四步：重建集群自动分配master/slave</p>
+<p>一主一从</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli  --cluster create 192.168.1.12:7001 192.168.1.12:7000 192.168.1.13:7001 192.168.1.13:7000 192.168.1.11:7001 192.168.1.11:7000 --cluster-replicas 1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><em>一主两从</em></p>
+<pre class="line-numbers language-shell"><code class="language-shell">./redis-cli  --cluster  create 172.20.0.17:7001 172.20.0.18:7001 172.20.0.19:7001 172.20.0.17:7002 172.20.0.18:7002 172.20.0.19:7002 172.20.0.17:7003 172.20.0.18:7003 172.20.0.19:7003 --cluster-replicas 2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>获取usage信息</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli  --cluster help<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>Redis5.0</strong> 一下使用如下(需要搭建ruby环境，方法参考1.2.4 )</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-trib.rb create --replicas 1 192.168.31.187:7001 192.168.31.187:7002 192.168.31.19:7003 192.168.31.19:7004 192.168.31.227:7005 192.168.31.227:7006<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="4-cluster-的基本使用"><a href="#4-cluster-的基本使用" class="headerlink" title="(4) cluster 的基本使用"></a>(4) cluster 的基本使用</h4><pre class="line-numbers language-shell"><code class="language-shell">  create         host1:port1 ... hostN:portN
+                 --cluster-replicas <arg>
+  check          host:port
+                 --cluster-search-multiple-owners
+  info           host:port
+  fix            host:port
+                 --cluster-search-multiple-owners
+  reshard        host:port
+                 --cluster-from <arg>
+                 --cluster-to <arg>
+                 --cluster-slots <arg>
+                 --cluster-yes
+                 --cluster-timeout <arg>
+                 --cluster-pipeline <arg>
+                 --cluster-replace
+  rebalance      host:port
+                 --cluster-weight <node1=w1...noden=wn>
+                 --cluster-use-empty-masters
+                 --cluster-timeout <arg>
+                 --cluster-simulate
+                 --cluster-pipeline <arg>
+                 --cluster-threshold <arg>
+                 --cluster-replace
+  add-node       new_host:new_port existing_host:existing_port
+                 --cluster-slave
+                 --cluster-master-id <arg>
+  del-node       host:port node_id
+  call           host:port command arg arg .. arg
+  set-timeout    host:port milliseconds
+  import         host:port
+                 --cluster-from <arg>
+                 --cluster-copy
+                 --cluster-replace<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></arg></arg></arg></arg></arg></node1=w1...noden=wn></arg></arg></arg></arg></arg></arg></code></pre>
+<ol>
+<li><p>redis-cli -c启动，就会自动进行各种底层的重定向的操作 </p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli -h 192.168.1.13 -p 7001 -c<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>查看集群信息</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli  -h 172.20.0.17 -p 7001 cluster nodes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>增加一个节点</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli --cluster add-node    new_host:new_port existing_host:existing_port
+
+redis-cli --cluster add-node 192.168.1.9:7000 192.168.1.13:7000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>检查节点状态</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli --cluster check 192.168.1.9:7000<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>分配slot</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli --cluster reshard 127.0.0.1:6379 --cluster-from 2846540d8284538096f111a8ce7cf01c50199237,e0a9c3e60eeb951a154d003b9b28bbdc0be67d5b,692dec0ccd6bdf68ef5d97f145ecfa6d6bca6132 --cluster-to 46f0b68b3f605b3369d3843a89a2b4a164ed21e8 --cluster-slots 1024<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><p><strong>–cluster-from：表示slot目前所在的节点的node ID，多个ID用逗号分隔</strong></p>
+</li>
+<li><p><strong>–cluster-to：表示需要新分配节点的node ID（貌似每次只能分配一个）</strong></p>
+</li>
+<li><p><strong>–cluster-slots：分配的slot数量</strong></p>
+</li>
+</ul>
+</li>
+<li><p>添加slave节点</p>
+<pre class="line-numbers language-shell"><code class="language-shell">redis-cli --cluster add-node 127.0.0.1:6386 127.0.0.1:6385 --cluster-slave --cluster-master-id 46f0b68b3f605b3369d3843a89a2b4a164ed21e8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>收缩集群<br>下线节点127.0.0.1:6385（master）/127.0.0.1:6386（slave）</p>
+<p>（1）首先删除master对应的slave</p>
+<p>redis-cli –cluster del-node 127.0.0.1:6386 530cf27337c1141ed12268f55ba06c15ca8494fc</p>
+<p>del-node后面跟着slave节点的 ip:port 和node ID</p>
+<p>（2）清空master的slot</p>
+<p>redis-cli –cluster reshard 127.0.0.1:6385 –cluster-from 46f0b68b3f605b3369d3843a89a2b4a164ed21e8 –cluster-to 2846540d8284538096f111a8ce7cf01c50199237 –cluster-slots 1024 –cluster-yes</p>
+<p>reshard子命令前面已经介绍过了，这里需要注意的一点是，由于我们的集群一共有四个主节点，而每次reshard只能写一个目的节点，因此以上命令需要执行三次（–cluster-to对应不同的目的节点）。</p>
+<p>–cluster-yes：不回显需要迁移的slot，直接迁移。</p>
+<p>（3）下线（删除）节点</p>
+<p>redis-cli –cluster del-node 127.0.0.1:6385 46f0b68b3f605b3369d3843a89a2b4a164ed21e8</p>
+</li>
+</ol>
+<h4 id="5-redis-实战记录"><a href="#5-redis-实战记录" class="headerlink" title="(5) redis 实战记录"></a>(5) redis 实战记录</h4><ol>
+<li><p>提供冗余的slave（有的master就有2个slave了或多个slave），防止两个节点master和slave相继宕机，提高系统安全性；</p>
+</li>
+<li><p>【重点】实践部署过程中要导入数据后模拟正式环境进行实战测试</p>
+<ol>
+<li><p>批量导入只有数据 <code>cat data.txt | redis-cli --pipe</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">data.txt
+SET Key0 Value0
+SET Key1 Value1
+SET Key2 Value2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li><p>做各种压力测试，性能，redis-benchmark，并发，QPS，高可用的演练，每台机器最大能存储多少数据量，横向扩容支撑更多数据</p>
+</li>
+<li><p>基于测试环境还有测试数据，做各种演练，去摸索一些最适合自己的一些细节的东西</p>
+</li>
+</ol>
+<h4 id="6-redis-常见问题及优化思路"><a href="#6-redis-常见问题及优化思路" class="headerlink" title="(6) redis 常见问题及优化思路"></a>(6) redis 常见问题及优化思路</h4><p>1、fork耗时导致高并发请求延时</p>
+<blockquote>
+<p>一般来单机AOF rewrite说，如果父进程内存有1个G的数据，那么fork可能会耗费在20ms左右，如果是10G~30G，那么就会耗费20 * 10，甚至20 * 30，也就是几百毫秒的时间</p>
+</blockquote>
+<p>info stats中的latest_fork_usec，可以看到最近一次form的时长</p>
+<p>redis单机QPS一般在几万，fork可能一下子就会拖慢几万条操作的请求时长，从几毫秒变成1秒</p>
+<p>问题：</p>
+<p>​    redis单机QPS一般在几万，fork可能一下子就会拖慢几万条操作的请求时长，从几毫秒变成1秒</p>
+<p>优化思路</p>
+<p>fork耗时跟redis主进程的内存有关系，一般控制redis的内存在10GB以内，slave -&gt; master，全量复制</p>
+<p>2、AOF的阻塞问题</p>
+<p>问题</p>
+<blockquote>
+<p>redis将数据写入AOF缓冲区，单独开一个现场做fsync操作，每秒一次</p>
+<p>但是redis主线程会检查两次fsync的时间，如果距离上次fsync时间超过了2秒，那么写请求就会阻塞</p>
+<p>everysec，最多丢失2秒的数据</p>
+<p>一旦fsync超过2秒的延时，整个redis就被拖慢</p>
+</blockquote>
+<p>优化思路</p>
+<p>优化硬盘写入速度，建议采用SSD，不要用普通的机械硬盘，SSD，大幅度提升磁盘读写的速度</p>
+<p>3、主从复制延迟问题</p>
+<p>主从复制可能会超时严重，这个时候需要良好的监控和报警机制</p>
+<p>在info replication中，可以看到master和slave复制的offset，做一个差值就可以看到对应的延迟量</p>
+<p>如果延迟过多，那么就进行报警</p>
+<h1 id="附录-一"><a href="#附录-一" class="headerlink" title="附录 一"></a>附录 一</h1><ul>
+<li><a href="https://redis.io/topics/benchmarks" target="_blank" rel="noopener">redis benchmarks 测试详情 </a></li>
+<li><a href="http://doc.redisfans.com/topic/sentinel.html" target="_blank" rel="noopener">sentinel</a></li>
+</ul>
+<h1 id="附录-二"><a href="#附录-二" class="headerlink" title="附录 二"></a>附录 二</h1><h2 id="参考博文"><a href="#参考博文" class="headerlink" title="参考博文"></a>参考博文</h2><ul>
+<li><p><a href="https://www.cnblogs.com/technologykai/p/8658689.html" target="_blank" rel="noopener">REDIS分布式锁—完美实现</a></p>
+</li>
+<li><p><a href="https://www.centos.bz/2018/05/设置redis最大占用内存/" target="_blank" rel="noopener">设置Redis最大占用内存</a></p>
+</li>
+<li><p><a href="https://my.oschina.net/dslcode/blog/1936656" target="_blank" rel="noopener">docker redis 集群（cluster）搭建</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/zhaocaim/p/10112989.html" target="_blank" rel="noopener">Redis集群Redis-cluster搭建及故障、性能测试</a></p>
+</li>
+</ul>
+<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p>1、问题：WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.</p>
+<p>环境：redis 5.0.5 Centos 6.5</p>
+<p>暂时解决 <code>echo 511 &gt; /proc/sys/net/core/somaxconn</code></p>
+<p>固定配置成功</p>
+<pre class="line-numbers language-shell"><code class="language-shell">vi /etc/sysctl.conf
+#添加
+net.core.somaxconn= 1024
+sysctl -p<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/缓存/" rel="tag"># 缓存</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/29/2019-7-29-SVG-note/" rel="next" title="SVG笔记">
+                <i class="fa fa-chevron-left"></i> SVG笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/04/2019-9-4-RxJava-review-note/" rel="prev" title="RxJava 复习笔记">
+                RxJava 复习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/08/12/2019-8-12-ecommerce-cache-learning/" data-title="亿级电商缓存项目学习" data-url="http://linz.tech/2019/08/12/2019-8-12-ecommerce-cache-learning/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-环境搭建"><span class="nav-number">1.</span> <span class="nav-text">第一章 环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-CentOS"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 CentOS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-网络设置"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 网络设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-3-CentOS-7-设置开启启动"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.3 CentOS 7 设置开启启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-4-CentOS-7-设置开机自动联网"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.4 CentOS 7 设置开机自动联网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-配置yum"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.1.2 配置yum</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-软件安装"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-JDK"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-Perl"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 Perl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-redis"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 redis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-生产环境启动方案"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">(1) 生产环境启动方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-主从架构搭建"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">(2) 主从架构搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-哨兵集群配置"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">(3) 哨兵集群配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-测试"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">(4) 测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-ruby"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4 ruby</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-连接配置"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 连接配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-CentOS-开启端口"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.2 CentOS 开启端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-测试端口是否开放"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.3 测试端口是否开放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-4-CentOS-7-关闭防火墙"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.4 CentOS 7 关闭防火墙</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章-软件使用"><span class="nav-number">2.</span> <span class="nav-text">第二章 软件使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Redis"><span class="nav-number">2.1.</span> <span class="nav-text">2.1  Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-基本应用"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 基本应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-Redis持久化"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 Redis持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-redis持久化机对于生产环境中的灾难恢复的意义"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">1. redis持久化机对于生产环境中的灾难恢复的意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-RDB"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">1. RDB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-AOF"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">2. AOF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-RDB-和-AOF同时使用时"><span class="nav-number">2.1.2.4.</span> <span class="nav-text">3. RDB 和 AOF同时使用时</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-企业级的数据方案配置及容灾方案"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 企业级的数据方案配置及容灾方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-配置策略"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">1. 配置策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数据备份方案"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">2. 数据备份方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-redis读写分离来承载读请求QPS超过10万"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 redis读写分离来承载读请求QPS超过10万+</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-redis主从架构"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">(1) redis主从架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-QPS压测以及水平扩容支撑更高QPS"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">(2) QPS压测以及水平扩容支撑更高QPS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5-sentinel-哨兵"><span class="nav-number">2.1.5.</span> <span class="nav-text">2.1.5  sentinel 哨兵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-哨兵主备切换的数据丢失问题：异步复制、集群脑裂"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">(1) 哨兵主备切换的数据丢失问题：异步复制、集群脑裂</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-哨兵的常用操作"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">(2) 哨兵的常用操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-容灾演练"><span class="nav-number">2.1.5.3.</span> <span class="nav-text">(3) 容灾演练</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-6-redis-cluster"><span class="nav-number">2.1.6.</span> <span class="nav-text">2.1.6 redis cluster</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-cluster-vs-replication"><span class="nav-number">2.1.6.1.</span> <span class="nav-text">(1) cluster vs replication</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数据分布式算法"><span class="nav-number">2.1.6.2.</span> <span class="nav-text">(2) 数据分布式算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-redis-cluster-搭建"><span class="nav-number">2.1.6.3.</span> <span class="nav-text">(3) redis cluster 搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-cluster-的基本使用"><span class="nav-number">2.1.6.4.</span> <span class="nav-text">(4) cluster 的基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-redis-实战记录"><span class="nav-number">2.1.6.5.</span> <span class="nav-text">(5) redis 实战记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-redis-常见问题及优化思路"><span class="nav-number">2.1.6.6.</span> <span class="nav-text">(6) redis 常见问题及优化思路</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录-一"><span class="nav-number">3.</span> <span class="nav-text">附录 一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录-二"><span class="nav-number">4.</span> <span class="nav-text">附录 二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考博文"><span class="nav-number">4.1.</span> <span class="nav-text">参考博文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解决"><span class="nav-number">4.2.</span> <span class="nav-text">问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number">4.2.1.</span> <span class="nav-text">redis</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,View,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="姿势点 在Android中设置数字类型的参数时如果没有特别的说明，参数的单位一般都为px像素。 HardwareAccel 查看那些方法不支持硬件加速; 关闭硬件加速，AndroidManifest.xml==&amp;gt; application节点下android:hardwareAccelerated=false 针对某个View关闭硬件加速 setLayerType(LAYER_TYPE_SOF">
+<meta name="keywords" content="Android,View">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义控件其实很简单(笔记一)">
+<meta property="og:url" content="http://linz.tech/2019/09/11/2019-9-11-custome-view/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="姿势点 在Android中设置数字类型的参数时如果没有特别的说明，参数的单位一般都为px像素。 HardwareAccel 查看那些方法不支持硬件加速; 关闭硬件加速，AndroidManifest.xml==&amp;gt; application节点下android:hardwareAccelerated=false 针对某个View关闭硬件加速 setLayerType(LAYER_TYPE_SOF">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-83c30bcf4aaf6e66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-9f505ebf99ff5a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-372cca129af04bd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-66b0e010cb4b61cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-4907cce455e0ec3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-d8cc681a1779bdd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-9ce82b2dc10df197.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-2dee4408a4588540.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-d9d320f2f5b29581.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-db444c9b90f8a742.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-5665750f87dbce4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-5c2a44817fe2dbb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-3a01682c6dde761e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-13fe2e833f369acb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-53dbfcc8f292f5c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-f519ac37bbaf1bff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-05621f0ce42072e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-5edd60e0d85f7b2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-eef02b9a9713ca4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-e4bbf242c7385c42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-636ac3c942cd1685.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-71458373f4246349.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-ae793a1c884e8858.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-4a3daa2477b03f22.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-6a7f6cf38557f408.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-d88cb5ce11dd59fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-9b82058bb8d768cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-dd0ae05f5bb6b83c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-969dbe864ea21df3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-a2d737f7e141cd00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-65441b07e4897adc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-c86eea804db449c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-28a7d7d4a0184dd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-eced4d31240f92cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-dc54b487331bc55c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-9c835814fe118758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-429c4b5b87ee42e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-a8a376efeb396145.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-26cc878c09718d6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-8abc8e6d219ba11f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-8abb4c67099048e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-c39e7f5bacace753.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-ed98c0646e213843.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-6daae0620f962d72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-fadf93e521b00064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-f2e7497cb9dffbc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.497Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义控件其实很简单(笔记一)">
+<meta name="twitter:description" content="姿势点 在Android中设置数字类型的参数时如果没有特别的说明，参数的单位一般都为px像素。 HardwareAccel 查看那些方法不支持硬件加速; 关闭硬件加速，AndroidManifest.xml==&amp;gt; application节点下android:hardwareAccelerated=false 针对某个View关闭硬件加速 setLayerType(LAYER_TYPE_SOF">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1321512-83c30bcf4aaf6e66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/09/11/2019-9-11-custome-view/">
+
+
+
+
+
+  <title>自定义控件其实很简单(笔记一) | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/09/11/2019-9-11-custome-view/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自定义控件其实很简单(笔记一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T09:02:53+08:00">
+                2019-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/11/2019-9-11-custome-view/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/11/2019-9-11-custome-view/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="姿势点"><a href="#姿势点" class="headerlink" title="姿势点"></a>姿势点</h2><ul>
+<li>在Android中设置数字类型的参数时如果没有特别的说明，参数的单位一般都为px像素。</li>
+<li><a href="http://developer.android.com/guide/topics/graphics/hardware-accel.html#unsupported" target="_blank" rel="noopener">HardwareAccel</a> 查看那些方法不支持硬件加速;</li>
+<li>关闭硬件加速，AndroidManifest.xml==&gt; application节点下android:hardwareAccelerated=false</li>
+<li>针对某个View关闭硬件加速 <code>setLayerType(LAYER_TYPE_SOFTWARE, null);</code></li>
+<li>Android会把拷贝到资源目录的图片转为RGB565</li>
+</ul>
+<h2 id="ColorFilter"><a href="#ColorFilter" class="headerlink" title="ColorFilter"></a>ColorFilter</h2><p><img src="http://upload-images.jianshu.io/upload_images/1321512-83c30bcf4aaf6e66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h3 id="ColorMatrix"><a href="#ColorMatrix" class="headerlink" title="ColorMatrix"></a><strong>ColorMatrix</strong></h3><pre class="line-numbers language-java"><code class="language-java">ColorMatrix colorMatrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorMatrix</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+        <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>行表示的R（红色）的向量，第二行表示的G（绿色）的向量，第三行表示的B（蓝色）的向量，最后一行表示A（透明度）的向量</li>
+<li>这个矩阵不同的位置表示的RGBA值，其范围在0.0F至2.0F之间，1为保持原图的RGB值;</li>
+<li>每一行的第五列数字表示偏移值</li>
+</ul>
+<p>Usage</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 生成色彩矩阵</span>
+ColorMatrix colorMatrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorMatrix</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+        <span class="token number">0.5F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">/*1表示不变颜色*/</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.5F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.5F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+mPaint<span class="token punctuation">.</span><span class="token function">setColorFilter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ColorMatrixColorFilter</span><span class="token punctuation">(</span>colorMatrix<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>数学原理是：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-9f505ebf99ff5a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ColorMatrix"></p>
+<p>实践效果</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-372cca129af04bd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="原图"></p>
+<p>Demo1</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 生成色彩矩阵</span>
+ColorMatrix colorMatrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorMatrix</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+        <span class="token number">0.5F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.5F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.5F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+mPaint<span class="token punctuation">.</span><span class="token function">setColorFilter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ColorMatrixColorFilter</span><span class="token punctuation">(</span>colorMatrix<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-66b0e010cb4b61cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Demo1"></p>
+<p>Demo2</p>
+<pre class="line-numbers language-java"><code class="language-java">ColorMatrix colorMatrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorMatrix</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+        <span class="token number">0.33F</span><span class="token punctuation">,</span> <span class="token number">0.59F</span><span class="token punctuation">,</span> <span class="token number">0.11F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0.33F</span><span class="token punctuation">,</span> <span class="token number">0.59F</span><span class="token punctuation">,</span> <span class="token number">0.11F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0.33F</span><span class="token punctuation">,</span> <span class="token number">0.59F</span><span class="token punctuation">,</span> <span class="token number">0.11F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-4907cce455e0ec3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Demo2"></p>
+<p>Demo3</p>
+<pre class="line-numbers language-java"><code class="language-java">ColorMatrix colorMatrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorMatrix</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+        <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-d8cc681a1779bdd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Demo3"></p>
+<p>Demo4</p>
+<pre class="line-numbers language-java"><code class="language-java">ColorMatrix colorMatrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorMatrix</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+        <span class="token number">0.393F</span><span class="token punctuation">,</span> <span class="token number">0.769F</span><span class="token punctuation">,</span> <span class="token number">0.189F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0.349F</span><span class="token punctuation">,</span> <span class="token number">0.686F</span><span class="token punctuation">,</span> <span class="token number">0.168F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0.272F</span><span class="token punctuation">,</span> <span class="token number">0.534F</span><span class="token punctuation">,</span> <span class="token number">0.131F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-9ce82b2dc10df197.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Demo4"><br>Demo5 红色的变成了蓝色而蓝色的就变成了红色</p>
+<pre class="line-numbers language-java"><code class="language-java">ColorMatrix colorMatrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorMatrix</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-2dee4408a4588540.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Demo5"></p>
+<h3 id="LightingColorFilter"><a href="#LightingColorFilter" class="headerlink" title="LightingColorFilter"></a><strong>LightingColorFilter</strong></h3><p> A color filter that can be used to simulate simple lighting effects.<br>[LightingColorFilter](<a href="http://developer.android.com/reference/android/graphics/LightingColorFilter.html#LightingColorFilter" target="_blank" rel="noopener">http://developer.android.com/reference/android/graphics/LightingColorFilter.html#LightingColorFilter</a>(int, int)) (int mul, int add)</p>
+<pre class="line-numbers language-java"><code class="language-java">R' <span class="token operator">=</span> R <span class="token operator">*</span> colorMultiply<span class="token punctuation">.</span>R <span class="token operator">+</span> colorAdd<span class="token punctuation">.</span>R 
+G' <span class="token operator">=</span> G <span class="token operator">*</span> colorMultiply<span class="token punctuation">.</span>G <span class="token operator">+</span> colorAdd<span class="token punctuation">.</span>G 
+B' <span class="token operator">=</span> B <span class="token operator">*</span> colorMultiply<span class="token punctuation">.</span>B <span class="token operator">+</span> colorAdd<span class="token punctuation">.</span>B<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>usage:</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//设置颜色过滤后为黄色  </span>
+mPaint<span class="token punctuation">.</span><span class="token function">setColorFilter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">LightingColorFilter</span><span class="token punctuation">(</span><span class="token number">0xFFFFFFFF</span><span class="token punctuation">,</span> <span class="token number">0X00FFFF00</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+ mPaint<span class="token punctuation">.</span><span class="token function">setColorFilter</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//还原本色  </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="PorterDuffColorFilter"><a href="#PorterDuffColorFilter" class="headerlink" title="PorterDuffColorFilter"></a><strong>PorterDuffColorFilter</strong></h3><ul>
+<li>Public Contructors<br>[PorterDuffColorFilter](<a href="http://developer.android.com/reference/android/graphics/PorterDuffColorFilter.html#PorterDuffColorFilter" target="_blank" rel="noopener">http://developer.android.com/reference/android/graphics/PorterDuffColorFilter.html#PorterDuffColorFilter</a>(int, android.graphics.PorterDuff.Mode))(int color, <a href="http://developer.android.com/reference/android/graphics/PorterDuff.Mode.html" target="_blank" rel="noopener">PorterDuff.Mode</a> mode)</li>
+<li>PorterDuff.Mode 对应</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-d9d320f2f5b29581.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-db444c9b90f8a742.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="混合模式"></p>
+<p>####Paint.setXfermode(Xfermode xfermode)</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-5665750f87dbce4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Xfermode"></p>
+<h2 id="AvoidXfermode"><a href="#AvoidXfermode" class="headerlink" title="AvoidXfermode"></a><strong>AvoidXfermode</strong></h2><ul>
+<li>API 16 以上机型必须在应用或手机上关闭硬件加速 ；</li>
+<li>AvoidXfermode(int opColor, int tolerance, AvoidXfermode.Mode mode)<br>opColor：表示一个16进制的可以带透明通道的颜色值例如0x12345678<br>Tolerance：表示容差值，那么什么是容差呢？你可以理解为一个可以标识“精确”或“模糊”的东西<br>AvoidXfermode.Mode： AvoidXfermode.Mode.AVOID或者AvoidXfermode.Mode.TARGET</li>
+</ul>
+<p>AvoidXfermode.Mode.TARGET<br>在该模式下Android会判断画布上的颜色是否会有跟opColor不一样的颜色，比如我opColor是红色，那么在TARGET模式下就会去判断我们的画布上是否有存在红色的地方，如果有，则把该区域“染”上一层我们画笔定义的颜色，否则不“染”色，而tolerance容差值则表示画布上的像素和我们定义的红色之间的差别该是多少的时候才去“染”的，比如当前画布有一个像素的色值是(200, 20, 13)，而我们的红色值为(255, 0, 0)，当tolerance容差值为255时，即便(200, 20, 13)并不等于红色值也会被“染”色，容差值越大“染”色范围越广反之则反.<br>Usage:</p>
+<pre class="line-numbers language-java"><code class="language-java"> avoidXfermode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AvoidXfermode</span><span class="token punctuation">(</span><span class="token number">0XFFFFFFFF</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> AvoidXfermode<span class="token punctuation">.</span>Mode<span class="token punctuation">.</span>TARGET<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+mPaint<span class="token punctuation">.</span><span class="token function">setXfermode</span><span class="token punctuation">(</span>avoidXfermode<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>API 16+没有关闭硬件加速</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-5c2a44817fe2dbb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>API 16以下关闭硬件加速<br><img src="http://upload-images.jianshu.io/upload_images/1321512-3a01682c6dde761e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>符合条件的效果，在我们的模式为TARGET容差值为0的时候此时只有当图片中像色颜色值为0XFFFFFFFF的地方才会被染色，而其他地方不会有改变，而当容差值为255的时候只要是跟0XFFFFFFFF有点接近的地方都会被染色。<br><img src="http://upload-images.jianshu.io/upload_images/1321512-13fe2e833f369acb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>AvoidXfermode.Mode.AVOID<br>AVOID是我们指定的颜色是否与画布不一样<br>AvoidXfermode(0XFFFFFFFF, 0, AvoidXfermode.Mode.AVOID)：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-53dbfcc8f292f5c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>当模式为AVOID容差值为0时，只有当图片中像素颜色值与0XFFFFFFFF完全不一样的地方才会被染色<br>AvoidXfermode(0XFFFFFFFF, 255, AvoidXfermode.Mode.AVOID)：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-f519ac37bbaf1bff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>当容差值为255时，只要与0XFFFFFFFF稍微有点不一样的地方就会被染色<br>那么这玩意究竟有什么用呢？比如说当我们只想在白色的区域画点东西或者想把白色区域的地方替换为另一张图片的时候就可以采取这种方式！</p>
+<h3 id="PixelXorXfermode"><a href="#PixelXorXfermode" class="headerlink" title="PixelXorXfermode"></a><strong>PixelXorXfermode</strong></h3><ul>
+<li>API 16以过时</li>
+<li>useless</li>
+</ul>
+<p><strong><a href="http://developer.android.com/reference/android/graphics/PorterDuff.Mode.html" target="_blank" rel="noopener">PorterDuffXfermode</a></strong></p>
+<ul>
+<li>概念最早来自于SIGGRAPH的Tomas Proter和Tom Duff </li>
+<li>混合图形的概念极大地推动了图形图像学的发展，延伸到计算机图形图像学像Adobe和AutoDesk公司著名的多款设计软件都可以说一定程度上受到影响.<br><a href="http://developer.android.com/reference/android/graphics/PorterDuff.Mode.html" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/1321512-05621f0ce42072e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></a><br>Usage:<pre class="line-numbers language-java"><code class="language-java">paint<span class="token punctuation">.</span><span class="token function">setXfermode</span><span class="token punctuation">(</span> <span class="token keyword">new</span> <span class="token class-name">PorterDuffXfermode</span><span class="token punctuation">(</span>PorterDuff<span class="token punctuation">.</span>Mode<span class="token punctuation">.</span>SCREEN<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-5edd60e0d85f7b2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>Sa全称为Source alpha表示源图的Alpha通道；Sc全称为Source color表示源图的颜色；Da全称为Destination alpha表示目标图的Alpha通道；Dc全称为Destination color表示目标图的颜色。 </li>
+<li>“[……]”里分为两部分 , 前代表计算后的Alpha通道，后代表计算后的颜色值。</li>
+<li>More <a href="https://en.wikipedia.org/wiki/Alpha_compositing" target="_blank" rel="noopener">Alpha compositing wiki</a></li>
+</ul>
+<h3 id="PorterDuffXfermode高级姿势"><a href="#PorterDuffXfermode高级姿势" class="headerlink" title="PorterDuffXfermode高级姿势"></a>PorterDuffXfermode高级姿势</h3><ul>
+<li>PorterDuff.Mode.ADD 计算方式：Saturate(S + D)；Chinese：饱和相加<br><img src="http://upload-images.jianshu.io/upload_images/1321512-eef02b9a9713ca4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+<li>PorterDuff.Mode.CLEAR</li>
+<li>PorterDuff.Mode.DARKEN<br>计算方式：[Sa + Da - Sa<em>Da, Sc</em>(1 - Da) + Dc*(1 - Sa) + min(Sc, Dc)]；Chinese：变暗</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-e4bbf242c7385c42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>两个图像混合，较深的颜色总是会覆盖较浅的颜色，如果两者深浅相同则混合，如图，黄色覆盖了红色而蓝色和青色因为是跟透明混合所以不变.</p>
+<ul>
+<li>PorterDuff.Mode.DST_IN</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-636ac3c942cd1685.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>两张图合成去掉美女头上的字</p>
+<pre class="line-numbers language-java"><code class="language-java">
+         <span class="token comment" spellcheck="true">// 先绘制dis目标图</span>
+        canvas<span class="token punctuation">.</span><span class="token function">drawBitmap</span><span class="token punctuation">(</span>bitmapDis<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> mPaint<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 设置混合模式</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setXfermode</span><span class="token punctuation">(</span>PorterDuff<span class="token punctuation">.</span>Mode<span class="token punctuation">.</span>DST_IN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 再绘制src源图</span>
+        canvas<span class="token punctuation">.</span><span class="token function">drawBitmap</span><span class="token punctuation">(</span>bitmapSrc<span class="token comment" spellcheck="true">/*黑色底图*/</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> mPaint<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 还原混合模式</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setXfermode</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 还原画布</span>
+        canvas<span class="token punctuation">.</span><span class="token function">restoreToCount</span><span class="token punctuation">(</span>sc<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-71458373f4246349.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>PorterDuff.Mode.DST_OUT<br>计算方式：[Da * (1 - Sa), Dc * (1 - Sa)]；Chinese：只在源图像和目标图像不相交的地方绘制目标图像</li>
+</ul>
+<h2 id="Paint-之-Font"><a href="#Paint-之-Font" class="headerlink" title="Paint 之 Font"></a>Paint 之 Font</h2><h3 id="FontMetrics"><a href="#FontMetrics" class="headerlink" title="FontMetrics"></a><strong>FontMetrics</strong></h3><p><img src="http://upload-images.jianshu.io/upload_images/1321512-ae793a1c884e8858.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Summary"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-4a3daa2477b03f22.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-6a7f6cf38557f408.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>Top: 是除了Baseline到字符顶端的距离外还应该包含这些符号的高度,bottom类似 ；</li>
+<li>Android依然会在绘制文本的时候在文本外层留出一定的边距，这就是为什么top和bottom总会比ascent和descent大一点的原因。而在TextView中我们可以通过xml设置其属性android:includeFontPadding=”false”去掉一定的边距值但是不能完全去掉。</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">
+         mFontMetrics <span class="token operator">=</span> mPaint<span class="token punctuation">.</span><span class="token function">getFontMetrics</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"Aige"</span><span class="token punctuation">,</span> <span class="token string">"ascent："</span> <span class="token operator">+</span> mFontMetrics<span class="token punctuation">.</span>ascent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"Aige"</span><span class="token punctuation">,</span> <span class="token string">"top："</span> <span class="token operator">+</span> mFontMetrics<span class="token punctuation">.</span>top<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"Aige"</span><span class="token punctuation">,</span> <span class="token string">"leading："</span> <span class="token operator">+</span> mFontMetrics<span class="token punctuation">.</span>leading<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"Aige"</span><span class="token punctuation">,</span> <span class="token string">"descent："</span> <span class="token operator">+</span> mFontMetrics<span class="token punctuation">.</span>descent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"Aige"</span><span class="token punctuation">,</span> <span class="token string">"bottom："</span> <span class="token operator">+</span> mFontMetrics<span class="token punctuation">.</span>bottom<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-d88cb5ce11dd59fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Log.d()——文字只有一行，故leading为零"><br>StaticLayout结合<a href="http://developer.android.com/reference/android/text/TextPaint.html" target="_blank" rel="noopener">TextPaint</a>实现换行</p>
+<pre class="line-numbers language-java"><code class="language-java">mStaticLayout <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StaticLayout</span><span class="token punctuation">(</span>TEXT<span class="token punctuation">,</span> mTextPaint<span class="token punctuation">,</span> canvas<span class="token punctuation">.</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Alignment<span class="token punctuation">.</span>ALIGN_NORMAL<span class="token punctuation">,</span> <span class="token number">1.0F</span><span class="token punctuation">,</span> <span class="token number">0.0F</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+mStaticLayout<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>canvas<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="Paint-之方法解析"><a href="#Paint-之方法解析" class="headerlink" title="Paint 之方法解析"></a><a href="http://developer.android.com/reference/android/graphics/Paint.html" target="_blank" rel="noopener">Paint</a> 之方法解析</h3><ul>
+<li>[breakText](<a href="http://developer.android.com/reference/android/graphics/Paint.html#breakText" target="_blank" rel="noopener">http://developer.android.com/reference/android/graphics/Paint.html#breakText</a>(java.lang.CharSequence, int, int, boolean, float, float[]))(<a href="http://developer.android.com/reference/java/lang/CharSequence.html" target="_blank" rel="noopener">CharSequence</a> text, int start, int end, boolean measureForwards, float maxWidth, float[] measuredWidth)<br>Measure the text, stopping early if the measured width exceeds maxWidth.<ul>
+<li>measureForwards表示向前还是向后测量</li>
+<li>measuredWidth为一个可选项，可以为空，不为空时返回真实的测量值</li>
+</ul>
+</li>
+<li>定义字体 Android中字体有四种样式：BOLD（加粗）,BOLD_ITALIC（加粗并倾斜）,ITALIC（倾斜）,NORMAL（正常）；而其为我们提供的字体有五种：DEFAULT,DEFAULT_BOLD,MONOSPACE,SANS_SERIF和SERIF</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//系统自带</span>
+textPaint<span class="token punctuation">.</span><span class="token function">setTypeface</span><span class="token punctuation">(</span>Typeface<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"SERIF"</span><span class="token punctuation">,</span> Typeface<span class="token punctuation">.</span>NORMAL<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+textPaint<span class="token punctuation">.</span><span class="token function">setTypeface</span><span class="token punctuation">(</span>Typeface<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>Typeface<span class="token punctuation">.</span>SERIF<span class="token punctuation">,</span> Typeface<span class="token punctuation">.</span>NORMAL<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//自定义字体 一</span>
+<span class="token function">createFromAsset</span><span class="token punctuation">(</span>AssetManager mgr<span class="token punctuation">,</span> String path<span class="token punctuation">)</span>
+<span class="token function">createFromFile</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span>和<span class="token function">createFromFile</span><span class="token punctuation">(</span>File path<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//自定义字体 二</span>
+<span class="token comment" spellcheck="true">// 获取字体并设置画笔字体</span>
+Typeface typeface <span class="token operator">=</span> Typeface<span class="token punctuation">.</span><span class="token function">createFromAsset</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">getAssets</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"kt.ttf"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+textPaint<span class="token punctuation">.</span><span class="token function">setTypeface</span><span class="token punctuation">(</span>typeface<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>setTextSkewX (float skewX) // 设置画笔文本倾斜  官方推荐-0.25F</li>
+<li>setStrikeThruText (boolean strikeThruText)  //文本删除线</li>
+<li>setLinearText (boolean linearText)<br>设置是否打开线性文本标识，这玩意对大多数人来说都很奇怪不知道这玩意什么意思。想要明白这东西你要先知道文本在Android中是如何进行存储和计算的。在Android中文本的绘制需要使用一个bitmap作为单个字符的缓存，既然是缓存必定要使用一定的空间，我们可以通过setLinearText (true)告诉Android我们不需要这样的文本缓存。</li>
+<li>setFakeBoldText (boolean fakeBoldText) //设置文本仿粗体</li>
+</ul>
+<p>** setMaskFilter(MaskFilter maskfilter) **</p>
+<ul>
+<li>关闭硬件加速 setLayerType(LAYER_TYPE_SOFTWARE, null);  </li>
+</ul>
+<h2 id="MaskFilter"><a href="#MaskFilter" class="headerlink" title="MaskFilter"></a>MaskFilter</h2><h3 id="BlurMaskFilter"><a href="#BlurMaskFilter" class="headerlink" title="BlurMaskFilter"></a><a href="http://developer.android.com/reference/android/graphics/BlurMaskFilter.html" target="_blank" rel="noopener">BlurMaskFilter</a></h3><p>BlurMaskFilter(float radius, BlurMaskFilter.Blur style)  是根据Alpha通道的边界来计算模糊的</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-9b82058bb8d768cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="mPaint.setMaskFilter(new BlurMaskFilter(20, BlurMaskFilter.Blur.SOLID)); "><br>SOLID: 在图像的Alpha边界外产生一层与Paint颜色一致的阴影效果而不影响图像本身,而NORMAL,OUTER和INNER,NORMAL会将整个图像模糊掉：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-dd0ae05f5bb6b83c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="而NORMAL会在Alpha边界外产生一层阴影且会将原本的图像变透明"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-969dbe864ea21df3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OUTER会在Alpha边界外产生一层阴影且会将原本的图像变透明："></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-a2d737f7e141cd00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="INNER则会在图像内部产生模糊："></p>
+<ul>
+<li>INNER效果其实并不理想，实际应用中我们使用的也少，我们往往会使用混合模式和渐变和获得更完美的内阴影效果。</li>
+<li>从Bitmap中获取其Alpha通道，在绘制Bitmap<pre class="line-numbers language-java"><code class="language-java">      <span class="token comment" spellcheck="true">// 获取位图的Alpha通道图</span>
+      shadowBitmap <span class="token operator">=</span> srcBitmap<span class="token punctuation">.</span><span class="token function">extractAlpha</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 先绘制阴影</span>
+      canvas<span class="token punctuation">.</span><span class="token function">drawBitmap</span><span class="token punctuation">(</span>shadowBitmap<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> shadowPaint<span class="token punctuation">)</span><span class="token punctuation">;</span>ps
+      <span class="token comment" spellcheck="true">// 再绘制位图</span>
+      canvas<span class="token punctuation">.</span><span class="token function">drawBitmap</span><span class="token punctuation">(</span>srcBitmap<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-65441b07e4897adc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果"> </p>
+<h3 id="EmbossMaskFilter"><a href="#EmbossMaskFilter" class="headerlink" title="EmbossMaskFilter"></a>EmbossMaskFilter</h3><p><a href="http://developer.android.com/reference/android/graphics/EmbossMaskFilter.html" target="_blank" rel="noopener">EmbossMaskFilter</a>让你绘制的图像感觉像是从屏幕中“凸”起来更有立体感一样（在设计软件中类似的效果称之为斜面浮雕）。<br>public EmbossMaskFilter (float[] direction, float ambient, float specular, float blurRadius)</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-c86eea804db449c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>direction 指光照方向,有而且只能有三个值即float[x,y,z],<br>首先x和y很好理解，平面的两个维度,上面小球使用[1,1] 45度角, 而z轴表示光源是在屏幕后方还是屏幕前方,上面我们是用的是1，正值表示光源往屏幕外偏移1个单位，负值表示往屏幕里面偏移。[x,y,z]表示的是空间坐标，代表光源的位置，那么一旦这个位置确定，[ax,ay,az]则没有意义</li>
+<li>ambient 用来设置环境光的，在Android中环境光默认为白色，其值越大, 球阴影越浅</li>
+<li>specular是跟高光有关的，其值是个双向值越小或越大高光越强中间值则是最弱</li>
+</ul>
+<h2 id="setPathEffect"><a href="#setPathEffect" class="headerlink" title="setPathEffect"></a>setPathEffect</h2><p><a href="http://developer.android.com/reference/android/graphics/Paint.html#setPathEffect(android.graphics.PathEffect)" target="_blank" rel="noopener"><strong>setPathEffect</strong></a>(<a href="http://developer.android.com/reference/android/graphics/PathEffect.html" target="_blank" rel="noopener">PathEffect</a> effect)</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-28a7d7d4a0184dd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PathEffect"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-eced4d31240f92cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="六个子类分别可以实现不同的路径效果"></p>
+<ul>
+<li>ComposePathEffect(PathEffect outerpe, PathEffect innerpe)会先将路径变成innerpe的效果，再去复合outerpe的路径效果，即：outerpe(innerpe(Path))；而SumPathEffect(PathEffect first, PathEffect second)则会把两种路径效果加起来再作用于路径</li>
+</ul>
+<h2 id="setShadowLayer"><a href="#setShadowLayer" class="headerlink" title="setShadowLayer"></a>setShadowLayer</h2><p><strong>setShadowLayer(float radius, float dx, float dy, int shadowColor)</strong></p>
+<ul>
+<li>该方法为我们绘制的图形添加一个阴影层效果</li>
+<li>同样不支持HW</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+     * 初始化画笔
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">initPaint</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 实例化画笔</span>
+        mPaint <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Paint</span><span class="token punctuation">(</span>Paint<span class="token punctuation">.</span>ANTI_ALIAS_FLAG<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setColor</span><span class="token punctuation">(</span>Color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setStyle</span><span class="token punctuation">(</span>Style<span class="token punctuation">.</span>FILL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setShadowLayer</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> Color<span class="token punctuation">.</span>DKGRAY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-dc54b487331bc55c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="setShadowLayer"></p>
+<h2 id="Shader"><a href="#Shader" class="headerlink" title="Shader"></a><a href="http://developer.android.com/reference/android/graphics/Shader.html" target="_blank" rel="noopener">Shader</a></h2><p><img src="http://upload-images.jianshu.io/upload_images/1321512-9c835814fe118758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Shader"></p>
+<h3 id="BitmapShader"><a href="#BitmapShader" class="headerlink" title="BitmapShader"></a><strong>BitmapShader</strong></h3><p>[BitmapShader](<a href="http://developer.android.com/reference/android/graphics/BitmapShader.html#BitmapShader" target="_blank" rel="noopener">http://developer.android.com/reference/android/graphics/BitmapShader.html#BitmapShader</a>(android.graphics.Bitmap, android.graphics.Shader.TileMode, android.graphics.Shader.TileMode))(<a href="http://developer.android.com/reference/android/graphics/Bitmap.html" target="_blank" rel="noopener">Bitmap</a> bitmap, <a href="http://developer.android.com/reference/android/graphics/Shader.TileMode.html" target="_blank" rel="noopener">Shader.TileMode</a> tileX, Shader.TileMode tileY)<br>Usage:<br> <code>mPaint.setShader(new BitmapShader(bitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR));</code><br>Shader.TileMode</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-429c4b5b87ee42e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BitmapShader(bitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR)"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-a8a376efeb396145.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-26cc878c09718d6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.MIRROR)"></p>
+<ul>
+<li>着色是先在Y轴拉伸了然后再沿着X轴重复对</li>
+</ul>
+<h3 id="LinearGradient"><a href="#LinearGradient" class="headerlink" title="LinearGradient"></a><strong>LinearGradient</strong></h3><ul>
+<li>mPaint.setShader(new LinearGradient(left, top, right - RECT_SIZE, bottom - RECT_SIZE, Color.RED, Color.YELLOW, Shader.TileMode.REPEAT));   //(left,top) 起点坐标， (right-RECT_SIZE, bottom-RECT_SIZE) 终点坐标，效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/1321512-8abc8e6d219ba11f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+<li>LinearGradient(left, top, right, bottom, new int[] { Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN, Color.BLUE }, new float[] { 0, 0.1F, 0.5F, 0.7F, 0.8F }, Shader.TileMode.MIRROR)，效果如下图：<ul>
+<li>new int[](colors[]) 定义渐变颜色</li>
+<li>new float[](positions[]) 定义渐变区间,取值区间[0, 100%]，意思是整个渐变占渐变区域的百分比</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-8abb4c67099048e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-c39e7f5bacace753.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="positions[] =null, 各颜色均分"></p>
+<p>应用案例图片1——倒影：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-ed98c0646e213843.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="reflect"></p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 实例化一个矩阵对象</span>
+        Matrix matrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        matrix<span class="token punctuation">.</span><span class="token function">setScale</span><span class="token punctuation">(</span><span class="token number">1F</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1F</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 生成倒影图</span>
+        mRefBitmap <span class="token operator">=</span> Bitmap<span class="token punctuation">.</span><span class="token function">createBitmap</span><span class="token punctuation">(</span>mSrcBitmap<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> mSrcBitmap<span class="token punctuation">.</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> mSrcBitmap<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> matrix<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//生产消失渐变</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setShader</span><span class="token punctuation">(</span>
+                        <span class="token keyword">new</span> <span class="token class-name">LinearGradient</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y <span class="token operator">+</span> mSrcBitmap<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span>
+                                y <span class="token operator">+</span> mSrcBitmap<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> mSrcBitmap<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+                                <span class="token number">0xAA000000</span><span class="token punctuation">,</span> Color<span class="token punctuation">.</span>TRANSPARENT<span class="token punctuation">,</span> Shader<span class="token punctuation">.</span>TileMode<span class="token punctuation">.</span>CLAMP<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//合成效果</span>
+    mXfermode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PorterDuffXfermode</span><span class="token punctuation">(</span>PorterDuff<span class="token punctuation">.</span>Mode<span class="token punctuation">.</span>DST_IN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onDraw</span><span class="token punctuation">(</span>Canvas canvas<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        canvas<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>srcBitmap<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> sc <span class="token operator">=</span> canvas<span class="token punctuation">.</span><span class="token function">saveLayer</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>null<span class="token punctuation">,</span>Canvas<span class="token punctuation">.</span>ALL_SAVE_FLAG<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+
+        canvas<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>mRefBitmap<span class="token punctuation">)</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setXfermode</span><span class="token punctuation">(</span>mXfermode<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span><span class="token function">drawRect</span><span class="token punctuation">(</span>left<span class="token punctuation">,</span>top<span class="token punctuation">,</span>right<span class="token punctuation">,</span>bottom<span class="token punctuation">,</span>mPaint<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setXfermode</span><span class="token punctuation">(</span>mXfermode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span><span class="token function">restoreToCount</span><span class="token punctuation">(</span>sc<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>应用案例图片2-（去饱和、提亮、色相矫正）<br>姿势诀窍第一式：<br><img src="http://upload-images.jianshu.io/upload_images/1321512-6daae0620f962d72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="专业术语之梦幻特效"></p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 实例化混合模式</span>
+        mXfermode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PorterDuffXfermode</span><span class="token punctuation">(</span>PorterDuff<span class="token punctuation">.</span>Mode<span class="token punctuation">.</span>SCREEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 去饱和、提亮、色相矫正</span>
+        mBitmapPaint<span class="token punctuation">.</span><span class="token function">setColorFilter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ColorMatrixColorFilter</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+                        <span class="token number">0.8587F</span><span class="token punctuation">,</span> <span class="token number">0.2940F</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">0.0927F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">6.79F</span><span class="token punctuation">,</span>
+                        <span class="token number">0.0821F</span><span class="token punctuation">,</span> <span class="token number">0.9145F</span><span class="token punctuation">,</span> <span class="token number">0.0634F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">6.79F</span><span class="token punctuation">,</span>
+                        <span class="token number">0.2019F</span><span class="token punctuation">,</span> <span class="token number">0.1097F</span><span class="token punctuation">,</span> <span class="token number">0.7483F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">6.79F</span><span class="token punctuation">,</span>
+                        <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onDraw</span><span class="token punctuation">(</span>Canvas canvas<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> sc <span class="token operator">=</span> canvas<span class="token punctuation">.</span><span class="token function">saveLayer</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>null<span class="token punctuation">,</span>Canvas<span class="token punctuation">.</span>ALL_SAVE_FLAG<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span><span class="token function">drawColor</span><span class="token punctuation">(</span><span class="token number">0xcc1c093e</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setXfermode</span><span class="token punctuation">(</span>mXfermode<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span><span class="token function">drawBitmap</span><span class="token punctuation">(</span>bitmap<span class="token punctuation">,</span>x<span class="token punctuation">,</span>y<span class="token punctuation">,</span>mPaint<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+        mPaint<span class="token punctuation">.</span><span class="token function">setXfermode</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span><span class="token function">restoreToCount</span><span class="token punctuation">(</span>sc<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>模拟单反相机的暗角效果，压暗图片周围的颜色亮度提亮中心：</p>
+<h3 id="RadialGradient"><a href="#RadialGradient" class="headerlink" title="RadialGradient"></a>RadialGradient</h3><p>姿势诀窍第二式：<br><img src="http://upload-images.jianshu.io/upload_images/1321512-fadf93e521b00064.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RadialGradientPs.png"></p>
+<pre class="line-numbers language-java"><code class="language-java">      <span class="token function">onDraw</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 最后添加
+        <span class="token comment" spellcheck="true">// 实例化混合模式</span>
+        <span class="token comment" spellcheck="true">// 中心颜色为透明而边缘颜色为黑色</span>
+        mShaderPaint<span class="token punctuation">.</span><span class="token function">setShader</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">RadialGradient</span><span class="token punctuation">(</span>screenW <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> screenH <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span>
+                mBitmap<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">7</span> <span class="token operator">/</span> <span class="token number">8</span><span class="token punctuation">,</span> Color<span class="token punctuation">.</span>TRANSPARENT<span class="token punctuation">,</span> Color<span class="token punctuation">.</span>BLACK<span class="token punctuation">,</span> Shader<span class="token punctuation">.</span>TileMode<span class="token punctuation">.</span>CLAMP<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 绘制一个跟图片大小一样的矩形</span>
+        canvas<span class="token punctuation">.</span><span class="token function">drawRect</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> x <span class="token operator">+</span> mBitmap<span class="token punctuation">.</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> y <span class="token operator">+</span> mBitmap<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> mShaderPaint<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>姿势二存在的问题：</p>
+<ul>
+<li>只能是圆形的渐变，对颜色区域的把控能力不足 ；</li>
+</ul>
+<p>姿势2.1 矩阵亮相</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-f2e7497cb9dffbc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MatrixPs.png"></p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">// 根据我们源图的大小生成暗角Bitmap</span>
+        darkCornerBitmap <span class="token operator">=</span> Bitmap<span class="token punctuation">.</span><span class="token function">createBitmap</span><span class="token punctuation">(</span>mBitmap<span class="token punctuation">.</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> mBitmap<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bitmap<span class="token punctuation">.</span>Config<span class="token punctuation">.</span>ARGB_8888<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 将该暗角Bitmap注入Canvas</span>
+        Canvas canvas <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Canvas</span><span class="token punctuation">(</span>darkCornerBitmap<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 计算径向渐变半径</span>
+        <span class="token keyword">float</span> radiu <span class="token operator">=</span> canvas<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">2F</span> <span class="token operator">/</span> <span class="token number">3F</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 实例化Shader图形的画笔</span>
+        mShaderPaint <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Paint</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 设置径向渐变，渐变中心当然是图片的中心也是屏幕中心，渐变半径我们直接拿图片的高度但是要稍微小一点</span>
+        <span class="token comment" spellcheck="true">// 中心颜色为透明而边缘颜色为黑色</span>
+        RadialGradient radialGradient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RadialGradient</span><span class="token punctuation">(</span>screenW <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">,</span> screenH <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">,</span>
+                mBitmap<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">7</span> <span class="token operator">/</span> <span class="token number">8</span><span class="token punctuation">,</span> Color<span class="token punctuation">.</span>TRANSPARENT<span class="token punctuation">,</span> Color<span class="token punctuation">.</span>BLACK<span class="token punctuation">,</span> Shader<span class="token punctuation">.</span>TileMode<span class="token punctuation">.</span>CLAMP<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 实例化一个矩阵</span>
+        Matrix matrix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Matrix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 设置矩阵的缩放</span>
+        matrix<span class="token punctuation">.</span><span class="token function">setScale</span><span class="token punctuation">(</span>canvas<span class="token punctuation">.</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>radiu <span class="token operator">*</span> <span class="token number">2F</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1.0F</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 设置矩阵的预平移</span>
+        matrix<span class="token punctuation">.</span><span class="token function">preTranslate</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>radiu <span class="token operator">*</span> <span class="token number">2F</span><span class="token punctuation">)</span> <span class="token operator">-</span> canvas<span class="token punctuation">.</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2F</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 将该矩阵注入径向渐变</span>
+        radialGradient<span class="token punctuation">.</span><span class="token function">setLocalMatrix</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mShaderPaint<span class="token punctuation">.</span><span class="token function">setShader</span><span class="token punctuation">(</span>radialGradient<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 绘制矩形</span>
+        canvas<span class="token punctuation">.</span><span class="token function">drawRect</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> canvas<span class="token punctuation">.</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> canvas<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> mShaderPaint<span class="token punctuation">)</span><span class="token punctuation">;</span>
+               把姿势二onDraw换成
+        <span class="token comment" spellcheck="true">//绘制我们画好的径向渐变图      </span>
+        canvas<span class="token punctuation">.</span><span class="token function">drawBitmap</span><span class="token punctuation">(</span>darkCornerBitmap<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/View/" rel="tag"># View</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/11/2019-6-5-nginx/" rel="next" title="nginx 学习笔记">
+                <i class="fa fa-chevron-left"></i> nginx 学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/12/2018-8-15-jni-note/" rel="prev" title="JNI/NDK开发指南学习笔记">
+                JNI/NDK开发指南学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/09/11/2019-9-11-custome-view/" data-title="自定义控件其实很简单(笔记一)" data-url="http://linz.tech/2019/09/11/2019-9-11-custome-view/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#姿势点"><span class="nav-number">1.</span> <span class="nav-text">姿势点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ColorFilter"><span class="nav-number">2.</span> <span class="nav-text">ColorFilter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ColorMatrix"><span class="nav-number">2.1.</span> <span class="nav-text">ColorMatrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LightingColorFilter"><span class="nav-number">2.2.</span> <span class="nav-text">LightingColorFilter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PorterDuffColorFilter"><span class="nav-number">2.3.</span> <span class="nav-text">PorterDuffColorFilter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AvoidXfermode"><span class="nav-number">3.</span> <span class="nav-text">AvoidXfermode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PixelXorXfermode"><span class="nav-number">3.1.</span> <span class="nav-text">PixelXorXfermode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PorterDuffXfermode高级姿势"><span class="nav-number">3.2.</span> <span class="nav-text">PorterDuffXfermode高级姿势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Paint-之-Font"><span class="nav-number">4.</span> <span class="nav-text">Paint 之 Font</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FontMetrics"><span class="nav-number">4.1.</span> <span class="nav-text">FontMetrics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paint-之方法解析"><span class="nav-number">4.2.</span> <span class="nav-text">Paint 之方法解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MaskFilter"><span class="nav-number">5.</span> <span class="nav-text">MaskFilter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BlurMaskFilter"><span class="nav-number">5.1.</span> <span class="nav-text">BlurMaskFilter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EmbossMaskFilter"><span class="nav-number">5.2.</span> <span class="nav-text">EmbossMaskFilter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setPathEffect"><span class="nav-number">6.</span> <span class="nav-text">setPathEffect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setShadowLayer"><span class="nav-number">7.</span> <span class="nav-text">setShadowLayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shader"><span class="nav-number">8.</span> <span class="nav-text">Shader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BitmapShader"><span class="nav-number">8.1.</span> <span class="nav-text">BitmapShader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinearGradient"><span class="nav-number">8.2.</span> <span class="nav-text">LinearGradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RadialGradient"><span class="nav-number">8.3.</span> <span class="nav-text">RadialGradient</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

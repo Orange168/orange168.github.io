@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] Open source git-flow git-extras  基础Git配置 list all  git config  git config -l    /etc/gitconfig  &amp;lt; ~/.gitconfig  &amp;lt;  .git/config 逐级覆盖 $ git config –global core.editor vim $ git config –globa">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 基础比较">
+<meta property="og:url" content="http://linz.tech/2019/04/13/2019-4-13-git-basic-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="[TOC] Open source git-flow git-extras  基础Git配置 list all  git config  git config -l    /etc/gitconfig  &amp;lt; ~/.gitconfig  &amp;lt;  .git/config 逐级覆盖 $ git config –global core.editor vim $ git config –globa">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-eeab7ed5307766f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-c6f141e8343b590e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-3a5d7629205a8ff2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-87d9eef790f21405.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.493Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git 基础比较">
+<meta name="twitter:description" content="[TOC] Open source git-flow git-extras  基础Git配置 list all  git config  git config -l    /etc/gitconfig  &amp;lt; ~/.gitconfig  &amp;lt;  .git/config 逐级覆盖 $ git config –global core.editor vim $ git config –globa">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1321512-eeab7ed5307766f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/04/13/2019-4-13-git-basic-note/">
+
+
+
+
+
+  <title>git 基础比较 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/04/13/2019-4-13-git-basic-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git 基础比较</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-13T01:19:31+08:00">
+                2019-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/13/2019-4-13-git-basic-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/13/2019-4-13-git-basic-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h4 id="Open-source"><a href="#Open-source" class="headerlink" title="Open source"></a>Open source</h4><ul>
+<li><a href="https://github.com/nvie/gitflow" target="_blank" rel="noopener">git-flow</a></li>
+<li><a href="https://github.com/tj/git-extras" target="_blank" rel="noopener">git-extras</a></li>
+</ul>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h2><ul>
+<li>list all  git config  git config -l   </li>
+<li>/etc/gitconfig  &lt; ~/.gitconfig  &lt;  .git/config 逐级覆盖</li>
+<li>$ git config –global core.editor vim</li>
+<li>$ git config –global merge.tool vimdiff</li>
+<li>用户名<br>git config –global user.name “edward.lin”<br>git config –global user.email “<a href="mailto:edward.lin@anarry.com" target="_blank" rel="noopener">edward.lin@anarry.com</a>“</li>
+<li>显示为彩色（默认）<br>git config –global color.ui true</li>
+</ul>
+<h3 id="生成秘钥"><a href="#生成秘钥" class="headerlink" title="生成秘钥"></a>生成秘钥</h3><p><code>ssh-keygen -t rsa -C “1129103472@qq.com”</code><br>按3个回车，密码为空。(不要输密码)<br>然后到.ssh下面将id_rsa.pub里的内容复制出来粘贴到github个人中心的账户设置的ssh key里面<br>测试：ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></p>
+<p>linxu : .ssh/id_rsa.pub ==&gt; github<br>window: C:\Users\Administrator.ssh\id_rsa.pub ==&gt; github</p>
+<h3 id="忽略配置"><a href="#忽略配置" class="headerlink" title="忽略配置"></a>忽略配置</h3><p><code>.gitignore</code></p>
+<pre><code>#把.o 文件与.a文件过滤掉不添加
+*.[oa]
+#ignore优先级问题,!test.o会继续提交这个文件
+*.o
+!test.o
+#匹配0个或者多个目录,当前目录与子目录
+**/res
+#匹配文件夹
+foo/</code></pre><h3 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h3><ol>
+<li><p><strong>命令别名</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.st status    
+git config --global alias.br branch
+带参数
+git config --global alias.last 'log -1 HEAD'
+git log -1 HEAD ==> git last<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-eeab7ed5307766f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="File Status Lifecycle"><br><strong>对比文件的不同</strong></p>
+<ul>
+<li>git diff  - -cached  #查看已缓存与已提交的改动</li>
+<li>git diff HEAD #查看已提交的与未缓存的所有改动</li>
+<li>git diff - - stat 显示摘要而非整个 diff </li>
+</ul>
+<p><strong>移除文件</strong></p>
+<ul>
+<li>git reset HEAD – file  //git reset HEAD 以取消之前 git add 添加</li>
+<li>git rm file   //会将文件从缓存区和你的硬盘中（工作目录）删除</li>
+<li>git rm –cached  //在工作目录中留着该文件，and delete the status of under version control </li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">$ git rm log/\*.log     #反斜杠 \，因为 Git 有它自己的文件模式扩展匹配方式
+$ git rm \\*~<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>（译注：实际上不加反斜杠也可以运行，只不过按照 shell 扩展的话，仅仅删除指定目录下的文件而不会递归匹配)</p>
+<p><em>移动文件</em><br>Git 中对文件改名  <code>$ git mv file_from file_to</code></p>
+<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>查看日志的内容差异，并指定次数： <code>$ git log -p -2 commit ca82a6dff817ec66f44342007202690a93763949</code><br><code>--stat</code> 只显示统计的修改行数 如： | 31 ++++++++++++++—————–<br><code>$ git log --pretty=format:&quot;%h - %an, %ar : %s&quot;</code> 另外还有 oneline, short，full 和fuller 可以用</p>
+<ul>
+<li>结合 –graph<br><code>$ git log --pretty=format:&quot;%h %s&quot; --graph</code></li>
+<li>Filter<br><code>$ git log --since=2.weeks</code><br><code>git log --pretty=&quot;%h - %s&quot; --author=gitster --since=&quot;2008-10-01&quot; \ --before=&quot;2008-11-01&quot; --no-merges</code><br>  选项 说明 -(n)    仅显示最近的 n 条提交 –since, –after 仅显示指定时间之后的提交。 –until, –before 仅显示指定时间之</li>
+</ul>
+<h3 id="Log-命令的使用"><a href="#Log-命令的使用" class="headerlink" title="Log 命令的使用"></a>Log 命令的使用</h3><pre class="line-numbers language-shell"><code class="language-shell">git log    q //exit from the log status   like man 
+git log  --oneline
+git log  --graph
+git log --oneline  new_branch
+git log --oneline erlang ^master //look the sumbit no include master
+git loggit log <file>      # 查看该文件每次提交记录
+git log -p <file>   # 显示版本历史，以及版本间的内容差异
+git log -p -2       # 查看最近两次详细修改内容的diff
+git log --stat      # 查看提交统计信息
+git log --since="6 hours"  # 显示最近6小时提交
+git log --before="2 days"  # 显示2天前提交
+git log -1 HEAD~3          # 显示比HEAD早3个提交的那个提交
+git log -1 HEAD^^^git reflog                 # 查看操作
+git log branchA ^branchB 
+git log –author 只寻找某个特定作者的提交 
+$ git log --author=Linus --oneline -5 
+git log –since –before 根据日期过滤提交记录 
+git log --oneline --before={3.weeks.ago} --after={2010-04-18} --no-merges   #  --no-merges 隐藏合并提交 
+git log –grep 根据提交注释过滤提交记录 $ git log --grep=search_key_work   --no-merges 
+git log -S 依据所引入的差值过滤 如果你要找某个函数是何时引入的，某些变量是在哪里开始被使用的？ 你可以告诉 Git 在每个提交之间的差值中查找特定字符串 
+git log -p 基于快照，产生各个快照的差值（补丁）VS git log –stat 显示每个提交引入的改动的差值"统计" <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></file></file></code></pre>
+<h2 id="撤消操作"><a href="#撤消操作" class="headerlink" title="撤消操作"></a>撤消操作</h2><p><strong>修改最后一次提交</strong><br><code>$ git commit --amend</code> #用当前的暂存区域快照提交</p>
+<ul>
+<li>没有作任何改动 ==&gt; 重写commit日志</li>
+<li>有改动，提交改动 And 重写日志</li>
+</ul>
+<p><strong>取消已经暂存的文件</strong><br><code>use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage</code></p>
+<p><strong>取消对文件的修改</strong></p>
+<pre><code>A) trace
+1.git reset xxxxxx path/to/file
+2. use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory
+B) untrace   --&gt;&gt; git rm paht/to/file
+</code></pre><h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><p>基础</p>
+<ul>
+<li>git remote # list alias of remote   </li>
+<li>git remote add [alias] [url] #add a new remote repository </li>
+<li>git remote rm # delete a remote alias <code>git remote rm origin</code></li>
+<li>git remote rename [old-alias] [new-alias]</li>
+<li>set-url<br>git remote set-url origin git://github.com/github/git-reference.git<br>git remote set-url –push origin git://github.com/pjhyett/hw.git</li>
+<li>git push -u<br><a href="http://stackoverflow.com/questions/18031946/what-does-set-upstream-do" target="_blank" rel="noopener">http://stackoverflow.com/questions/18031946/what-does-set-upstream-do</a></li>
+</ul>
+<p>推送数据到远程仓库</p>
+<ul>
+<li>git push [alias] [branch] </li>
+<li>git push  &lt;=&gt;  git push origin master </li>
+<li>git push origin new_branch  # push local new_branch to reomte repository </li>
+</ul>
+<p>查看远程仓库信息<br><code>git remote show [remote-name]</code></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><h3 id="列显已有的标签-git-tag"><a href="#列显已有的标签-git-tag" class="headerlink" title="列显已有的标签 git tag"></a>列显已有的标签 <code>git tag</code></h3><blockquote>
+<p>我们可以用特定的搜索模式列出符合条件的标签 <code>$ git tag -l &#39;v1.4.2.*&#39;</code> result: v1.4.2.1 v1.4.2.2 v1.4.2.3 v1.4.2.4</p>
+</blockquote>
+<h3 id="新建标签"><a href="#新建标签" class="headerlink" title="新建标签"></a>新建标签</h3><p>Git 使用的标签有两种类型：轻量级的（lightweight）和含附注的（annotated）。</p>
+<ul>
+<li>轻量级标签: 就像是个不会变化的分支，实际上它就是个指向特 定提交对象的引用</li>
+<li>含附注标签，实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，电子邮件地址和日期，以及标签说明，标 签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证</li>
+</ul>
+<h3 id="含附注的标签"><a href="#含附注的标签" class="headerlink" title="含附注的标签"></a>含附注的标签</h3><p><code>$ git tag -a v1.4 -m &#39;delete so libs&#39;</code></p>
+<ul>
+<li><code>-a</code> annotated 指定标签名字</li>
+<li><code>-m</code> msg</li>
+<li>可以使用 <code>git show &lt;tag name&gt;</code> 显示tag信息</li>
+</ul>
+<p>常用命令</p>
+<pre><code>$ git tag -a v0.1.1 8e918de2ca5bc06d436df990d658369c462f5c69 #补打标签
+remote 
+$ git push origin v0.1.2 # 将v0.1.2标签提交到git服务器
+$ git push origin –tags # 将本地所有标签一次性提交到git服务器</code></pre><h2 id="Git-Branch"><a href="#Git-Branch" class="headerlink" title="Git Branch"></a>Git Branch</h2><p>常用命令</p>
+<pre class="line-numbers language-shell"><code class="language-shell">git checkout -b (branch name) 创建新分支，并立即切换到它
+git branch -d (branch name) #需合并才能删除分支 git branch -D (branch name) 删除分支
+git branch <branch> <hash> 基于当前分支的某一次commit来创建分支
+git checkout -B <branch> force to overwrite same name branch
+git checkout --orphan <branch> ## new a log_clear branch and switch to it git checkout --track -b track_master origin/master
+$ git cherry-pick xxx  #可以同步一个commit到本分支<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></branch></branch></hash></branch></code></pre>
+<p> <strong>何谓分支</strong></p>
+<ol>
+<li>Git会先计算每一个子目录（本例中就是项目根目录）的校验和</li>
+<li>在Git仓库将这些目录保存为树（tree）对象</li>
+</ol>
+<h2 id="分享与更新项目"><a href="#分享与更新项目" class="headerlink" title="分享与更新项目"></a>分享与更新项目</h2><pre class="line-numbers language-shell"><code class="language-shell">git archive -o ../updated.zip HEAD $(git diff --name-only HEAD^)  #xxx代表SHA-1 Hash值。Git打包源码 
+#Fetch And Pull  
+git fetch origin # 取得远程更新（到origin/master  "origin/master" 和普通的branch一样，除了git不允许切换到它）， 但还没有合并 git merge origin/master  master  # 把更新的内容（origin/master）合并到本地分支（master）
+git merge origin/master master --squash // no branch log history 
+git log origin/master ^master # after fetch  before merge  look the  origin/master  diff log from local master
+git pull origin master # 相当于fetch和merge的合并，但分步操作更保险 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="检查与比较"><a href="#检查与比较" class="headerlink" title="检查与比较"></a>检查与比较</h4><p>git diff v0.9  #diff current status and tag status<br>可以执行类似 git diff branchA branchB 的命令。 不过它的问题在于它会完完全全按你说的作 —— 它会直接给你个补丁文件，该补丁能够将甲分支的最新快照变成乙分支的最新快照的样子。 这意味着如果两个分支已经产生分歧 —— 奔往两个不同方向了 —— 它会移除甲分支中引入的所有工作，然后累加乙分支中的所有工作。 这大概不是你要的吧 —— 你想要不在甲分支中的乙分支的改动。所以你真的需要的是两个分支叉开去时，和最新的乙分支的差别。 所以，如果我们的历史记录看起来像这样：<br>$ git log –graph –oneline –decorate –all<br>git diff branchA…branchB 来查看 branchB 与 branchA 的相对差值。</p>
+<h4 id="Git之本地忽略"><a href="#Git之本地忽略" class="headerlink" title="Git之本地忽略"></a>Git之本地忽略</h4><p>未跟踪文件</p>
+<pre class="line-numbers language-java"><code class="language-java">git config <span class="token operator">--</span>global core<span class="token punctuation">.</span>excludesfile  文件的绝对路径或 <span class="token punctuation">.</span>git<span class="token operator">/</span>info<span class="token operator">/</span>exclude
+已跟踪了的文件
+$ git update<span class="token operator">-</span>index <span class="token operator">--</span>assume<span class="token operator">-</span>unchanged <span class="token operator">/</span>path<span class="token operator">/</span>to<span class="token operator">/</span>file       #忽略跟踪
+$ git update<span class="token operator">-</span>index <span class="token operator">--</span>no<span class="token operator">-</span>assume<span class="token operator">-</span>unchanged <span class="token operator">/</span>path<span class="token operator">/</span>to<span class="token operator">/</span>file   #恢复跟踪<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="还原"><a href="#还原" class="headerlink" title="还原"></a>还原</h4><pre><code>git reset HEAD a_file  #undo last time 
+git add a_file git reset - - hard HEAD #reset repo to HEAD 
+git reset - - hard  3d409b9a302ce55d12dffdf3d99f0bed7dc2d7ff #reset to this commit time 
+git checkout 3d409b9a302ce55d12dffdf3d99f0bed7dc2d7ff  # checkout a temp branch to look around </code></pre><h4 id="技巧和窍门"><a href="#技巧和窍门" class="headerlink" title="技巧和窍门"></a>技巧和窍门</h4><p><strong>自动完成</strong><br>如果你用的是 Bash shell，可以试试看 Git 提供的自动完成脚本。下载 Git 的源代码，进入 <code>contrib/completion</code> 目录，会看到一个git-completion.bash 文件。将此文件复制到你自己的用户主目录中（译注：按照下面的示例，还应改名加上点：<code>cp git-completion.bash ~/.git-completion.bash</code>，并把下面一行内容添加到你的.bashrc 文件中：</p>
+<blockquote>
+<p>source ~/.git-completion.bash</p>
+</blockquote>
+<p>也可以为系统上所有用户都设置默认使用此脚本。Mac 上将此脚本复制到 <code>/opt/local/etc/bash_completion.d</code>目录中，Linux 上则复制到/etc/bash_completion.d/ 目录中。这两处目录中的脚本，都会在 Bash 启动时自动加载。</p>
+<p>如果在 Windows 上安装了 msysGit，默认使用的 Git Bash 就已经配好了这个自动完成脚本，可以直接使用。</p>
+<p><strong>Git 命令别名</strong></p>
+<h1 id="Git分支管理策略"><a href="#Git分支管理策略" class="headerlink" title="Git分支管理策略"></a>Git分支管理策略</h1><ul>
+<li>Master </li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-c6f141e8343b590e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Master.png"></p>
+<ul>
+<li>Develop<br><img src="http://upload-images.jianshu.io/upload_images/1321512-3a5d7629205a8ff2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Develop"></li>
+</ul>
+<h2 id="Tmeporary"><a href="#Tmeporary" class="headerlink" title="Tmeporary"></a>Tmeporary</h2><pre><code>　　* 功能（feature）分支
+　　* 预发布（release）分支
+　　* 修补bug（fixbug）分支</code></pre><p>Create a Feature branch: <code>git checkout -b feature-x develop</code> </p>
+<ul>
+<li>预发布分支<br>Create a release branch: <code>git checkout -b release-1.2 develop</code><blockquote>
+<p>预发布分支，它是指发布正式版本之前（即合并到Master分支之前），我们可能需要有一个预发布的版本进行测试。<br>预发布分支是从Develop分支上面分出来的，预发布结束以后，必须合并进Develop和Master分支。它的命名，可以采用release-*的形式。</p>
+</blockquote>
+</li>
+</ul>
+<p>确认没有问题后，合并到master分支：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">git checkout master
+git merge --no-ff release-1.2
+# 对合并生成的新节点，做一个标签    
+git tag -a 1.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>再合并到develop分支并删除：</p>
+<pre><code>git checkout develop
+git merge --no-ff release-1.2
+git branch -d release-1.2</code></pre><ul>
+<li>修补bug分支<br><img src="http://upload-images.jianshu.io/upload_images/1321512-87d9eef790f21405.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FixBug"></li>
+</ul>
+<pre class="line-numbers language-git"><code class="language-git"><span class="token comment" spellcheck="true">#Create a fixbug branch:</span>
+git checkout -b fixbug-0.1 master
+<span class="token comment" spellcheck="true">#fixbug over </span>
+git checkout master
+git merge --no-ff fixbug-0.1
+git tag -a 0.1.1
+<span class="token comment" spellcheck="true">#merge to develop</span>
+git checkout develop
+git merge --no-ff fixbug-0.1
+<span class="token comment" spellcheck="true">#delete branch </span>
+git branch -d fixbug-0.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000002443283" target="_blank" rel="noopener">git 文件打包命令</a></li>
+</ul>
+<h1 id="Git-提交规范"><a href="#Git-提交规范" class="headerlink" title="Git 提交规范"></a>Git 提交规范</h1><ul>
+<li>feat：新功能（feature）</li>
+<li>fix：修补bug</li>
+<li>docs：文档（documentation）</li>
+<li>style： 格式（不影响代码运行的变动）</li>
+<li>refactor：重构（即不是新增功能，也不是修改bug的代码变动）</li>
+<li>test：增加测试</li>
+<li>chore：构建过程或辅助工具的变动</li>
+</ul>
+<p><code>type</code>（必需）、<code>scope</code>（可选）和<code>subject</code>（必需）</p>
+<pre class="line-numbers language-xml"><code class="language-xml">`<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>(<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>): <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>subject</span><span class="token punctuation">></span></span>`<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="博客教程"><a href="#博客教程" class="headerlink" title="博客教程"></a>博客教程</h2><ul>
+<li><a href="https://www.cnblogs.com/ludashi/p/8052739.html" target="_blank" rel="noopener">Git知识总览(一) 从 git clone 和 git status 谈起</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/31/2018-10-31-android-p-api-28/" rel="next" title="Android P 电量管理">
+                <i class="fa fa-chevron-left"></i> Android P 电量管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/13/2019-2-26-server/" rel="prev" title="Java后台基础学习笔记">
+                Java后台基础学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/04/13/2019-4-13-git-basic-note/" data-title="git 基础比较" data-url="http://linz.tech/2019/04/13/2019-4-13-git-basic-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Open-source"><span class="nav-number">1.</span> <span class="nav-text">Open source</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number"></span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git配置"><span class="nav-number"></span> <span class="nav-text">Git配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成秘钥"><span class="nav-number"></span> <span class="nav-text">生成秘钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略配置"><span class="nav-number"></span> <span class="nav-text">忽略配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用配置"><span class="nav-number"></span> <span class="nav-text">常用配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志"><span class="nav-number"></span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Log-命令的使用"><span class="nav-number"></span> <span class="nav-text">Log 命令的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤消操作"><span class="nav-number"></span> <span class="nav-text">撤消操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程仓库"><span class="nav-number"></span> <span class="nav-text">远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签"><span class="nav-number"></span> <span class="nav-text">标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列显已有的标签-git-tag"><span class="nav-number"></span> <span class="nav-text">列显已有的标签 git tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建标签"><span class="nav-number"></span> <span class="nav-text">新建标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#含附注的标签"><span class="nav-number"></span> <span class="nav-text">含附注的标签</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-Branch"><span class="nav-number"></span> <span class="nav-text">Git Branch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分享与更新项目"><span class="nav-number"></span> <span class="nav-text">分享与更新项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检查与比较"><span class="nav-number">1.</span> <span class="nav-text">检查与比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git之本地忽略"><span class="nav-number">2.</span> <span class="nav-text">Git之本地忽略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#还原"><span class="nav-number">3.</span> <span class="nav-text">还原</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技巧和窍门"><span class="nav-number">4.</span> <span class="nav-text">技巧和窍门</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git分支管理策略"><span class="nav-number"></span> <span class="nav-text">Git分支管理策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tmeporary"><span class="nav-number"></span> <span class="nav-text">Tmeporary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-提交规范"><span class="nav-number"></span> <span class="nav-text">Git 提交规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number"></span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#博客教程"><span class="nav-number"></span> <span class="nav-text">博客教程</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

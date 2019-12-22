@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ui,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第1节 原生控件的用法1.1 View的基本属性 android:choiceModeCheckableLinearLayout.javaandroid:choiceModenone/singleChoice/multipleChoicemultipleChoiceModalsetMultiChoiceModeListener(AbsListView.MultiChoiceModeListener">
+<meta name="keywords" content="ui">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 原生UI笔记汇总">
+<meta property="og:url" content="http://linz.tech/2019/11/23/2019-11-23-android-原生UI笔记汇总/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="第1节 原生控件的用法1.1 View的基本属性 android:choiceModeCheckableLinearLayout.javaandroid:choiceModenone/singleChoice/multipleChoicemultipleChoiceModalsetMultiChoiceModeListener(AbsListView.MultiChoiceModeListener">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://cdn.linz.tech/image_view_scale_type.png">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 原生UI笔记汇总">
+<meta name="twitter:description" content="第1节 原生控件的用法1.1 View的基本属性 android:choiceModeCheckableLinearLayout.javaandroid:choiceModenone/singleChoice/multipleChoicemultipleChoiceModalsetMultiChoiceModeListener(AbsListView.MultiChoiceModeListener">
+<meta name="twitter:image" content="http://cdn.linz.tech/image_view_scale_type.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/11/23/2019-11-23-android-原生UI笔记汇总/">
+
+
+
+
+
+  <title>Android 原生UI笔记汇总 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/11/23/2019-11-23-android-原生UI笔记汇总/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 原生UI笔记汇总</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-23T17:43:56+08:00">
+                2019-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/23/2019-11-23-android-原生UI笔记汇总/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/11/23/2019-11-23-android-原生UI笔记汇总/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第1节-原生控件的用法"><a href="#第1节-原生控件的用法" class="headerlink" title="第1节 原生控件的用法"></a>第1节 原生控件的用法</h1><h2 id="1-1-View的基本属性"><a href="#1-1-View的基本属性" class="headerlink" title="1.1 View的基本属性"></a>1.1 View的基本属性</h2><ul>
+<li><a href="http://developer.android.com/reference/android/widget/AbsListView.html#attr_android:choiceMode" target="_blank" rel="noopener">android:choiceMode</a><br><a href="https://gist.github.com/Orange168/8f74eab9f7635fe3918d#file-checkablelinearlayout-java" target="_blank" rel="noopener"><strong>CheckableLinearLayout.java</strong></a><br><a href="http://developer.android.com/reference/android/widget/AbsListView.html#attr_android:choiceMode" target="_blank" rel="noopener">android:choiceMode</a>none/singleChoice/multipleChoice<br>multipleChoiceModal<a href="http://developer.android.com/reference/android/widget/AbsListView.html#setMultiChoiceModeListener(android.widget.AbsListView.MultiChoiceModeListener)" target="_blank" rel="noopener">setMultiChoiceModeListener(AbsListView.MultiChoiceModeListener)</a></li>
+</ul>
+<h2 id="1-2-基本控件"><a href="#1-2-基本控件" class="headerlink" title="1.2 基本控件"></a>1.2 基本控件</h2><h3 id="TextView"><a href="#TextView" class="headerlink" title="TextView"></a>TextView</h3><ol>
+<li><p>字体颜色设置select<br>drawable/selector.xml</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selector</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token comment" spellcheck="true">&lt;!--点击变红色--></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>state_pressed</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>  <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ffff0000<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+ <span class="token comment" spellcheck="true">&lt;!--获得焦点蓝色--></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>state_focused</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>  <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ff0000ff<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+ <span class="token comment" spellcheck="true">&lt;!--默认黑色--></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ff000000<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selector</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>设置属性<code>android:textColor=&quot;@drawable/selector&quot;</code></p>
+</li>
+</ol>
+<h3 id="ImageView"><a href="#ImageView" class="headerlink" title="ImageView"></a>ImageView</h3><ul>
+<li>ScaleType<pre><code>MATRIX、FIT_XY、FIT_START、FIT_CENTER、FIT_END、CENTER、CENTER_CROP、CENTER_INSIDE</code></pre><img src="http://cdn.linz.tech/image_view_scale_type.png" alt></li>
+</ul>
+<h3 id="LinearLayout"><a href="#LinearLayout" class="headerlink" title="LinearLayout"></a>LinearLayout</h3><p>LinearLayout 子控件间divider</p>
+<pre class="line-numbers language-xml"><code class="language-xml">android:divider="?android:dividerVertical"
+android:dividerPadding="8dp"
+android:showDividers="middle"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="ScrollView"><a href="#ScrollView" class="headerlink" title="ScrollView"></a>ScrollView</h3><ul>
+<li><a href="http://developer.android.com/reference/android/widget/ScrollView.html#attr_android:fillViewport" target="_blank" rel="noopener">android:fillViewport</a> 当ScrollView里的元素想填满ScrollView时，使用”fill_parent”是不管用的，必需为ScrollView设置：android:fillViewport=”true”。<a href="http://blog.sina.com.cn/s/blog_6cf2ea6a0102v61f.html" target="_blank" rel="noopener">参考资料</a></li>
+</ul>
+<h3 id="ListView"><a href="#ListView" class="headerlink" title="ListView"></a>ListView</h3><ul>
+<li>scrollbarStyle </li>
+</ul>
+<pre class="line-numbers language-xml"><code class="language-xml">**insideOverlay：**默认值，表示在padding区域内并且覆盖在view上
+**insideInset**：表示在padding区域内并且插入在view后面
+**outsideOverlay：**表示在padding区域外并且覆盖在view上，推荐这个
+**outsideInset：**表示在padding区域外并且插入在view后面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="1-3-Activity-Fragment"><a href="#1-3-Activity-Fragment" class="headerlink" title="1.3 Activity/Fragment"></a>1.3 Activity/Fragment</h2><h3 id="1-3-1-Activity"><a href="#1-3-1-Activity" class="headerlink" title="1.3.1 Activity"></a>1.3.1 Activity</h3><ul>
+<li><a href="https://inthecheesefactory.com/blog/fragment-state-saving-best-practices/en" target="_blank" rel="noopener">The Real Best Practices to Save/Restore Activity’s and Fragment’s state. </a></li>
+</ul>
+<h3 id="1-3-2-Fragment"><a href="#1-3-2-Fragment" class="headerlink" title="1.3.2 Fragment"></a>1.3.2 Fragment</h3><h4 id="最小案例分析"><a href="#最小案例分析" class="headerlink" title="最小案例分析"></a>最小案例分析</h4><pre class="line-numbers language-java"><code class="language-java">Fragment newFragment <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ExampleFragment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+FragmentTransaction transaction <span class="token operator">=</span> <span class="token function">getFragmentManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">beginTransaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+transaction<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>fragment_container<span class="token punctuation">,</span> newFragment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+transaction<span class="token punctuation">.</span><span class="token function">addToBackStack</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+transaction<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>显示：add() replace() show() attach()　　</li>
+<li>隐藏：remove() hide() detach()</li>
+<li>调用<code>commit()</code>并不立刻执行事务，相反，而是采取预约方式，一旦activity的界面线程（主线程）准备好便可运行起来。然而，如果有必要的话，你可以从界面线程调用<code>executePendingTransations()</code>立即执行由commit()提交的事务。</li>
+<li>只能在activity保存状态（当用户离开activity时）之前用commit()提交事务。如果你尝试在那时之后提交，会抛出一个异常。这是因为如果activity需要被恢复，提交后的状态会被丢失。对于这类丢失提交的情况，可使用<code>commitAllowingStateLoss()</code></li>
+<li><code>addToBackStack()</code>   调用commit()之前的所有应用的变更被作为一个单独的事务添加到后台栈中，并且BACK键可以将它们一起回退。</li>
+<li>使用<code>popBackStack()</code>（模仿用户的BACK命令）从后台栈弹出fragment</li>
+<li>使用<code>addOnBackStackChangedListener()</code>注册一个监听后台栈变化的监听器。</li>
+<li>setCustomAnimations(R.anim.slide_right_in,R.anim.slide_left_out) 设置动画</li>
+<li>transaction addSharedElement 设置共享share view</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://www.jianshu.com/p/d9143a92ad94" target="_blank" rel="noopener">Fragment全解析系列（一）：那些年踩过的坑</a></li>
+</ul>
+<h1 id="第2节-基础的布局知识"><a href="#第2节-基础的布局知识" class="headerlink" title="第2节 基础的布局知识"></a>第2节 基础的布局知识</h1><h2 id="2-1-颜色"><a href="#2-1-颜色" class="headerlink" title="2.1 颜色"></a>2.1 颜色</h2><h3 id="颜色透明度参照表"><a href="#颜色透明度参照表" class="headerlink" title="颜色透明度参照表"></a>颜色透明度参照表</h3><table>
+<thead>
+<tr>
+<th>不透明度</th>
+<th>16进制表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00%</td>
+<td>FF（不透明）</td>
+</tr>
+<tr>
+<td>5%</td>
+<td>F2</td>
+</tr>
+<tr>
+<td>10%</td>
+<td>E5</td>
+</tr>
+<tr>
+<td>15%</td>
+<td>D8</td>
+</tr>
+<tr>
+<td>20%</td>
+<td>CC</td>
+</tr>
+<tr>
+<td>25%</td>
+<td>BF</td>
+</tr>
+<tr>
+<td>30%</td>
+<td>B2</td>
+</tr>
+<tr>
+<td>35%</td>
+<td>A5</td>
+</tr>
+<tr>
+<td>40%</td>
+<td>99</td>
+</tr>
+<tr>
+<td>45%</td>
+<td>8c</td>
+</tr>
+<tr>
+<td>50%</td>
+<td>7F</td>
+</tr>
+<tr>
+<td>55%</td>
+<td>72</td>
+</tr>
+<tr>
+<td>60%</td>
+<td>66</td>
+</tr>
+<tr>
+<td>65%</td>
+<td>59</td>
+</tr>
+<tr>
+<td>70%</td>
+<td>4c</td>
+</tr>
+<tr>
+<td>75%</td>
+<td>3F</td>
+</tr>
+<tr>
+<td>80%</td>
+<td>33</td>
+</tr>
+<tr>
+<td>85%</td>
+<td>21</td>
+</tr>
+<tr>
+<td>90%</td>
+<td>19</td>
+</tr>
+<tr>
+<td>95%</td>
+<td>0c</td>
+</tr>
+<tr>
+<td>100%</td>
+<td>00（全透明）</td>
+</tr>
+</tbody></table>
+<p>算法 </p>
+<pre><code>30%不透明度也就是255*30%=76.5，四舍五入77，然后利用计算器转为16进制为4D</code></pre><p>代码</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">float</span> temp <span class="token operator">=</span> <span class="token number">255</span> <span class="token operator">*</span> i <span class="token operator">*</span> <span class="token number">1.0f</span> <span class="token operator">/</span> <span class="token number">100f</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> alpha <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            String hexStr <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">toHexString</span><span class="token punctuation">(</span>alpha<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>hexStr<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span>
+                hexStr <span class="token operator">=</span> <span class="token string">"0"</span> <span class="token operator">+</span> hexStr<span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token string">"%, "</span> <span class="token operator">+</span> hexStr<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="第3节-drawbable-bitmap-shape-等常用的绘图类"><a href="#第3节-drawbable-bitmap-shape-等常用的绘图类" class="headerlink" title="第3节 drawbable bitmap shape 等常用的绘图类"></a>第3节 drawbable bitmap shape 等常用的绘图类</h1><h2 id="3-1-drawable"><a href="#3-1-drawable" class="headerlink" title="3.1 drawable"></a>3.1 drawable</h2><p>常用的子类分类</p>
+<pre class="line-numbers language-java"><code class="language-java">Bitmap<span class="token operator">:</span>最简单的Drawable，一个PNG或JPEG图像。
+Nine Patch<span class="token operator">:</span>是对PNG格式的扩展允许它指定如何对其进行拉伸和放置的信息
+Vector<span class="token operator">:</span>向量：在XML文件中定义的可绘制的一组点，线和曲线以及相关的颜色信息。 这种类型的绘图可以缩放而不会损失显示质量。
+Shape<span class="token operator">:</span>形状：包含简单的绘图命令而不是原始位图，允许在某些情况下调整更好。
+Layers<span class="token operator">:</span>图层：一个可绘制的复合物，它在彼此顶部绘制多个底层可绘图。
+States<span class="token operator">:</span>状态，一个复合drawable，根据其状态选择一组drawable中的一个。
+Levels：级别：一个复合drawable，根据其级别从一组drawable中选择一个。
+Scale<span class="token operator">:</span>比例尺：一个可绘制的单个子组合可绘制的组合，其整体大小根据当前级别进行修改。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="第4节-动画相关"><a href="#第4节-动画相关" class="headerlink" title="第4节 动画相关"></a>第4节 动画相关</h1><h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ul>
+<li><a href="https://pspdfkit.com/blog/2016/android-animations-powered-by-rx-java/" target="_blank" rel="noopener">Android animations powered by RxJava</a></li>
+<li><a href="http://easings.net/zh-cn" target="_blank" rel="noopener">动画曲线库</a></li>
+<li><a href="http://inloop.github.io/interpolator/" target="_blank" rel="noopener">自然动画的模拟演示</a></li>
+<li>facebook 令人惊艳的按键效果 <strong><a href="https://github.com/facebook/rebound" target="_blank" rel="noopener">rebound</a></strong></li>
+<li><a href="https://github.com/airbnb/lottie-android" target="_blank" rel="noopener">Lottie-android</a> Render After Effects animations natively on Android and iOS 全平台支持， 动态动画更新；<ul>
+<li><a href="http://www.jianshu.com/p/81be1bf9600c" target="_blank" rel="noopener">从json文件到炫酷动画-Lottie实现思路和源码分析</a></li>
+<li><a href="http://www.lottiefiles.com/" target="_blank" rel="noopener">LottieFiles</a> 对应的动画json文件下载</li>
+<li><a href="https://www.jianshu.com/p/b3e25ccd6252" target="_blank" rel="noopener">Lottie 入门与实践</a></li>
+<li><a href="https://editor.lottiefiles.com/" target="_blank" rel="noopener">lottie 文件编辑</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="渐变实现"><a href="#渐变实现" class="headerlink" title="渐变实现"></a>渐变实现</h3><pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shape</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>gradient</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>angle</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>135<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>endColor</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#34e89e<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>startColor</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#0f3443<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>shape</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>animation-list</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>drawable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/gradient_blue<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>duration</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>5000<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>animation-list</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java">LinearLayout linearLayout <span class="token operator">=</span> <span class="token punctuation">(</span>LinearLayout<span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>linear_layout<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 布局background设置是上面的xml</span>
+
+AnimationDrawable animationDrawable <span class="token operator">=</span> <span class="token punctuation">(</span>AnimationDrawable<span class="token punctuation">)</span> linearLayout<span class="token punctuation">.</span><span class="token function">getBackground</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+animationDrawable<span class="token punctuation">.</span><span class="token function">setEnterFadeDuration</span><span class="token punctuation">(</span><span class="token number">2500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+animationDrawable<span class="token punctuation">.</span><span class="token function">setExitFadeDuration</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+animationDrawable<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h1><h2 id="阅读过的博文"><a href="#阅读过的博文" class="headerlink" title="阅读过的博文"></a><strong>阅读过的博文</strong></h2><ul>
+<li><a href="http://blog.csdn.net/lvxiangan/article/details/19971509" target="_blank" rel="noopener">android坐标</a></li>
+<li><a href="http://bbs.csdn.net/topics/390358020" target="_blank" rel="noopener">贝塞尔曲线</a></li>
+<li><a href="http://blog.csdn.net/tianjian4592/article/details/45652257" target="_blank" rel="noopener">Path相关方法讲解(一)</a></li>
+<li><a href="http://droidyue.com/blog/2014/07/12/check-main-thread-in-android-chinese-edition/" target="_blank" rel="noopener">Android中检测当前是否为主线程</a>。 最可靠的解决方案：<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">isInMainThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Looper<span class="token punctuation">.</span><span class="token function">myLooper</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> Looper<span class="token punctuation">.</span><span class="token function">getMainLooper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>```</p>
+<ul>
+<li><a href="http://www.race604.com/tint-drawable/" target="_blank" rel="noopener">Drawable 着色的后向兼容方案</a></li>
+<li><a href="http://www.07net01.com/2016/01/1118674.html" target="_blank" rel="noopener">VectorDrawable 和 AnimatedVectorDrawable 的兼容性问题</a> 印象有备份</li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MzI1NjEwMTM4OA==&mid=2651232105&idx=1&sn=fcc4fa956f329f839f2a04793e7dd3b9&scene=0#rd" target="_blank" rel="noopener">Android动态布局入门及NinePatchChunk解密</a> 有备份</li>
+</ul>
+<h2 id="重点博文"><a href="#重点博文" class="headerlink" title="重点博文"></a><strong>重点博文</strong></h2><ul>
+<li><a href="http://blog.csdn.net/column/details/androidcustomview.html" target="_blank" rel="noopener">Android自定义控件其实很简单</a></li>
+<li><a href="http://www.jianshu.com/p/0acc12c29c1b#" target="_blank" rel="noopener">Android开发：Translucent System Bar 的最佳实践</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ui/" rel="tag"># ui</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/14/2019-11-14-Android-常用命令小结/" rel="next" title="Android 常用命令小结">
+                <i class="fa fa-chevron-left"></i> Android 常用命令小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/22/2016-12-03-hexo-tutorial/" rel="prev" title="Hexo Tutorial">
+                Hexo Tutorial <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/11/23/2019-11-23-android-原生UI笔记汇总/" data-title="Android 原生UI笔记汇总" data-url="http://linz.tech/2019/11/23/2019-11-23-android-原生UI笔记汇总/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1节-原生控件的用法"><span class="nav-number">1.</span> <span class="nav-text">第1节 原生控件的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-View的基本属性"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 View的基本属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-基本控件"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 基本控件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TextView"><span class="nav-number">1.2.1.</span> <span class="nav-text">TextView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ImageView"><span class="nav-number">1.2.2.</span> <span class="nav-text">ImageView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinearLayout"><span class="nav-number">1.2.3.</span> <span class="nav-text">LinearLayout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ScrollView"><span class="nav-number">1.2.4.</span> <span class="nav-text">ScrollView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ListView"><span class="nav-number">1.2.5.</span> <span class="nav-text">ListView</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Activity-Fragment"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Activity/Fragment</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-Activity"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 Activity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-Fragment"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 Fragment</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最小案例分析"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">最小案例分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2节-基础的布局知识"><span class="nav-number">2.</span> <span class="nav-text">第2节 基础的布局知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-颜色"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#颜色透明度参照表"><span class="nav-number">2.1.1.</span> <span class="nav-text">颜色透明度参照表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3节-drawbable-bitmap-shape-等常用的绘图类"><span class="nav-number">3.</span> <span class="nav-text">第3节 drawbable bitmap shape 等常用的绘图类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-drawable"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 drawable</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4节-动画相关"><span class="nav-number">4.</span> <span class="nav-text">第4节 动画相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">4.1.</span> <span class="nav-text">基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例"><span class="nav-number">4.2.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渐变实现"><span class="nav-number">4.2.1.</span> <span class="nav-text">渐变实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考-1"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阅读过的博文"><span class="nav-number">5.1.</span> <span class="nav-text">阅读过的博文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重点博文"><span class="nav-number">5.2.</span> <span class="nav-text">重点博文</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

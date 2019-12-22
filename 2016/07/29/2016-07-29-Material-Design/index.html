@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Material,Design,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言一、设计阶段Material Design 提供了跨设备和 Web 的一致性用户体验。它的四项原则：  有型的外观(Tangible surface)：应用像现实中的实物一样。 仿印刷品的设计(Print-like design)：内容醒目、形象生动、意图明确。 有意义的运动效果(Meaningful motion)：吸引用户的兴趣，在应用状态切换时保持连续性。 自适应设计(Adaptive">
+<meta name="keywords" content="Material,Design">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Material Design">
+<meta property="og:url" content="http://linz.tech/2016/07/29/2016-07-29-Material-Design/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="前言一、设计阶段Material Design 提供了跨设备和 Web 的一致性用户体验。它的四项原则：  有型的外观(Tangible surface)：应用像现实中的实物一样。 仿印刷品的设计(Print-like design)：内容醒目、形象生动、意图明确。 有意义的运动效果(Meaningful motion)：吸引用户的兴趣，在应用状态切换时保持连续性。 自适应设计(Adaptive">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*fFC0LdzpExlP3VG93coZDA.gif">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-58619ce3666e1c30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-e6e4136518502264.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-bddcf5a56fa4f69d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg">
+<meta property="og:image" content="https://camo.githubusercontent.com/895f0065aa1d9c993569619853c81180c5d2658e/68747470733a2f2f6431337961637572716a676172612e636c6f756466726f6e742e6e65742f75736572732f36323331392f73637265656e73686f74732f313934353539332f73686f742e676966">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-983413370be2cf9d.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://raw.githubusercontent.com/mikepenz/Android-Iconics/develop/DEV/github/screenshots1.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-bb399ca3261ed312.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://camo.githubusercontent.com/11210be7db7aca27e0d27eeb388a5024ff15bdf5/687474703a2f2f692e696d6775722e636f6d2f785857446d4c622e706e67">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-ac6d83be32c98e2d.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-bbde458abf626b19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://github.com/Yellow5A5/ActSwitchAnimTool/raw/master/image/demo_show1.gif">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-f6649aa0a09f8b3f.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-c3eebff44da714ea.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-8efaa73f1003543b.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-db769a9b6fa9face.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-822426affad1682d.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Material Design">
+<meta name="twitter:description" content="前言一、设计阶段Material Design 提供了跨设备和 Web 的一致性用户体验。它的四项原则：  有型的外观(Tangible surface)：应用像现实中的实物一样。 仿印刷品的设计(Print-like design)：内容醒目、形象生动、意图明确。 有意义的运动效果(Meaningful motion)：吸引用户的兴趣，在应用状态切换时保持连续性。 自适应设计(Adaptive">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/800/1*fFC0LdzpExlP3VG93coZDA.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2016/07/29/2016-07-29-Material-Design/">
+
+
+
+
+
+  <title>Material Design | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2016/07/29/2016-07-29-Material-Design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Material Design</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-29T00:00:00+08:00">
+                2016-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/07/29/2016-07-29-Material-Design/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/29/2016-07-29-Material-Design/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一、设计阶段<br>Material Design 提供了跨设备和 Web 的一致性用户体验。它的四项原则：</p>
+<ul>
+<li>有型的外观(Tangible surface)：应用像现实中的实物一样。</li>
+<li>仿印刷品的设计(Print-like design)：内容醒目、形象生动、意图明确。</li>
+<li>有意义的运动效果(Meaningful motion)：吸引用户的兴趣，在应用状态切换时保持连续性。</li>
+<li>自适应设计(Adaptive deisgn)：用户在手机、平板、Android TV、Android Wear、Android Auto 等不同设备上都能感到熟悉、一致，而不需要重新适应应用。</li>
+</ul>
+<h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><h2 id="官方API"><a href="#官方API" class="headerlink" title="官方API"></a>官方API</h2><ul>
+<li><a href="https://developer.android.com/training/transitions/overview.html" target="_blank" rel="noopener">The Transitions Framework</a></li>
+<li><a href="http://developer.android.com/tools/support-library/index.html" target="_blank" rel="noopener">Support Library</a></li>
+</ul>
+<h2 id="官方博客"><a href="#官方博客" class="headerlink" title="官方博客"></a>官方博客</h2><ul>
+<li><a href="http://android-developers.blogspot.com/2015/05/android-design-support-library.html" target="_blank" rel="noopener">[1]Android Design Support Library</a></li>
+<li><a href="http://android-developers.blogspot.com/2016/02/android-support-library-232.html" target="_blank" rel="noopener">Android Support Library 23.2</a></li>
+</ul>
+<h2 id="使用须知"><a href="#使用须知" class="headerlink" title="使用须知"></a>使用须知</h2><ul>
+<li><a href="https://mp.weixin.qq.com/s/6xViWef8Po0N-x8BQiGw2Q?utm_source=androidweekly.io&utm_medium=website" target="_blank" rel="noopener">剥茧抽丝做 UI 动效，其实很简单</a></li>
+</ul>
+<h1 id="开源库"><a href="#开源库" class="headerlink" title="开源库"></a>开源库</h1><ul>
+<li><strong><a href="https://github.com/lightSky/Awesome-MaterialDesign" target="_blank" rel="noopener">Awesome-MaterialDesign</a></strong> 【重点】</li>
+<li><a href="https://github.com/google/material-design-icons" target="_blank" rel="noopener">Material design icons by Google</a></li>
+<li><a href="https://medium.com/google-developers/animation-jump-through-861f4f5b3de4#.92v66z9ip" target="_blank" rel="noopener">Animation: Jump-through</a>【待研究】【重点】<br><img src="https://cdn-images-1.medium.com/max/800/1*fFC0LdzpExlP3VG93coZDA.gif" alt="很喜欢"></li>
+<li><a href="http://www.androiddesignpatterns.com/2016/11/introduction-to-icon-animation-techniques.html" target="_blank" rel="noopener">An Introduction to Icon Animation Techniques</a> 非常详尽的介绍并附有代码例子讲解 【重点】</li>
+<li><a href="https://medium.com/@andkulikov/animate-all-the-things-transitions-in-android-914af5477d50#.spkrrmtoz" target="_blank" rel="noopener">Animate all the things. Transitions in Android</a><br>一个关于<a href="https://github.com/andkulikov/transitions-everywhere" target="_blank" rel="noopener"><strong>transitions-everywhere</strong></a> Motion Material 兼容库的介绍的博客</li>
+<li><a href="https://stories.uplabs.com/music-player-3a85864d6df7#.nepyiqcve" target="_blank" rel="noopener">Music Player: From UI Proposal to Code</a> 一个介绍Material Transitions 的例子，但是没有兼容低版本<br><img src="http://upload-images.jianshu.io/upload_images/1321512-58619ce3666e1c30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+</ul>
+<h2 id="App-Bar-layout"><a href="#App-Bar-layout" class="headerlink" title="App Bar layout"></a>App Bar layout</h2><ul>
+<li><p><strong><a href="https://github.com/henrytao-me/smooth-app-bar-layout" target="_blank" rel="noopener">smooth-app-bar-layout</a></strong></p>
+</li>
+<li><p><strong><a href="https://github.com/niorgai/StatusBarCompat" target="_blank" rel="noopener">StatusBarCompat</a></strong> Api &gt;= 19</p>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-e6e4136518502264.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="Material-Design-新特性"><a href="#Material-Design-新特性" class="headerlink" title="Material Design 新特性"></a>Material Design 新特性</h1><ul>
+<li><a href="http://inthecheesefactory.com/blog/android-design-support-library-codelab/en" target="_blank" rel="noopener">Codelab for Android Design Support Library used in I/O Rewind Bangkok session</a> 介绍Material Design 新特性很详细的文章 对应的代码<br><a href="http://https//github.com/nuuneoi/Lab-Android-DesignLibrary" target="_blank" rel="noopener">Github</a></li>
+</ul>
+<h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h2><ul>
+<li><a href="https://www.androiddesignpatterns.com/2016/11/introduction-to-icon-animation-techniques.html" target="_blank" rel="noopener">An Introduction to Icon Animation Techniques</a> 【超级经典·必读】</li>
+<li><a href="http://www.w3.org/TR/SVG11/paths.html#PathData" target="_blank" rel="noopener">SVG Path reference</a>.</li>
+<li><a href="https://developer.android.com/training/material/animations.html#AnimVector" target="_blank" rel="noopener">Animating Vector Drawables</a>.</li>
+<li><a href="https://lewismcgeary.github.io/posts/animated-vector-drawable-pathMorphing/" target="_blank" rel="noopener">PathMorphing with AnimatedVectorDrawables in Android</a></li>
+<li>[ColoredVector-Android](Change colors of your vector drawables easily from your code)</li>
+<li><a href="http://www.07net01.com/2016/01/1118674.html" target="_blank" rel="noopener">VectorDrawable 和 AnimatedVectorDrawable 的兼容性问题</a></li>
+</ul>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
+<li><a href="http://editor.method.ac/" target="_blank" rel="noopener">SVG的编辑器</a></li>
+<li><a href="https://inkscape.org/" target="_blank" rel="noopener">Inkscape</a> 跨平台SVG编辑器</li>
+</ul>
+<p>转化</p>
+<ul>
+<li><a href="http://a-student.github.io/SvgToVectorDrawableConverter.Web/" target="_blank" rel="noopener">SvgToVectorDrawableConverter</a></li>
+<li><a href="http://inloop.github.io/svg2android/" target="_blank" rel="noopener">svg2android</a></li>
+</ul>
+<h3 id="相关博文"><a href="#相关博文" class="headerlink" title="相关博文"></a>相关博文</h3><ul>
+<li><a href="https://www.jianshu.com/p/e3614e7abc03" target="_blank" rel="noopener">Android Vector曲折的兼容之路</a></li>
+</ul>
+<h2 id="TV"><a href="#TV" class="headerlink" title="TV"></a>TV</h2><ul>
+<li><a href="http://developer.android.com/tv/index.html" target="_blank" rel="noopener">Docs</a>  <a href="http://developer.android.com/tv/index.html" target="_blank" rel="noopener">http://developer.android.com/tv/index.html</a></li>
+<li><strong><a href="https://github.com/googlesamples/androidtv-Leanback" target="_blank" rel="noopener">androidtv-Leanback</a></strong></li>
+</ul>
+<h2 id="Toolbar"><a href="#Toolbar" class="headerlink" title="Toolbar"></a>Toolbar</h2><p><a href="http://www.tuicool.com/articles/7BJBZb" target="_blank" rel="noopener">ToolBar详解</a><br><img src="http://upload-images.jianshu.io/upload_images/1321512-bddcf5a56fa4f69d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="TabLayout"><a href="#TabLayout" class="headerlink" title="TabLayout"></a>TabLayout</h2><p> <a href="http://blog.csdn.net/aigestudio/article/details/47155769" target="_blank" rel="noopener">TabLayout：另一种Tab的实现方式</a></p>
+<ul>
+<li>如下代码，Tab间隔转换会有更好的动画效果。<pre class="line-numbers language-java"><code class="language-java">Method animateToTab <span class="token operator">=</span> clz<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"animateToTab"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+animateToTab<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+animateToTab<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>tabLayout<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>与ViewPager结合标准代码<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span>Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>ac_tab_layout<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 获取ViewPager</span>
+  ViewPager viewPager <span class="token operator">=</span> <span class="token punctuation">(</span>ViewPager<span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>ac_tab_vp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 构造一个TabPagerAdapter对象</span>
+  TabPagerAdapter adapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TabPagerAdapter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 获取ViewPager</span>
+  TabLayout tabLayout <span class="token operator">=</span> <span class="token punctuation">(</span>TabLayout<span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>ac_tab_layout<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 设置TabLayout模式</span>
+  tabLayout<span class="token punctuation">.</span><span class="token function">setTabMode</span><span class="token punctuation">(</span>TabLayout<span class="token punctuation">.</span>MODE_SCROLLABLE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 设置ViewPager的适配器</span>
+  viewPager<span class="token punctuation">.</span><span class="token function">setAdapter</span><span class="token punctuation">(</span>adapter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 设置ViewPager</span>
+  tabLayout<span class="token punctuation">.</span><span class="token function">setupWithViewPager</span><span class="token punctuation">(</span>viewPager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><a href="https://www.jianshu.com/p/2b2bb6be83a8" target="_blank" rel="noopener">Design库-TabLayout属性详解</a></li>
+</ul>
+<h2 id="Bottom-Navigation"><a href="#Bottom-Navigation" class="headerlink" title="Bottom Navigation"></a>Bottom Navigation</h2><p>Dependence</p>
+<pre class="line-numbers language-gradle"><code class="language-gradle">compile 'com.android.support:appcompat-v7:25.0.0'
+compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li><a href="https://blog.autsoft.hu/now-you-can-use-the-bottom-navigation-view-in-the-design-support-library/" target="_blank" rel="noopener">Tutorial：Now you can use the Bottom Navigation View in the Design Support Library</a></li>
+</ul>
+<h2 id="TextInputLayout"><a href="#TextInputLayout" class="headerlink" title="TextInputLayout"></a>TextInputLayout</h2><ul>
+<li><p>codelabs <a href="https://codelabs.developers.google.com/codelabs/constraint-layout/index.html?index=..%2F..%2Findex#8" target="_blank" rel="noopener">constraint-layout</a> [good]</p>
+</li>
+<li><p><a href="https://code.tutsplus.com/tutorials/creating-a-login-screen-using-textinputlayout--cms-24168" target="_blank" rel="noopener">Creating a Login Screen Using TextInputLayout</a></p>
+</li>
+<li><p><strong><a href="https://github.com/rengwuxian/MaterialEditText" target="_blank" rel="noopener">MaterialEditText</a></strong> 抛物线【RxJava经典入门教程的博主】</p>
+<h2 id="ConstraintLayout"><a href="#ConstraintLayout" class="headerlink" title="ConstraintLayout"></a><strong>ConstraintLayout</strong></h2></li>
+<li><p><a href="https://www.jianshu.com/p/a95daeaa02d7" target="_blank" rel="noopener">ConstraintLayout学起来！【郭霖博客】</a></p>
+</li>
+<li><p><a href="https://codelabs.developers.google.com/codelabs/constraint-layout/index.html#0" target="_blank" rel="noopener">Using ConstraintLayout to design your views</a></p>
+</li>
+<li><p><a href="https://developer.android.com/reference/android/support/constraint/ConstraintLayout.html" target="_blank" rel="noopener">ConstraintLayout API</a></p>
+</li>
+<li><p><a href="https://developer.android.com/training/constraint-layout/index.html" target="_blank" rel="noopener">Build a Responsive UI with ConstraintLayout</a></p>
+</li>
+<li><p><a href="https://blog.stylingandroid.com/constraintlayout-part-1/" target="_blank" rel="noopener">ConstraintLayout – Part 1</a></p>
+</li>
+<li><p>Script</p>
+<blockquote>
+<p> To convert an existing layout to a constraint layout<br>Design -&gt; component Tree -&gt; Convert layout to ConstraintLayout</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="CardView"><a href="#CardView" class="headerlink" title="CardView"></a><em>CardView</em></h2><ul>
+<li>android.support.v7.widget.CardView</li>
+</ul>
+<h2 id="NestedScrollView"><a href="#NestedScrollView" class="headerlink" title="NestedScrollView"></a>NestedScrollView</h2><h1 id="图片文字资源"><a href="#图片文字资源" class="headerlink" title="图片文字资源"></a>图片文字资源</h1><h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
+<li><strong><a href="https://github.com/chrisbanes/cheesesquare" target="_blank" rel="noopener">Demos the new Android Design library</a></strong> github star 6300+</li>
+<li><strong><a href="https://github.com/mikepenz/MaterialDrawer" target="_blank" rel="noopener">MaterialDrawer</a></strong> The flexible, easy to use, all in one drawer library for your Android project<br><img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg" alt></li>
+<li><strong><a href="https://github.com/XunMengWinter/CircularAnim" target="_blank" rel="noopener">CircularAnim</a></strong> Android水波动画帮助类，一行代码实现View显示/隐藏/startActivity特效。(对 ViewAnimationUtils.createCircularReveal() 方法的封装)<br><img src="https://camo.githubusercontent.com/895f0065aa1d9c993569619853c81180c5d2658e/68747470733a2f2f6431337961637572716a676172612e636c6f756466726f6e742e6e65742f75736572732f36323331392f73637265656e73686f74732f313934353539332f73686f742e676966" alt></li>
+</ul>
+<h2 id="字体和图片相关"><a href="#字体和图片相关" class="headerlink" title="字体和图片相关"></a>字体和图片相关</h2><ul>
+<li><strong><a href="https://github.com/code-mc/material-icon-lib" target="_blank" rel="noopener">Material Icon Library</a></strong> Github 1800+ star<br><img src="http://upload-images.jianshu.io/upload_images/1321512-983413370be2cf9d.gif?imageMogr2/auto-orient/strip" alt="material_icon_libs.gif"></li>
+</ul>
+<p><strong>主要特点：</strong></p>
+<ol>
+<li>包含1500+ 的矢量图标（大小: 200kb）；</li>
+<li>支持API&gt;=4；</li>
+<li>可以转化为Drawable，可以menu.xml 中使用， 可以在Toolbar menu中使用</li>
+</ol>
+<p>使用：1. 在<a href="https://materialdesignicons.com找矢量图；" target="_blank" rel="noopener">https://materialdesignicons.com找矢量图；</a> 2.集成库使用；</p>
+<ul>
+<li><strong><a href="https://github.com/mikepenz/Android-Iconics" target="_blank" rel="noopener">Android-Iconics</a></strong> 【推荐】<br><img src="https://raw.githubusercontent.com/mikepenz/Android-Iconics/develop/DEV/github/screenshots1.jpg" alt></li>
+</ul>
+<p><strong>主要特点：</strong></p>
+<ul>
+<li>提供了三个矢量图库；</li>
+<li>可以在原生控件上使用；</li>
+<li>支持字体和矢量图片的自定义；</li>
+</ul>
+<h2 id="Material-Animation-动画"><a href="#Material-Animation-动画" class="headerlink" title="Material Animation 动画"></a>Material Animation 动画</h2><hr>
+<ul>
+<li><strong><a href="https://github.com/lgvalle/Material-Animations" target="_blank" rel="noopener">Material-Animations</a></strong></li>
+<li><strong><a href="https://github.com/saulmm/Android-Material-Examples" target="_blank" rel="noopener">Android-Material-Examples</a></strong></li>
+</ul>
+<h2 id="New-Feature-新的特性"><a href="#New-Feature-新的特性" class="headerlink" title="New Feature  新的特性"></a>New Feature  新的特性</h2><hr>
+<ul>
+<li><strong><a href="https://github.com/fcannizzaro/material-tip" target="_blank" rel="noopener">material-tip</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-bb399ca3261ed312.gif?imageMogr2/auto-orient/strip" alt></li>
+</ul>
+<h2 id="Theme-主题"><a href="#Theme-主题" class="headerlink" title="Theme 主题"></a>Theme 主题</h2><ul>
+<li><strong><a href="https://github.com/StevenByle/Android-Material-Themes-Demo" target="_blank" rel="noopener">Android-Material-Themes-Demo</a></strong></li>
+</ul>
+<h2 id="设置相关"><a href="#设置相关" class="headerlink" title="设置相关"></a>设置相关</h2><ul>
+<li><strong><a href="https://github.com/daniel-stoneuk/material-about-library" target="_blank" rel="noopener">material-about-library</a></strong> <img src="https://camo.githubusercontent.com/11210be7db7aca27e0d27eeb388a5024ff15bdf5/687474703a2f2f692e696d6775722e636f6d2f785857446d4c622e706e67" alt></li>
+</ul>
+<h2 id="原生控件的包装"><a href="#原生控件的包装" class="headerlink" title="原生控件的包装"></a>原生控件的包装</h2><ul>
+<li><strong><a href="https://github.com/Musenkishi/Atelier" target="_blank" rel="noopener">Atelier</a></strong> A fast and clean way of using Palette in lists</li>
+<li><strong><a href="https://github.com/glomadrian/material-code-input" target="_blank" rel="noopener">material-code-input</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-ac6d83be32c98e2d.gif?imageMogr2/auto-orient/strip" alt="codeInput1.gif"></li>
+<li><strong><a href="https://github.com/afollestad/material-dialogs" target="_blank" rel="noopener">material-dialogs</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-bbde458abf626b19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="material-dialogs"></li>
+</ul>
+<h1 id="兼容开源库"><a href="#兼容开源库" class="headerlink" title="兼容开源库"></a>兼容开源库</h1><ul>
+<li><p><strong><a href="https://github.com/Yellow5A5/ActSwitchAnimTool" target="_blank" rel="noopener">ActSwitchAnimTool</a></strong> ActSwitchAnimTool make the Animation easy to implements, and it compat the version of Android 4.0 or above.<br><img src="https://github.com/Yellow5A5/ActSwitchAnimTool/raw/master/image/demo_show1.gif" alt></p>
+</li>
+<li><p><strong><a href="https://github.com/ozodrukh/RippleDrawable" target="_blank" rel="noopener">RippleDrawable</a></strong> support 14+</p>
+</li>
+<li><p><strong><a href="https://github.com/wangjiegulu/WaveCompat" target="_blank" rel="noopener">WaveCompat</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-f6649aa0a09f8b3f.gif?imageMogr2/auto-orient/strip" alt="wave_compat_a.gif"></p>
+</li>
+<li><p><strong><a href="https://github.com/konifar/fab-transformation" target="_blank" rel="noopener">fab-transformation</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-c3eebff44da714ea.gif?imageMogr2/auto-orient/strip" alt="transform_to_toolbar.gif"></p>
+</li>
+<li><p><strong><a href="https://github.com/arcadefire/nice-spinner" target="_blank" rel="noopener">nice-spinner</a></strong> support 14+<br><img src="http://upload-images.jianshu.io/upload_images/1321512-8efaa73f1003543b.gif?imageMogr2/auto-orient/strip" alt="nice-spinner.gif"></p>
+</li>
+<li><p><strong><a href="https://github.com/renaudcerrato/ToggleDrawable" target="_blank" rel="noopener">ToggleDrawable</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-db769a9b6fa9face.gif?imageMogr2/auto-orient/strip" alt="toggle.gif"></p>
+</li>
+<li><p><strong><a href="https://github.com/ozodrukh/CircularReveal" target="_blank" rel="noopener">CircularReveal</a></strong> RevealEffect support 2.3<br><img src="http://upload-images.jianshu.io/upload_images/1321512-822426affad1682d.gif?imageMogr2/auto-orient/strip" alt="CircularReveal.gif"></p>
+</li>
+<li><p><strong><a href="https://github.com/andkulikov/Transitions-Everywhere" target="_blank" rel="noopener">Transitions-Everywhere</a></strong>  API compatible with Android 2.2+</p>
+</li>
+<li><p><strong><a href="https://github.com/javiersantos/MaterialStyledDialogs" target="_blank" rel="noopener">MaterialStyledDialogs</a></strong> API 11+ required.</p>
+</li>
+<li><p>vector-compat vector 兼容库<br>开源资源</p>
+<h1 id="Material-Design-参考资料"><a href="#Material-Design-参考资料" class="headerlink" title="Material Design 参考资料"></a>Material Design 参考资料</h1></li>
+<li><p>Android 开发设计 <a href="http://developer.android.com/design/" target="_blank" rel="noopener">http://developer.android.com/design/</a></p>
+</li>
+<li><p><a href="https://play.google.com/store/apps/collection/promotion_3001769_io_awards" target="_blank" rel="noopener">Material Design 示范应用</a> 和 <a href="http://chinagdg.org/2015/06/material-design-awards/" target="_blank" rel="noopener">获奖应用</a></p>
+</li>
+<li><p>Google Design 网站 <a href="https://design.google.com/" target="_blank" rel="noopener">https://design.google.com/</a></p>
+</li>
+<li><p>Material Design 设计规范 <a href="http://www.google.com/design/spec/material-design/introduction.html" target="_blank" rel="noopener">http://www.google.com/design/spec/material-design/introduction.html</a></p>
+</li>
+<li><p>Icons Tool <a href="https://design.google.com/icons/" target="_blank" rel="noopener">https://design.google.com/icons/</a></p>
+</li>
+<li><p>Devices Tool <a href="https://design.google.com/devices/" target="_blank" rel="noopener">https://design.google.com/devices/</a></p>
+</li>
+<li><p>Udacity 免费设计课程：<a href="https://www.udacity.com/course/material-design-for-android-developers--ud862" target="_blank" rel="noopener">Material Design for Android Developers</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Material/" rel="tag"># Material</a>
+          
+            <a href="/tags/Design/" rel="tag"># Design</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/02/2016-06-02-Google-Api-hareware-acc/" rel="next" title="谷歌官网之硬件加速 【译】">
+                <i class="fa fa-chevron-left"></i> 谷歌官网之硬件加速 【译】
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/04/2016-08-04-New-trend-for-Android/" rel="prev" title="Android 相关的新技术">
+                Android 相关的新技术 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2016/07/29/2016-07-29-Material-Design/" data-title="Material Design" data-url="http://linz.tech/2016/07/29/2016-07-29-Material-Design/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文档"><span class="nav-number">2.</span> <span class="nav-text">文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#官方API"><span class="nav-number">2.1.</span> <span class="nav-text">官方API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方博客"><span class="nav-number">2.2.</span> <span class="nav-text">官方博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用须知"><span class="nav-number">2.3.</span> <span class="nav-text">使用须知</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开源库"><span class="nav-number">3.</span> <span class="nav-text">开源库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#App-Bar-layout"><span class="nav-number">3.1.</span> <span class="nav-text">App Bar layout</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Material-Design-新特性"><span class="nav-number">4.</span> <span class="nav-text">Material Design 新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">4.1.</span> <span class="nav-text">SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">4.1.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关博文"><span class="nav-number">4.1.2.</span> <span class="nav-text">相关博文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TV"><span class="nav-number">4.2.</span> <span class="nav-text">TV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Toolbar"><span class="nav-number">4.3.</span> <span class="nav-text">Toolbar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TabLayout"><span class="nav-number">4.4.</span> <span class="nav-text">TabLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bottom-Navigation"><span class="nav-number">4.5.</span> <span class="nav-text">Bottom Navigation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TextInputLayout"><span class="nav-number">4.6.</span> <span class="nav-text">TextInputLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConstraintLayout"><span class="nav-number">4.7.</span> <span class="nav-text">ConstraintLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CardView"><span class="nav-number">4.8.</span> <span class="nav-text">CardView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NestedScrollView"><span class="nav-number">4.9.</span> <span class="nav-text">NestedScrollView</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片文字资源"><span class="nav-number">5.</span> <span class="nav-text">图片文字资源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">5.1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体和图片相关"><span class="nav-number">5.2.</span> <span class="nav-text">字体和图片相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Material-Animation-动画"><span class="nav-number">5.3.</span> <span class="nav-text">Material Animation 动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#New-Feature-新的特性"><span class="nav-number">5.4.</span> <span class="nav-text">New Feature  新的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Theme-主题"><span class="nav-number">5.5.</span> <span class="nav-text">Theme 主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置相关"><span class="nav-number">5.6.</span> <span class="nav-text">设置相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生控件的包装"><span class="nav-number">5.7.</span> <span class="nav-text">原生控件的包装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#兼容开源库"><span class="nav-number">6.</span> <span class="nav-text">兼容开源库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Material-Design-参考资料"><span class="nav-number">7.</span> <span class="nav-text">Material Design 参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

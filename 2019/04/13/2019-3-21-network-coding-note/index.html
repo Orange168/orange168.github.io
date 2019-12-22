@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="network,网络,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] 基本知识基本术语Socket操作系统为软件提供输入/出的端口，链接过程Service端监听某个端口，客户端访问服务器端口； int socket(int domain, int type, int protocol);  domain：协议域，又称协议族（family）。常用有AF_INET、AF_INET6、AF_LOCAL（或称AF_UNIX，Unix域Socket）、AF_ROU">
+<meta name="keywords" content="network,网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程学习笔记">
+<meta property="og:url" content="http://linz.tech/2019/04/13/2019-3-21-network-coding-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="[TOC] 基本知识基本术语Socket操作系统为软件提供输入/出的端口，链接过程Service端监听某个端口，客户端访问服务器端口； int socket(int domain, int type, int protocol);  domain：协议域，又称协议族（family）。常用有AF_INET、AF_INET6、AF_LOCAL（或称AF_UNIX，Unix域Socket）、AF_ROU">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/f6e2ac304ee22891eca4ad1218602044.png">
+<meta property="og:image" content="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/e67029972070a7dd84206023b179dbd1.png">
+<meta property="og:image" content="http://img.blog.csdn.net/20150228183938842?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanVzdEZXRA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150228183920982?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanVzdEZXRA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150228183957687?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanVzdEZXRA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://cdn.linz.tech/fiddler-network-coding.jpg">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/626593/201601/626593-20160118234154922-335265309.png">
+<meta property="og:image" content="http://cdn.linz.tech/tech-share-network-coding.png">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络编程学习笔记">
+<meta name="twitter:description" content="[TOC] 基本知识基本术语Socket操作系统为软件提供输入/出的端口，链接过程Service端监听某个端口，客户端访问服务器端口； int socket(int domain, int type, int protocol);  domain：协议域，又称协议族（family）。常用有AF_INET、AF_INET6、AF_LOCAL（或称AF_UNIX，Unix域Socket）、AF_ROU">
+<meta name="twitter:image" content="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/f6e2ac304ee22891eca4ad1218602044.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/04/13/2019-3-21-network-coding-note/">
+
+
+
+
+
+  <title>网络编程学习笔记 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/04/13/2019-3-21-network-coding-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网络编程学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-13T01:23:33+08:00">
+                2019-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/13/2019-3-21-network-coding-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/13/2019-3-21-network-coding-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><h3 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h3><h4 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a><strong>Socket</strong></h4><p>操作系统为软件提供输入/出的端口，链接过程Service端监听某个端口，客户端访问服务器端口；</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> <span class="token function">socket</span><span class="token punctuation">(</span><span class="token keyword">int</span> domain<span class="token punctuation">,</span> <span class="token keyword">int</span> type<span class="token punctuation">,</span> <span class="token keyword">int</span> protocol<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>domain：协议域，又称协议族（family）。常用有AF_INET、AF_INET6、AF_LOCAL（或称AF_UNIX，Unix域Socket）、AF_ROUTE等,决定了socket的地址类型,在通信中必须采用对应的地址，如AF_INET决定了要用ipv4地址（32位的）与端口号（16位的）的组合、AF_UNIX决定了要用一个绝对路径名作为地址。</li>
+<li>type ：指定Socket类型，有SOCK_STREAM、SOCK_DGRAM、SOCK_RAW、SOCK_PACKET、SOCK_SEQPACKET等。<ul>
+<li>SOCK_STREAM 面向连接, 针对于面向连接的TCP服务应用 </li>
+<li>SOCK_DGRAM 一种无连接, 对应于无连接的UDP服务应用</li>
+</ul>
+</li>
+<li>protocol: 指定协议,有IPPROTO_TCP、IPPROTO_UDP、IPPROTO_STCP、IPPROTO_TIPC等 </li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a href="https://baike.baidu.com/item/socket/281150" target="_blank" rel="noopener">socket百科</a></li>
+</ol>
+<h4 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h4><p> Transmission Control Protocol (TCP) and the Internet Protocol (IP)</p>
+<blockquote>
+<p>provides end-to-end data communication specifying how data should be packetized, addressed, transmitted, routed, and received.</p>
+</blockquote>
+<p> From lowest to highest</p>
+<ul>
+<li>link layer: containing communication methods for data that remains whichin a single network segment;</li>
+<li>internet layer: providing internetworking between independent network;</li>
+<li>transport layer: providing end-to-end comminucation services for applications;</li>
+<li>applicaton layer: providing services to users and system functions; such as SMTP, FTP, SSH, HTTP</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Internet_protocol_suite" target="_blank" rel="noopener">Internet protocol suite</a></li>
+</ol>
+<h4 id="Http协议中Cookie"><a href="#Http协议中Cookie" class="headerlink" title="Http协议中Cookie"></a>Http协议中Cookie</h4><p>Cookie总是保存在客户端中，按在客户端中的存储位置，可分为内存Cookie和硬盘Cookie,内存Cookie由浏览器维护; HTTP请求中的cookie明文，HTTPS加密，大小限制在4kB</p>
+<p><strong>语法</strong></p>
+<pre class="line-numbers language-xml"><code class="language-xml">Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span> 
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; Expires=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>date</span><span class="token punctuation">></span></span>
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; Max-Age=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>non-zero-digit</span><span class="token punctuation">></span></span>
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; Domain=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>domain-value</span><span class="token punctuation">></span></span>
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; Path=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>path-value</span><span class="token punctuation">></span></span>
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; Secure
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; HttpOnly
+
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; SameSite=Strict
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; SameSite=Lax
+
+// Multiple directives are also possible, for example:
+Set-Cookie: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-name</span><span class="token punctuation">></span></span>=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cookie-value</span><span class="token punctuation">></span></span>; Domain=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>domain-value</span><span class="token punctuation">></span></span>; Secure; HttpOnly<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>案例</strong><br>Server-&gt;Client</p>
+<pre><code>Set-Cookie: lu=Rg3vHJZnehYLjVg7qi3bZjzg; Expires=Tue, 15 Jan 2013 21:47:38 GMT; Path=/; Domain=.169it.com; HttpOnly
+
+Set-Cookie: made_write_conn=1295214458; Path=/; Domain=.169it.com
+
+Set-Cookie: reg_fb_gate=deleted; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Path=/; Domain=.169it.com; HttpOnly</code></pre><p>Client-&gt;Server </p>
+<pre><code>GET /spec.html HTTP/1.1  
+
+Host: www.example.org  
+
+Cookie: name=value; name2=value2  
+
+Accept: */*  </code></pre><h4 id="属性详解"><a href="#属性详解" class="headerlink" title="属性详解"></a>属性详解</h4><ul>
+<li>cookie-name： 变量名用于获取cookie-value；</li>
+<li>Expires：cookie过期时间，可以设置时间小于当前使cookie无效；</li>
+<li>Path：cookie的有效范围，如Path=”/”整个域名内有效；</li>
+<li>domain： cookie有效的域名；</li>
+</ul>
+<p>参考： </p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie" target="_blank" rel="noopener">Set-Cookie</a></li>
+<li><a href="https://www.cnblogs.com/yanganok/p/5322411.html" target="_blank" rel="noopener">Http协议中Cookie介绍</a></li>
+</ol>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><h2 id="开源库分析"><a href="#开源库分析" class="headerlink" title="开源库分析"></a>开源库分析</h2><h3 id="OkHttp-3-7源码分析"><a href="#OkHttp-3-7源码分析" class="headerlink" title="OkHttp 3.7源码分析"></a>OkHttp 3.7源码分析</h3><h4 id="整体架构师分析"><a href="#整体架构师分析" class="headerlink" title="整体架构师分析"></a>整体架构师分析</h4><p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/f6e2ac304ee22891eca4ad1218602044.png" alt></p>
+<h4 id="Interceptor功能分析"><a href="#Interceptor功能分析" class="headerlink" title="Interceptor功能分析"></a>Interceptor功能分析</h4><p><img src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/e67029972070a7dd84206023b179dbd1.png" alt></p>
+<p>RetryAndFollowUpInterceptor</p>
+<ul>
+<li>在网络请求失败后进行重试</li>
+<li>当服务器返回当前请求需要进行重定向时直接发起新的请求，并在条件允许情况下复用当前连接</li>
+</ul>
+<p>BridgeInterceptor</p>
+<ul>
+<li>设置其他报头</li>
+<li>设置gzip压缩</li>
+</ul>
+<p>CacheInterceptor</p>
+<ul>
+<li>请求有符合要求直接返回Cache</li>
+<li>服务器返回内容有改变时更新当前cache</li>
+<li>cache失效删除</li>
+</ul>
+<p>ConnectInterceptor</p>
+<blockquote>
+<p>即为当前请求找到合适的连接，可能复用已有连接也可能是重新创建的连接，返回的连接由连接池负责决定。</p>
+</blockquote>
+<p>CallServerInterceptor</p>
+<blockquote>
+<p>负责向服务器发起真正的访问请求，并在接收到服务器返回后读取响应返回</p>
+</blockquote>
+<h4 id="缓存策略"><a href="#缓存策略" class="headerlink" title="缓存策略"></a><a href="https://yq.aliyun.com/articles/78102?spm=a2c4e.11153940.blogcont78103.22.1d6a2a21T3SKL9" target="_blank" rel="noopener">缓存策略</a></h4><h5 id="HTTP缓存策略"><a href="#HTTP缓存策略" class="headerlink" title="HTTP缓存策略"></a>HTTP缓存策略</h5><ul>
+<li>Expires: 告知客户端对应资源的过期时间</li>
+<li>Cache-Control:当前资源的有效期(s),比<code>Expires</code>优先级更高:<code>Cache-Control:max-age=31536000,public</code></li>
+</ul>
+<p><strong>条件GET请求</strong></p>
+<ul>
+<li>Last-Modified-Date<br>客户端第一次请求时，服务器返回：<code>Last-Modified: Tue, 12 Jan 2016 09:31:27 GMT</code>,当客户端二次请求时，可以头部加上如下header:<code>If-Modified-Since: Tue, 12 Jan 2016 09:31:27 GMT</code>如果当前资源没有被二次修改，服务器返回304告知客户端直接复用本地缓存。</li>
+<li>ETag: ETag是对资源文件的一种摘要. 当客户端第一次请求某资源时，服务器返回：<br><code>ETag: &quot;5694c7ef-24dc&quot;</code>客户端再次请求时，可在头部加上如下域：<code>If-None-Match: &quot;5694c7ef-24dc&quot;</code>如果文件并未改变，则服务器返回304告知客户端可以复用本地缓存。</li>
+<li>no-cache/no-store: 不使用缓存</li>
+<li>only-if-cached:只使用缓存<h4 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h4></li>
+</ul>
+<h2 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h2><h3 id="Fiddler-抓包"><a href="#Fiddler-抓包" class="headerlink" title="Fiddler 抓包"></a>Fiddler 抓包</h3><p> <a href="https://www.cnblogs.com/mfryf/p/5028010.html" target="_blank" rel="noopener">fiddler Android下https抓包全攻略</a></p>
+<h4 id="Android手机抓包"><a href="#Android手机抓包" class="headerlink" title="Android手机抓包"></a>Android手机抓包</h4><p><strong>Fiddler设置</strong></p>
+<p><img src="http://img.blog.csdn.net/20150228183938842?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanVzdEZXRA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="技术分享"></p>
+<p><img src="http://img.blog.csdn.net/20150228183920982?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanVzdEZXRA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="技术分享"></p>
+<p><strong>手机代理设置</strong></p>
+<!--![img](file:///C:/Users/skast/AppData/Local/Temp/SNAGHTML99ad8d.PNG)-->
+
+<p><strong>证书安装</strong> <code>用默认的浏览器</code></p>
+<p><img src="http://img.blog.csdn.net/20150228183957687?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanVzdEZXRA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="技术分享"></p>
+<p><img src="http://cdn.linz.tech/fiddler-network-coding.jpg" alt="技术分享"></p>
+<h4 id="电脑抓包"><a href="#电脑抓包" class="headerlink" title="电脑抓包"></a>电脑抓包</h4><ul>
+<li>系统代理设置<br><img src="https://images2015.cnblogs.com/blog/626593/201601/626593-20160118234154922-335265309.png" alt="image"></li>
+</ul>
+<h4 id="Fiddler-使用"><a href="#Fiddler-使用" class="headerlink" title="Fiddler 使用"></a>Fiddler 使用</h4><ol>
+<li><p>过滤Android端数据</p>
+<ol>
+<li><p>点击”Rules-&gt;CustomizeRules”;</p>
+</li>
+<li><p>在这个函数OnBeforeResponse后面添加</p>
+<blockquote>
+<p>if (oSession.oRequest[“User-Agent”].indexOf(“Android”)&gt; -1 &amp;&amp; oSession.HTTPMethodIs(“CONNECT”)) {oSession.oResponse.headers[“Connection”] = “Keep-Alive”; }</p>
+</blockquote>
+<p>如图：</p>
+</li>
+</ol>
+</li>
+</ol>
+<p><img src="http://cdn.linz.tech/tech-share-network-coding.png" alt="技术分享"></p>
+<p>参考： <a href="https://www.cnblogs.com/yyhh/p/5140852.html" target="_blank" rel="noopener">Fiddler 抓包工具总结</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/network/" rel="tag"># network</a>
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/13/2019-3-7-web-note/" rel="next" title="网页WEB笔记汇总">
+                <i class="fa fa-chevron-left"></i> 网页WEB笔记汇总
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/14/2019-4-17-database/" rel="prev" title="数据库学习笔记">
+                数据库学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/04/13/2019-3-21-network-coding-note/" data-title="网络编程学习笔记" data-url="http://linz.tech/2019/04/13/2019-3-21-network-coding-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">1.</span> <span class="nav-text">基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本术语"><span class="nav-number">1.1.</span> <span class="nav-text">基本术语</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Socket"><span class="nav-number">1.1.1.</span> <span class="nav-text">Socket</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-IP"><span class="nav-number">1.1.2.</span> <span class="nav-text">TCP/IP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Http协议中Cookie"><span class="nav-number">1.1.3.</span> <span class="nav-text">Http协议中Cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性详解"><span class="nav-number">1.1.4.</span> <span class="nav-text">属性详解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS"><span class="nav-number">1.2.</span> <span class="nav-text">HTTPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开源库分析"><span class="nav-number">2.</span> <span class="nav-text">开源库分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OkHttp-3-7源码分析"><span class="nav-number">2.1.</span> <span class="nav-text">OkHttp 3.7源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#整体架构师分析"><span class="nav-number">2.1.1.</span> <span class="nav-text">整体架构师分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Interceptor功能分析"><span class="nav-number">2.1.2.</span> <span class="nav-text">Interceptor功能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存策略"><span class="nav-number">2.1.3.</span> <span class="nav-text">缓存策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP缓存策略"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">HTTP缓存策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多路复用"><span class="nav-number">2.1.4.</span> <span class="nav-text">多路复用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战案例"><span class="nav-number">3.</span> <span class="nav-text">实战案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fiddler-抓包"><span class="nav-number">3.1.</span> <span class="nav-text">Fiddler 抓包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android手机抓包"><span class="nav-number">3.1.1.</span> <span class="nav-text">Android手机抓包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电脑抓包"><span class="nav-number">3.1.2.</span> <span class="nav-text">电脑抓包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fiddler-使用"><span class="nav-number">3.1.3.</span> <span class="nav-text">Fiddler 使用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

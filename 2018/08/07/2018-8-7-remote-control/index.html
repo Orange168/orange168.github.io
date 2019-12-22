@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="WebRTC,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="视频流播放相关相关开源库 FFmpeg Libstreaming A solution for streaming H.264, H.263, AMR, AAC using RTP on Android RemoteDroid 能运行但是链接失败 android-eye Gstreamer-Android-example EasyDarwin  高性能开源流媒体服务器，支持RTSP、HLS、HTT">
+<meta name="keywords" content="WebRTC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="远程控制笔记整理">
+<meta property="og:url" content="http://linz.tech/2018/08/07/2018-8-7-remote-control/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="视频流播放相关相关开源库 FFmpeg Libstreaming A solution for streaming H.264, H.263, AMR, AAC using RTP on Android RemoteDroid 能运行但是链接失败 android-eye Gstreamer-Android-example EasyDarwin  高性能开源流媒体服务器，支持RTSP、HLS、HTT">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.486Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="远程控制笔记整理">
+<meta name="twitter:description" content="视频流播放相关相关开源库 FFmpeg Libstreaming A solution for streaming H.264, H.263, AMR, AAC using RTP on Android RemoteDroid 能运行但是链接失败 android-eye Gstreamer-Android-example EasyDarwin  高性能开源流媒体服务器，支持RTSP、HLS、HTT">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2018/08/07/2018-8-7-remote-control/">
+
+
+
+
+
+  <title>远程控制笔记整理 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2018/08/07/2018-8-7-remote-control/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">远程控制笔记整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T14:58:20+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/07/2018-8-7-remote-control/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/08/07/2018-8-7-remote-control/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="视频流播放相关"><a href="#视频流播放相关" class="headerlink" title="视频流播放相关"></a>视频流播放相关</h3><h4 id="相关开源库"><a href="#相关开源库" class="headerlink" title="相关开源库"></a>相关开源库</h4><ul>
+<li><strong><a href="https://github.com/FFmpeg/FFmpeg" target="_blank" rel="noopener">FFmpeg</a></strong></li>
+<li><a href="https://github.com/fyhertz/libstreaming" target="_blank" rel="noopener">Libstreaming</a> A solution for streaming H.264, H.263, AMR, AAC using RTP on Android</li>
+<li><strong><a href="https://github.com/omerjerk/RemoteDroid" target="_blank" rel="noopener">RemoteDroid</a></strong> 能运行但是链接失败</li>
+<li><strong><a href="https://github.com/Teaonly/android-eye" target="_blank" rel="noopener">android-eye</a></strong></li>
+<li><strong><a href="https://github.com/jaroslavas/Gstreamer-Android-example" target="_blank" rel="noopener">Gstreamer-Android-example</a></strong></li>
+<li><strong><a href="https://github.com/EasyDarwin/EasyDarwin" target="_blank" rel="noopener">EasyDarwin</a></strong>  高性能开源流媒体服务器，支持RTSP、HLS、HTTP直播  ————– <a href="http://www.easydarwin.org/" target="_blank" rel="noopener">官网</a></li>
+<li><strong><a href="https://github.com/fyhertz/spydroid-ipcamera" target="_blank" rel="noopener">spydroid-ipcamera</a></strong> A powerful and funny android app. that streams the camera and microphone of your phone to your browser or to VLC</li>
+<li><strong><a href="https://github.com/fyhertz/libstreaming" target="_blank" rel="noopener">libstreaming</a></strong></li>
+<li><strong><a href="https://github.com/fyhertz/libstreaming-examples" target="_blank" rel="noopener">libstreaming-examples</a></strong></li>
+</ul>
+<p><em>Google</em>开源播放器</p>
+<ul>
+<li><a href="http://google.github.io/ExoPlayer/" target="_blank" rel="noopener">ExoPlayer</a></li>
+</ul>
+<h4 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h4><ul>
+<li><a href="http://blog.csdn.net/leixiaohua1020/article/details/47056365" target="_blank" rel="noopener">最简单的基于FFmpeg的移动端例子：Android 视频转码器</a></li>
+<li><a href="http://blog.csdn.net/jwzhangjie/article/details/9046427" target="_blank" rel="noopener">Android本地视频播放器开发–ffmpeg解码视频文件中的音频(1)</a></li>
+<li><a href="http://blog.csdn.net/jimzhai/article/details/7853005" target="_blank" rel="noopener">java 调用 ffmpeg 进行视频转换以及截图</a></li>
+<li><a href="http://www.oschina.net/code/snippet_105637_22309" target="_blank" rel="noopener">FFmpeg 抽取视频中的一段(视频转换)</a> </li>
+<li><a href="http://blog.csdn.net/leixiaohua1020/article/details/15811977" target="_blank" rel="noopener">[总结]FFMPEG视音频编解码零基础学习方法</a>  重点</li>
+<li><a href="http://docs.gstreamer.com/display/GstSDK/Tutorials" target="_blank" rel="noopener">GStreamer SDK Tutorials</a></li>
+<li><a href="http://blog.csdn.net/xiejiashu/article/details/34860575" target="_blank" rel="noopener">手机Android音视频采集与直播推送，实现单兵、移动监控类应用</a></li>
+</ul>
+<h4 id="实践笔记积累"><a href="#实践笔记积累" class="headerlink" title="实践笔记积累"></a>实践笔记积累</h4><p><a href="https://www.wowza.com/forums/content.php?217-How-to-install-and-configure-Wowza-Streaming-Engine#startService" target="_blank" rel="noopener"> Wowza Streaming Engine</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo service WowzaStreamingEngine start
+sudo service WowzaStreamingEngineManager start
+访问 http://[wowza-ip-address]:8088/enginemanager
+http://localhost:8088/enginemanager/#home/_defaultVHost_<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>视频发布账号和密码：<br>/usr/local/WowzaStreamingEngine/conf/publish.password</p>
+<h3 id="网络相关学习"><a href="#网络相关学习" class="headerlink" title="网络相关学习"></a>网络相关学习</h3><hr>
+<h4 id="Socket-io"><a href="#Socket-io" class="headerlink" title="Socket.io"></a><a href="http://socket.io/" target="_blank" rel="noopener">Socket.io</a></h4><p><em>资源列举</em></p>
+<ul>
+<li><a href="http://socket.io/get-started/chat/" target="_blank" rel="noopener">Get Started: Chat application</a> （基于Node.js html）炒鸡简单的例子，无需编程经验 <a href="https://github.com/rauchg/chat-example" target="_blank" rel="noopener">github</a></li>
+<li><strong><a href="https://github.com/socketio/socket.io" target="_blank" rel="noopener">github.com/socket.io</a></strong></li>
+<li><strong><a href="https://github.com/nkzawa/socket.io-android-chat" target="_blank" rel="noopener">socket.io-android-chat</a></strong></li>
+<li><strong><a href="https://github.com/socketio/engine.io-client-java" target="_blank" rel="noopener">engine.io-client-java</a></strong> Engine.IO Client Library for Java  <a href="http://socketio.github.io/engine.io-client-java/apidocs/" target="_blank" rel="noopener">JavaApidocs</a> </li>
+<li><strong><a href="https://github.com/socketio/socket.io-redis" target="_blank" rel="noopener">socket.io-redis</a></strong></li>
+<li><strong><a href="https://github.com/jitsi/libjitsi" target="_blank" rel="noopener">libjitsi</a></strong>  Advanced Java media library for secure real-time audio/video communication.</li>
+</ul>
+<h4 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h4><ul>
+<li><a href="http://www.h3c.com.cn/MiniSite/Technology_Circle/Net_Reptile/" target="_blank" rel="noopener">网络大爬虫</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS协议运行机制的概述</a></li>
+<li><a href="http://blog.csdn.net/yuzhiyuxia/article/details/7833265" target="_blank" rel="noopener">SOCKET通信中TCP、UDP数据包大小的确定</a></li>
+<li><a href="http://www.cnblogs.com/maowang1991/archive/2013/04/15/3022955.html" target="_blank" rel="noopener">关于网络编程中MTU、TCP、UDP优化配置的一些总结</a></li>
+</ul>
+<p><em>Blog</em></p>
+<ul>
+<li><a href="http://socket.io/blog/introducing-socket-io-1-0/" target="_blank" rel="noopener">Introducing Socket.IO 1.0</a></li>
+<li><a href="http://socket.io/blog/socket-io-p2p/" target="_blank" rel="noopener">socket-io-p2p</a></li>
+<li><a href="http://www.hankcs.com/program/network/test-udp-holes-penetrating-nat.html" target="_blank" rel="noopener">试验UDP打洞穿透NAT</a></li>
+</ul>
+<h4 id="Interactive-Connectivity-Establishment-ICE"><a href="#Interactive-Connectivity-Establishment-ICE" class="headerlink" title="Interactive Connectivity Establishment (ICE)"></a>Interactive Connectivity Establishment (ICE)</h4><ul>
+<li><a href="https://code.google.com/archive/p/ice4j/" target="_blank" rel="noopener">ice4j</a>  code .google ice4j 资源交老</li>
+<li><a href="https://github.com/jitsi/ice4j" target="_blank" rel="noopener">https://github.com/jitsi/ice4j</a> 比较新的资源</li>
+<li><a href="http://bluejimp.com/jitsi/ice4j/javadoc/" target="_blank" rel="noopener">ice4j Javadoc</a></li>
+<li><a href="https://tools.ietf.org/pdf/rfc5245.pdf" target="_blank" rel="noopener">rfc5245.pdf</a></li>
+<li><strong><a href="https://github.com/RestComm/jain-sip" target="_blank" rel="noopener">jain-sip</a></strong>    jain-sdp 获取Sdp源码</li>
+<li><strong><a href="https://github.com/RestComm/restcomm-android-sdk" target="_blank" rel="noopener">restcomm-android-sdk</a></strong>   Tutorial <a href="https://telestax.com/jain-sip-stack-for-android/" target="_blank" rel="noopener">https://telestax.com/jain-sip-stack-for-android/</a></li>
+</ul>
+<p><strong>libnice</strong></p>
+<ul>
+<li><strong><a href="https://github.com/since2014/libnice-4-android" target="_blank" rel="noopener">libnice-4-android</a></strong></li>
+<li><a href="https://nice.freedesktop.org/libnice/index.html" target="_blank" rel="noopener"><strong>Api documentation</strong></a></li>
+</ul>
+<p>Englis PDF Material</p>
+<ul>
+<li><a href="https://tools.ietf.org/pdf/rfc4566.pdf" target="_blank" rel="noopener">rfc4566 SDP: Session Description Protocol </a></li>
+<li><a href="https://tools.ietf.org/pdf/rfc5928.pdf" target="_blank" rel="noopener"> rfc5928 Traversal Using Relays around NAT (TURN) Resolution Mechanism</a></li>
+<li><a href="chrome-extension://ecnphlgnajanjnkcmbpancdjoidceilk/https://tools.ietf.org/pdf/rfc5766.pdf" target="_blank" rel="noopener">rfc5766.pdf Traversal Using Relays around NAT (TURN):Relay Extensions to Session Traversal Utilities for NAT (STUN)</a> </li>
+<li><a href="https://tools.ietf.org/pdf/rfc5245.pdf" target="_blank" rel="noopener">rfc5245 Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal for Offer/Answer Protocols</a></li>
+</ul>
+<h4 id="UDP打洞"><a href="#UDP打洞" class="headerlink" title="UDP打洞"></a>UDP打洞</h4><ul>
+<li><a href="http://network.51cto.com/art/201505/477962.htm" target="_blank" rel="noopener">QQ通信原理及QQ是怎么穿透内网进行通信的</a></li>
+<li><a href="http://down.51cto.com/zt/2073" target="_blank" rel="noopener">P2P技术揭秘-P2P网络技术原理与典型系统开发 教程下载</a> </li>
+<li><a href="https://webrtc.org/reference/getting-started/" target="_blank" rel="noopener">webrtc</a></li>
+</ul>
+<p><strong>turnserver</strong><br><a href="https://code.google.com/archive/p/rfc5766-turn-server/downloads" target="_blank" rel="noopener">downloads</a><br>Important directory:<br>/usr/local/share/examples/turnserver<br><a href="http://66.228.45.110/" target="_blank" rel="noopener">http://66.228.45.110/</a> 免费申请 账号的网站<br><a href="http://www.webrtcbbs.com/forum.php?mod=viewthread&tid=139&extra=page%3D1" target="_blank" rel="noopener">比较详细的turnserver.conf配置说明</a></p>
+<h4 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h4><p><strong>Learning resource</strong></p>
+<ul>
+<li><a href="http://nodeschool.io/#workshoppers" target="_blank" rel="noopener">http://nodeschool.io/#workshoppers</a></li>
+</ul>
+<p><strong>openSource</strong></p>
+<ul>
+<li><strong><a href="https://github.com/madhums/node-express-mongoose-demo" target="_blank" rel="noopener">node-express-mongoose-demo</a></strong></li>
+</ul>
+<p><strong>Module</strong></p>
+<ul>
+<li><a href="http://samhuri.net/projects/strftime" target="_blank" rel="noopener">http://samhuri.net/projects/strftime</a></li>
+</ul>
+<p><strong>Tutorial</strong></p>
+<ul>
+<li><a href="https://www.airpair.com/javascript/node-js-tutorial" target="_blank" rel="noopener">Node.js Tutorial – Step-by-Step Guide For Getting Started</a></li>
+</ul>
+<p><strong>Tool</strong></p>
+<pre><code>npm install -g node-inspector
+# basically `node-debug` instead of `node`
+$ node-debug example.js</code></pre><p><a href="https://developers.google.com/web/tools/setup/" target="_blank" rel="noopener">https://developers.google.com/web/tools/setup/</a></p>
+<h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3><p><strong>数据转码</strong></p>
+<ul>
+<li>[Convert bitmap array to YUV (YCbCr NV21)](<a href="http://stackoverflow.com/questions/5960247/convert-bitmap--" target="_blank" rel="noopener">http://stackoverflow.com/questions/5960247/convert-bitmap--</a> array-to-yuv-ycbcr-nv21)</li>
+<li><a href="http://stackoverflow.com/questions/5368704/appending-a-byte-to-the-end-of-another-byte" target="_blank" rel="noopener">Appending a byte[] to the end of another byte[]</a></li>
+<li><a href="http://blog.csdn.net/guojin08/article/details/27555473" target="_blank" rel="noopener">Android 用MediaCodec实现视频硬解码</a></li>
+<li><a href="http://developer.android.com/intl/zh-cn/reference/android/media/MediaCodec.html#createEncoderByType(java.lang.String)" target="_blank" rel="noopener">MediaCodec Api</a></li>
+</ul>
+<p><strong>数据校验</strong></p>
+<ul>
+<li><a href="http://www.tuicool.com/articles/QzEfiy" target="_blank" rel="noopener">传输数据校验算法研究</a></li>
+</ul>
+<h3 id="WebRTC"><a href="#WebRTC" class="headerlink" title="WebRTC"></a>WebRTC</h3><ul>
+<li><a href="https://tech.appear.in/2015/05/25/Introduction-to-WebRTC-on-Android/" target="_blank" rel="noopener">Introduction to WebRTC on Android</a></li>
+<li><a href="http://www.cnblogs.com/lingyunhu/tag/webrtc%20android%20ios/default.html?page=4" target="_blank" rel="noopener">Android IOS WebRTC 音视频开发总结列表</a></li>
+<li><a href="https://webrtc.org/" target="_blank" rel="noopener">https://webrtc.org/</a></li>
+<li><a href="http://www.html5rocks.com/en/tutorials/webrtc/basics/#toc-tools" target="_blank" rel="noopener">Getting Started with WebRTC</a></li>
+<li><a href="https://webrtc.github.io/samples/" target="_blank" rel="noopener">WebRTC samples</a> 有各种Sample代码Html/js演示，并有对应Github源 码地址， 整个工程的<a href="https://github.com/webrtc/samples" target="_blank" rel="noopener">samples</a></li>
+<li><a href="https://webrtc.org/native-code/native-apis/" target="_blank" rel="noopener">Native APIs Diagram</a></li>
+<li><strong><a href="https://github.com/pchab/AndroidRTC" target="_blank" rel="noopener">AndroidRTC</a></strong></li>
+</ul>
+<p><strong>相关博文</strong><br> <a href="http://blog.csdn.net/nonmarking/article/details/47375849" target="_blank" rel="noopener">WebRTC VideoEngine综合应用示例（一）——视频通话的基本流程</a></p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><hr>
+<p><em>控制相关</em></p>
+<ul>
+<li><a href="http://www.race604.com/android-inject-input-event/" target="_blank" rel="noopener">Android模拟产生事件</a> 概括分析了模拟事件的三种方式，而且文章格式很喜欢</li>
+<li><a href="http://source.android.com/devices/input/index.html" target="_blank" rel="noopener">Input Technical Information</a> Android Source 关于android devices input 的说明，偏底层 ；</li>
+<li><a href="http://blog.csdn.net/mad1989/article/details/38109689" target="_blank" rel="noopener">getevent/sendevent及 input 命令的详解</a></li>
+</ul>
+<p><em>截屏相关</em></p>
+<ul>
+<li><a href="http://blog.csdn.net/woshinia/article/details/11520403" target="_blank" rel="noopener">Android中使用代码截图的各种方法总结</a></li>
+</ul>
+<p><em>视频相关</em></p>
+<ul>
+<li><a href="http://blog.chinaunix.net/uid-26611383-id-3976154.html" target="_blank" rel="noopener">FFmpeg深入分析之零-基础</a></li>
+<li><a href="http://blog.csdn.net/gobitan/article/details/22750719" target="_blank" rel="noopener">FFmpeg的Android平台移植—编译篇</a></li>
+<li><a href="http://blog.csdn.net/mer1234567/article/details/7679862" target="_blank" rel="noopener">Android中实时视频传输(摄像头实时视频传输)解决方案&lt;二&gt;</a></li>
+<li><a href="http://blog.csdn.net/xiaoliouc/article/details/8443195" target="_blank" rel="noopener">android视频录制、另一部手机实时观看方案</a> 重点</li>
+<li><a href="http://www.cnblogs.com/likwo/p/3513155.html" target="_blank" rel="noopener">android视频处理相关资料</a> 重点</li>
+</ul>
+<p><em>资料</em><br><a href="http://www.ffmpeg.org/ffmpeg.html" target="_blank" rel="noopener">http://www.ffmpeg.org/ffmpeg.html</a><br><a href="http://rg4.net/ezstreamsvr" target="_blank" rel="noopener">EzStreamSvr</a> 一个流媒体传输服务器端<br><a href="http://gstreamer.freedesktop.org/" target="_blank" rel="noopener">GStreamer</a>  open source multimedia framework</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WebRTC/" rel="tag"># WebRTC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/03/2018-8-3-coder-software/" rel="next" title="编程中好用工具">
+                <i class="fa fa-chevron-left"></i> 编程中好用工具
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/07/2018-4-14-android-optimization/" rel="prev" title="优化Android App">
+                优化Android App <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/08/07/2018-8-7-remote-control/" data-title="远程控制笔记整理" data-url="http://linz.tech/2018/08/07/2018-8-7-remote-control/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#视频流播放相关"><span class="nav-number">1.</span> <span class="nav-text">视频流播放相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关开源库"><span class="nav-number">1.1.</span> <span class="nav-text">相关开源库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#教程"><span class="nav-number">1.2.</span> <span class="nav-text">教程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实践笔记积累"><span class="nav-number">1.3.</span> <span class="nav-text">实践笔记积累</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络相关学习"><span class="nav-number">2.</span> <span class="nav-text">网络相关学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Socket-io"><span class="nav-number">2.1.</span> <span class="nav-text">Socket.io</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基础知识"><span class="nav-number">2.2.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Interactive-Connectivity-Establishment-ICE"><span class="nav-number">2.3.</span> <span class="nav-text">Interactive Connectivity Establishment (ICE)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP打洞"><span class="nav-number">2.4.</span> <span class="nav-text">UDP打洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-js"><span class="nav-number">2.5.</span> <span class="nav-text">Node.js</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传输"><span class="nav-number">3.</span> <span class="nav-text">数据传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebRTC"><span class="nav-number">4.</span> <span class="nav-text">WebRTC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

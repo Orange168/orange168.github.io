@@ -1,0 +1,3114 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="docker,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Containerdocker build --tag=friendlyhello . #or add version   docker build -tag= friendlyhello:v0.0.1 .  docker image ls docker run -p 4000:80 friendlyhello  Docker for Linux network set  Set proxy se">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker学习笔记">
+<meta property="og:url" content="http://linz.tech/2019/09/10/2019-4-14-Docker-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="Containerdocker build --tag=friendlyhello . #or add version   docker build -tag= friendlyhello:v0.0.1 .  docker image ls docker run -p 4000:80 friendlyhello  Docker for Linux network set  Set proxy se">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/starsliao/Prometheus/master/screenshot.jpg">
+<meta property="og:image" content="http://cdn.linz.tech/threads-gateway-2019-6-13.png">
+<meta property="og:image" content="http://cdn.linz.tech/1555683876672.png">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.494Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker学习笔记">
+<meta name="twitter:description" content="Containerdocker build --tag=friendlyhello . #or add version   docker build -tag= friendlyhello:v0.0.1 .  docker image ls docker run -p 4000:80 friendlyhello  Docker for Linux network set  Set proxy se">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/starsliao/Prometheus/master/screenshot.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/09/10/2019-4-14-Docker-note/">
+
+
+
+
+
+  <title>Docker学习笔记 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/09/10/2019-4-14-Docker-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T08:22:52+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/10/2019-4-14-Docker-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/10/2019-4-14-Docker-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h1><pre class="line-numbers language-shell"><code class="language-shell">docker build --tag=friendlyhello .
+#or add version  
+docker build -tag= friendlyhello:v0.0.1 .
+
+docker image ls
+docker run -p 4000:80 friendlyhello <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Docker for Linux network set</p>
+<blockquote>
+<p>Set proxy server, replace host:port with values for your servers</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ENV http_proxy host:port
+ENV https_proxy host:port<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>docker dns set <code>/etc/docker/daemon.json</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+  "dns": ["your_dns_address", "8.8.8.8"]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><code>sudo service docker restart</code></p>
+</blockquote>
+<p>On Windows, explicitly stop the container</p>
+<blockquote>
+<p><code>CTRL+C</code> can’t stop image use <code>docker container ls</code> </p>
+<p><code>docker container stop &lt;Container NAME or ID&gt;</code></p>
+</blockquote>
+<h2 id="容器的基本操作"><a href="#容器的基本操作" class="headerlink" title="容器的基本操作"></a>容器的基本操作</h2><h3 id="启动交互式容器"><a href="#启动交互式容器" class="headerlink" title="启动交互式容器"></a>启动交互式容器</h3><pre class="line-numbers language-shell"><code class="language-shell">  docker run -i -t IMAGE /bin/bash
+    -i --interactive   #true|false 默认是false Keep STDIN open even if not attached
+    -t --tty=true|false 默认是false # 告诉容器创建一个伪tty终端<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>案例： docker安装ubuntu镜像</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">docker search ubuntu
+docker pull ubuntu
+docker images 
+#运行镜像并指定名称和端口映射，返回容器id
+docker run -it -d --name ubuntu_test -p 8088:80 ubuntu
+#查看所有启动的容器
+docker ps
+#根据上面id（前2个）查看容器信息
+docker inspect 98
+#进入镜像(或者把容器id改为容器名，也可以进入)
+#新建进程执行
+docker exec -it 98 /bin/bash 
+# 退出容器
+exit
+#停止容器
+docker stop id
+#删除容器
+docker rm <container id>
+#制作docker镜像
+docker commit 98 ubuntu_test1:1.0
+#打包镜像并查看
+docker save -o ubuntu_test1.tar ubuntu_test1:1.0
+#交互的方式重新启动容器
+docker start -i<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></container></code></pre>
+<h2 id="守护式容器"><a href="#守护式容器" class="headerlink" title="守护式容器"></a>守护式容器</h2><pre class="line-numbers language-shell"><code class="language-shell">#使真正运行的容器后台运行
+Ctrl+P  Ctrl+Q 
+# 后台启动容器
+docker run -d 
+#查看容器日志
+docker logs
+#查看容器的进程
+docker top
+#为运行中的容器启动新进程
+docker exec
+# 停止一个运行中的容器 stop 等待容器正常停止，直接kill掉进程 
+docker stop/kill
+#使用Docker帮助文档
+man docker-run
+man docker-logs
+man docker-top<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完整的操作案例</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#自定义容器名称
+docker run --name dc -d ubuntu /bin/sh -c "while true;do echo hello world; sleep 1;done"
+#查看container信息
+docker ps 
+#进入后台运行的容器
+docker attach id
+docker logs `
+    -f follow -t 时间
+docker logs -tf --tail  10 container_name
+docker top container_name
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>设置容器的端口映射</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -p 80 --name web -it ubuntu /bin/bash
+#容器初始化之前需求 apt-get update 更新一下
+apt-get install -y nginx
+apt-get install -y vim 
+mkdir -p /var/www/html
+vim index.html
+whereis nginx 
+vim /etc/nginx/sites-enabled/default root 改为 /var/www/html 位置
+#查看niginx运行情况
+ps -ef 
+# 非docker环境下
+docker port web # 80/tcp -> 0.0.0.0:32768 localhost：32768 直接访问
+`每次重启容器的IP和端口号会变`<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>停止并且删除容器</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker container stop wildfly
+docker container rm wildfly<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>其他方式<code>docker container rm -f wildfly</code></p>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><pre class="line-numbers language-shell"><code class="language-shell">  #停止指定容器
+  docker container stop `docker container ps | grep wildfly | awk '{print $1}'`
+  #删除所有运行的container
+  docker container stop $(docker container ps -q)
+  #删除所有container
+  docker container rm $(docker container ps -aq)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h1><h2 id="镜像信息查看命令"><a href="#镜像信息查看命令" class="headerlink" title="镜像信息查看命令"></a>镜像信息查看命令</h2><p><code>docker info</code> 能查看docker镜像存储位置 一般为<code>/var/lib/docker</code><br><code>docker system df</code>  查看镜像、容器、数据卷所占用的空间<br><code>docker image history jboss/wildfly</code>  查看镜像更详细的信息</p>
+<h2 id="镜像的查看于删除"><a href="#镜像的查看于删除" class="headerlink" title="镜像的查看于删除"></a>镜像的查看于删除</h2><pre class="line-numbers language-shell"><code class="language-shell">docker images 
+    -a  #all
+    -f  #filter
+    --no-trunc #不使用阶段的形式
+    -q #只显示镜像的唯一id
+#列出仓库名为centos的所有镜像 
+docker images centos  
+#查看镜像信息
+docker inspect ubuntu:14.0
+docker inspect <images_id>
+#删除镜像
+docker rmi
+    -f 
+    --no-prune  #Do not delete untagged parents
+#删除多个
+docker rmi ubuntu:14.0 ubuntu:precise
+#删除ubuntu中的所有镜像
+docker rmi $(docker images ubuntu -q)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></images_id></code></pre>
+<h2 id="官网案例-Share-Image"><a href="#官网案例-Share-Image" class="headerlink" title="官网案例 Share Image"></a>官网案例 Share Image</h2><p>官网： <a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker build -t friendlyhello .  # Create image using this directory's Dockerfile
+docker run -p 4000:80 friendlyhello  # Run "friendlyname" mapping port 4000 to 80
+docker run -d -p 4000:80 friendlyhello         # Same thing, but in detached mode
+docker run -it --rm ubuntu /bin/bash           #退出后删除容器
+docker container ls                                # List all running containers
+docker container ls -a             # List all containers, even those not running
+docker container stop <hash>           # Gracefully stop the specified container
+docker container kill <hash>         # Force shutdown of the specified container
+docker container rm <hash>        # Remove specified container from this machine
+docker container rm $(docker container ls -a -q)         # Remove all containers
+docker image ls -a                             # List all images on this machine
+docker image rm <image id>            # Remove specified image from this machine
+docker image rm $(docker image ls -a -q)   # Remove all images from this machine
+docker login             # Log in this CLI session using your Docker credentials
+docker tag <image> username/repository:tag  # Tag <image> for upload to registry
+docker push username/repository:tag            # Upload tagged image to registry
+docker run username/repository:tag                   # Run image from a registry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></image></image></image></hash></hash></hash></code></pre>
+<h2 id="镜像的获取和推送"><a href="#镜像的获取和推送" class="headerlink" title="镜像的获取和推送"></a>镜像的获取和推送</h2><p><strong>Ubuntu 14.04、Debian 7 Wheezy</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker search 
+
+#镜像的拉取
+docker pull 
+#使用国内镜像 www.daocloud.io
+--registry-mirror
+# 1. 修改 /etc/default/docker
+# or 2. 添加 DOCKER_OPTS = "--registry-mirror=http://mirror-addr" 
+sudo service docker restart
+#查看是否生效
+docker info<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/install/mirror.html" target="_blank" rel="noopener">镜像加速器 参考文档</a></li>
+</ul>
+<p>常用国内镜像</p>
+<ul>
+<li><a href="https://docs.docker.com/registry/recipes/mirror/#use-case-the-china-registry-mirror" target="_blank" rel="noopener">Docker 官方提供的中国 registry mirror <code>https://registry.docker-cn.com</code></a></li>
+<li><a href="https://www.jianshu.com/p/1a4025c5f186" target="_blank" rel="noopener">Docker 国内镜像库加速</a></li>
+<li><a href="https://cr.console.aliyun.com/cn-hangzhou/mirrors" target="_blank" rel="noopener">阿里云加速器(需登录账号获取)</a></li>
+<li><a href="https://kirk-enterprise.github.io/hub-docs/#/user-guide/mirror" target="_blank" rel="noopener">七牛云加速器 <code>https://reg-mirror.qiniu.com/</code></a></li>
+</ul>
+<p><strong>Ubuntu 16.04+、Debian 8+、CentOS 7</strong></p>
+<p>修改<code>/etc/docker/daemon.json</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+    "registry-mirrors": ["https://yourcode.mirror.aliyuncs.com"]
+      # "registry-mirrors": ["https://registry.docker-cn.com"]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>重启</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="构建镜像与仓库"><a href="#构建镜像与仓库" class="headerlink" title="构建镜像与仓库"></a>构建镜像与仓库</h2><blockquote>
+<p>commit 在原有镜像的基础上，再叠加上容器的存储层，并构成新的镜像，尽量减少使用commit因为每次叠加，慎用 <code>docker commit</code></p>
+</blockquote>
+<ul>
+<li><code>docker diff &lt;container_id&gt;</code> 比较上一次修改了哪些文件</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">#Commit构建镜像
+docker commit [OPTIONS] CONTAINER [REPOSITORY:[TAG]]
+    -a, --author="Jobhn Hannibal Smith hannibal@a-team.com"
+    -m, --message="" Commit message
+    -p, --pause=true Pause container during comit # commit 指令会暂停容器，-p则不停止
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="案例commit-方式"><a href="#案例commit-方式" class="headerlink" title="案例commit 方式"></a><strong>案例commit 方式</strong></h3><pre class="line-numbers language-shell"><code class="language-shell"> docker run -it -p 80 --name comit_test ubuntu /bin/bash
+ apt-get update 
+ apt-get install nginx 
+ exit
+ docker ps -l 
+ docker commit -a 'Dockerlinz press' -m 'nigix' commit_test dockerlinz/commit_test1
+ docker images 
+ docker run -d --name nginx_web1 dockerlinz/commit_test1 nginx -g "daemon off;" #nginx 后台运行
+ # 发现没有映射端口
+docker run -d --name nginx_web1 -p 80 dockerlinz/commit_test1 nginx -g "daemon off;"
+curl localhost:port
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="DockerFile构建镜像"><a href="#DockerFile构建镜像" class="headerlink" title="DockerFile构建镜像"></a><strong>DockerFile构建镜像</strong></h3><p>DockerFile demo </p>
+<pre class="line-numbers language-shell"><code class="language-shell">  #First Dockerfile
+  FROM ubuntu:14:04
+  MAINTAINER dormancypress "dormancypress@outlook.com"
+  RUN apt-get update
+  RUN apt-get install -y nginx 
+  EXPOSE 80<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>docker build docke</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker build [OPTIONS] PATH | URL
+    --force-rm
+    --no-cache
+    --pull
+    -q # 不显示过程
+    --rm 
+    -t #TAG
+
+docker build -t="dockerlinz/df_test"
+docker run -d --name nginx_web1 -p 80 dockerlinz/df_test nginx -g "daemon off;"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>DockerFile指令vim</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ARG <参数名>[=<默认值>] # docker build --build-arg <参数名>=<值>
+#COPY [--chown=<user>:<group>] <源路径>... <目标路径>
+COPY package.json /usr/src/app/
+COPY hom* /mydir/
+#和copy类似带解压功能
+ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /
+# MAINTAINER <name> 包含镜像所有者和联系信息
+MAINTAINER dormancypress "dormancypress@gmail.com"
+#ENV 设置环境变量
+ENV <key> <value>
+ENV <key1>=<value1> <key2>=<value2>...\
+<key1>=<value1>
+#USER 指定当前用户
+USER <用户名>[:<用户组>]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></用户组></用户名></value1></key1></value2></key2></value1></key1></value></key></name></目标路径></源路径></group></user></值></参数名></默认值></参数名></code></pre>
+<ul>
+<li><p>CMD的三种模式</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#1. CMD ["exe","param1","param2"] （exec模式）
+#2. CMD ls -a (shell模式)
+CMD [ "sh", "-c", "echo $HOME" ]
+#3. CMD ["param1","param2"] (ENTRYPOINT 指令的默认参数)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>ENTRYPOINT  <code>可以使用docker run --entrypoint覆盖</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">#1. ENTRYPOINT ["exe","param1","param2"] （exec模式）
+#2. ENTRYPOINT ls -a (shell模式)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>DockerFile 构建过程<br>run image -&gt; exec cmd -&gt;commit-&gt; exec cmd -&gt; commit </p>
+<pre class="line-numbers language-shell"><code class="language-shell">#调试具体步骤
+构建DockerFile的时候可以运行中间层镜像，可以调试具体步骤
+# 默认缓存，不缓存
+docker build --no-cache 
+# 局部缓存刷新，修改日期后下面的操作刷新缓存
+ENV REFRESH_DATA 2019-1-30
+# 显示一个镜像的构建过程
+docker history <image><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></image></code></pre>
+</li>
+</ul>
+<h1 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h1><pre class="line-numbers language-shell"><code class="language-shell">docker stack ls                                            # List stacks or apps
+docker stack deploy -c <composefile> <appname>  # Run the specified Compose file
+docker service ls                 # List running services associated with an app
+docker service ps <service>                  # List tasks associated with an app
+docker inspect <task or container>                   # Inspect task or container
+docker container ls -q                                      # List container IDs
+#docker stack ls 
+docker stack rm <appname>                             # Tear down an application
+docker swarm leave --force      # Take down a single node swarm from the manager
+#更新端口
+docker service update --publish-rm 8080:5000 --publish-add 8088:5000 web
+#更新image
+docker service  update --image xiaopeng163/python-flask-demo:2.0 web<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></appname></task></service></appname></composefile></code></pre>
+<blockquote>
+<p>this node is not a swarm manager. Use “docker swarm init” or “docker swarm join” to connect this node to swarm and try again<br>用：<code>docker swarm init</code> 解决</p>
+</blockquote>
+<h3 id="Remote-API"><a href="#Remote-API" class="headerlink" title="Remote API"></a>Remote API</h3><p>连接三种方式</p>
+<pre class="line-numbers language-shell"><code class="language-shell">unix:///var/run/docker.sock
+tcp://host:port
+fd://socketfd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>nc -U /var/run/docker.sock</p>
+<h3 id="docker-守护进程配置和操作"><a href="#docker-守护进程配置和操作" class="headerlink" title="docker 守护进程配置和操作"></a>docker 守护进程配置和操作</h3><pre class="line-numbers language-shell"><code class="language-shell"># 查看运行状态
+ps -ef | grep docker 
+sudo status docker 
+#
+sudo service docker stop/start/restart
+# 与运行相关：
+docker -d [OPTIONS]
+    -D #调试模式
+    -e,--exec-driver="native" #docker 运行的驱动
+    -l,--log-level="info" #日志级别
+    -g,--graph="/var/lib/docker" #目录
+    -p,--pidfile="/var/rundocker.pid"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>Docker服务器链接相关</p>
+<pre class="line-numbers language-shell"><code class="language-shell">-G,--group="docker" #用户组
+-H,--host=[]
+--tls=false
+--tlscacert="/home/sven/.docker/ca.pem"
+--tlscert="/home/sven/.docker/cert.pem"
+--tlskey="/home/sven/.docker/key.pem"
+--tlsverify=false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><code>/etc/defalt/docker</code> </p>
+</li>
+</ul>
+<h1 id="Swarms"><a href="#Swarms" class="headerlink" title="Swarms"></a>Swarms</h1><p><a href="https://docs.docker.com/get-started/part4/" target="_blank" rel="noopener">https://docs.docker.com/get-started/part4/</a></p>
+<h2 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h2><pre class="line-numbers language-shell"><code class="language-shell">docker stack deploy --compose-file=docker-compose.yml <name>
+docker stack ls 
+docker stack rm <name>
+#初始化当前节点为manager
+docker swarm init --advertise-addr 192.168.99.100:2377
+#获取加入manager的token
+docker swarm join-token manager
+#加入manager的集群
+docker swarm join --token SWMTKN-1-2abs9211jijp6pmxc7b20v4vc6apbznnxgh48th36lxttud5ue-andtd5ira0z17ht6psxg9xo8j 192.168.208.137:2377
+#强行退出swarm
+docker swarm leave --force
+docker node ls # 列出当前节点<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></name></name></code></pre>
+<h2 id="docker-machine"><a href="#docker-machine" class="headerlink" title="docker-machine"></a>docker-machine</h2><pre class="line-numbers language-shell"><code class="language-shell">docker-machine create --driver virtualbox myvm1
+docker-machine create --driver virtualbox myvm2
+docker-machine ls
+myvm1   -        virtualbox   Running   tcp://192.168.99.100:2376           v17.06.2-ce
+myvm2   -        virtualbox   Running   tcp://192.168.99.101:2376           v17.06.2-ce
+docker-machine ssh myvm1 "docker swarm init --advertise-addr 192.168.99.100:2377"
+docker-machine ssh myvm2 "docker swarm join \
+--token <token> \
+<ip>:2377"
+docker-machine ssh myvm1 "docker node ls"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></ip></token></code></pre>
+<h3 id="Configuration-docker-machine"><a href="#Configuration-docker-machine" class="headerlink" title="Configuration docker-machine"></a>Configuration docker-machine</h3><pre class="line-numbers language-shell"><code class="language-shell">docker-machine env myvm1
+export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://192.168.99.100:2376"
+export DOCKER_CERT_PATH="/Users/sam/.docker/machine/machines/myvm1"
+export DOCKER_MACHINE_NAME="myvm1"
+# Run this command to configure your shell:
+ eval $(docker-machine env myvm1)
+
+ eval $(docker-machine env -u)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Deploy-the-app-on-the-swarm-manager"><a href="#Deploy-the-app-on-the-swarm-manager" class="headerlink" title="Deploy the app on the swarm manager"></a>Deploy the app on the swarm manager</h3><pre class="line-numbers language-shell"><code class="language-shell">docker stack deploy -c docker-compose.yml getstartedlab
+docker stack rm getstartedlab<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="swarm-连接数据库"><a href="#swarm-连接数据库" class="headerlink" title="swarm 连接数据库"></a>swarm 连接数据库</h3><p>connection-url 连接</p>
+<pre class="line-numbers language-yml"><code class="language-yml">swarm:
+  datasources:
+    data-sources:
+      ExampleDS:
+        driver-name: mysql
+        connection-url: jdbc:mysql://db:3306/employees
+        user-name: mysql
+        password: mysql
+  jaeger:
+    service-name: jaeger
+    reporter-log-spans: true
+    sampler-type: const
+    sampler-parameter: 1
+    agent-host: jaeger
+  opentracing:
+    servlet:
+      skipPattern: /metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过镜像连接</p>
+<pre class="line-numbers language-yml"><code class="language-yml">version: '3.3'
+services:
+  db:
+    container_name: db
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: employees
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+      MYSQL_ROOT_PASSWORD: supersecret
+    ports:
+      - 3306:3306
+  web:
+    image: arungupta/docker-javaee:dockerconeu17
+    ports:
+      - 8080:8080
+      - 9990:9990
+    depends_on:
+      - db<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><pre class="line-numbers language-shell"><code class="language-shell">docker-machine create --driver virtualbox myvm1 # Create a VM (Mac, Win7, Linux)
+docker-machine create -d hyperv --hyperv-virtual-switch "myswitch" myvm1 # Win10
+docker-machine env myvm1                # View basic information about your node
+docker-machine ssh myvm1 "docker node ls"         # List the nodes in your swarm
+docker-machine ssh myvm1 "docker node inspect <node id>"        # Inspect a node
+docker-machine ssh myvm1 "docker swarm join-token -q worker"   # View join token
+docker-machine ssh myvm1   # Open an SSH session with the VM; type "exit" to end
+docker node ls                # View nodes in swarm (while logged on to manager)
+docker-machine ssh myvm2 "docker swarm leave"  # Make the worker leave the swarm
+docker-machine ssh myvm1 "docker swarm leave -f" # Make master leave, kill swarm
+docker-machine ls # list VMs, asterisk shows which VM this shell is talking to
+docker-machine start myvm1            # Start a VM that is currently not running
+docker-machine env myvm1      # show environment variables and command for myvm1
+eval $(docker-machine env myvm1)         # Mac command to connect shell to myvm1
+& "C:\Program Files\Docker\Docker\Resources\bin\docker-machine.exe" env myvm1 | Invoke-Expression   # Windows command to connect shell to myvm1
+docker stack deploy -c <file> <app>  # Deploy an app; command shell must be set to talk to manager (myvm1), uses local Compose file
+docker-machine scp docker-compose.yml myvm1:~ # Copy file to node's home dir (only required if you use ssh to connect to manager and deploy the app)
+docker-machine ssh myvm1 "docker stack deploy -c <file> <app>"   # Deploy an app using ssh (you must have first copied the Compose file to myvm1)
+eval $(docker-machine env -u)     # Disconnect shell from VMs, use native docker
+docker-machine stop $(docker-machine ls -q)               # Stop all running VMs
+docker-machine rm $(docker-machine ls -q) # Delete all VMs and their disk images<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></app></file></app></file></node></code></pre>
+<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><pre class="line-numbers language-shell"><code class="language-shell">docker stack deploy -c docker-compose.yml getstartedlab
+docker stack ps getstartedlab<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>help</p>
+<pre class="line-numbers language-shell"><code class="language-shell">deploy      Deploy a new stack or update an existing stack
+ls          List stacks
+ps          List the tasks in the stack
+rm          Remove one or more stacks
+services    List the services in the stack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>不支持 stack deploy 的compose关键字</p>
+<ul>
+<li><a href="https://docs.docker.com/compose/compose-file/#build" target="_blank" rel="noopener">build</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#cgroup_parent" target="_blank" rel="noopener">cgroup_parent</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#container_name" target="_blank" rel="noopener">container_name</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#devices" target="_blank" rel="noopener">devices</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#tmpfs" target="_blank" rel="noopener">tmpfs</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#external_links" target="_blank" rel="noopener">external_links</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#links" target="_blank" rel="noopener">links</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#network_mode" target="_blank" rel="noopener">network_mode</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#restart" target="_blank" rel="noopener">restart</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#security_opt" target="_blank" rel="noopener">security_opt</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#sysctls" target="_blank" rel="noopener">sysctls</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#userns_mode" target="_blank" rel="noopener">userns_mode</a></li>
+</ul>
+<p>redis sample</p>
+<pre class="line-numbers language-shell"><code class="language-shell">version: "3"
+services:
+  web:
+    # replace username/repo:tag with your name and image details
+    image: dockerlinz/get-started:part2
+    deploy:
+      replicas: 5
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+    ports:
+      - "80:80"
+    networks:
+      - webnet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - "/home/docker/data:/data"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    command: redis-server --appendonly yes
+    networks:
+      - webnet
+networks:
+  webnet:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="deploy-详解"><a href="#deploy-详解" class="headerlink" title="deploy 详解"></a>deploy 详解</h2><pre class="line-numbers language-shell"><code class="language-shell">    deploy:
+      replicas: 5
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+       placement:
+        constraints:
+          - node.role == manager
+          - node.id==2ivku8v2gvtg4
+          - node.hostname!=node-2
+          - node.labels.security==high
+          - engine.labels.operatingsystem == ubuntu 14.04
+        preferences:
+          - spread: node.labels.zone
+       update_config:
+          parallelism: 2
+          delay: 10s
+          order: stop-first<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考： <a href="https://docs.docker.com/engine/reference/commandline/service_create/#specify-service-constraints-constraint" target="_blank" rel="noopener">constraints</a> and <a href="https://docs.docker.com/engine/reference/commandline/service_create/#specify-service-placement-preferences-placement-pref" target="_blank" rel="noopener">preferences</a>.</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><pre class="line-numbers language-shell"><code class="language-shell">docker-machine create --driver virtualbox myvm1 # Create a VM (Mac, Win7, Linux)
+docker-machine create -d hyperv --hyperv-virtual-switch "myswitch" myvm1 # Win10
+docker-machine env myvm1                # View basic information about your node
+docker-machine ssh myvm1 "docker node ls"         # List the nodes in your swarm
+docker-machine ssh myvm1 "docker node inspect <node id>"        # Inspect a node
+docker-machine ssh myvm1 "docker swarm join-token -q worker"   # View join token
+docker-machine ssh myvm1   # Open an SSH session with the VM; type "exit" to end
+docker node ls                # View nodes in swarm (while logged on to manager)
+docker-machine ssh myvm2 "docker swarm leave"  # Make the worker leave the swarm
+docker-machine ssh myvm1 "docker swarm leave -f" # Make master leave, kill swarm
+docker-machine ls # list VMs, asterisk shows which VM this shell is talking to
+docker-machine start myvm1            # Start a VM that is currently not running
+docker-machine env myvm1      # show environment variables and command for myvm1
+eval $(docker-machine env myvm1)         # Mac command to connect shell to myvm1
+& "C:\Program Files\Docker\Docker\Resources\bin\docker-machine.exe" env myvm1 | Invoke-Expression   # Windows command to connect shell to myvm1
+docker stack deploy -c <file> <app>  # Deploy an app; command shell must be set to talk to manager (myvm1), uses local Compose file
+docker-machine scp docker-compose.yml myvm1:~ # Copy file to node's home dir (only required if you use ssh to connect to manager and deploy the app)
+docker-machine ssh myvm1 "docker stack deploy -c <file> <app>"   # Deploy an app using ssh (you must have first copied the Compose file to myvm1)
+eval $(docker-machine env -u)     # Disconnect shell from VMs, use native docker
+
+docker-machine start $(docker-machine ls -q)               # Stop all running VMs
+docker-machine stop $(docker-machine ls -q)               # Stop all running VMs
+docker-machine rm $(docker-machine ls -q) # Delete all VMs and their disk images<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></app></file></app></file></node></code></pre>
+<h1 id="监控-monitoring"><a href="#监控-monitoring" class="headerlink" title="监控 monitoring"></a>监控 monitoring</h1><h2 id="Docker-CLi"><a href="#Docker-CLi" class="headerlink" title="Docker CLi"></a>Docker CLi</h2><pre class="line-numbers language-shell"><code class="language-shell">#容器使用资源情况，如cpu，men，i/o 
+docker stats <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>显示指定的内容，:</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker container stats --format "{{.Container}}: {{.CPUPerc}}"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">55198043b6aa: 0.10%
+5b5dd33b675d: 0.11%
+6e98a9597e6a: 0.10%<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>类似：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker container stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Docker-Remote-API"><a href="#Docker-Remote-API" class="headerlink" title="Docker Remote API"></a>Docker Remote API</h2><pre class="line-numbers language-shell"><code class="language-shell">curl --unix-socket /var/run/docker.sock http://localhost/containers/<name>/stats<span aria-hidden="true" class="line-numbers-rows"><span></span></span></name></code></pre>
+<h2 id="Docker-events"><a href="#Docker-events" class="headerlink" title="Docker events"></a>Docker events</h2><p><a href="https://docs.docker.com/engine/reference/commandline/events/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/events/</a><br><code>docker events [OPTIONS]</code></p>
+<blockquote>
+<p>启动Docker events 后Terminal进入等待状态， 当有docker 事件的时候打印事件详情</p>
+</blockquote>
+<h2 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h2><ul>
+<li><a href="https://prometheus.io/docs/operating/configuration/" target="_blank" rel="noopener">Prometheus configuration file</a></li>
+<li><a href="https://prometheus.io/" target="_blank" rel="noopener">Prometheus 官网</a></li>
+<li><a href="https://github.com/docker/labs/blob/master/developer-tools/java/chapters/ch10-monitoring.adoc#Prometheus" target="_blank" rel="noopener">Docker metrics for Prometheus</a></li>
+</ul>
+<h2 id="cAdvisor"><a href="#cAdvisor" class="headerlink" title="cAdvisor"></a>cAdvisor</h2><ul>
+<li><a href="https://github.com/google/cadvisor" target="_blank" rel="noopener">cAdvisor</a></li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">docker container run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:rw \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  google/cadvisor:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="How-to-setup-Docker-monitoring"><a href="#How-to-setup-Docker-monitoring" class="headerlink" title="How to setup Docker monitoring"></a>How to setup Docker monitoring</h2><ul>
+<li><a href="https://www.brianchristner.io/how-to-setup-docker-monitoring/" target="_blank" rel="noopener">How to setup Docker monitoring</a>. </li>
+<li>项目文件： <a href="https://github.com/vegasbrianc/docker-monitoring" target="_blank" rel="noopener">docker-monitoring</a></li>
+<li><a href="https://hub.docker.com/r/google/cadvisor/" target="_blank" rel="noopener">cadvisor</a></li>
+<li><a href="https://registry.hub.docker.com/u/tutum/influxdb/" target="_blank" rel="noopener"><strong>InfluxDB</strong></a></li>
+<li><a href="https://registry.hub.docker.com/u/grafana/grafana/" target="_blank" rel="noopener"><strong>Grafana Metrics Dashboard</strong></a> </li>
+</ul>
+<h3 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h3><ol>
+<li> docker-compose.yml  <code>docker-compose up -d</code></li>
+</ol>
+<pre class="line-numbers language-shell"><code class="language-shell">version: '2'
+#https://www.brianchristner.io/how-to-setup-docker-monitoring/
+services:
+ influxdbData:
+  image: busybox
+  volumes:
+    - ./data/influxdb:/data
+#  对应的命令行
+#  sudo docker run -d -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 --name influxsrv tutum/influxdb
+
+ influxdb:
+  image: tutum/influxdb:0.9
+  restart: always
+  environment:
+    - PRE_CREATE_DB=cadvisor
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+  expose:
+    - "8090"
+    - "8099"
+  volumes_from:
+    - "influxdbData"
+# 对应的命令行
+# sudo docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw
+#  --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro
+#  --publish=8080:8080
+#   --detach=true
+#   --link influxsrv:influxsrv --name=cadvisor google/cadvisor:latest
+#   -storage_driver_db=influxdb
+#   -storage_driver_host=influxsrv:8086
+ cadvisor:
+  image: google/cadvisor:v0.29.0
+  links:
+    - influxdb:influxsrv
+  command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
+  restart: always
+  ports:
+    - "8081:8080"
+  volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+#  sudo docker run -d -p 3000:3000 -e INFLUXDB_HOST=localhost -e INFLUXDB_PORT=8086 -e INFLUXDB_NAME=cadvisor -e INFLUXDB_USER=root -e INFLUXDB_PASS=root
+#   --link influxsrv:influxsrv --name grafana grafana/grafana
+ grafana:
+  image: grafana/grafana
+  restart: always
+  links:
+    - influxdb:influxsrv
+  ports:
+    - "3001:3000"
+  environment:
+    - HTTP_USER=admin
+    - HTTP_PASS=admin
+    - INFLUXDB_HOST=influxsrv
+    - INFLUXDB_PORT=8086
+    - INFLUXDB_NAME=cadvisor
+    - INFLUXDB_USER=root
+    - INFLUXDB_PASS=root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>InfluxDB操作</li>
+</ol>
+<p>UI操作界面：<a href="http://47.107.130.109:8083" target="_blank" rel="noopener">http://47.107.130.109:8083</a></p>
+<blockquote>
+<p>注意：外网需打开InfluxDB打开防火墙的端口，如上，8083,8086<br>8083用于WEB访问</p>
+<p>8086用于数据库操作</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">#Quaery
+CREATE DATABASE "cadvisor"
+#连接设置-> 点击设置icon 设置username，password<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>OPITION（可选）：开启 cAdvisor外网访问端口</li>
+</ol>
+<p><a href="http://47.107.130.109:8081" target="_blank" rel="noopener">http://47.107.130.109:8081</a>  </p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -p 8081:3000 grafana/grafan<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="4">
+<li>grafana 配置，详情参考：<a href="http://blog.51cto.com/ganbing/2083389" target="_blank" rel="noopener">docker：快速构建容器监控系统cAdvisor+InfluxDB+Grafana</a><br><a href="http://47.107.130.109:3001" target="_blank" rel="noopener">http://47.107.130.109:3001</a><br>![](E:\MyDocument\img\grafana 设置图片_20190217180332.png)</li>
+</ol>
+<ul>
+<li>导入久工程设置，<br>JSONdashboard -&gt; 设置-&gt;JSON Model -&gt; <a href="https://github.com/vegasbrianc/docker-monitoring/blob/master/docker-monitoring-0.9.json" target="_blank" rel="noopener">docker-monitoring-0.9.json</a></li>
+</ul>
+<h3 id="案例二"><a href="#案例二" class="headerlink" title="案例二"></a>案例二</h3><ul>
+<li><img src="https://raw.githubusercontent.com/starsliao/Prometheus/master/screenshot.jpg" alt></li>
+</ul>
+<h3 id="更多图表显示"><a href="#更多图表显示" class="headerlink" title="更多图表显示"></a>更多图表显示</h3><ul>
+<li><a href="https://grafana.com/dashboards" target="_blank" rel="noopener">dashboards 官网插件</a></li>
+</ul>
+<h2 id="Monitor-Java-Applications"><a href="#Monitor-Java-Applications" class="headerlink" title="Monitor Java Applications"></a>Monitor Java Applications</h2><h1 id="Docker-Network"><a href="#Docker-Network" class="headerlink" title="Docker Network"></a>Docker Network</h1><h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><p><a href="https://docs.docker.com/compose/networking/#specify-custom-networks" target="_blank" rel="noopener">Networking in Compose</a></p>
+<h3 id="Docker网络模式"><a href="#Docker网络模式" class="headerlink" title="Docker网络模式"></a>Docker网络模式</h3><ul>
+<li>自动创建 bridge（创建容器默认连接到此网络，也就是在不使用–network参数时）、 none 、host</li>
+<li>自定义模式：bridge、overlay、macvlan。</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">host：容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口。
+Container：创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围。
+None：该模式关闭了容器的网络功能。
+Bridge：此模式会为每一个容器分配、设置IP等，并将容器连接到一个docker0虚拟网桥，通过docker0网桥以及Iptables nat表配置与宿主机通信。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>官方对选择网络模式的总结</p>
+<ul>
+<li><strong>User-defined bridge networks</strong> are best when you need multiple containers to communicate on the same Docker host. 【同docker host】</li>
+<li><strong>Host networks</strong> are best when the network stack should not be isolated from the Docker host, but you want other aspects of the container to be isolated. 【与docker host是否隔离】</li>
+<li><strong>Overlay networks</strong> are best when you need containers running on different Docker hosts to communicate, or when multiple applications work together using swarm services. 【集群适用多docker host】</li>
+<li><strong>Macvlan networks</strong> are best when you are migrating from a VM setup or need your containers to look like physical hosts on your network, each with a unique MAC address. 【模拟真实网络】</li>
+<li><strong>Third-party network plugins</strong> allow you to integrate Docker with specialized network stacks. 【指定不同网络类型】</li>
+</ul>
+<p>配置文件</p>
+<p>容器中主机名和DNS配置信息都是通过三个系统配置文件来维护的：/etc/resolv.conf、/etc/hostname和/etc/hosts。</p>
+<h2 id="常用命令-2"><a href="#常用命令-2" class="headerlink" title="常用命令"></a>常用命令</h2><pre class="line-numbers language-shell"><code class="language-shell">#使container_nginx 连接到app_net 网络
+docker network connect app_net container_nginx <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>网络问题检测工具箱</p>
+<p><a href="https://github.com/nicolaka/netshoot" target="_blank" rel="noopener"><strong>netshoot</strong></a></p>
+<h2 id="2个docker-compose组网"><a href="#2个docker-compose组网" class="headerlink" title="2个docker-compose组网"></a>2个docker-compose组网</h2><p>建立网络组</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker network create app_net<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>每个服务都增加 </p>
+<pre class="line-numbers language-shell"><code class="language-shell">networks:
+    - custom_net<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如下：</p>
+<p>docker-compose-demo1.yml</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ersion: "3"
+services:
+
+  app:
+    build: .
+    networks:
+      - custom_net
+  db:
+    image: postgres
+    networks:
+      - custom_net
+networks:
+   custom_net:
+      external:
+         name: app_net<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>两个compose公用external网络,如上设置网络</p>
+<h2 id="external-links-compose-实现容器单向连接"><a href="#external-links-compose-实现容器单向连接" class="headerlink" title="external_links compose 实现容器单向连接"></a>external_links compose 实现容器单向连接</h2><p> nginx-net.yml</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#必须先于 nginx-net-external-links.yml
+version: "3"
+services:
+  nginx2:
+    image: nginx
+    container_name: nginx2
+    network_mode: bridge<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>nginx-net-enternal.yml</p>
+<pre class="line-numbers language-yml"><code class="language-yml">version: "3"
+services:
+  nginx1:
+    image: nginx
+    external_links:
+      - nginx2
+    container_name: nginx1
+    network_mode: bridge<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>测试</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker exec -it nginx1 ping nginx2 #可以ping通
+docker exec -it nginx2 ping nginx1 #不可以ping通<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="Docker0-的概述"><a href="#Docker0-的概述" class="headerlink" title="Docker0 的概述"></a>Docker0 的概述</h2><blockquote>
+<p> 网桥: 属于OSI 七层模型中的数据链路层</p>
+</blockquote>
+<ol>
+<li>Linxu 虚拟网桥的特点：<ol>
+<li>可以设置IP地址，Linux就可以通过路由表或者IP表规则在网络层定位网桥地址</li>
+<li>相当于一个隐藏的虚拟网卡</li>
+</ol>
+</li>
+</ol>
+<p>Docker0的默认地址划分：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">IP: 172.17.42.1 子网掩码： 255.255.0.0
+MAC：02:42:ac:11:00:00 到 02:42:ac:11:ff:ff
+共提供了65534个地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="自义定网桥"><a href="#自义定网桥" class="headerlink" title="自义定网桥"></a>自义定网桥</h3><blockquote>
+<p>有空搜索关键字研究，配置失败，配置</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">#安装工具
+sudo apt-get -f install bridge-utils    
+#增加虚拟网桥
+sudo brctl addbr br0
+# 每次修改，需要重启docker才能生效
+sudo ifconfig br0 192.168.100.1 netmask 255.255.255.0
+#验证是否成功 br0
+ifconfig <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>自定义默认网桥 docker0</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">#新的网桥
+sudo brctl addbr bridge0
+sudo ip addr add 192.168.208.1/16 dev bridge0
+sudo ip link set dev bridge0 up
+#查看配置
+ip addr show bridge0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在 Docker 配置文件<code>/etc/docker/daemon.json</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell"> { 
+     "bridge": "bridge0", 
+ }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>再次启动docker服务</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> # 重启
+systemctl daemon-reload
+systemctl restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="Docker-容器的互联"><a href="#Docker-容器的互联" class="headerlink" title="Docker 容器的互联"></a>Docker 容器的互联</h2><h3 id="–icc-true-允许所有容器互联"><a href="#–icc-true-允许所有容器互联" class="headerlink" title="–icc=true 允许所有容器互联"></a>–icc=true 允许所有容器互联</h3><blockquote>
+<p>–icc=true 运行容器互相连接</p>
+</blockquote>
+<p>Dockerfille</p>
+<pre class="line-numbers language-java"><code class="language-java">FROM ubuntu<span class="token operator">:</span><span class="token number">14.04</span>
+RUN apt<span class="token operator">-</span>get install <span class="token operator">-</span>y ping 
+RUN apt<span class="token operator">-</span>get update
+RUN apt<span class="token operator">-</span>get install <span class="token operator">-</span>y nginx
+RUN apt<span class="token operator">-</span>get install <span class="token operator">-</span>y curl 
+EXPOSE <span class="token number">80</span>
+CMD <span class="token operator">/</span>bin<span class="token operator">/</span>bash<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译及运行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker build -t dormancypress/cct .
+docker run -it --name cct1 dormancypress/cct
+#进入cct1，启动nginx
+nginx 
+docker run -it --name cct2 dormancypress/cct
+nginx 
+#查看相互的ip,尝试在不同的container中，ping
+docker attach cct1 
+#nginx访问
+curl <ip><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></ip></code></pre>
+<blockquote>
+<p>重启镜像ip会改变 【待验证】</p>
+</blockquote>
+<h4 id="–link"><a href="#–link" class="headerlink" title="–link"></a>–link</h4><pre class="line-numbers language-shell"><code class="language-shell">docker run --link=[container_name]:[alias] [image] [cmd]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>实践案例</p>
+<p>启动cct3并连接到cct1</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -it --name cct3 --link=cct1:webtest dormancypress/cct
+#测试是否正常连接
+ping webtest <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="–icc-true-拒绝所有容器互联"><a href="#–icc-true-拒绝所有容器互联" class="headerlink" title="–icc=true 拒绝所有容器互联"></a>–icc=true 拒绝所有容器互联</h3><blockquote>
+<p>拒绝所有容器间的访问</p>
+</blockquote>
+<h3 id="允许特定容器访间的连接"><a href="#允许特定容器访间的连接" class="headerlink" title="允许特定容器访间的连接"></a>允许特定容器访间的连接</h3><h2 id="Docker容器与外部网络的连接"><a href="#Docker容器与外部网络的连接" class="headerlink" title="Docker容器与外部网络的连接"></a>Docker容器与外部网络的连接</h2><ol>
+<li><p>ip_forward 是否允许流量转发 1 允许，查看 <code>sudo sysctl net.ipv4.conf.all.forwarding</code></p>
+</li>
+<li><p>iptables Linux包过滤防火墙系统</p>
+<ol>
+<li>talbe</li>
+<li>chain</li>
+<li>rule （accept, reject, drop）</li>
+</ol>
+<p>实战，filter表包含连接：（INPUT, OUTPUT, FORWARD）</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo iptables -t filter -L -n 
+# -I 规则 -s 指定地址 -d 目的地址 ==> 阻止10.211.55.3访问172.17.0.1
+sudo iptables -I DOCKER -s 10.211.55.3 -d 172.17.0.1 -p TCP --dport 80 j DROP <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>注解：<a href="https://blog.csdn.net/u011537073/article/details/82685586" target="_blank" rel="noopener">iptable 命令详解</a></p>
+</li>
+</ol>
+<h2 id="Docker容器的跨主机访问"><a href="#Docker容器的跨主机访问" class="headerlink" title="Docker容器的跨主机访问"></a>Docker容器的跨主机访问</h2><p><img src="http://cdn.linz.tech/threads-gateway-2019-6-13.png" alt></p>
+<h3 id="网桥实现"><a href="#网桥实现" class="headerlink" title="网桥实现"></a>网桥实现</h3><pre class="line-numbers language-shell"><code class="language-shell">sudo apt-get install bridge-utils <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>静态配置IP，防止IP重启后变动 <code>vim /etc/network/interfaces</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto br0 # 指定网关
+iface br0 inet static
+　　address 192.168.0.42
+　　network 192.168.0.0
+　　netmask 255.255.255.0
+#　　broadcast 192.168.0.255
+　　gateway 192.168.0.1
+bridge_ports eth0 #指定本地的物理网卡<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置docker默认选项 （旧办版本有效）<code>vim  /etc/default/docker</code> </p>
+<pre class="line-numbers language-shell"><code class="language-shell"># --fixed-cidr 限制IP地址使用范围
+DOCKER_OPTS= -b=br0 --fixed-cidr='10.211.55.04/26'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>重启生效 <code>reboot</code></p>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><ol>
+<li>有点： 配置简单，不依赖第三方软件</li>
+<li>缺点： <ol>
+<li>与主机在同网段，需要小心划分IP地址</li>
+<li>需要网段的控制权限，生产环境不易实现</li>
+<li>不容易管理，兼容性不佳</li>
+</ol>
+</li>
+</ol>
+<h3 id="Open-vSwitch（ovs）"><a href="#Open-vSwitch（ovs）" class="headerlink" title="Open vSwitch（ovs）"></a>Open vSwitch（ovs）</h3><h4 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h4><blockquote>
+<p> Open vSwitch 是一个高质量的、多层虚拟交换机</p>
+</blockquote>
+<p>原理图</p>
+<p><img src="http://cdn.linz.tech/1555683876672.png" alt="1555683876672"></p>
+<p>原理解析：</p>
+<blockquote>
+<p>GRE：通用路由协议封装。 </p>
+<p>隧道技术（Tunneling）一种使用互联网基础设施在网络传输数据的方式，支持不同协议的数据，并每个帧头有路由寻址信息。即隧道技术是提供是点对点再封装的技术；</p>
+</blockquote>
+<h4 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h4><blockquote>
+<ul>
+<li>建立ovs连接</li>
+<li>添加gre连接</li>
+<li>配置docker容器虚拟网桥</li>
+<li>为虚拟网桥添加ovs接口</li>
+<li>添加不同的Docker网段路由</li>
+</ul>
+</blockquote>
+<ol>
+<li>配置安装</li>
+</ol>
+<pre class="line-numbers language-shell"><code class="language-shell">#安装工具
+sudo apt-get install openvswitch-switch
+sudo apt-get install bridge-utils
+#查看版本
+sudo ovs-vsctl show
+#创建网桥
+sudo ovs-vsctl add-br obr0
+#添加GRE接口
+sudo ovs-vsctl add-port obr0 gre0
+#interface remote_ip 指定远程服务器地址（为另一台虚拟机地址）192.168.208.132
+sudo ovs-vsctl set interface gre0 type=gre options:remote_ip=192.168.59.104
+#查看新建状态，确认修改成功
+sudo ovs-vsctl show
+#新建网桥
+sudo brctl addbr br0
+#配置网桥
+sudo ifconfig br0 192.168.1.1 netmask 255.255.255.0
+#添加osv网桥连接
+sudo brctl addif br0 obr0
+#查看当前网桥的连接状态
+sudo brctl show
+#修改Docker默认的网桥 "bridge":"br0"
+vim /etc/docker/daemon.json 
+sudo systemctl daemon-reload
+sudo systemctl restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>验证是否安装成功</li>
+</ol>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -it ubuntu /bin/bash if
+#ping 另一台主机是否成功
+ping 192.168.59.104<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li><p>同步骤1，但是该网桥<code>sudo ifconfig br0 192.168.2.1 netmask 255.255.255.0</code></p>
+</li>
+<li><p>配置好后两个镜像还是不能ping通，添加路由表</p>
+<p>查看路由边信息 192.168.208.132</p>
+<pre class="line-numbers language-shell"><code class="language-shell">Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.208.2   0.0.0.0         UG    100    0        0 ens33
+link-local      *               255.255.0.0     U     1000   0        0 ens33
+172.17.0.0      *               255.255.0.0     U     0      0        0 docker0
+192.168.208.0   *               255.255.255.0   U     100    0        0 ens33<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>添加路由</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#添加192.168.2.0/2路由信息，在192.168.59.104能找到指定设备eth0 
+sudo ip route add 192.168.2.0/24 via 192.168.59.104 dev eth0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://www.sdnlab.com/3166.html" target="_blank" rel="noopener">Open vSwitch2.3.0版本安装部署及基本操作</a></li>
+<li><a href="http://www.imooc.com/article/278645" target="_blank" rel="noopener">笔记</a></li>
+</ul>
+<h3 id="Weave"><a href="#Weave" class="headerlink" title="Weave"></a>Weave</h3><h4 id="实战-1"><a href="#实战-1" class="headerlink" title="实战"></a>实战</h4><p>`Weave 的安装</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo curl -L git.io/weave -o /usr/local/bin/weave  #下载
+sudo chmod a+x /usr/local/bin/weave  #赋予执行权限
+weave version   #查看weave版本
+weave status     #查看weave状态<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># docker1 主机
+weave launcn 192.168.208.134  # 192.168.208.134 需要连接主机地址
+# 后台运行一个镜像
+docker run -it dockerlinz/cct 
+#为镜像分配IP地址
+weave attach 192.168.1.2/24 <containerid>
+#docker2 主机同上配置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></containerid></code></pre>
+<p>测试</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker exec  -it  <containerid> /bin/bash
+ping ip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></containerid></code></pre>
+<h4 id="常用命令-3"><a href="#常用命令-3" class="headerlink" title="常用命令"></a>常用命令</h4><pre class="line-numbers language-shell"><code class="language-shell">weave --help  #查看帮助
+weave ps #查看weave路由状态：weave ps
+weave connect  OTHER_HOST  #可以把一台主机连接到weave网络
+weave attach #动态添加网络对于不是通过weave启动的容器，可以通过weave attach 10.0.1.1/24  $ContainerId来添加网络（weave  detach删除网络）
+weave expose #不使用docker的原生网络容器和宿主机之间是无法互通的 , weave expose ip/24这个命令会把宿主机加入到weave 网络中, 宿主机就可以和容器之间自由通信了
+weave launch -password #安全性：可以通过weave launch -password wEaVe设置一个密码用于weave peers之间加密通信<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Weave Network Plugin</p>
+<p><a href="https://www.weave.works/docs/net/latest/introducing-weave/" target="_blank" rel="noopener">Weave Network Plugin</a></p>
+<h3 id="Overlay"><a href="#Overlay" class="headerlink" title="Overlay"></a>Overlay</h3><p><a href="https://www.cnblogs.com/bigberg/p/8521542.html" target="_blank" rel="noopener">Docker容器跨主机通信–overlay网络</a></p>
+<p>参考： <a href="https://www.jianshu.com/p/ae3e6132a3bd" target="_blank" rel="noopener">自定义默认网桥 docker0</a></p>
+<p>操作案例<code>Ingress Network / lvs</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">#查看路由列表
+iptables -nL -t nat
+yum install bridge-utils -y
+# 查看网关
+brctl show 
+docker network ls<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><p><a href="https://success.docker.com/article/networking" target="_blank" rel="noopener">Designing Scalable, Portable Docker Container Networks</a></p>
+<h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h1><h2 id="官方配置文档"><a href="#官方配置文档" class="headerlink" title="官方配置文档"></a>官方配置文档</h2><p><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener"> 官网 docker-compose.yml 文件参考</a> </p>
+<p><a href="https://blog.csdn.net/qq_36148847/article/details/79427878" target="_blank" rel="noopener">docker-compose.yml 配置文件编写详解</a></p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><pre class="line-numbers language-shell"><code class="language-shell"># one-off
+docker-compose run 
+# 启动并在后台运行
+docker-compose up -d
+# 停止container
+docker-compose stop 
+# bring everything down, remove the container 
+docker-compose down 
+# remove the data 
+docker-compose down --volumes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="常用参数详解"><a href="#常用参数详解" class="headerlink" title="常用参数详解"></a>常用参数详解</h2><p>epends_on</p>
+<p>example:</p>
+<pre class="line-numbers language-shell"><code class="language-shell">version: "3.7"
+services:
+  web:
+    build: .
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis
+  db:
+    image: postgres<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>depends_on 只是service的启动顺序, 而不是等待db,redis 准备好之后在启动，这就会有一个问题就是，web 启动后db,redis 没有准备好，导致web启动失败，官网解决方案</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> depends_on:
+      - "db"
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "app.py"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>wait-for-it.sh 使用脚本进行重连</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh
+# wait-for-postgres.sh
+
+set -e
+
+host="$1"
+shift
+cmd="$@"
+
+until PGPASSWORD=$POSTGRES_PASSWORD psql -h "$host" -U "postgres" -c '\q'; do
+  >&2 echo "Postgres is unavailable - sleeping"
+  sleep 1
+done
+
+>&2 echo "Postgres is up - executing command"
+exec $cmd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="用docker-compose-配置环境"><a href="#用docker-compose-配置环境" class="headerlink" title="用docker-compose 配置环境"></a>用docker-compose 配置环境</h2><p>docker-compose-pull-images.yml</p>
+<pre class="line-numbers language-yml"><code class="language-yml">version: '3'
+services:
+  ubuntu:
+    image: ubuntu:latest
+  busybox:
+    image: busybox:latest
+  openjdk:
+    image: openjdk:latest
+  wildfly:
+    image: jboss/wildfly:latest
+  javaee7-hol:
+    image: arungupta/javaee7-hol:latest
+  docker-javaee:
+    image: arungupta/docker-javaee:dockerconeu17
+  mysql:
+    image: mysql:8
+  hadoop:
+    image: tailtarget/hadoop:2.7.2
+  jenkins:
+    image: jenkins/jenkins:lts
+  prometheus:
+    image: prom/prometheus:latest
+  node-exporter:
+    image: prom/node-exporter
+  cadvisor:
+    image: google/cadvisor:latest
+  grafana:
+    image: grafana/grafana
+  debian:
+    image: debian:stable-slim
+  alpine:
+    image: alpine:3.6
+  openjdk-slim:
+    image: openjdk:9-jdk-slim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>Pulls images for services defined in a Compose file, but does not start the containers.</p>
+</blockquote>
+<pre class="line-numbers language-yml"><code class="language-yml">#add sudo for linux 
+docker-compose -f docker-compose-pull-images.yml pull --parallel<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>yml文件更新</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker stack deploy wordpress --compose-file=docker-compose.yml <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h3><h4 id="FastFDS"><a href="#FastFDS" class="headerlink" title="FastFDS"></a>FastFDS</h4><ol>
+<li><a href="https://github.com/happyfish100/fastdfs" target="_blank" rel="noopener"><strong>fastdfs 官网</strong></a><ol>
+<li><a href="https://github.com/qbanxiaoli/fastdfs" target="_blank" rel="noopener">docker-compose  和Dockerfile  生成fastdfs 学习案例</a></li>
+<li><a href="https://github.com/Guu-mc/fastdfs" target="_blank" rel="noopener">moocu/fastdfs source </a></li>
+</ol>
+</li>
+</ol>
+<h2 id="Network-in-compose"><a href="#Network-in-compose" class="headerlink" title="Network in compose"></a>Network in compose</h2><p><a href="https://docs.docker.com/compose/networking/#links" target="_blank" rel="noopener">Networking in Compose</a></p>
+<p>同一个compose app 相互连通</p>
+<pre class="line-numbers language-shell"><code class="language-shell">version: "3"
+services:
+  linux:
+    image: ubuntu
+  db:
+    image: postgres
+    ports:
+      - "8001:5432"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>compose 用linux 和 db 作为主机地址,<code>docker exec -it linux ping db</code>  可以ping通</li>
+<li>compose内部使用默认端口而不是映射端口， 如当linux 使用db数据库是使用端口5432可以直接访问，而不是外部映射端口8001</li>
+</ol>
+<h1 id="Docker-安全"><a href="#Docker-安全" class="headerlink" title="Docker 安全"></a>Docker 安全</h1><h2 id="docker-Secret"><a href="#docker-Secret" class="headerlink" title="docker Secret"></a>docker Secret</h2><p><strong>官方文档详细介绍</strong>： <a href="https://docs.docker.com/engine/swarm/secrets/" target="_blank" rel="noopener">Manage sensitive data with Docker secrets</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">#新建一个名称为my-pw 值为 password 的secret
+docker secret create my-pw password
+#不产生文件
+printf <secret> | docker secret create my_secret -
+#查看secret
+docker secret ls
+
+#查看运行中的容器，是否存在secret文件
+docker container exec $(docker ps --filter name=redis -q) ls -l /run/secrets
+#查看secret内容
+docker container exec $(docker ps --filter name=redis -q) cat /run/secrets/my_secret_data
+#删除
+docker service update --secret-rm my_secret_data redis
+#Add or update a secret on a service
+docker service update  --secret-add secret                  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></secret></code></pre>
+<p>yml文件中使用</p>
+<pre><code>services:
+   db:
+     image: mysql:latest
+     environment:
+       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/my_secret
+       MYSQL_DATABASE: wordpress
+     secrets:
+       - my_secret</code></pre><pre class="line-numbers language-yml"><code class="language-yml">web：
+    image: wordpress
+    ports:
+        - 8080:80
+    secrets:
+        - my-pw
+    environment:
+        WORDPRESS_DB_HOST: mysql
+        WORDPRESS_DB_PASSWORD_FILE: /run/secrets/my-pw<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>docker run 使用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker service create --name client --secret my-pw busybox sh -c "while true: do sleep 3600;done"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="进阶学习"><a href="#进阶学习" class="headerlink" title="进阶学习"></a>进阶学习</h1><h2 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h2><h3 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h3><ul>
+<li><a href="https://docs.docker.com/storage/volumes/" target="_blank" rel="noopener">compose file reference Use volumes</a> 一下Volumes最常用的操作</li>
+</ul>
+<p>container sharing volumes</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo docker run -it -v /usr/lib:/usr/lib/dbdata --name dbcontainer-192.168.1.184 ubuntu:14.04
+
+sudo docker run -it --volumes-from dbcontainer-192.168.1.184 --name 
+
+mastercontainer-192.168.1.180 ubuntu:14.04<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h2><h2 id="docker-inspect"><a href="#docker-inspect" class="headerlink" title="docker inspect"></a>docker inspect</h2><ul>
+<li><a href="https://www.cnblogs.com/mumengyun/p/10038145.html" target="_blank" rel="noopener">docker inspect获取详细参数的两种方法</a></li>
+</ul>
+<h2 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h2><ul>
+<li><a href="https://www.kubernetes.org.cn/4387.html" target="_blank" rel="noopener">Ubuntu 18.04 离线安装Kubernetes v1.11.1</a></li>
+</ul>
+<h2 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h2><ul>
+<li><p><strong>portainer</strong> 是一个开源、轻量级Docker<br>管理用户界面官方网站：<a href="https://portainer.io/" target="_blank" rel="noopener">https://portainer.io/</a><br>官方文档：<a href="https://portainer.readthedocs.io/" target="_blank" rel="noopener">https://portainer.readthedocs.io/</a><br>演示网址：<a href="http://demo.portainer.io/" target="_blank" rel="noopener">http://demo.portainer.io</a> 账号admin 密码 tryportainer<br>安装命令</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 下载镜像
+docker pull portainer/portainer:latest
+docker run -d -p 9000:9000 \
+    --restart=always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    --name prtainer \
+    portainer/portainer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="Docker-传参"><a href="#Docker-传参" class="headerlink" title="Docker 传参"></a>Docker 传参</h2><h3 id="直接用-docker-inspect-lt-container-id-gt-查看"><a href="#直接用-docker-inspect-lt-container-id-gt-查看" class="headerlink" title="直接用 docker inspect &lt;container-id&gt; 查看"></a>直接用 <code>docker inspect &lt;container-id&gt;</code> 查看</h3><p>Dockerfile </p>
+<pre class="line-numbers language-shell"><code class="language-shell">ENTRYPOINT java -Xmx256M -jar /app.jar
+CMD ["echo", "hello"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>docker inspect <container-id>  实际启动的命令及参数</container-id></p>
+<pre class="line-numbers language-shell"><code class="language-shell">  "Path": "/bin/sh",
+    "Args": [
+        "-c",
+        "java -Xmx256M -jar /app.jar",
+        "echo",
+        "hello"
+    ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="ENTRYPOINT-CMD"><a href="#ENTRYPOINT-CMD" class="headerlink" title="ENTRYPOINT / CMD"></a>ENTRYPOINT / CMD</h3><p>有ENTRYPOINT 优先</p>
+<h3 id="取参"><a href="#取参" class="headerlink" title="$取参"></a>$取参</h3><p>Dockerfile</p>
+<pre class="line-numbers language-shell"><code class="language-shell">FROM ubuntu
+ENTRYPOINT echo hello $0 $2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>运行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#编译
+docker build -t test .
+#运行
+docker run test 111 2222 333
+#输出
+hello 111 333<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Dockerfile2</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ENTRYPOINT echo hello $0 $@
+#运行
+docker run test 111 2222 333
+#输出
+hello 111 2222 333<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="环境变量方式"><a href="#环境变量方式" class="headerlink" title="环境变量方式"></a>环境变量方式</h3><p>Dockerfile </p>
+<pre class="line-numbers language-shell"><code class="language-shell">FROM ubuntu
+ENTRYPOINT echo hello $0 ${OPT}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>编译 tag=test， 运行<code>docker run -e OPT=&quot;-Xmx5G -Xms2G&quot; test aa bb</code>,输出</p>
+<pre class="line-numbers language-shell"><code class="language-shell">hello aa -Xmx5G -Xms2G<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Alpine-Linux"><a href="#Alpine-Linux" class="headerlink" title="Alpine Linux"></a><strong>Alpine</strong> Linux</h2><blockquote>
+<p>alpine linux 是一个基于安全的轻量级 Linux 发行版，基于 musl libc 和 busybox。alpine linux 由于简单安全，非常适合 docker 的 linux 发行版，并且被 docker 官方所推荐用来取代 ubuntu。它不但非常小，仅有 5m 左右，而且经过优化可以在 RAM 中运行  <a href="https://wiki.alpinelinux.org/wiki/Main_Page" target="_blank" rel="noopener">官方说明文档</a></p>
+</blockquote>
+<h3 id="软件管理-package-management"><a href="#软件管理-package-management" class="headerlink" title="软件管理 package management"></a>软件管理 package management</h3><p><a href="https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management" target="_blank" rel="noopener">Package management 官方详细说明</a> 包含详细的命令案例</p>
+<p>命令列表</p>
+<pre class="line-numbers language-shell"><code class="language-shell">
+add    Add new packages to the running system
+del    Delete packages from the running system
+fix    Attempt to repair or upgrade an installed package
+update    Update the index of available packages
+info    Prints information about installed or available packages
+search    Search for packages or descriptions with wildcard patterns
+upgrade    Upgrade the currently installed packages
+cache    Maintenance operations for locally cached package repository
+version    Compare version differences between installed and available packages
+index    create a repository index from a list of packages
+fetch    download (but not install) packages
+audit    List changes to the file system from pristine package install state
+verify    Verify a package signature
+dot    Create a graphviz graph description for a given package
+policy    Display the repository that updates a given package, plus repositories that also offer the package
+stats    Display statistics, including number of packages installed and available, number of directories and files, etc.
+manifest    Display checksums for files contained in a given package<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="软件仓库"><a href="#软件仓库" class="headerlink" title="软件仓库"></a>软件仓库</h4><p><a href="https://pkgs.alpinelinux.org/packages" target="_blank" rel="noopener">官方软件仓库</a> <a href="https://pkgs.alpinelinux.org/packages" target="_blank" rel="noopener">https://pkgs.alpinelinux.org/packages</a>  可以搜索安装</p>
+<p><a href="http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/" target="_blank" rel="noopener">社区最新稳定软件列表</a> 能找到官方仓库没有的软件</p>
+<h4 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="http://www.imooc.com/article/287437?block_id=tuijian_wz" target="_blank" rel="noopener"><strong>alpine linux 环境中安装 docker</strong></a></li>
+</ul>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="本地打包Image，解压分析到其他服务器"><a href="#本地打包Image，解压分析到其他服务器" class="headerlink" title="本地打包Image，解压分析到其他服务器"></a>本地打包Image，解压分析到其他服务器</h2><pre class="line-numbers language-shell"><code class="language-shell">docker image save helloworld > helloworld.tar
+docker image load -i helloworld.tar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><h3 id="Running-Docker-in-Jenkins"><a href="#Running-Docker-in-Jenkins" class="headerlink" title="*Running Docker in Jenkins *"></a>*<em>Running Docker in Jenkins *</em></h3><p><a href="https://container-solutions.com/running-docker-in-jenkins-in-docker/" target="_blank" rel="noopener">https://container-solutions.com/running-docker-in-jenkins-in-docker/</a></p>
+<p>Dockerfile</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#不加latest自动选择最新的：FROM jenkins:latest
+FROM jenkins
+USER root
+#清除了基础镜像设置的源，切换成阿里云的jessie源
+RUN echo '' > /etc/apt/sources.list.d/jessie-backports.list \
+  && echo "deb http://mirrors.aliyun.com/debian jessie main contrib non-free" > /etc/apt/sources.list \
+  && echo "deb http://mirrors.aliyun.com/debian jessie-updates main contrib non-free" >> /etc/apt/sources.list \
+  && echo "deb http://mirrors.aliyun.com/debian-security jessie/updates main contrib non-free" >> /etc/apt/sources.list
+
+RUN apt-get update \
+        && apt-get install -y sudo \
+        #解决docker 命令找不到libltdl7库的问题
+        && apt-get install -y libltdl7 \
+        && rm -rf /var/lib/apt/lists/*
+#增加sudo 权限
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+#不用sudo运行docker
+ARG dockerGid=999
+RUN echo "docker:x:${dockerGid}:jenkins" >> /etc/group
+
+USER jenkins
+COPY plugins.txt /usr/share/jenkins/plugins.txt
+RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>plugins.txt</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ cat plugins.txt
+scm-api:latest
+git-client:latest
+git:latest
+greenballs:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>shell </p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ docker build -t myjenk .
+...
+Successfully built 471fc0d22bff
+$ docker run -d -v /var/run/docker.sock:/var/run/docker.sock \
+                -v $(which docker):/usr/bin/docker -p 8080:8080 myjenk
+docker exec -it 471fc0d22bff /bin/bash 
+# in jenkins 
+jenkins@e8a57cd15581:/$ cat /var/jenkins_home/secrets/initialAdminPassword<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>增加时区和时间</p>
+<pre class="line-numbers language-shell"><code class="language-shell">-v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>挂载本地的设置，不用每次都需重新设置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">-v /var/docker_data/jenkins/jenkins_home:/var/jenkins_home 
+-v /var/docker_data/jenkins/settings:/var/settings <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Jenkins Operation </p>
+<ul>
+<li>Open the Jenkins home page in a browser and click the “create new jobs” link.</li>
+<li>Enter the item name (e.g. “docker-test”), select “Freestyle project” and click OK.</li>
+<li>On the configuration page, click “Add build step” then “Execute shell”.</li>
+<li>In the command box enter “sudo docker run hello-world”</li>
+<li>Click “Save”.</li>
+<li>Click “Build Now”.</li>
+</ul>
+<p><strong>可能出现的问题 - 找不到某些library</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker: error while loading shared libraries: libltdl.so.7: cannot open shared object file: No such file or directory
+Build step 'Execute shell' marked build as failure<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>原因Jenkins容器内没有这个库，解决，增加对应库的映射<code>-v /usr/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7</code></p>
+<pre><code>docker run -d -v /var/run/docker.sock:/var/run/docker.sock   -v $(which docker):/usr/bin/docker -v /usr/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7 -p 8086:8080 myjenk</code></pre><h2 id="Tengine-容器化"><a href="#Tengine-容器化" class="headerlink" title="Tengine 容器化"></a>Tengine 容器化</h2><h3 id="Tengine-TCMalloc"><a href="#Tengine-TCMalloc" class="headerlink" title="Tengine + TCMalloc"></a>Tengine + TCMalloc</h3><p>其中<code>libunwind-1.2</code>和 <code>gperftools-2.7</code> 由于网络问题缓存在本地 <code>E:\software\2.coder\env\</code></p>
+<p>Dockderfile</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#Dockerfile for tnegine
+FROM centos:latest
+
+MAINTAINER zhilin "zhilinchn@126.ocm"
+
+ENV NGINX_VERSION 2.3.0
+
+
+WORKDIR /usr/src/
+
+ADD https://github.com/alibaba/tengine/archive/${NGINX_VERSION}.tar.gz tengine.tar.gz
+
+# 安装依赖程序包
+RUN yum -y update && yum -y upgrade &&\
+    yum -y install gcc gcc-c++ openssl-devel \
+        pcre-devel \
+        zlib-devel \
+        make \
+        wget \
+        ibxml2-devel \
+        gd-devel \
+        GeoIP-devel \
+        google-perftools-devel \
+        libatomic_ops-devel \
+        cmake
+#由于网络的原因 libunwind，gperftools 本地先下好
+ADD  ./libunwind-1.2 /usr/src/libunwind-1.2
+ADD  ./gperftools-2.7 /usr/src/gperftools-2.7
+
+#使用TCMalloc优化Tengine性能
+RUN cd /usr/src/libunwind-1.2 &&\
+        ./configure && \
+        make && make install && \
+        cd /usr/src/gperftools-2.7 && \
+        ./configure --enable-libunwind --enable-frame-pointers --enable-emergency-malloc && \
+        make && make install && \
+        mkdir -pv /tmp/tcmalloc && \
+        chmod -R 0777 /tmp/tcmalloc
+
+
+RUN     cd /usr/src/ && \  
+        tar -zxvf tengine.tar.gz  && \
+                cd tengine-${NGINX_VERSION} && \
+        ./configure \
+        --prefix=/usr/local/tengine \
+        --with-threads \
+        --with-file-aio \
+        #--with-force-exit \
+        --with-mail \
+        --with-pcre-jit \
+        --with-libatomic \
+        --http-log-path=/usr/local/tengine/logs/access.log \
+        --with-google_perftools_module && \
+        make && make install
+
+EXPOSE 80
+
+CMD ["/usr/local/tengine/sbin/nginx", "-g", "daemon off;"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Docker-centos-lua"><a href="#Docker-centos-lua" class="headerlink" title="Docker +centos+ lua"></a>Docker +centos+ lua</h3><p>Dockerfile </p>
+<blockquote>
+<p>docker + tengine + lua插件 集成</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">FROM centos:latest
+MAINTAINER  becivells <becivells@gmail.com>
+RUN yum -y update &&  yum  -y upgrade
+RUN yum -y install gcc gcc-c+ openssl openssl-devel pcre-devel zlib-devel  make wget
+
+ENV TENGINE_VERSION tengine-2.2.3
+RUN cd /tmp/ && wget  http://tengine.taobao.org/download/${TENGINE_VERSION}.tar.gz &&\
+    tar -zxvf ${TENGINE_VERSION}.tar.gz -C /tmp/ && chmod -R 777 /tmp/${TENGINE_VERSION}
+#mkdir
+RUN mkdir -p /var/tmp/nginx/client/ &&\
+    mkdir -p /var/tmp/nginx/proxy/ &&\
+    mkdir -p /var/tmp/nginx/fcgi/ &&\
+    mkdir -p /var/tmp/nginx/uwsgi/ &&\
+    mkdir -p /var/tmp/nginx/scgi/
+#./configure
+
+#LuaJIT
+RUN cd /tmp/ && wget http://luajit.org/download/LuaJIT-2.0.4.tar.gz && \
+        tar xzvf LuaJIT-2.0.4.tar.gz && \
+        cd LuaJIT-2.0.4 && \
+        make install PREFIX=/usr/local/LuaJIT
+
+ENV LUAJIT_LIB=/usr/local/LuaJIT/lib
+ENV LUAJIT_INC=/usr/local/LuaJIT/include/luajit-2.0
+
+RUN cd /tmp/ && wget https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz && \
+        tar -xzvf v0.3.0.tar.gz && \
+        wget https://github.com/openresty/lua-nginx-module/archive/v0.10.8.tar.gz && \
+        tar -xzvf v0.10.8.tar.gz
+
+RUN cd /tmp/${TENGINE_VERSION} && ./configure \
+        --prefix=/opt/${TENGINE_VERSION}/ \
+        #--sbin-path=/usr/sbin/nginx \
+        #--modules-path=/usr/lib64/nginx/modules \
+        #--conf-path=/etc/nginx/nginx.conf \
+        --error-log-path=/var/log/nginx/error.log \
+        --http-log-path=/var/log/nginx/access.log \
+        --pid-path=/var/run/nginx/nginx.pid  \
+        --lock-path=/var/lock/nginx.lock \
+        --http-client-body-temp-path=/var/tmp/nginx/client/ \
+        --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
+        --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
+        --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
+        --with-file-aio \
+        --with-http_addition_module \
+        --with-http_auth_request_module \
+        --with-http_dav_module \
+        --with-http_flv_module \
+        --with-http_gunzip_module \
+        --with-http_gzip_static_module \
+        --with-http_mp4_module \
+        --with-http_random_index_module \
+        --with-http_realip_module \
+        --with-http_secure_link_module \
+        --with-http_slice_module \
+        --with-http_ssl_module \
+        --with-http_stub_status_module \
+        --with-http_sub_module \
+           --with-mail \
+        --with-mail_ssl_module \
+        --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions  -fstack-protector-strong \
+        --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -fPIC' \
+        --with-ld-opt='-Wl,-z,relro -Wl,-z,now -pie' \
+        --add-module=/tmp/lua-nginx-module-0.10.8 \
+        --add-module=/tmp/ngx_devel_kit-0.3.0 \
+        --with-pcre  &&\
+        cd /tmp/${TENGINE_VERSION} && make -j 4 && make install && \
+        rm -rf /tmp/* && yum clean all && \
+        ln -s /opt/${TENGINE_VERSION}/ /opt/tengine && \
+        echo "/usr/local/LuaJIT/lib" >> /etc/ld.so.conf && \
+        ldconfig
+EXPOSE 80
+CMD ["/opt/tengine/sbin/nginx", "-g", "daemon off;"]
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></becivells@gmail.com></code></pre>
+<h3 id="Tengine-Alpine"><a href="#Tengine-Alpine" class="headerlink" title="Tengine + Alpine"></a>Tengine + Alpine</h3><p><a href="https://github.com/Axizdkr/tengine" target="_blank" rel="noopener">https://github.com/Axizdkr/tengine</a></p>
+<p>Dockerfile</p>
+<pre class="line-numbers language-shell"><code class="language-shell">FROM alpine:3.9
+
+
+ENV TENGINE_VERSION 2.3.0
+
+# nginx: https://git.io/vSIyj
+
+RUN rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/*
+
+ENV CONFIG "\
+        --prefix=/etc/nginx \
+        --sbin-path=/usr/sbin/nginx \
+        --modules-path=/usr/lib/nginx/modules \
+        --conf-path=/etc/nginx/nginx.conf \
+        --error-log-path=/var/log/nginx/error.log \
+        --http-log-path=/var/log/nginx/access.log \
+        --pid-path=/var/run/nginx.pid \
+        --lock-path=/var/run/nginx.lock \
+        --http-client-body-temp-path=/var/cache/nginx/client_temp \
+        --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+        --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+        --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+        --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+        --user=nginx \
+        --group=nginx \
+        --with-http_ssl_module \
+        --with-http_realip_module \
+        --with-http_addition_module \
+        --with-http_sub_module \
+        --with-http_dav_module \
+        --with-http_flv_module \
+        --with-http_mp4_module \
+        --with-http_gunzip_module \
+        --with-http_gzip_static_module \
+        --with-http_random_index_module \
+        --with-http_secure_link_module \
+        --with-http_stub_status_module \
+        --with-http_auth_request_module \
+        --with-http_xslt_module=dynamic \
+        --with-http_image_filter_module=dynamic \
+        --with-http_geoip_module=dynamic \
+        --with-threads \
+        --with-stream \
+        --with-stream_ssl_module \
+        --with-stream_ssl_preread_module \
+        --with-stream_realip_module \
+        --with-stream_geoip_module=dynamic \
+        --with-http_slice_module \
+        --with-mail \
+        --with-mail_ssl_module \
+        --with-compat \
+        --with-file-aio \
+        --with-http_v2_module \
+        --add-module=modules/ngx_http_upstream_check_module \
+        "
+RUN     addgroup -S nginx \
+        && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
+        && apk add --no-cache --virtual .build-deps \
+                gcc \
+                libc-dev \
+                make \
+                openssl-dev \
+                pcre-dev \
+                zlib-dev \
+                linux-headers \
+                curl \
+                libxslt-dev \
+                gd-dev \
+                geoip-dev \
+        && curl -L "http://tengine.taobao.org/download/tengine-$TENGINE_VERSION.tar.gz" -o tengine.tar.gz \
+        && mkdir -p /usr/src \
+        && tar -zxC /usr/src -f tengine.tar.gz \
+        && rm tengine.tar.gz \
+        && cd /usr/src/tengine-$TENGINE_VERSION \
+        && ./configure $CONFIG --with-debug \
+        && make -j$(getconf _NPROCESSORS_ONLN) \
+        && mv objs/nginx objs/nginx-debug \
+        && mv objs/ngx_http_xslt_filter_module.so objs/ngx_http_xslt_filter_module-debug.so \
+        && mv objs/ngx_http_image_filter_module.so objs/ngx_http_image_filter_module-debug.so \
+        && mv objs/ngx_http_geoip_module.so objs/ngx_http_geoip_module-debug.so \
+        && mv objs/ngx_stream_geoip_module.so objs/ngx_stream_geoip_module-debug.so \
+        && ./configure $CONFIG \
+        && make -j$(getconf _NPROCESSORS_ONLN) \
+        && make install \
+        && rm -rf /etc/nginx/html/ \
+        && mkdir /etc/nginx/conf.d/ \
+        && mkdir -p /usr/share/nginx/html/ \
+        && install -m644 html/index.html /usr/share/nginx/html/ \
+        && install -m644 html/50x.html /usr/share/nginx/html/ \
+        && install -m755 objs/nginx-debug /usr/sbin/nginx-debug \
+        && install -m755 objs/ngx_http_xslt_filter_module-debug.so /usr/lib/nginx/modules/ngx_http_xslt_filter_module-debug.so \
+        && install -m755 objs/ngx_http_image_filter_module-debug.so /usr/lib/nginx/modules/ngx_http_image_filter_module-debug.so \
+        && install -m755 objs/ngx_http_geoip_module-debug.so /usr/lib/nginx/modules/ngx_http_geoip_module-debug.so \
+        && install -m755 objs/ngx_stream_geoip_module-debug.so /usr/lib/nginx/modules/ngx_stream_geoip_module-debug.so \
+        && ln -s ../../usr/lib/nginx/modules /etc/nginx/modules \
+        && strip /usr/sbin/nginx* \
+        && strip /usr/lib/nginx/modules/*.so \
+        && rm -rf /usr/src/tengine-$NGINX_VERSION \
+        \
+        # Bring in gettext so we can get `envsubst`, then throw
+        # the rest away. To do this, we need to install `gettext`
+        # then move `envsubst` out of the way so `gettext` can
+        # be deleted completely, then move `envsubst` back.
+        && apk add --no-cache --virtual .gettext gettext \
+        && mv /usr/bin/envsubst /tmp/ \
+        \
+        && runDeps="$( \
+                scanelf --needed --nobanner --format '%n#p' /usr/sbin/nginx /usr/lib/nginx/modules/*.so /tmp/envsubst \
+                        | tr ',' '\n' \
+                        | sort -u \
+                        | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+        )" \
+        && apk add --no-cache --virtual .nginx-rundeps $runDeps \
+        && apk del .build-deps \
+        && apk del .gettext \
+        && mv /tmp/envsubst /usr/local/bin/ \
+        \
+        # Bring in tzdata so users could set the timezones through the environment
+        # variables
+        && apk add --no-cache tzdata \
+        \
+        # forward request and error logs to docker log collector
+        && ln -sf /dev/stdout /var/log/nginx/access.log \
+        && ln -sf /dev/stderr /var/log/nginx/error.log
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80 443
+
+STOPSIGNAL SIGTERM
+
+CMD ["nginx", "-g", "daemon off;"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="参考-3"><a href="#参考-3" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><p><a href="https://blog.csdn.net/becivells/article/details/52014957" target="_blank" rel="noopener">Dockerfile-centos:tengine</a></p>
+</li>
+<li><p><a href="http://www.imooc.com/article/19597" target="_blank" rel="noopener"><strong>Nginx编译安装Lua模块</strong></a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_43865893/article/details/86520130" target="_blank" rel="noopener">Tengine+Lua插件编译安装</a></p>
+</li>
+</ul>
+<h2 id="docker-zipkin"><a href="#docker-zipkin" class="headerlink" title="docker-zipkin"></a>docker-zipkin</h2><h3 id="zipkin-elasticsearch"><a href="#zipkin-elasticsearch" class="headerlink" title="zipkin + elasticsearch"></a>zipkin + elasticsearch</h3><p><a href="https://blog.csdn.net/xiaoluo033/article/details/80961807" target="_blank" rel="noopener">spring cloud 2.0 入门系列一 （10）分布式链路追踪-Zipkin</a></p>
+<p>docker-compose.yml</p>
+<pre class="line-numbers language-yml"><code class="language-yml">version: "3"
+services:
+
+  elasticsearch:
+    image:  elasticsearch:latest
+    container_name: elasticsearch
+    restart: always
+    networks:
+      - elk
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+       - ../elasticsearch/data:/usr/share/elasticsearch/data
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    restart: always
+    networks:
+      - elk
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=elasticsearch
+
+networks:
+    elk:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="docker-zipkin-变量专递分析"><a href="#docker-zipkin-变量专递分析" class="headerlink" title="docker-zipkin 变量专递分析"></a>docker-zipkin 变量专递分析</h3><p><a href="https://github.com/openzipkin/docker-zipkin" target="_blank" rel="noopener"> <strong>docker-zipkin</strong></a> </p>
+<p>docker-compose.yml 设置环境变量</p>
+<p>zipkin/Dockerfile 调用<code>run.sh</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">WORKDIR /zipkin
+
+RUN ["/busybox/sh", "-c", "ln -s /busybox/* /bin"]
+
+EXPOSE 9410 9411
+
+ENTRYPOINT ["/busybox/sh", "run.sh"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>run.sh 根据docker-compose.yml动态设置变量</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh
+
+if [ -f ".${STORAGE_TYPE}_profile" ]; then
+  source ${PWD}/.${STORAGE_TYPE}_profile
+fi
+
+exec java ${MODULE_OPTS} ${JAVA_OPTS} -cp . org.springframework.boot.loader.PropertiesLauncher<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>.mysql_profile</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh
+if [[ -z "$MYSQL_HOST" ]]; then
+  if [[ -z "$STORAGE_PORT_3306_TCP_ADDR" ]]; then
+    echo "** ERROR: You need to link with a MySQL container as 'storage' or specify MYSQL_HOST env var."
+    echo "STORAGE_PORT_3306_TCP_ADDR (container link) or MYSQL_HOST should contain a MySQL hostname."
+    exit 1
+  fi
+  MYSQL_HOST=$STORAGE_PORT_3306_TCP_ADDR
+  # When there's a container named "mysql", MYSQL_PORT will have a value like tcp://172.17.0.2:3306
+  export MYSQL_PORT=3306
+fi
+
+export MYSQL_HOST
+export MYSQL_USER=${MYSQL_USER:=zipkin}
+export MYSQL_PASS=${MYSQL_PASS:=zipkin}
+
+echo "MySQL host: $MYSQL_HOST"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>spring boot 最终获取配置</p>
+<p><code>/zipkin-server/src/main/resources/zipkin-server-shared.yml</code></p>
+<pre class="line-numbers language-yml"><code class="language-yml"> mysql:
+      jdbc-url: ${MYSQL_JDBC_URL:}
+      host: ${MYSQL_HOST:localhost}
+      port: ${MYSQL_TCP_PORT:3306}
+      username: ${MYSQL_USER:}
+      password: ${MYSQL_PASS:}
+      db: ${MYSQL_DB:zipkin}
+      max-active: ${MYSQL_MAX_CONNECTIONS:10}
+      use-ssl: ${MYSQL_USE_SSL:false}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="容器使用远程storage"><a href="#容器使用远程storage" class="headerlink" title="容器使用远程storage"></a>容器使用远程storage</h2><pre class="line-numbers language-shell"><code class="language-shell">docker plugin install vieux/sshfs
+docker volume create \
+  -d vieux/sshfs \
+  --name sshvolume \
+  -o sshcmd=user@1.2.3.4:/remote \
+  -o password=$(cat file_containing_password_for_remote_host)
+
+docker run --rm -v sshvolume:/data busybox ls /data
+#删除
+docker volume rm sshvolume
+docker plugin disable vieux/sshfs
+docker plugin remove vieux/sshfs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="docker-mongo"><a href="#docker-mongo" class="headerlink" title="docker-mongo"></a>docker-mongo</h2><p>参考博文：</p>
+<ul>
+<li><a href="https://blog.csdn.net/u011104991/article/details/81735960" target="_blank" rel="noopener">使用Docker一键部署MongoDB</a></li>
+<li><a href="https://docs.gitlab.com/omnibus/docker/#deploy-gitlab-in-a-docker-swarm" target="_blank" rel="noopener">Deploy GitLab in a Docker swarm</a></li>
+<li><a href="https://hub.docker.com/_/mongo" target="_blank" rel="noopener">https://hub.docker.com/_/mongo</a></li>
+</ul>
+<h2 id="nacos-docker"><a href="#nacos-docker" class="headerlink" title="nacos-docker"></a>nacos-docker</h2><p><a href="https://github.com/nacos-group/nacos-docker" target="_blank" rel="noopener"><strong>nacos-docker</strong></a></p>
+<h2 id="fastdfs"><a href="#fastdfs" class="headerlink" title="fastdfs"></a><strong>fastdfs</strong></h2><p><a href="https://github.com/happyfish100/fastdfs" target="_blank" rel="noopener">https://github.com/happyfish100/fastdfs</a></p>
+<h1 id="更多官方学习资源"><a href="#更多官方学习资源" class="headerlink" title="更多官方学习资源"></a>更多官方学习资源</h1><ul>
+<li><a href="https://docs.docker.com/samples/" target="_blank" rel="noopener">Samples</a>: Our samples include multiple examples of popular software running in containers, and some good labs that teach best practices.</li>
+<li><a href="https://docs.docker.com/engine/userguide/" target="_blank" rel="noopener">User Guide</a>: The user guide has several examples that explain networking and storage in greater depth than was covered here.</li>
+<li><a href="https://docs.docker.com/engine/admin/" target="_blank" rel="noopener">Admin Guide</a>: Covers how to manage a Dockerized production environment.</li>
+<li><a href="https://training.docker.com/" target="_blank" rel="noopener">Training</a>: Official Docker courses that offer in-person instruction and virtual classroom environments.</li>
+<li><a href="https://blog.docker.com/" target="_blank" rel="noopener">Blog</a>: Covers what’s going on with Docker lately.</li>
+</ul>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><p>最简单官网方案</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ curl -fsSL get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh --mirror Aliyun<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>官网安装教程</p>
+<p><a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce" target="_blank" rel="noopener">install-docker-ce</a></p>
+<p>从入门到实战</p>
+<p><a href="https://yeasy.gitbooks.io/docker_practice/install/" target="_blank" rel="noopener">install</a></p>
+<h2 id="配置优化"><a href="#配置优化" class="headerlink" title="配置优化"></a>配置优化</h2><ul>
+<li><p>使用国内镜像 <code>/etc/docker/daemon.json（Linux） 或者 %programdata%\docker\config\daemon.json（Windows</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+  "registry-mirrors": ["http://hub-mirror.c.163.com"]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>配置全部容器的 DNS <code>/etc/docker/daemon.json</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+  "dns" : [
+    "114.114.114.114",
+    "8.8.8.8"
+  ]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Docker-网络配置"><a href="#Docker-网络配置" class="headerlink" title="Docker 网络配置"></a>Docker 网络配置</h2></li>
+</ul>
+<blockquote>
+<p>docker c/s 模式客户端和服务器通信的方式</p>
+<pre class="line-numbers language-shell"><code class="language-shell">unix:///var/run/docker.sock
+tcp://host:port
+fd://socketfd or fd://*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>守护进程默认配置： <code>unix:///var/run/docker.sock</code></p>
+</blockquote>
+<p>docker 远程访问</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 修改服务器标识Label
+vim /etc/docker/daemon.json 
+# 增加：
+"labels":["name=docker_daemon_server_on_ubuntu"]
+# 重启
+systemctl daemon-reload
+systemctl restart docker
+# 验证生效 
+docker info 
+...
+Labels:
+ name=docker_daemon_server_on_ubuntu
+...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改默认网桥 <code>vim /etc/docker/daemon.json</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+    "bridge": "br0"
+}
+
+# 重启生效
+systemctl daemon-reload
+systemctl restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="daemon-json"><a href="#daemon-json" class="headerlink" title="daemon.json"></a>daemon.json</h2><p><strong>linux版本</strong></p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"api-cors-header"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"authorization-plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"bip"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"bridge"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"cgroup-parent"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"cluster-store"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"cluster-store-opts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"cluster-advertise"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"debug"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"default-gateway"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"default-gateway-v6"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"default-runtime"</span><span class="token operator">:</span> <span class="token string">"runc"</span><span class="token punctuation">,</span>
+    <span class="token property">"default-ulimits"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"disable-legacy-registry"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"dns"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"dns-opts"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"dns-search"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"exec-opts"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"exec-root"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"fixed-cidr"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"fixed-cidr-v6"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"graph"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"group"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"hosts"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"icc"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"insecure-registries"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"ip"</span><span class="token operator">:</span> <span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span>
+    <span class="token property">"iptables"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"ipv6"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"ip-forward"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"ip-masq"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"labels"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"live-restore"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"log-driver"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"log-level"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"log-opts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"max-concurrent-downloads"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">"max-concurrent-uploads"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+    <span class="token property">"mtu"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"oom-score-adjust"</span><span class="token operator">:</span> -<span class="token number">500</span><span class="token punctuation">,</span>
+    <span class="token property">"pidfile"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"raw-logs"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"registry-mirrors"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"runtimes"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"runc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"runc"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"custom"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/usr/local/bin/my-runc-replacement"</span><span class="token punctuation">,</span>
+            <span class="token property">"runtimeArgs"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token string">"--debug"</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"selinux-enabled"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"storage-driver"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"storage-opts"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"swarm-default-advertise-addr"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"tls"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"tlscacert"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"tlscert"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"tlskey"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"tlsverify"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"userland-proxy"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"userns-remap"</span><span class="token operator">:</span> <span class="token string">""</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>windows10</strong></p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"authorization-plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"bridge"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"cluster-advertise"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"cluster-store"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"debug"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"default-ulimits"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"disable-legacy-registry"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"dns"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"dns-opts"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"dns-search"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"exec-opts"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"fixed-cidr"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"graph"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"group"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"hosts"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"insecure-registries"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"labels"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"live-restore"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"log-driver"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"log-level"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"mtu"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"pidfile"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"raw-logs"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"registry-mirrors"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"storage-driver"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"storage-opts"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"swarm-default-advertise-addr"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"tlscacert"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"tlscert"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"tlskey"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token property">"tlsverify"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><blockquote>
+<p><a href="https://docs.docker.com/engine/swarm/configs/" target="_blank" rel="noopener">官网说明</a> 有三个详细的案例</p>
+</blockquote>
+<p>关键命令提取</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 第一个 site.conf 为config命名， 第二个为config读取路径
+docker config create site.conf ./site.conf
+docker config ls<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ docker service create \
+     --name nginx \
+     --secret site.key \
+     --secret site.crt \
+     --config source=site.conf,target=/etc/nginx/conf.d/site.conf,mode=0440 \
+     --publish published=3000,target=443 \
+     nginx:latest \
+     sh -c "exec nginx -g 'daemon off;'"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>替换 </p>
+<blockquote>
+<p>removing the old config and adding the new config at the same mount point within the container</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">docker config create site-v2.conf site.conf
+$ docker service update \
+  --config-rm site.conf \
+  --config-add source=site-v2.conf,target=/etc/nginx/conf.d/site.conf,mode=0440 \
+  nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>清除并退出</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ docker config rm site.conf
+$ docker service rm nginx
+$ docker secret rm site.crt site.key
+$ docker config rm site-v2.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="compose-config"><a href="#compose-config" class="headerlink" title="compose config"></a>compose config</h3><p>创建config后直接使用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">    configs:
+    #docker config create mongod.conf ./mongod.conf
+      - source: mongod.conf
+        target: /etc/mongo/mongod.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>全局config</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3.6"</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">gitlab</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> gitlab/gitlab<span class="token punctuation">-</span>ce<span class="token punctuation">:</span>latest
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token key atrule">GITLAB_OMNIBUS_CONFIG</span><span class="token punctuation">:</span> <span class="token string">"from_file('/omnibus_config.rb')"</span>
+    <span class="token key atrule">configs</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">source</span><span class="token punctuation">:</span> gitlab
+        <span class="token key atrule">target</span><span class="token punctuation">:</span> /omnibus_config.rb
+    <span class="token key atrule">secrets</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> gitlab_root_password
+  <span class="token key atrule">gitlab-runner</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> gitlab/gitlab<span class="token punctuation">-</span>runner<span class="token punctuation">:</span>alpine
+    <span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+      <span class="token key atrule">mode</span><span class="token punctuation">:</span> replicated
+      <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">4</span>
+<span class="token key atrule">configs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">gitlab</span><span class="token punctuation">:</span>
+    <span class="token key atrule">file</span><span class="token punctuation">:</span> ./gitlab.rb
+<span class="token key atrule">secrets</span><span class="token punctuation">:</span>
+  <span class="token key atrule">gitlab_root_password</span><span class="token punctuation">:</span>
+    <span class="token key atrule">file</span><span class="token punctuation">:</span> ./root_password.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>gitlab.rb</p>
+<pre class="line-numbers language-shell"><code class="language-shell">external_url 'https://my.domain.com/'
+gitlab_rails['initial_root_password'] = File.read('/run/secrets/gitlab_root_password')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h1><ul>
+<li><p>Nexus 起到缓存的作用（链接到 DockerHub 中下载并缓存到 Nexus 中）</p>
+<blockquote>
+<p>其它的仓库创建方法请各位自己摸索，还可以创建一个 docker (proxy) 类型的仓库链接到 DockerHub 上。再创建一个 docker (group) 类型的仓库把刚才的 hosted 与 proxy 添加在一起。主机在访问的时候默认下载私有仓库中的镜像，如果没有将链接到 DockerHub 中下载并缓存到 Nexus 中。</p>
+</blockquote>
+</li>
+<li><p><a href="https://blog.csdn.net/boling_cavalry/article/details/77623193" target="_blank" rel="noopener">使用docker修改查看JDK源码，用于深度的调试</a></p>
+</li>
+</ul>
+<h2 id="第三方库使用"><a href="#第三方库使用" class="headerlink" title="第三方库使用"></a>第三方库使用</h2><p>Vagrant</p>
+<ul>
+<li><p><a href="https://www.cnblogs.com/vikings-blog/p/3953810.html" target="_blank" rel="noopener">ubuntu 安装vagrant过程</a></p>
+</li>
+<li><p><a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">downloads</a> ubuntu: dpkg -i xx.deb</p>
+</li>
+</ul>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><ul>
+<li>ubuntu：  docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.39/containers/create: dial unix /var/run/docker.sock: connect: permission denied.<br>See ‘docker run –help’.</li>
+</ul>
+<p>猜测是需ROOT权限， docker服务没有启动,解决方案</p>
+<pre class="line-numbers language-shell"><code class="language-shell">su root #切换到root用户
+systemctl enable docker #设置开机自动启用docker服务
+systemctl start docker #启动docker 服务<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>或者赋予docker sudo 权限</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo service docker restart
+#实战中需要切换到root的运行过一遍 su 到root su jobs 到当前用户
+# 测试
+docker run hello-world 
+# 或
+docker version <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>Unable to locate package nginx</p>
+<p>解决方案： apt-get update</p>
+</li>
+<li><p>无法获得锁 /var/lib/dpkg/lock - open<br>原因可能是上次我直接在VM切断的电源导致资源一直被占用未被释放<br>解决：(养成正常关机的习惯)</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>docker 各种命令都报</p>
+<pre class="line-numbers language-shell"><code class="language-shell">Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>systemctl status docker 出现日志如下</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: failed (Result: start-limit-hit) since 三 2019-01-30 23:47:41 CST; 1min 49s ago
+     Docs: https://docs.docker.com
+  Process: 3700 ExecStart=/usr/bin/dockerd -H fd:// (code=exited, status=1/FAILURE)
+ Main PID: 3700 (code=exited, status=1/FAILURE)
+
+1月 30 23:47:38 jobs-machine systemd[1]: Failed to start Docker Application Container Engine.
+1月 30 23:47:38 jobs-machine systemd[1]: docker.service: Unit entered failed state.
+1月 30 23:47:38 jobs-machine systemd[1]: docker.service: Failed with result 'exit-code'.
+1月 30 23:47:41 jobs-machine systemd[1]: docker.service: Service hold-off time over, scheduling restart.
+1月 30 23:47:41 jobs-machine systemd[1]: Stopped Docker Application Container Engine.
+1月 30 23:47:41 jobs-machine systemd[1]: docker.service: Start request repeated too quickly.
+1月 30 23:47:41 jobs-machine systemd[1]: Failed to start Docker Application Container Engine.
+1月 30 23:47:41 jobs-machine systemd[1]: docker.service: Unit entered failed state.
+1月 30 23:47:41 jobs-machine systemd[1]: docker.service: Failed with result 'start-limit-hit'.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>解决： 原因 <code>/etc/docker/daemon.json</code> 语法错误</p>
+<pre class="line-numbers language-shell"><code class="language-shell">mv /etc/docker/daemon.json /etc/docker/daemon.json.bak<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<ul>
+<li><p>vagrant box 错误信息</p>
+<pre class="line-numbers language-shell"><code class="language-shell">/usr/lib/ruby/2.3.0/rubygems/specification.rb:949:in `all=': undefined method `group_by' for nil:NilClass (NoMethodError)
+    from /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb:275:in `with_isolated_gem'
+    from /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb:231:in `internal_install'
+    from /usr/lib/ruby/vendor_ruby/vagrant/bundler.rb:102:in `install'
+    from /usr/lib/ruby/vendor_ruby/vagrant/plugin/manager.rb:62:in `block in install_plugin'
+    from /usr/lib/ruby/vendor_ruby/vagrant/plugin/manager.rb:72:in `install_plugin'
+    from /usr/share/vagrant/plugins/commands/plugin/action/install_gem.rb:37:in `call'
+    from /usr/lib/ruby/vendor_ruby/vagrant/action/warden.rb:34:in `call'
+    from /usr/lib/ruby/vendor_ruby/vagrant/action/builder.rb:116:in `call'
+    from /usr/lib/ruby/vendor_ruby/vagrant/action/runner.rb:66:in `block in run'
+    from /usr/lib/ruby/vendor_ruby/vagrant/util/busy.rb:19:in `busy'
+    from /usr/lib/ruby/vendor_ruby/vagrant/action/runner.rb:66:in `run'
+    from /usr/share/vagrant/plugins/commands/plugin/command/base.rb:14:in `action'
+    from /usr/share/vagrant/plugins/commands/plugin/command/install.rb:32:in `block in execute'
+    from /usr/share/vagrant/plugins/commands/plugin/command/install.rb:31:in `each'
+    from /usr/share/vagrant/plugins/commands/plugin/command/install.rb:31:in `execute'
+    from /usr/share/vagrant/plugins/commands/plugin/command/root.rb:56:in `execute'
+    from /usr/lib/ruby/vendor_ruby/vagrant/cli.rb:42:in `execute'
+    from /usr/lib/ruby/vendor_ruby/vagrant/environment.rb:268:in `cli'
+    from /usr/bin/vagrant:173:in `<main>'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></main></code></pre>
+<p>解决方案：更新vagrant到最新版本；</p>
+<h2 id="COPY-failed-Forbidden-path-outside-the-build-context"><a href="#COPY-failed-Forbidden-path-outside-the-build-context" class="headerlink" title="COPY failed: Forbidden path outside the build context:"></a>COPY failed: Forbidden path outside the build context:</h2><p>原因对 build 。 的理解有问题，context 就是。 他不会向上找资源，只会向下递归查找资源，使用 。 上级目录是找不到资源的。 这样设计目的是限制生成上下文占用的资源</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker build -f dockerfile/Dockerfile .<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<h1 id="附录一"><a href="#附录一" class="headerlink" title="附录一"></a>附录一</h1><p>学习资料</p>
+<ul>
+<li><p><a href="https://yeasy.gitbooks.io/docker_practice/appendix/best_practices.html" target="_blank" rel="noopener">Dockerfile 最佳实践</a></p>
+</li>
+<li><p><a href="https://github.com/docker/labs/tree/master/developer-tools/java" target="_blank" rel="noopener">Docker for Java Developers</a></p>
+</li>
+</ul>
+<p>学习源码</p>
+<ul>
+<li><a href="https://github.com/arun-gupta/docker-java-sample/" target="_blank" rel="noopener"><strong>docker-java-sample</strong></a> 有简单的Mvn 和gradle 生成docker image 的案例</li>
+<li><a href="https://github.com/fabianenardon/mongo-docker-demo" target="_blank" rel="noopener"><strong>mongo-docker-demo</strong></a></li>
+<li><a href="https://github.com/arun-gupta/docker-javaee" target="_blank" rel="noopener">docker-javaee</a> A simple Java EE application deployed using WildFly and accessing MySQL database <ul>
+<li><a href="https://docs.helm.sh/using_helm/#installing-helm" target="_blank" rel="noopener">installing-helm</a>  </li>
+</ul>
+</li>
+</ul>
+<p>官方网站</p>
+<ul>
+<li><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Get started with Docker</a></li>
+<li><a href="https://docs.docker.com/" target="_blank" rel="noopener">Docker 官网</a></li>
+</ul>
+<h1 id="附录二"><a href="#附录二" class="headerlink" title="附录二"></a>附录二</h1><h2 id="常用工具-1"><a href="#常用工具-1" class="headerlink" title="常用工具"></a>常用工具</h2><ul>
+<li><a href="https://github.com/fabric8io/docker-maven-plugin" target="_blank" rel="noopener"><strong>docker-maven-plugin</strong></a><ul>
+<li><a href="http://dmp.fabric8.io/" target="_blank" rel="noopener">document</a></li>
+</ul>
+</li>
+<li><a href="http://dockone.io/article/442" target="_blank" rel="noopener">如何用Gradle创建Docker镜像</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/10/2019-4-13-netwok_pragram_note/" rel="next" title="网络编程笔记汇总">
+                <i class="fa fa-chevron-left"></i> 网络编程笔记汇总
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/11/2019-4-13-Java-concurrent/" rel="prev" title="Java多线程并发学习笔记">
+                Java多线程并发学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/09/10/2019-4-14-Docker-note/" data-title="Docker学习笔记" data-url="http://linz.tech/2019/09/10/2019-4-14-Docker-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Container"><span class="nav-number">1.</span> <span class="nav-text">Container</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#容器的基本操作"><span class="nav-number">1.1.</span> <span class="nav-text">容器的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动交互式容器"><span class="nav-number">1.1.1.</span> <span class="nav-text">启动交互式容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#守护式容器"><span class="nav-number">1.2.</span> <span class="nav-text">守护式容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用命令"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">常用命令</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#镜像"><span class="nav-number">2.</span> <span class="nav-text">镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像信息查看命令"><span class="nav-number">2.1.</span> <span class="nav-text">镜像信息查看命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像的查看于删除"><span class="nav-number">2.2.</span> <span class="nav-text">镜像的查看于删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官网案例-Share-Image"><span class="nav-number">2.3.</span> <span class="nav-text">官网案例 Share Image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像的获取和推送"><span class="nav-number">2.4.</span> <span class="nav-text">镜像的获取和推送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建镜像与仓库"><span class="nav-number">2.5.</span> <span class="nav-text">构建镜像与仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#案例commit-方式"><span class="nav-number">2.5.1.</span> <span class="nav-text">案例commit 方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DockerFile构建镜像"><span class="nav-number">2.5.2.</span> <span class="nav-text">DockerFile构建镜像</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Services"><span class="nav-number">3.</span> <span class="nav-text">Services</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Remote-API"><span class="nav-number">3.0.1.</span> <span class="nav-text">Remote API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-守护进程配置和操作"><span class="nav-number">3.0.2.</span> <span class="nav-text">docker 守护进程配置和操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swarms"><span class="nav-number">4.</span> <span class="nav-text">Swarms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令-1"><span class="nav-number">4.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-machine"><span class="nav-number">4.2.</span> <span class="nav-text">docker-machine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuration-docker-machine"><span class="nav-number">4.2.1.</span> <span class="nav-text">Configuration docker-machine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-the-app-on-the-swarm-manager"><span class="nav-number">4.2.2.</span> <span class="nav-text">Deploy the app on the swarm manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swarm-连接数据库"><span class="nav-number">4.2.3.</span> <span class="nav-text">swarm 连接数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stacks"><span class="nav-number">4.3.</span> <span class="nav-text">Stacks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deploy-详解"><span class="nav-number">4.4.</span> <span class="nav-text">deploy 详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">4.5.</span> <span class="nav-text">总结：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监控-monitoring"><span class="nav-number">5.</span> <span class="nav-text">监控 monitoring</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-CLi"><span class="nav-number">5.1.</span> <span class="nav-text">Docker CLi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Remote-API"><span class="nav-number">5.2.</span> <span class="nav-text">Docker Remote API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-events"><span class="nav-number">5.3.</span> <span class="nav-text">Docker events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prometheus"><span class="nav-number">5.4.</span> <span class="nav-text">Prometheus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cAdvisor"><span class="nav-number">5.5.</span> <span class="nav-text">cAdvisor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-setup-Docker-monitoring"><span class="nav-number">5.6.</span> <span class="nav-text">How to setup Docker monitoring</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#案例一"><span class="nav-number">5.6.1.</span> <span class="nav-text">案例一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例二"><span class="nav-number">5.6.2.</span> <span class="nav-text">案例二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多图表显示"><span class="nav-number">5.6.3.</span> <span class="nav-text">更多图表显示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monitor-Java-Applications"><span class="nav-number">5.7.</span> <span class="nav-text">Monitor Java Applications</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Network"><span class="nav-number">6.</span> <span class="nav-text">Docker Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">6.1.</span> <span class="nav-text">基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker网络模式"><span class="nav-number">6.1.1.</span> <span class="nav-text">Docker网络模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令-2"><span class="nav-number">6.2.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2个docker-compose组网"><span class="nav-number">6.3.</span> <span class="nav-text">2个docker-compose组网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#external-links-compose-实现容器单向连接"><span class="nav-number">6.4.</span> <span class="nav-text">external_links compose 实现容器单向连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker0-的概述"><span class="nav-number">6.5.</span> <span class="nav-text">Docker0 的概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自义定网桥"><span class="nav-number">6.5.1.</span> <span class="nav-text">自义定网桥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-容器的互联"><span class="nav-number">6.6.</span> <span class="nav-text">Docker 容器的互联</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#–icc-true-允许所有容器互联"><span class="nav-number">6.6.1.</span> <span class="nav-text">–icc=true 允许所有容器互联</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#–link"><span class="nav-number">6.6.1.1.</span> <span class="nav-text">–link</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–icc-true-拒绝所有容器互联"><span class="nav-number">6.6.2.</span> <span class="nav-text">–icc=true 拒绝所有容器互联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#允许特定容器访间的连接"><span class="nav-number">6.6.3.</span> <span class="nav-text">允许特定容器访间的连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker容器与外部网络的连接"><span class="nav-number">6.7.</span> <span class="nav-text">Docker容器与外部网络的连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker容器的跨主机访问"><span class="nav-number">6.8.</span> <span class="nav-text">Docker容器的跨主机访问</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网桥实现"><span class="nav-number">6.8.1.</span> <span class="nav-text">网桥实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结-1"><span class="nav-number">6.8.1.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-vSwitch（ovs）"><span class="nav-number">6.8.2.</span> <span class="nav-text">Open vSwitch（ovs）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解析"><span class="nav-number">6.8.2.1.</span> <span class="nav-text">原理解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实战"><span class="nav-number">6.8.2.2.</span> <span class="nav-text">实战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">6.8.2.3.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weave"><span class="nav-number">6.8.3.</span> <span class="nav-text">Weave</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实战-1"><span class="nav-number">6.8.3.1.</span> <span class="nav-text">实战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用命令-3"><span class="nav-number">6.8.3.2.</span> <span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overlay"><span class="nav-number">6.8.4.</span> <span class="nav-text">Overlay</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-1"><span class="nav-number">6.9.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-compose"><span class="nav-number">7.</span> <span class="nav-text">docker-compose</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#官方配置文档"><span class="nav-number">7.1.</span> <span class="nav-text">官方配置文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">7.2.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用参数详解"><span class="nav-number">7.3.</span> <span class="nav-text">常用参数详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用docker-compose-配置环境"><span class="nav-number">7.4.</span> <span class="nav-text">用docker-compose 配置环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实战案例"><span class="nav-number">7.4.1.</span> <span class="nav-text">实战案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FastFDS"><span class="nav-number">7.4.1.1.</span> <span class="nav-text">FastFDS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-in-compose"><span class="nav-number">7.5.</span> <span class="nav-text">Network in compose</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-安全"><span class="nav-number">8.</span> <span class="nav-text">Docker 安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-Secret"><span class="nav-number">8.1.</span> <span class="nav-text">docker Secret</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进阶学习"><span class="nav-number">9.</span> <span class="nav-text">进阶学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#storage"><span class="nav-number">9.1.</span> <span class="nav-text">storage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Volumes"><span class="nav-number">9.1.1.</span> <span class="nav-text">Volumes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#plugin"><span class="nav-number">9.2.</span> <span class="nav-text">plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-inspect"><span class="nav-number">9.3.</span> <span class="nav-text">docker inspect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes"><span class="nav-number">9.4.</span> <span class="nav-text">Kubernetes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用工具"><span class="nav-number">9.5.</span> <span class="nav-text">常用工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-传参"><span class="nav-number">9.6.</span> <span class="nav-text">Docker 传参</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接用-docker-inspect-lt-container-id-gt-查看"><span class="nav-number">9.6.1.</span> <span class="nav-text">直接用 docker inspect &lt;container-id&gt; 查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ENTRYPOINT-CMD"><span class="nav-number">9.6.2.</span> <span class="nav-text">ENTRYPOINT / CMD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取参"><span class="nav-number">9.6.3.</span> <span class="nav-text">$取参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量方式"><span class="nav-number">9.6.4.</span> <span class="nav-text">环境变量方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Alpine-Linux"><span class="nav-number">9.7.</span> <span class="nav-text">Alpine Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#软件管理-package-management"><span class="nav-number">9.7.1.</span> <span class="nav-text">软件管理 package management</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件仓库"><span class="nav-number">9.7.1.1.</span> <span class="nav-text">软件仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考-2"><span class="nav-number">9.7.1.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例"><span class="nav-number">10.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地打包Image，解压分析到其他服务器"><span class="nav-number">10.1.</span> <span class="nav-text">本地打包Image，解压分析到其他服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins"><span class="nav-number">10.2.</span> <span class="nav-text">Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Running-Docker-in-Jenkins"><span class="nav-number">10.2.1.</span> <span class="nav-text">*Running Docker in Jenkins *</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tengine-容器化"><span class="nav-number">10.3.</span> <span class="nav-text">Tengine 容器化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tengine-TCMalloc"><span class="nav-number">10.3.1.</span> <span class="nav-text">Tengine + TCMalloc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-centos-lua"><span class="nav-number">10.3.2.</span> <span class="nav-text">Docker +centos+ lua</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tengine-Alpine"><span class="nav-number">10.3.3.</span> <span class="nav-text">Tengine + Alpine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-3"><span class="nav-number">10.3.4.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-zipkin"><span class="nav-number">10.4.</span> <span class="nav-text">docker-zipkin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#zipkin-elasticsearch"><span class="nav-number">10.4.1.</span> <span class="nav-text">zipkin + elasticsearch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-zipkin-变量专递分析"><span class="nav-number">10.4.2.</span> <span class="nav-text">docker-zipkin 变量专递分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器使用远程storage"><span class="nav-number">10.5.</span> <span class="nav-text">容器使用远程storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-mongo"><span class="nav-number">10.6.</span> <span class="nav-text">docker-mongo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nacos-docker"><span class="nav-number">10.7.</span> <span class="nav-text">nacos-docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fastdfs"><span class="nav-number">10.8.</span> <span class="nav-text">fastdfs</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多官方学习资源"><span class="nav-number">11.</span> <span class="nav-text">更多官方学习资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">12.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-安装"><span class="nav-number">12.1.</span> <span class="nav-text">Docker 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置优化"><span class="nav-number">12.2.</span> <span class="nav-text">配置优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-网络配置"><span class="nav-number">12.3.</span> <span class="nav-text">Docker 网络配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#daemon-json"><span class="nav-number">12.4.</span> <span class="nav-text">daemon.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#config"><span class="nav-number">12.5.</span> <span class="nav-text">config</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#compose-config"><span class="nav-number">12.5.1.</span> <span class="nav-text">compose config</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用案例"><span class="nav-number">13.</span> <span class="nav-text">使用案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方库使用"><span class="nav-number">13.1.</span> <span class="nav-text">第三方库使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题解决"><span class="nav-number">14.</span> <span class="nav-text">问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#COPY-failed-Forbidden-path-outside-the-build-context"><span class="nav-number">14.1.</span> <span class="nav-text">COPY failed: Forbidden path outside the build context:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录一"><span class="nav-number">15.</span> <span class="nav-text">附录一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录二"><span class="nav-number">16.</span> <span class="nav-text">附录二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用工具-1"><span class="nav-number">16.1.</span> <span class="nav-text">常用工具</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

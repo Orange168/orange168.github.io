@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,优化,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="学习资源博文 Background Optimizations Facebook是如何收集其Android应用性能数据的 安卓性能优化收集网站  总结性  Android客户端性能优化（魅族资深工程师毫无保留奉献） Java Performance blog  性能分析的网站  NimbleDroid 一个 Android 应用性能分析服务网站 PageSpeed Insights  能够测试网页">
+<meta name="keywords" content="Android,优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化Android App">
+<meta property="og:url" content="http://linz.tech/2018/08/07/2018-4-14-android-optimization/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="学习资源博文 Background Optimizations Facebook是如何收集其Android应用性能数据的 安卓性能优化收集网站  总结性  Android客户端性能优化（魅族资深工程师毫无保留奉献） Java Performance blog  性能分析的网站  NimbleDroid 一个 Android 应用性能分析服务网站 PageSpeed Insights  能够测试网页">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-864b92693c2dc9bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-026a3d898789674e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-992fa860f964ffd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-6caeed1cf8c9e2d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-1bd95fbdccf2f836.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-8337dba05e25e9d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://github.com/lqcandqq13/BlockCanaryEx/raw/master/sample.png">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优化Android App">
+<meta name="twitter:description" content="学习资源博文 Background Optimizations Facebook是如何收集其Android应用性能数据的 安卓性能优化收集网站  总结性  Android客户端性能优化（魅族资深工程师毫无保留奉献） Java Performance blog  性能分析的网站  NimbleDroid 一个 Android 应用性能分析服务网站 PageSpeed Insights  能够测试网页">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1321512-864b92693c2dc9bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2018/08/07/2018-4-14-android-optimization/">
+
+
+
+
+
+  <title>优化Android App | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2018/08/07/2018-4-14-android-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">优化Android App</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T22:21:08+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/coder/" itemprop="url" rel="index">
+                    <span itemprop="name">coder</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/07/2018-4-14-android-optimization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/08/07/2018-4-14-android-optimization/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h3><h4 id="博文"><a href="#博文" class="headerlink" title="博文"></a>博文</h4><ul>
+<li><a href="https://developer.android.com/topic/performance/background-optimization.html" target="_blank" rel="noopener">Background Optimizations</a></li>
+<li><a href="http://www.infoq.com/cn/news/2015/11/Facebook-Android#rd" target="_blank" rel="noopener">Facebook是如何收集其Android应用性能数据的</a></li>
+<li><a href="http://www.androidperformance.com/archives/" target="_blank" rel="noopener">安卓性能优化收集网站</a></li>
+</ul>
+<p><em>总结性</em></p>
+<ul>
+<li><a href="http://blog.tingyun.com/web/article/detail/155" target="_blank" rel="noopener">Android客户端性能优化（魅族资深工程师毫无保留奉献）</a></li>
+<li><a href="http://kohlerm.blogspot.com/" target="_blank" rel="noopener">Java Performance blog</a></li>
+</ul>
+<h3 id="性能分析的网站"><a href="#性能分析的网站" class="headerlink" title="性能分析的网站"></a>性能分析的网站</h3><hr>
+<ul>
+<li><a href="https://nimbledroid.com/" target="_blank" rel="noopener">NimbleDroid</a> 一个 Android 应用性能分析服务网站</li>
+<li><a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">PageSpeed Insights</a>  能够测试网页在移动设备和桌面设备上的性能工具</li>
+<li>APM(Application performance magic) : 应用程序性能管理<blockquote>
+<p>2011年时国外的APM行业 NewRelic 和 APPDynamics 国内：听云， OneAPM， 博睿(bonree) 云智慧，阿里百川码力</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="针对性优化"><a href="#针对性优化" class="headerlink" title="针对性优化"></a>针对性优化</h3><h4 id="图片压缩Apk体积缩小"><a href="#图片压缩Apk体积缩小" class="headerlink" title="图片压缩Apk体积缩小"></a>图片压缩Apk体积缩小</h4><ul>
+<li><strong><a href="https://github.com/Curzibn/Luban" target="_blank" rel="noopener">Luban</a></strong> 可能是最接近微信朋友圈的图片压缩算法</li>
+<li><a href="https://developer.android.com/studio/build/shrink-code.html" target="_blank" rel="noopener">Shrink Your Code and Resources</a> 【官方教程，未看】</li>
+<li><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0909/3433.html" target="_blank" rel="noopener">Android微信上的SVG</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzI1NjEwMTM4OA==&mid=2651232233&idx=1&sn=03d9858ac451f2768b804d2604a8e12e" target="_blank" rel="noopener">PNG图片压缩对比分析</a></li>
+<li><a href="https://blog.csdn.net/wetest_tencent/article/details/53819526" target="_blank" rel="noopener">通过三次优化，我将gif加载优化了16.9%</a></li>
+<li><a href="http://jeroenmols.com/blog/2016/05/06/methodcount/" target="_blank" rel="noopener">EFFICIENTLY REDUCING YOUR METHOD COUNT</a></li>
+<li><a href="http://www.jayfeng.com/2015/12/29/APK%E7%98%A6%E8%BA%AB%E5%AE%9E%E8%B7%B5/" target="_blank" rel="noopener">APK瘦身实践</a></li>
+<li><a href="http://blog.nimbledroid.com/2016/04/20/pushing-limits-of-app-startup-time-zh.html" target="_blank" rel="noopener">突破App启动时间的极限</a></li>
+<li><a href="https://github.com/shenjiajun53/TinyPic" target="_blank" rel="noopener">an Intelij Plugin for image compress using TinyPNG API </a> Android 图片压缩工具</li>
+</ul>
+<h4 id="网络优化"><a href="#网络优化" class="headerlink" title="网络优化"></a>网络优化</h4><ul>
+<li><a href="https://hackernoon.com/so-you-want-to-develop-for-the-next-billion-9eb072c26bc8#.jxaa6u3om" target="_blank" rel="noopener">Offline App Archit ecture: how to build for the next billion</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLWz5rJ2EKKc-VJS9WQlj9xM_ygPopZ-Qd" target="_blank" rel="noopener">DevBytes: Efficient Data Transfers — YouTube Google Engineer Serials tutorial</a></li>
+<li><a href="https://developer.android.com/training/efficient-downloads/efficient-network-access.html#RadioStateMachine" target="_blank" rel="noopener">ORG Optimizing Downloads for Efficient Network Access</a></li>
+<li><a href="http://tech.meituan.com/SharkSDK.html" target="_blank" rel="noopener">美团点评移动网络优化实践</a></li>
+</ul>
+<h4 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h4><ul>
+<li><a href="http://android.jobbole.com/82248/" target="_blank" rel="noopener">Android内存优化杂谈 </a></li>
+<li><a href="http://mp.weixin.qq.com/s/2MsEAR9pQfMr1Sfs7cPdWQ" target="_blank" rel="noopener">Android 内存优化总结&amp;实践</a></li>
+</ul>
+<h4 id="速度优化"><a href="#速度优化" class="headerlink" title="速度优化"></a>速度优化</h4><ul>
+<li><a href="http://iceanson.github.io/Android%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6-%E6%80%BB%E4%BC%9A%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%8D%E7%97%9B%E4%B8%8D%E7%97%92%E7%9A%84%E5%9D%8E" target="_blank" rel="noopener">Android启动速度优化</a> everbook has backup, <strong>Application.registerActivityLifecycleCallbacks的运用</strong></li>
+<li><a href="http://android.jobbole.com/81944/" target="_blank" rel="noopener">给 App 提速：Android 性能优化总结</a></li>
+</ul>
+<h3 id="优化实践"><a href="#优化实践" class="headerlink" title="优化实践"></a>优化实践</h3><hr>
+<h4 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h4><ul>
+<li><strong>Memory Analyzer（MAT）</strong> Tool<ul>
+<li>Leak Suspects：内存泄露报告</li>
+<li>Top Components：吃货报告</li>
+<li>Histogram：每个Class占用内存</li>
+<li>Dominator Tree：列出哪些对象占用内存最多以及谁hold住这些对象</li>
+<li>OQL  (Ctrl + F5 run)  <code>select * from instanceof android.app.Activity</code></li>
+</ul>
+</li>
+</ul>
+<p>** Mat tutorial: **<br>1） <strong><a href="http://www.blogjava.net/rosen/archive/2010/05/21/321575.html" target="_blank" rel="noopener">使用Memory Analyzer tool(MAT)分析内存泄漏</a></strong><br>2） <strong>Video youtube <a href="http://www.youtube.com/watch?v=_CruQY55HOk" target="_blank" rel="noopener">Google I/O 2011: Memory management for Android Apps</a></strong><br>3）<a href="http://www.lightskystreet.com/2015/09/01/mat_usage/" target="_blank" rel="noopener"> MAT - Memory Analyzer Tool 使用进阶</a><br>4）  <strong><a href="http://androidperformance.com/2015/04/11/AndroidMemory-Open-Bitmap-Object-In-MAT/" target="_blank" rel="noopener">从MAT数据中还原Bitmap原图</a></strong><br><strong>Docuemnt</strong></p>
+<p>1) <strong>eclipse.org document <a href="http://wiki.eclipse.org/index.php/MemoryAnalyzer" target="_blank" rel="noopener">MemoryAnalyzer</a></strong><br>2) <strong>developer.android <a href="http://developer.android.com/tools/debugging/debugging-memory.html#HeapDump" target="_blank" rel="noopener">investigating your RAM usage</a></strong><br><strong>Blog</strong></p>
+<ul>
+<li>adb 使用<ul>
+<li>检查应用退出后<code>Activities/Views</code> 是否为零;<br>adb shell dumpsys meminfo [应用包名]</li>
+<li>多次进入退出后的占用内存<code>TOTAL</code>不应变化太大；</li>
+</ul>
+</li>
+<li>onTrimMemory回调<ul>
+<li>响应此回调释放非必须内存；</li>
+<li>验证<br>adb shell dumpsys gfxinfo 【应用包名】-cmd trim 5<br>adb shell dumpsys meminfo 【应用包名】查看内存大小</li>
+</ul>
+</li>
+</ul>
+<h4 id="UI卡顿和稳定性"><a href="#UI卡顿和稳定性" class="headerlink" title="UI卡顿和稳定性"></a>UI卡顿和稳定性</h4><ol>
+<li>工作线程优先级设置为Process.THREAD_PRIORITY_BACKGROUND</li>
+</ol>
+<p><strong>卡顿常见原因</strong><br>1）人为在UI线程中做轻微耗时操作，导致UI线程卡顿；<br>2） 布局Layout过于复杂，无法在16ms内完成渲染；<br>3）同一时间动画执行的次数过多，导致CPU或GPU负载过重；<br>4） View过度绘制，导致某些像素在同一帧时间内被绘制多次，从而使CPU或GPU负载过重；<br>5） View频繁的触发measure、layout，导致measure、layout累计耗时过多及整个View频繁的重新渲染；<br>6）内存频繁触发GC过多（同一帧中频繁创建内存），导致暂时阻塞渲染操作；<br>7） 冗余资源及逻辑等导致加载和执行缓慢；<br>8）工作线程优先级未设置为<br>Process.THREAD_PRIORITY_BACKGROUND<br>导致后台线程抢占UI线程cpu时间片，阻塞渲染操作；<br>9） ANR；<br><strong>卡顿分析解决的一般步骤</strong></p>
+<ul>
+<li>解决过度绘制问题<br>1) 调试GPU过度绘制中打开调试，看对应界面是否有过度绘制，如果有先解决掉：<br><img src="http://upload-images.jianshu.io/upload_images/1321512-864b92693c2dc9bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>2) 定位过渡绘制区域<br>3) 利用Android提供的工具进行位置确认以及修改(HierarchyView , Tracer for OpenGL ES)<br>4) 定位到具体的视图(xml文件或者View)<br>5) 通过代码和xml文件分析过渡绘制的原因<br>6) 结合具体情况进行优化<br>7) 使用Lint工具进一步优化</li>
+<li>检查是否有主线程做了耗时操作：<br>1) Application 开启 StrictMode;<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>DEVELOPER_MODE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    StrictMode<span class="token punctuation">.</span><span class="token function">setThreadPolicy</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">StrictMode<span class="token punctuation">.</span>ThreadPolicy<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">detectAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token function">penaltyLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   StrictMode<span class="token punctuation">.</span><span class="token function">setVmPolicy</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">StrictMode<span class="token punctuation">.</span>VmPolicy<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+   <span class="token punctuation">.</span><span class="token function">detectAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token function">penaltyLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+   <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>如果主线程无耗时操作，还存在卡顿，有很大可能是必须在UI线程操作的一些逻辑有问题，比如控件measure、layout耗时过多等，此时可通过Traceview以及systrace来进行分析。</li>
+<li>Traceview：Traceview主要用做热点分析，找出最需要优化的点。<br><img src="http://upload-images.jianshu.io/upload_images/1321512-026a3d898789674e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图中展示了Trace期间各方法调用关系，调用次数以及耗时比例"></li>
+<li>systrace：抓取trace：</li>
+<li>使用hugo打印方法调用的时长及参数</li>
+</ul>
+<h4 id="Method-Tracing-优化启动时间"><a href="#Method-Tracing-优化启动时间" class="headerlink" title="Method Tracing 优化启动时间"></a>Method Tracing 优化启动时间</h4><p>官网：<a href="https://developer.android.com/studio/profile/generate-trace-logs" target="_blank" rel="noopener">Generate trace logs by instrumenting your app</a><br>Java 代码<code>android.os.Debug.startMethodTracing() 和 stopMethodTracing()</code> </p>
+<pre><code># 启动HomePageActivity并每1s跟踪方法调用
+adb shell am start -n com.runan.countprisoner/.view.activity.HomePageActivity --start-profiler /data/local/tmp/startup.trace --sampling 1000
+ 终止跟踪
+adb shell am profile stop
+# 拉取 .trace 文件到本机当前目录
+adb pull /data/local/tmp/startup.trace .</code></pre><p><font color="#D92524">Android Studio -&gt; File -&gt; open  直接打开*.trace</font></p>
+<h4 id="Glide-Gif-性能优化"><a href="#Glide-Gif-性能优化" class="headerlink" title="Glide Gif 性能优化"></a>Glide Gif 性能优化</h4><ul>
+<li><a href="https://blog.csdn.net/haunghui6579/article/details/49968087" target="_blank" rel="noopener">编译使用Android源码中的GIF图片工具包–framesequence</a></li>
+</ul>
+<h3 id="官方工具"><a href="#官方工具" class="headerlink" title="官方工具"></a>官方工具</h3><hr>
+<p><a href="https://developer.android.com/tools/help/android-monitor.html" target="_blank" rel="noopener">Android Monitor</a></p>
+<ul>
+<li><a href="https://developer.android.com/studio/profile/am-allocation.html" target="_blank" rel="noopener">Allocation Tracker </a><br><img src="http://upload-images.jianshu.io/upload_images/1321512-992fa860f964ffd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="http://upload-images.jianshu.io/upload_images/1321512-6caeed1cf8c9e2d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+</ul>
+<p><strong>Device Monitor</strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-1bd95fbdccf2f836.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>Viewing Overall Memory Allocations</strong> 参考 <a href="https://developer.android.com/studio/profile/investigate-ram.html" target="_blank" rel="noopener">Investigating Your RAM Usage</a></p>
+<ul>
+<li>adb shell dumpsys meminfo &lt;package_name|pid&gt; [-d] 【难点】 对meminfo 的解读</li>
+<li>Dalvik/ART Log Messages 【难点】解读</li>
+</ul>
+<p><a href="https://developer.android.com/training/testing/performance.html" target="_blank" rel="noopener"><strong>Testing Display Performance</strong></a>  十分详细的关于显示优化的介绍。</p>
+<h3 id="第三方工具"><a href="#第三方工具" class="headerlink" title="第三方工具"></a>第三方工具</h3><hr>
+<ul>
+<li>由腾讯出品的<a href="http://gt.qq.com/index.html" target="_blank" rel="noopener">GT（随身调）</a>，直接运行在手机上的“集成调测环境”(IDTE, Integrated Debug Environment)，支持iOS和Android两个手机平台,主要功能可对APP进行快速的性能测试(CPU、内存、流量、电量、帧率/流畅度等等)、开发日志的查看、Crash日志查看、网络数据包的抓取、APP内部参数的调试、真机代码耗时统计等。还提高基础API进行开发。</li>
+<li><strong><a href="https://github.com/square/leakcanary" target="_blank" rel="noopener">LeakCanary</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-8337dba05e25e9d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LeakCanary"></li>
+<li><a href="http://www.yourkit.com/" target="_blank" rel="noopener">yourkit</a>   Java Profiler, and square/leakcanary recommend to use memory leak analyzer like mat </li>
+<li><a href="https://google.github.io/flatbuffers/" target="_blank" rel="noopener">FlatBuffers</a>：性能最高的序列化库，由 Google 游戏开发小组专为性能而设计</li>
+<li><a href="http://developer.android.com/intl/zh-cn/reference/android/os/Parcelable.html" target="_blank" rel="noopener">Parcelable</a> API：Android 进程间传递数据，性能远优于 Java 默认序列化机制</li>
+<li><a href="https://github.com/lqcandqq13/BlockCanaryEx" target="_blank" rel="noopener">BlockCanaryEx</a><br><img src="https://github.com/lqcandqq13/BlockCanaryEx/raw/master/sample.png" alt></li>
+<li><a href="http://www.devtf.cn/?p=1097" target="_blank" rel="noopener">加速你的Android应用</a></li>
+<li><a href="https://github.com/oasisfeng/condom" target="_blank" rel="noopener">保险套项目</a><blockquote>
+<p><strong>Note</strong> : 『保险套』是一个超轻超薄的Android工具库，将它套在Android应用工程里裸露的Context上，再传入第三方SDK（通常是其初始化方法），即可防止三方SDK损害用户体验</p>
+</blockquote>
+<h3 id="常用小Tips"><a href="#常用小Tips" class="headerlink" title="常用小Tips"></a>常用小Tips</h3></li>
+<li><a href="https://developer.android.com/reference/android/util/SparseArray.html" target="_blank" rel="noopener">SparseArray</a> ——Map的高效优化版本。推荐了解姐妹类SparseBooleanArray、SparseIntArray和SparseLongArray。</li>
+<li>查看Activity启动时间<br><code>adb shell am start -W com.niuwa/.activity.HomePageActivity</code></li>
+</ul>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ol>
+<li><a href="http://blog.tingyun.com/web/article/detail/155" target="_blank" rel="noopener">http://blog.tingyun.com/web/article/detail/155</a></li>
+<li><a href="https://mp.weixin.qq.com/s/APhUH7MBDUZ6tQv0xDgaWQ?utm_source=androidweekly.io&utm_medium=website" target="_blank" rel="noopener">Android P 电量管理</a></li>
+<li><a href="https://developer.android.google.cn/topic/performance/vitals/" target="_blank" rel="noopener">Android vitals</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/优化/" rel="tag"># 优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/07/2018-8-7-remote-control/" rel="next" title="远程控制笔记整理">
+                <i class="fa fa-chevron-left"></i> 远程控制笔记整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/28/2018-8-28-fundamental-android-preference/" rel="prev" title="Android Preference 设置看图说话之基础篇（5分钟掌握）">
+                Android Preference 设置看图说话之基础篇（5分钟掌握） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/08/07/2018-4-14-android-optimization/" data-title="优化Android App" data-url="http://linz.tech/2018/08/07/2018-4-14-android-optimization/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#学习资源"><span class="nav-number">1.</span> <span class="nav-text">学习资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#博文"><span class="nav-number">1.1.</span> <span class="nav-text">博文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能分析的网站"><span class="nav-number">2.</span> <span class="nav-text">性能分析的网站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#针对性优化"><span class="nav-number">3.</span> <span class="nav-text">针对性优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图片压缩Apk体积缩小"><span class="nav-number">3.1.</span> <span class="nav-text">图片压缩Apk体积缩小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络优化"><span class="nav-number">3.2.</span> <span class="nav-text">网络优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存优化"><span class="nav-number">3.3.</span> <span class="nav-text">内存优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#速度优化"><span class="nav-number">3.4.</span> <span class="nav-text">速度优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化实践"><span class="nav-number">4.</span> <span class="nav-text">优化实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄漏"><span class="nav-number">4.1.</span> <span class="nav-text">内存泄漏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI卡顿和稳定性"><span class="nav-number">4.2.</span> <span class="nav-text">UI卡顿和稳定性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Method-Tracing-优化启动时间"><span class="nav-number">4.3.</span> <span class="nav-text">Method Tracing 优化启动时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Glide-Gif-性能优化"><span class="nav-number">4.4.</span> <span class="nav-text">Glide Gif 性能优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方工具"><span class="nav-number">5.</span> <span class="nav-text">官方工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方工具"><span class="nav-number">6.</span> <span class="nav-text">第三方工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用小Tips"><span class="nav-number">7.</span> <span class="nav-text">常用小Tips</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">8.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

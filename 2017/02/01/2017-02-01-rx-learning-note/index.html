@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="RxJava,note,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="为什么要学RxJava 最大的好处在于,很优雅处理各种线程切换,能使整个代码块的逻辑连贯,易于阅读和维护; 提供丰富的操作符, 能使很多复杂的操作简单几步搞定; 运用响应式编程,使整个编程更流畅简洁;  开源库 RxJava&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; RxAndroid Rx Sample RxUi  Implementation of pure functional con">
+<meta name="keywords" content="RxJava,note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava 学习笔记">
+<meta property="og:url" content="http://linz.tech/2017/02/01/2017-02-01-rx-learning-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="为什么要学RxJava 最大的好处在于,很优雅处理各种线程切换,能使整个代码块的逻辑连贯,易于阅读和维护; 提供丰富的操作符, 能使很多复杂的操作简单几步搞定; 运用响应式编程,使整个编程更流畅简洁;  开源库 RxJava&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; RxAndroid Rx Sample RxUi  Implementation of pure functional con">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/611087-232eae2103188570.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://ohlb58e07.bkt.clouddn.com/big_stomach.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-0e4e7d86dd98eae5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxJava 学习笔记">
+<meta name="twitter:description" content="为什么要学RxJava 最大的好处在于,很优雅处理各种线程切换,能使整个代码块的逻辑连贯,易于阅读和维护; 提供丰富的操作符, 能使很多复杂的操作简单几步搞定; 运用响应式编程,使整个编程更流畅简洁;  开源库 RxJava&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; RxAndroid Rx Sample RxUi  Implementation of pure functional con">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/611087-232eae2103188570.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2017/02/01/2017-02-01-rx-learning-note/">
+
+
+
+
+
+  <title>RxJava 学习笔记 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2017/02/01/2017-02-01-rx-learning-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxJava 学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-01T00:00:00+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/01/2017-02-01-rx-learning-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/01/2017-02-01-rx-learning-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="为什么要学RxJava"><a href="#为什么要学RxJava" class="headerlink" title="为什么要学RxJava"></a>为什么要学RxJava</h3><ol>
+<li>最大的好处在于,很优雅处理各种线程切换,能使整个代码块的逻辑连贯,易于阅读和维护;</li>
+<li>提供丰富的操作符, 能使很多复杂的操作简单几步搞定;</li>
+<li>运用响应式编程,使整个编程更流畅简洁;</li>
+</ol>
+<h3 id="开源库"><a href="#开源库" class="headerlink" title="开源库"></a>开源库</h3><hr>
+<p><strong><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="noopener">RxJava</a></strong>&nbsp;&nbsp;&nbsp;&nbsp; <strong><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="noopener">RxAndroid</a></strong></p>
+<h4 id="Rx-Sample"><a href="#Rx-Sample" class="headerlink" title="Rx Sample"></a>Rx Sample</h4><ul>
+<li><strong><a href="https://github.com/artem-zinnatullin/RxUi" target="_blank" rel="noopener">RxUi</a></strong>  Implementation of pure functional concept of talking to Android View layer in a Reactive way</li>
+<li><strong><a href="https://github.com/VictorAlbertos/ReactiveCache" target="_blank" rel="noopener">ReactiveCache</a></strong></li>
+<li><a href="http://github.com/kaushikgopal/RxJava-Android-Samples" target="_blank" rel="noopener">Android-RxJava-samples</a> </li>
+<li><a href="http://github.com/vyshane/rex-weather" target="_blank" rel="noopener">Rex-weather</a> </li>
+<li><a href="https://pspdfkit.com/blog/2016/android-animations-powered-by-rx-java/" target="_blank" rel="noopener">Android animations powered by RxJava</a></li>
+</ul>
+<h4 id="Rx-相关的开源工具库"><a href="#Rx-相关的开源工具库" class="headerlink" title="Rx 相关的开源工具库"></a>Rx 相关的开源工具库</h4><ul>
+<li><strong><a href="https://github.com/0ximDigital/RxAnimations" target="_blank" rel="noopener">RxAnimations</a></strong></li>
+<li><strong><a href="https://github.com/JakeWharton/RxBinding" target="_blank" rel="noopener">RxBinding</a></strong></li>
+<li><strong><a href="https://github.com/f2prateek/rx-preferences" target="_blank" rel="noopener">rx-preferences</a></strong> Reactive SharedPreferences for Android</li>
+<li><strong><a href="https://github.com/requery/requery" target="_blank" rel="noopener">requery</a></strong> 支持RxJava  Kotlin / Android ORM库</li>
+<li><strong><a href="https://github.com/trello/RxLifecycle" target="_blank" rel="noopener">RxLifecycle</a></strong> 处理由Activity 或 Fragment生命周期，导致没有完成的订阅（subscriptions）触发的内存泄露</li>
+<li><a href="https://github.com/android10/frodo" target="_blank" rel="noopener">Frodo</a> 模仿Jake Wharton’s <a href="https://github.com/JakeWharton/hugo" target="_blank" rel="noopener">Hugo</a>，使用Java切面编程的Android 日志工具库</li>
+<li><a href="https://github.com/pavlospt/RxIAPv3" target="_blank" rel="noopener">RxIAPv3</a> 一个用Rx封装后的 Android App内购支付库，提供几个购买、消费和商品清单列表的Rx方法。</li>
+<li><a href="https://github.com/pavlospt/RxFile" target="_blank" rel="noopener">RxFile</a></li>
+<li><strong><a href="https://github.com/ragnraok/RxCamera" target="_blank" rel="noopener">RxCamera</a></strong>  RxJava style API for android camera</li>
+<li><strong><a href="https://github.com/tbruyelle/RxPermissions" target="_blank" rel="noopener">RxPermissions</a></strong> Android runtime permissions powered by RxJava</li>
+</ul>
+<h3 id="Resource"><a href="#Resource" class="headerlink" title="Resource"></a>Resource</h3><ul>
+<li>Homepage <a href="http://reactivex.io/" target="_blank" rel="noopener">http://reactivex.io/</a></li>
+<li>RxJava 操作符动画效果演示 <a href="http://rxmarbles.com/" target="_blank" rel="noopener">http://rxmarbles.com/</a></li>
+<li><a href="https://medium.com/@fabioCollini/testing-asynchronous-rxjava-code-using-mockito-8ad831a16877#.c0tch3nxw" target="_blank" rel="noopener">Testing asynchronous RxJava code using Mockito</a></li>
+<li><a href="https://medium.com/@scottmeschke/rxrecipes-wrap-your-way-to-rx-fd40eb5254b6#.hbtcjp4rm" target="_blank" rel="noopener">RxRecipes: Wrap your way to Rx </a>  主要讲 fromCallable() fromAction()  替换Rx中的接口；</li>
+<li><a href="http://www.andevcon.com/news/rxify-the-anti-cache-then-network-or-network-then-cache-problem" target="_blank" rel="noopener"><code>Rxify</code> : The Anti Cache-then-Network OR Network-then-Cache Problem</a> 使用RX concat onErrorResumeNext onErrorReturn 处理访问网络失败后返回本地缓存的机制。</li>
+<li><a href="http://okzhjyy82.bkt.clouddn.com/RxJavaEssentials.pdf" target="_blank" rel="noopener">Book: RxJavaEssentials.pdf</a> 【英文】</li>
+<li><a href="https://github.com/yuxingxin/RxJava-Essentials-CN" target="_blank" rel="noopener">RxJava Essentials 中文翻译版</a></li>
+</ul>
+<h4 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h4><ul>
+<li><a href="http://reactivex.io/documentation/operators.html" target="_blank" rel="noopener">Doc for operators (操作符相关文档)</a></li>
+<li><a href="http://reactivex.io/documentation/scheduler.html" target="_blank" rel="noopener">Scheduler官方文档</a> 【待研究】</li>
+<li><a href="https://github.com/ReactiveX/RxJava/wiki" target="_blank" rel="noopener">RxJava Wiki 文档</a></li>
+<li><a href="https://github.com/ReactiveX/RxJava/wiki/Implementing-Your-Own-Operators" target="_blank" rel="noopener">Implementing Your Own Operators</a> 【实现自己的操作符】【重点】</li>
+</ul>
+<h4 id="翻译文档"><a href="#翻译文档" class="headerlink" title="翻译文档"></a>翻译文档</h4><ul>
+<li><a href="https://www.gitbook.com/book/mcxiaoke/rxdocs/details" target="_blank" rel="noopener">ReactiveX/RxJava文档中文版</a></li>
+</ul>
+<h4 id="一些高质量学习资源"><a href="#一些高质量学习资源" class="headerlink" title="一些高质量学习资源"></a>一些高质量学习资源</h4><ul>
+<li><a href="http://androidweekly.cn/android-dev-special-weekly-rxjava-rxandroid-issue-0/" target="_blank" rel="noopener">Android开发技术周报特刊之RxJava&amp;RxAndroid Issue#0 </a> 【重点】</li>
+<li><a href="http://www.androidweekly.cn/android-dev-special-weekly-rxjava-rxandroid-issue-1/" target="_blank" rel="noopener">Android开发技术周报特刊之RxJava&amp;RxAndroid Issue#1</a>【重点】</li>
+<li><a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="noopener">给 Android 开发者的 RxJava 详解</a></li>
+<li><a href="http://www.imooc.com/article/2028" target="_blank" rel="noopener">使用RxJava构造Android清晰框架</a></li>
+<li><strong><a href="https://github.com/lzyzsd/Awesome-RxJava" target="_blank" rel="noopener">Awesome-RxJava</a></strong> 一些RxJava的资料集合 【最爱】</li>
+<li><a href="http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/" title="Grokking RxJava, Part 1: The Basics" target="_blank" rel="noopener">Grokking RxJava, Part 1: The Basics</a> 【英文】</li>
+</ul>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><hr>
+<h4 id="操作符相关文章"><a href="#操作符相关文章" class="headerlink" title="操作符相关文章"></a>操作符相关文章</h4><ul>
+<li><a href="http://mushuichuan.com/tags/RxJava/" target="_blank" rel="noopener">木水川的博客</a> 【强力推荐】</li>
+</ul>
+<h4 id="throttleFirst"><a href="#throttleFirst" class="headerlink" title="throttleFirst():"></a><code>throttleFirst():</code></h4><p><code>RxView.clickEvents(button) // RxBinding 代码，后面的文章有解释 .throttleFirst(500, TimeUnit.MILLISECONDS)</code></p>
+<h4 id="FlatMap无序，concatMap有序排列"><a href="#FlatMap无序，concatMap有序排列" class="headerlink" title="FlatMap无序，concatMap有序排列"></a>FlatMap无序，concatMap有序排列</h4><p>FlatMap应用场景： 1. 抽取对象的集合并逐个输出； 2. 嵌套回调解决回调地狱的问题；</p>
+<pre class="line-numbers language-java"><code class="language-java">Student<span class="token punctuation">[</span><span class="token punctuation">]</span> students <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">;</span>
+Subscriber<span class="token operator">&lt;</span>Course<span class="token operator">></span> subscriber <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Subscriber</span><span class="token operator">&lt;</span>Course<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onNext</span><span class="token punctuation">(</span>Course course<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span>tag<span class="token punctuation">,</span> course<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+Observable<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>students<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Func1</span><span class="token operator">&lt;</span>Student<span class="token punctuation">,</span> Observable<span class="token operator">&lt;</span>Course<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> Observable<span class="token operator">&lt;</span>Course<span class="token operator">></span> <span class="token function">call</span><span class="token punctuation">(</span>Student student<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> Observable<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>student<span class="token punctuation">.</span><span class="token function">getCourses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>subscriber<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="first-vs-takeFirst"><a href="#first-vs-takeFirst" class="headerlink" title="first() vs. takeFirst()"></a><strong>first() vs. takeFirst()</strong></h4><p>  The difference between the two calls is that first()<br>   will throw a NoSuchElementException<br>   if none of the sources emits valid data, whereas takeFirst()<br>   will simply complete without exception.</p>
+<h4 id="groupBy"><a href="#groupBy" class="headerlink" title=".groupBy()"></a>.groupBy()</h4><p>一旦产生的Observable被订阅，分组产生的GroupedObservable就开始缓存，没有被订阅（处理）的GroupedObservable可能会引起内存泄露，<br>故，对不想处理的GroupedObservable，使用take(0)释放缓存；</p>
+<h4 id="combineLatest"><a href="#combineLatest" class="headerlink" title="combineLatest"></a>combineLatest</h4><p><img src="http://upload-images.jianshu.io/upload_images/611087-232eae2103188570.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h4 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h4><pre class="line-numbers language-java"><code class="language-java">操作符分类
+合并型
+combineLatest
+join
+merge
+mergeDelayError
+switchOnNext操作符是把一组Observable转换成一个Observable
+zip操作符是把两个observable提交的结果，严格按照顺序进行合并
+截取添加分类型
+startWith
+
+buffer
+debounce
+window
+groupBy
+distinct
+
+elementAt
+filter
+ofType
+first
+last
+single
+sample
+skip
+skipLast
+take
+错误处理
+onErrorReturn
+onErrorResumeNext <span class="token keyword">return</span> Observerable
+onExceptionResumeNext
+
+改变流程走向
+retry
+retryWhen
+
+其他
+concatMap
+cast
+scan
+ignoreElements操作符忽略所有源Observable产生的结果，只把Observable的onCompleted和onError事件通知给订阅者<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="进价问题研究"><a href="#进价问题研究" class="headerlink" title="进价问题研究"></a>进价问题研究</h3><hr>
+<h4 id="线程控制-Scheduler"><a href="#线程控制-Scheduler" class="headerlink" title="线程控制 Scheduler"></a>线程控制 Scheduler</h4><p>在RxJava 中，Scheduler ——调度器，相当于线程控制器，RxJava 通过它来指定每一段代码应该运行在什么样的线程。RxJava 已经内置了几个 Scheduler ，它们已经适合大多数的使用场景：</p>
+<ul>
+<li>Schedulers.immediate(): 直接在当前线程运行，相当于不指定线程。这是默认的 Scheduler。</li>
+<li>Schedulers.newThread(): 总是启用新线程，并在新线程执行操作。</li>
+<li>Schedulers.io(): I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。行为模式和 newThread() 差不多，区别在于 io() 的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 io() 比 newThread() 更有效率。不要把计算工作放在 io() 中，可以避免创建不必要的线程。</li>
+<li>Schedulers.computation(): 计算所使用的 Scheduler。这个计算指的是 CPU 密集型计算，即不会被 I/O 等操作限制性能的操作，例如图形的计算。这个 Scheduler 使用的固定的线程池，大小为 CPU 核数。不要把 I/O 操作放在 computation() 中，否则 I/O 操作的等待时间会浪费 CPU。<br>另外， Android 还有一个专用的 AndroidSchedulers.mainThread()，它指定的操作将在 Android 主线程运行。<br>有了这几个 Scheduler ，就可以使用 subscribeOn() 和 observeOn() 两个方法来对线程进行控制了。</li>
+</ul>
+<ul>
+<li>subscribeOn() vs observeOn() 对事情线程的影响；<blockquote>
+<p>subscribeOn() 的线程控制可以从事件发出的开端就造成影响；而 observeOn() 的线程切换则发生在它内建的 Subscriber 中，即发生在它即将给下一级 Subscriber 发送事件时，因此 observeOn() 控制的是它后面的线程。</p>
+</blockquote>
+</li>
+<li>doOnSubscribe()的后面跟一个 subscribeOn() ，就能指定准备工作的线程了。<pre class="line-numbers language-java"><code class="language-java">Observable<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>onSubscribe<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">subscribeOn</span><span class="token punctuation">(</span>Schedulers<span class="token punctuation">.</span><span class="token function">io</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">doOnSubscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Action0</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token annotation punctuation">@Override</span>
+      <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          progressBar<span class="token punctuation">.</span><span class="token function">setVisibility</span><span class="token punctuation">(</span>View<span class="token punctuation">.</span>VISIBLE<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 需要在主线程执行</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">subscribeOn</span><span class="token punctuation">(</span>AndroidSchedulers<span class="token punctuation">.</span><span class="token function">mainThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 指定主线程</span>
+  <span class="token punctuation">.</span><span class="token function">observeOn</span><span class="token punctuation">(</span>AndroidSchedulers<span class="token punctuation">.</span><span class="token function">mainThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>subscriber<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="Backpressure-【待研究】"><a href="#Backpressure-【待研究】" class="headerlink" title="Backpressure 【待研究】"></a>Backpressure 【待研究】</h4><p><img src="http://ohlb58e07.bkt.clouddn.com/big_stomach.jpg" alt></p>
+<blockquote>
+<p>生产速度比消费快,抛出MissingBackpressureException的异常<br><a href="https://github.com/ReactiveX/RxJava/wiki/Backpressure" target="_blank" rel="noopener">官方对Backpressure的介绍及对应的解决方案</a></p>
+</blockquote>
+<h3 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h3><hr>
+<h4 id="省略subscribeOn-和observeOn-在切换线程时"><a href="#省略subscribeOn-和observeOn-在切换线程时" class="headerlink" title="省略subscribeOn()和observeOn()在切换线程时"></a>省略subscribeOn()和observeOn()在切换线程时</h4><p>在Android开发的时候频繁使用subscribeOn()和observeOn()，后台线程和UI线程切换<br>这可以可以抽离出来（文章：<a href="http://www.jianshu.com/p/e9e03194199e" target="_blank" rel="noopener">避免打断链式结构：使用.compose( )操作符</a>）</p>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token operator">&lt;</span>T<span class="token operator">></span> Transformer<span class="token operator">&lt;</span>T<span class="token punctuation">,</span> T<span class="token operator">></span> <span class="token function">applySchedulers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Transformer</span><span class="token operator">&lt;</span>T<span class="token punctuation">,</span> T<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token annotation punctuation">@Override</span>
+   <span class="token keyword">public</span> Observable<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">call</span><span class="token punctuation">(</span>Observable<span class="token operator">&lt;</span>T<span class="token operator">></span> observable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">return</span> observable<span class="token punctuation">.</span><span class="token function">subscribeOn</span><span class="token punctuation">(</span>Schedulers<span class="token punctuation">.</span><span class="token function">io</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+         <span class="token punctuation">.</span><span class="token function">observeOn</span><span class="token punctuation">(</span>AndroidSchedulers<span class="token punctuation">.</span><span class="token function">mainThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="使用debounce做textSearch"><a href="#使用debounce做textSearch" class="headerlink" title="使用debounce做textSearch"></a>使用debounce做textSearch</h4><p>用简单的话讲就是当N个结点发生的时间太靠近（即发生的时间差小于设定的值T），debounce就会自动过滤掉前N-1个结点。<br>解决频繁改变，导致的多余的网络访问（场景举例：删除多余信息）</p>
+<pre class="line-numbers language-java"><code class="language-java">RxTextView<span class="token punctuation">.</span><span class="token function">textChangeEvents</span><span class="token punctuation">(</span>inputEditText<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">debounce</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">observeOn</span><span class="token punctuation">(</span>AndroidSchedulers<span class="token punctuation">.</span><span class="token function">mainThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Observer</span><span class="token operator">&lt;</span>TextViewTextChangeEvent<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onCompleted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"onComplete"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onError</span><span class="token punctuation">(</span>Throwable e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"Error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onNext</span><span class="token punctuation">(</span>TextViewTextChangeEvent onTextChangeEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"Searching for %s"</span><span class="token punctuation">,</span> onTextChangeEvent<span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="RxJava代替EventBus，Otto：RxBus"><a href="#RxJava代替EventBus，Otto：RxBus" class="headerlink" title="RxJava代替EventBus，Otto：RxBus"></a>RxJava代替EventBus，Otto：RxBus</h4><ul>
+<li><a href="http://www.jianshu.com/p/ca090f6e2fe2" target="_blank" rel="noopener">用RxJava实现事件总线(Event Bus)</a></li>
+<li><a href="http://blog.kaush.co/2014/12/24/implementing-an-event-bus-with-rxjava-rxbus/" target="_blank" rel="noopener">Implementing an Event Bus With RxJava - RxBus</a></li>
+</ul>
+<h4 id="延迟"><a href="#延迟" class="headerlink" title="延迟"></a>延迟</h4><pre class="line-numbers language-java"><code class="language-java">Observable<span class="token punctuation">.</span><span class="token function">timer</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span>
+              <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Observer</span><span class="token operator">&lt;</span>Long<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  <span class="token annotation punctuation">@Override</span>
+                  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onCompleted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                      log<span class="token punctuation">.</span><span class="token function">d</span> <span class="token punctuation">(</span><span class="token string">"completed"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span>
+
+                  <span class="token annotation punctuation">@Override</span>
+                  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onError</span><span class="token punctuation">(</span>Throwable e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                      log<span class="token punctuation">.</span><span class="token function">e</span><span class="token punctuation">(</span><span class="token string">"error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span>
+
+                  <span class="token annotation punctuation">@Override</span>
+                  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onNext</span><span class="token punctuation">(</span>Long number<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                      log<span class="token punctuation">.</span><span class="token function">d</span> <span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="schedulePeriodically轮询"><a href="#schedulePeriodically轮询" class="headerlink" title="schedulePeriodically轮询"></a>schedulePeriodically轮询</h4><pre class="line-numbers language-java"><code class="language-java">Observable<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Observable<span class="token punctuation">.</span>OnSubscribe</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">final</span> Subscriber<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> String<span class="token operator">></span> observer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+                Schedulers<span class="token punctuation">.</span><span class="token function">newThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">createWorker</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                      <span class="token punctuation">.</span><span class="token function">schedulePeriodically</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Action0</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                          <span class="token annotation punctuation">@Override</span>
+                          <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                              observer<span class="token punctuation">.</span><span class="token function">onNext</span><span class="token punctuation">(</span><span class="token function">doNetworkCallAndGetStringResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                          <span class="token punctuation">}</span>
+                      <span class="token punctuation">}</span><span class="token punctuation">,</span> INITIAL_DELAY<span class="token punctuation">,</span> POLLING_INTERVAL<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Action1</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span>"polling…<span class="token punctuation">.</span>”<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="使用RxJava处理复杂的Url操作"><a href="#使用RxJava处理复杂的Url操作" class="headerlink" title="使用RxJava处理复杂的Url操作"></a>使用RxJava处理复杂的Url操作</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"Hello, world!"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span>urls <span class="token operator">-</span><span class="token operator">></span> Observable<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>urls<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">//拆分List</span>
+    <span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span>url <span class="token operator">-</span><span class="token operator">></span> <span class="token function">getTitle</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 获取网站头名称</span>
+    <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>title <span class="token operator">-</span><span class="token operator">></span> title <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 过滤掉title == null</span>
+    <span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 取前5个</span>
+    <span class="token punctuation">.</span><span class="token function">doOnNext</span><span class="token punctuation">(</span>title <span class="token operator">-</span><span class="token operator">></span> <span class="token function">saveTitle</span><span class="token punctuation">(</span>title<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 在得到结果前保存标题到Disk里</span>
+    <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>title <span class="token operator">-</span><span class="token operator">></span> System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>title<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="按顺序从内存–-gt-文件–-gt-网络获取资源-成功程序停止"><a href="#按顺序从内存–-gt-文件–-gt-网络获取资源-成功程序停止" class="headerlink" title="按顺序从内存–&gt;文件–&gt;网络获取资源,成功程序停止"></a>按顺序从内存–&gt;文件–&gt;网络获取资源,成功程序停止</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">final</span> Observable<span class="token operator">&lt;</span>String<span class="token operator">></span> memory <span class="token operator">=</span> Observable<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Observable<span class="token punctuation">.</span>OnSubscribe</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span>Subscriber<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> String<span class="token operator">></span> subscriber<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>memoryCache <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            subscriber<span class="token punctuation">.</span><span class="token function">onNext</span><span class="token punctuation">(</span>memoryCache<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            subscriber<span class="token punctuation">.</span><span class="token function">onCompleted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+Observable<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>memory<span class="token punctuation">,</span> disk<span class="token punctuation">,</span> network<span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">subscribeOn</span><span class="token punctuation">(</span>Schedulers<span class="token punctuation">.</span><span class="token function">newThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>s <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    memoryCache <span class="token operator">=</span> <span class="token string">"memory"</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"--------------subscribe: "</span> <span class="token operator">+</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="多个异步并发处理完，再更新"><a href="#多个异步并发处理完，再更新" class="headerlink" title="多个异步并发处理完，再更新"></a>多个异步并发处理完，再更新</h4><pre class="line-numbers language-java"><code class="language-java">  Observable<span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span>observable1<span class="token punctuation">,</span> observable2<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">subscribeOn</span><span class="token punctuation">(</span>Schedulers<span class="token punctuation">.</span><span class="token function">newThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>System<span class="token punctuation">.</span>out<span class="token operator">:</span><span class="token operator">:</span>println<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="flatMap处理异步嵌套异步（Callback-Hell）"><a href="#flatMap处理异步嵌套异步（Callback-Hell）" class="headerlink" title="flatMap处理异步嵌套异步（Callback Hell）"></a>flatMap处理异步嵌套异步（Callback Hell）</h4><pre class="line-numbers language-java"><code class="language-java">NetworkService<span class="token punctuation">.</span><span class="token function">getToken</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">,</span> <span class="token string">"password"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span>s <span class="token operator">-</span><span class="token operator">></span> NetworkService<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>s <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"message: "</span> <span class="token operator">+</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="按钮防抖"><a href="#按钮防抖" class="headerlink" title="按钮防抖"></a>按钮防抖</h4><pre class="line-numbers language-java"><code class="language-java">RxView<span class="token punctuation">.</span><span class="token function">clicks</span><span class="token punctuation">(</span><span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>btn_throttle<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">throttleFirst</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>aVoid <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="响应式的界面"><a href="#响应式的界面" class="headerlink" title="响应式的界面"></a>响应式的界面</h4><p>勾选了某个checkbox，自动更新对应的preference</p>
+<pre class="line-numbers language-java"><code class="language-java">SharedPreferences preferences <span class="token operator">=</span> PreferenceManager<span class="token punctuation">.</span><span class="token function">getDefaultSharedPreferences</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+RxSharedPreferences rxPreferences <span class="token operator">=</span> RxSharedPreferences<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>preferences<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Preference<span class="token operator">&lt;</span>Boolean<span class="token operator">></span> checked <span class="token operator">=</span> rxPreferences<span class="token punctuation">.</span><span class="token function">getBoolean</span><span class="token punctuation">(</span><span class="token string">"checked"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+CheckBox checkBox <span class="token operator">=</span> <span class="token punctuation">(</span>CheckBox<span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>cb_test<span class="token punctuation">)</span><span class="token punctuation">;</span>
+RxCompoundButton<span class="token punctuation">.</span><span class="token function">checkedChanges</span><span class="token punctuation">(</span>checkBox<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>checked<span class="token punctuation">.</span><span class="token function">asAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Fragment-旋转缓存【待研究】"><a href="#Fragment-旋转缓存【待研究】" class="headerlink" title="Fragment 旋转缓存【待研究】"></a>Fragment 旋转缓存【待研究】</h4><pre class="line-numbers language-java"><code class="language-java">  <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span>Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/*.cache()操作符： 当第一个subscribe订阅的时候，才会连接原始Observable，缓存事件,
+      重发给后续订阅的subscribe 值得注意的事，
+       它和使用了.replay().publish()操作符的ConnectableObservable的不同。
+       另外，为了避免内存开销，不建议缓存大量事件*/</span>
+    <span class="token function">setRetainInstance</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cacheObservable <span class="token operator">=</span> weatherManager<span class="token punctuation">.</span><span class="token function">getWeather</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">cache</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onViewCreated</span><span class="token punctuation">(</span>View view<span class="token punctuation">,</span> Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onViewCreated</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cacheObservable<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token comment" spellcheck="true">/*your subscribe*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="测试调试-【待研究】"><a href="#测试调试-【待研究】" class="headerlink" title="测试调试 【待研究】"></a>测试调试 【待研究】</h3><hr>
+<ul>
+<li><a href="http://fedepaol.github.io/blog/2015/09/13/testing-rxjava-observables-subscriptions/" target="_blank" rel="noopener">Unit Testing RxJava Observables and Subscriptions</a></li>
+<li><a href="http://fernandocejas.com/2015/11/05/debugging-rxjava-on-android/" target="_blank" rel="noopener">Debugging RxJava on Android</a></li>
+</ul>
+<h3 id="实战笔记"><a href="#实战笔记" class="headerlink" title="实战笔记"></a>实战笔记</h3><hr>
+<p><strong>RxJava-Android-Samples</strong><br><strong>RetrofitFragment.java</strong><br>Observable.zip / Observable.just <a href="https://gist.github.com/Orange168/2f751594f95f9b05c129cd44f5b10739" target="_blank" rel="noopener">gist code</a></p>
+<p><strong>DebounceSearchEmitterFragment.java</strong><br><a href="https://gist.github.com/Orange168/ab5784b27fec8ee8e2614a189c094636" target="_blank" rel="noopener">RxTextView.textChangeEvents gitst code </a></p>
+<p><strong>BufferDemoFragment.java</strong><br>     RxView.clickEvents/  .buffer(2, TimeUnit.SECONDS) //收集2s内的点击事件到List中</p>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token keyword">private</span> Subscription <span class="token function">_getBufferedSubscription</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">return</span> RxView<span class="token punctuation">.</span><span class="token function">clickEvents</span><span class="token punctuation">(</span>_tapBtn<span class="token punctuation">)</span>
+              <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Func1</span><span class="token operator">&lt;</span>ViewClickEvent<span class="token punctuation">,</span> Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  <span class="token annotation punctuation">@Override</span>
+                  <span class="token keyword">public</span> Integer <span class="token function">call</span><span class="token punctuation">(</span>ViewClickEvent onClickEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                      Timber<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"--------- GOT A TAP"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                      <span class="token function">_log</span><span class="token punctuation">(</span><span class="token string">"GOT A TAP"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                      <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                  <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span><span class="token punctuation">)</span>
+              <span class="token punctuation">.</span><span class="token function">buffer</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//收集2s内的点击事件到List中</span>
+              <span class="token punctuation">.</span><span class="token function">observeOn</span><span class="token punctuation">(</span>AndroidSchedulers<span class="token punctuation">.</span><span class="token function">mainThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+              <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Observer</span><span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> ）；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>PublishSubject</p>
+<pre class="line-numbers language-java"><code class="language-java"> PublishSubject<span class="token operator">&lt;</span>Float<span class="token operator">></span>   _resultEmitterSubject <span class="token operator">=</span> PublishSubject<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        _subscription <span class="token operator">=</span> _resultEmitterSubject<span class="token punctuation">.</span><span class="token function">asObservable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Action1</span><span class="token operator">&lt;</span>Float<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span>Float aFloat<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                _result<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>aFloat<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         _resultEmitterSubject<span class="token punctuation">.</span><span class="token function">onNext</span><span class="token punctuation">(</span>num1 <span class="token operator">+</span> num2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token annotation punctuation">@OnTextChanged</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>PollingFragment.java</em><br>CompositeSubscription / interval /doOnSubscribe /repeatWhen /Observable.timer</p>
+<pre class="line-numbers language-java"><code class="language-java">       _subscriptions<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token comment" spellcheck="true">//</span>
+              Observable<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">repeatWhen</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">RepeatWithDelay</span><span class="token punctuation">(</span>pollCount<span class="token punctuation">,</span> pollingInterval<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Action1</span><span class="token operator">&lt;</span>Object<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token annotation punctuation">@Override</span>
+                        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span>Object o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token function">_log</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>Locale<span class="token punctuation">.</span>US<span class="token punctuation">,</span> <span class="token string">"Executing polled task now time : [xx:%02d]"</span><span class="token punctuation">,</span>
+                                  <span class="token function">_getSecondHand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Action1</span><span class="token operator">&lt;</span>Throwable<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token annotation punctuation">@Override</span>
+                        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span>Throwable e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            Timber<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token string">"arrrr. Error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            _subscriptions<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token comment" spellcheck="true">//</span>
+              Observable<span class="token punctuation">.</span><span class="token function">interval</span><span class="token punctuation">(</span>INITIAL_DELAY<span class="token punctuation">,</span> POLLING_INTERVAL<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Func1</span><span class="token operator">&lt;</span>Long<span class="token punctuation">,</span> String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token annotation punctuation">@Override</span>
+                        <span class="token keyword">public</span> String <span class="token function">call</span><span class="token punctuation">(</span>Long heartBeat<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">return</span> <span class="token function">_doNetworkCallAndGetStringResult</span><span class="token punctuation">(</span>heartBeat<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span>pollCount<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">doOnSubscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Action0</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token annotation punctuation">@Override</span>
+                        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token function">_log</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"Start simple polling - %s"</span><span class="token punctuation">,</span> _counter<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Action1</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token annotation punctuation">@Override</span>
+                        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span>String taskName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token function">_log</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>Locale<span class="token punctuation">.</span>US<span class="token punctuation">,</span> <span class="token string">"Executing polled task [%s] now time : [xx:%02d]"</span><span class="token punctuation">,</span>
+                                  taskName<span class="token punctuation">,</span> <span class="token function">_getSecondHand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RepeatWithDelay</span>
+          <span class="token keyword">implements</span> <span class="token class-name">Func1</span><span class="token operator">&lt;</span>Observable<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Void</span><span class="token operator">></span><span class="token punctuation">,</span> Observable<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> _repeatLimit<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> _pollingInterval<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> _repeatCount <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+        <span class="token function">RepeatWithDelay</span><span class="token punctuation">(</span><span class="token keyword">int</span> repeatLimit<span class="token punctuation">,</span> <span class="token keyword">int</span> pollingInterval<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            _pollingInterval <span class="token operator">=</span> pollingInterval<span class="token punctuation">;</span>
+            _repeatLimit <span class="token operator">=</span> repeatLimit<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// this is a notificationhandler, all we care about is</span>
+        <span class="token comment" spellcheck="true">// the emission "type" not emission "content"</span>
+        <span class="token comment" spellcheck="true">// only onNext triggers a re-subscription</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> Observable<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">call</span><span class="token punctuation">(</span>Observable<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Void</span><span class="token operator">></span> inputObservable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+            <span class="token comment" spellcheck="true">// it is critical to use inputObservable in the chain for the result</span>
+            <span class="token comment" spellcheck="true">// ignoring it and doing your own thing will break the sequence</span>
+
+            <span class="token keyword">return</span> inputObservable<span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Func1</span><span class="token operator">&lt;</span>Void<span class="token punctuation">,</span> Observable<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token annotation punctuation">@Override</span>
+                <span class="token keyword">public</span> Observable<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">call</span><span class="token punctuation">(</span>Void blah<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>_repeatCount <span class="token operator">>=</span> _repeatLimit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment" spellcheck="true">// terminate the sequence cause we reached the limit</span>
+                        <span class="token function">_log</span><span class="token punctuation">(</span><span class="token string">"Completing sequence"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">return</span> Observable<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    <span class="token comment" spellcheck="true">// since we don't get an input</span>
+                    <span class="token comment" spellcheck="true">// we store state in this handler to tell us the point of time we're firing</span>
+                    _repeatCount<span class="token operator">++</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">return</span> Observable<span class="token punctuation">.</span><span class="token function">timer</span><span class="token punctuation">(</span>_repeatCount <span class="token operator">*</span> _pollingInterval<span class="token punctuation">,</span>
+                          TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>RxBusDemoFragment.java</em><br>ConnectableObservable / SerializedSubject<br><a href="https://gist.github.com/Orange168/81a3f2dc67bc2248b56b3697adcc601e" target="_blank" rel="noopener">gist代码</a></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">final</span> Subject<span class="token operator">&lt;</span>Object<span class="token punctuation">,</span> Object<span class="token operator">></span> _bus <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SerializedSubject</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>PublishSubject<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+_bus<span class="token punctuation">.</span><span class="token function">onNext</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">;</span>
+_bus<span class="token punctuation">.</span><span class="token function">hasObservers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ConnectableObservable<span class="token operator">&lt;</span>Object<span class="token operator">></span> tapEventEmitter <span class="token operator">=</span> _rxBus<span class="token punctuation">.</span><span class="token function">toObserverable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   _subscriptions<span class="token comment" spellcheck="true">//</span>
+              <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>tapEventEmitter<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Action1</span><span class="token operator">&lt;</span>Object<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                  <span class="token annotation punctuation">@Override</span>
+                  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span>Object event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                      <span class="token keyword">if</span> <span class="token punctuation">(</span>event <span class="token keyword">instanceof</span> <span class="token class-name">RxBusDemoFragment<span class="token punctuation">.</span>TapEvent</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                          <span class="token function">_showTapText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                      <span class="token punctuation">}</span>
+                  <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ stream<span class="token punctuation">.</span><span class="token function">buffer</span><span class="token punctuation">(</span>stream<span class="token punctuation">.</span><span class="token function">debounce</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ _subscriptions<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>tapEventEmitter<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>FormValidationCombineLatestFragment.java</em></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> Observable<span class="token operator">&lt;</span>CharSequence<span class="token operator">></span> _numberChangeObservable <span class="token operator">=</span> RxTextView<span class="token punctuation">.</span><span class="token function">textChanges</span><span class="token punctuation">(</span>_email_editText<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">skip</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ _subscription <span class="token operator">=</span> Observable<span class="token punctuation">.</span><span class="token function">combineLatest</span><span class="token punctuation">(</span>_emailChangeObservable<span class="token punctuation">,</span>
+              _passwordChangeObservable<span class="token punctuation">,</span>
+              _numberChangeObservable<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Fun3<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>PseudoCacheMergeFragment.java</em><br>Observable.merge();<br><em>TimingDemoFragment.java</em></p>
+<pre class="line-numbers language-java"><code class="language-java">Observable<span class="token punctuation">.</span><span class="token function">timer</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//</span>
+              <span class="token comment" spellcheck="true">//.just(1).delay(2, TimeUnit.SECONDS)//</span>
+              <span class="token comment" spellcheck="true">//.interval(1, TimeUnit.SECONDS)//</span>
+              <span class="token comment" spellcheck="true">//.interval(0, 1, TimeUnit.SECONDS)//</span>
+              <span class="token comment" spellcheck="true">//.interval(3, TimeUnit.SECONDS).take(5)//</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>ExponentialBackoffFragment.java</em></p>
+<pre class="line-numbers language-java"><code class="language-java">  Observable<span class="token comment" spellcheck="true">//</span>
+                    <span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"testing"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// always fails</span>
+                    <span class="token punctuation">.</span><span class="token function">retryWhen</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">RetryWithDelay</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//当错误时调用，适用于错误处理</span>
+ <span class="token comment" spellcheck="true">//1-4 指数的递增延迟</span>
+Observable<span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//</span>
+                    <span class="token punctuation">.</span><span class="token function">delay</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Func1</span><span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> Observable<span class="token operator">&lt;</span>Integer<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token annotation punctuation">@Override</span>
+                        <span class="token keyword">public</span> Observable<span class="token operator">&lt;</span>Integer<span class="token operator">></span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">final</span> Integer integer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token comment" spellcheck="true">// Rx-y way of doing the Fibonnaci :P</span>
+                            <span class="token keyword">return</span> MathObservable<span class="token comment" spellcheck="true">//</span>
+                                  <span class="token punctuation">.</span><span class="token function">sumInteger</span><span class="token punctuation">(</span>Observable<span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> integer<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                                  <span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Func1</span><span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> Observable<span class="token operator">&lt;</span>Integer<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                      <span class="token annotation punctuation">@Override</span>
+                                      <span class="token keyword">public</span> Observable<span class="token operator">&lt;</span>Integer<span class="token operator">></span> <span class="token function">call</span><span class="token punctuation">(</span>Integer targetSecondDelay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                          <span class="token keyword">return</span> Observable<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span>integer<span class="token punctuation">)</span>
+                                                <span class="token punctuation">.</span><span class="token function">delay</span><span class="token punctuation">(</span>targetSecondDelay<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                      <span class="token punctuation">}</span>
+                                  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java">RxView<span class="token punctuation">.</span><span class="token function">clickEvents</span><span class="token punctuation">(</span>button<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// RxBinding 代码，后面的文章有解释</span>
+    <span class="token punctuation">.</span><span class="token function">throttleFirst</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 设置防抖间隔为 500ms</span>
+    <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>subscriber<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><hr>
+<h4 id="RxJS"><a href="#RxJS" class="headerlink" title="RxJS"></a>RxJS</h4><ul>
+<li><strong><a href="https://github.com/Reactive-Extensions/RxJS" target="_blank" rel="noopener">RxJS</a></strong> The Reactive Extensions for JavaScript <a href="http://reactivex.io/" target="_blank" rel="noopener">http://reactivex.io</a></li>
+<li><a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md" target="_blank" rel="noopener">Big list of functions</a> 常用函数的例子</li>
+<li><a href="https://github.com/ReactiveX/RxJava/wiki/Creating-Observables" target="_blank" rel="noopener">Creating Observables</a> 产生Observable的方法</li>
+<li><a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank" rel="noopener">The introduction to Reactive Programming you’ve been missing</a>  对应的 <a href="http://jsfiddle.net/staltz/8jFJH/48/" target="_blank" rel="noopener">Demo</a></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1321512-0e4e7d86dd98eae5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://blog.csdn.net/lzyzsd/article/details/50120801" target="_blank" rel="noopener">RxJava使用场景小结</a></li>
+<li><a href="http://www.imooc.com/article/2028" target="_blank" rel="noopener">使用RxJava构造Android清晰框架</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RxJava/" rel="tag"># RxJava</a>
+          
+            <a href="/tags/note/" rel="tag"># note</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/08/2017-01-08-gradle-note/" rel="next" title="Gradle 学习积累">
+                <i class="fa fa-chevron-left"></i> Gradle 学习积累
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/05/2017-02-05-java-doc/" rel="prev" title="JavaDoc学习笔记">
+                JavaDoc学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2017/02/01/2017-02-01-rx-learning-note/" data-title="RxJava 学习笔记" data-url="http://linz.tech/2017/02/01/2017-02-01-rx-learning-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要学RxJava"><span class="nav-number">1.</span> <span class="nav-text">为什么要学RxJava</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开源库"><span class="nav-number">2.</span> <span class="nav-text">开源库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Rx-Sample"><span class="nav-number">2.1.</span> <span class="nav-text">Rx Sample</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rx-相关的开源工具库"><span class="nav-number">2.2.</span> <span class="nav-text">Rx 相关的开源工具库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resource"><span class="nav-number">3.</span> <span class="nav-text">Resource</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#官方文档"><span class="nav-number">3.1.</span> <span class="nav-text">官方文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#翻译文档"><span class="nav-number">3.2.</span> <span class="nav-text">翻译文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些高质量学习资源"><span class="nav-number">3.3.</span> <span class="nav-text">一些高质量学习资源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作符"><span class="nav-number">4.</span> <span class="nav-text">操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#操作符相关文章"><span class="nav-number">4.1.</span> <span class="nav-text">操作符相关文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#throttleFirst"><span class="nav-number">4.2.</span> <span class="nav-text">throttleFirst():</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FlatMap无序，concatMap有序排列"><span class="nav-number">4.3.</span> <span class="nav-text">FlatMap无序，concatMap有序排列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#first-vs-takeFirst"><span class="nav-number">4.4.</span> <span class="nav-text">first() vs. takeFirst()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#groupBy"><span class="nav-number">4.5.</span> <span class="nav-text">.groupBy()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#combineLatest"><span class="nav-number">4.6.</span> <span class="nav-text">combineLatest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#笔记"><span class="nav-number">4.7.</span> <span class="nav-text">笔记</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进价问题研究"><span class="nav-number">5.</span> <span class="nav-text">进价问题研究</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程控制-Scheduler"><span class="nav-number">5.1.</span> <span class="nav-text">线程控制 Scheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Backpressure-【待研究】"><span class="nav-number">5.2.</span> <span class="nav-text">Backpressure 【待研究】</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用案例"><span class="nav-number">6.</span> <span class="nav-text">使用案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#省略subscribeOn-和observeOn-在切换线程时"><span class="nav-number">6.1.</span> <span class="nav-text">省略subscribeOn()和observeOn()在切换线程时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用debounce做textSearch"><span class="nav-number">6.2.</span> <span class="nav-text">使用debounce做textSearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RxJava代替EventBus，Otto：RxBus"><span class="nav-number">6.3.</span> <span class="nav-text">RxJava代替EventBus，Otto：RxBus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#延迟"><span class="nav-number">6.4.</span> <span class="nav-text">延迟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#schedulePeriodically轮询"><span class="nav-number">6.5.</span> <span class="nav-text">schedulePeriodically轮询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用RxJava处理复杂的Url操作"><span class="nav-number">6.6.</span> <span class="nav-text">使用RxJava处理复杂的Url操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按顺序从内存–-gt-文件–-gt-网络获取资源-成功程序停止"><span class="nav-number">6.7.</span> <span class="nav-text">按顺序从内存–&gt;文件–&gt;网络获取资源,成功程序停止</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个异步并发处理完，再更新"><span class="nav-number">6.8.</span> <span class="nav-text">多个异步并发处理完，再更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flatMap处理异步嵌套异步（Callback-Hell）"><span class="nav-number">6.9.</span> <span class="nav-text">flatMap处理异步嵌套异步（Callback Hell）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按钮防抖"><span class="nav-number">6.10.</span> <span class="nav-text">按钮防抖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应式的界面"><span class="nav-number">6.11.</span> <span class="nav-text">响应式的界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment-旋转缓存【待研究】"><span class="nav-number">6.12.</span> <span class="nav-text">Fragment 旋转缓存【待研究】</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试调试-【待研究】"><span class="nav-number">7.</span> <span class="nav-text">测试调试 【待研究】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战笔记"><span class="nav-number">8.</span> <span class="nav-text">实战笔记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">9.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RxJS"><span class="nav-number">9.1.</span> <span class="nav-text">RxJS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

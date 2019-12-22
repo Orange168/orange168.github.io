@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,数据库,database,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据格式 gson Gson Json Annotations Example   stag-java Speedy Type Adapter Generation fastjson  序列化 Parcelable Parcelable AutoValue使用 Google AutoValue 自动生成代码 Dependencies dependencies {   provided &amp;#39;c">
+<meta name="keywords" content="Android,数据库,database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 数据处理资源总汇">
+<meta property="og:url" content="http://linz.tech/2016/09/08/2016-09-08-Android-database-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="数据格式 gson Gson Json Annotations Example   stag-java Speedy Type Adapter Generation fastjson  序列化 Parcelable Parcelable AutoValue使用 Google AutoValue 自动生成代码 Dependencies dependencies {   provided &amp;#39;c">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://camo.githubusercontent.com/5a2f9fe0725a29ff92f941daa814a65f2bdc193c/68747470733a2f2f7261772e6769746875622e636f6d2f696e66696e756d2f616e64726f69645f6462696e73706563746f722f6d61737465722f73637265656e73686f74732e706e67">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 数据处理资源总汇">
+<meta name="twitter:description" content="数据格式 gson Gson Json Annotations Example   stag-java Speedy Type Adapter Generation fastjson  序列化 Parcelable Parcelable AutoValue使用 Google AutoValue 自动生成代码 Dependencies dependencies {   provided &amp;#39;c">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/5a2f9fe0725a29ff92f941daa814a65f2bdc193c/68747470733a2f2f7261772e6769746875622e636f6d2f696e66696e756d2f616e64726f69645f6462696e73706563746f722f6d61737465722f73637265656e73686f74732e706e67">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2016/09/08/2016-09-08-Android-database-note/">
+
+
+
+
+
+  <title>Android 数据处理资源总汇 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2016/09/08/2016-09-08-Android-database-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 数据处理资源总汇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-08T00:00:00+08:00">
+                2016-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/08/2016-09-08-Android-database-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/2016-09-08-Android-database-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h2><ul>
+<li><strong><a href="https://github.com/google/gson" target="_blank" rel="noopener">gson</a></strong><ul>
+<li><a href="http://websystique.com/java/json/gson-json-annotations-example/" target="_blank" rel="noopener">Gson Json Annotations Example</a></li>
+</ul>
+</li>
+<li><strong><a href="https://github.com/vimeo/stag-java" target="_blank" rel="noopener">stag-java</a></strong> Speedy Type Adapter Generation</li>
+<li><strong><a href="https://github.com/alibaba/fastjson" target="_blank" rel="noopener">fastjson</a></strong></li>
+</ul>
+<h2 id="序列化-Parcelable"><a href="#序列化-Parcelable" class="headerlink" title="序列化 Parcelable"></a>序列化 Parcelable</h2><hr>
+<h3 id="Parcelable-AutoValue"><a href="#Parcelable-AutoValue" class="headerlink" title="Parcelable AutoValue"></a>Parcelable AutoValue</h3><p><a href="http://tedyin.me/2016/04/11/auto-value/?utm_source=tuicool&utm_medium=referral" target="_blank" rel="noopener">使用 Google AutoValue 自动生成代码</a></p>
+<p><strong>Dependencies</strong></p>
+<pre><code>dependencies {
+  provided &#39;com.google.auto.value:auto-value:1.2&#39;
+  apt &#39;com.google.auto.value:auto-value:1.2&#39;
+  apt &#39;com.ryanharter.auto.value:auto-value-parcel:0.2.1&#39;
+}</code></pre><p><strong>Sample</strong></p>
+<pre><code>@AutoValue
+public abstract class Story implements Parcelable{
+  public abstract int id();
+  public abstract String title();
+  public static Story create(int id, String title){
+    new AutoValue_Story(id,title);
+  }
+}</code></pre><h3 id="Android-状态保存"><a href="#Android-状态保存" class="headerlink" title="Android 状态保存"></a>Android 状态保存</h3><ul>
+<li><p><a href="https://github.com/evernote/android-state" target="_blank" rel="noopener">android-state</a></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">Activity</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@State</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> mValue<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span>Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        StateSaver<span class="token punctuation">.</span><span class="token function">restoreInstanceState</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onSaveInstanceState</span><span class="token punctuation">(</span>Bundle outState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onSaveInstanceState</span><span class="token punctuation">(</span>outState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        StateSaver<span class="token punctuation">.</span><span class="token function">saveInstanceState</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> outState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><hr>
+<p><em>Sqlite 批量处理</em></p>
+<ul>
+<li><a href="http://blog.sina.com.cn/s/blog_48d4cf2d0102v5ip.html" target="_blank" rel="noopener">SQLite批量插入和其他一些使用心得</a> </li>
+<li><a href="http://www.tuicool.com/articles/2AfaEbE" target="_blank" rel="noopener">android SQLite 批量插入数据慢的解决方案</a></li>
+</ul>
+<p><em>Tutorial</em></p>
+<ul>
+<li><a href="http://www.runoob.com/sqlite/sqlite-tutorial.html" target="_blank" rel="noopener">sqlite-tutorial</a></li>
+<li><a href="http://zhangfan822.iteye.com/blog/1883118" target="_blank" rel="noopener">Android 保存图片到SQLite,读出SQLite中的图片</a></li>
+<li><a href="https://www.sqlite.org/lang_createtrigger.html" target="_blank" rel="noopener">sqlite 官方教程 CREATE TRIGGER</a></li>
+<li><a href="http://www.runoob.com/sqlite/sqlite-index.html" target="_blank" rel="noopener">Sqlite learnning Course</a></li>
+<li><a href="http://www.runoob.com/sql/sql-union.html" target="_blank" rel="noopener">SQL语句 Inner join/ union 的学习</a><pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">f</span><span class="token punctuation">.</span>name <span class="token punctuation">,</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> sum<span class="token punctuation">,</span> <span class="token number">d</span><span class="token punctuation">.</span><span class="token keyword">value</span> <span class="token keyword">as</span> url <span class="token keyword">from</span> Favorite <span class="token number">f</span> <span class="token keyword">inner</span> <span class="token keyword">join</span> <span class="token keyword">data</span> <span class="token number">d</span>  <span class="token keyword">on</span> <span class="token number">d</span><span class="token punctuation">.</span><span class="token keyword">key</span><span class="token operator">=</span><span class="token operator">=</span><span class="token number">f</span><span class="token punctuation">.</span>name  <span class="token keyword">group</span> <span class="token keyword">by</span> <span class="token number">f</span><span class="token punctuation">.</span>name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<p><em>笔记好滴博文</em></p>
+<ul>
+<li><a href="http://blog.csdn.net/iefreer/article/details/39188231" target="_blank" rel="noopener">5个Android ORM框架</a>  Android 主流ORM（对象关系数据映射）简介</li>
+</ul>
+<p><em>常用的SQL语句</em></p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token keyword">EXISTS</span> t_student
+<span class="token keyword">CREATE</span> TALBE <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> t_student <span class="token punctuation">(</span>id iteger <span class="token keyword">primary</span> <span class="token keyword">key</span> autoincrement<span class="token punctuation">,</span> name <span class="token keyword">text</span><span class="token punctuation">,</span> age <span class="token keyword">integer</span><span class="token punctuation">,</span> score <span class="token keyword">real</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> t_student <span class="token punctuation">(</span>name<span class="token punctuation">,</span>age<span class="token punctuation">)</span> <span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token string">'jack'</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">)</span>
+<span class="token keyword">update</span> t_student <span class="token keyword">set</span> name<span class="token operator">=</span><span class="token string">'jack'</span> <span class="token punctuation">,</span>id <span class="token operator">=</span><span class="token number">1</span> 
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> t_student <span class="token keyword">where</span> score <span class="token operator">>=</span> <span class="token number">60</span> <span class="token keyword">order</span> <span class="token keyword">by</span> score <span class="token keyword">asc</span><span class="token punctuation">,</span> age <span class="token keyword">asc</span><span class="token punctuation">;</span>
+<span class="token keyword">limit</span> 分页查询
+<span class="token keyword">limit</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">5</span>
+<span class="token keyword">limit</span> <span class="token number">5</span><span class="token punctuation">,</span><span class="token number">5</span>
+约束
+<span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span> <span class="token keyword">unique</span><span class="token punctuation">,</span> <span class="token keyword">default</span>
+外键—— 
+<span class="token keyword">create</span> <span class="token keyword">table</span> t_student <span class="token punctuation">(</span>id <span class="token keyword">integer</span> <span class="token keyword">primary</span> <span class="token keyword">key</span> autoincrement<span class="token punctuation">,</span>name <span class="token keyword">text</span><span class="token punctuation">,</span> class_id <span class="token keyword">integer</span><span class="token punctuation">,</span>
+<span class="token keyword">constraint</span> fk_t_student_class_id_t_class_id <span class="token keyword">foreign</span> <span class="token keyword">key</span> <span class="token punctuation">(</span>class_id<span class="token punctuation">)</span> <span class="token keyword">references</span> t_class<span class="token punctuation">(</span>id<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Awesome-Repositories"><a href="#Awesome-Repositories" class="headerlink" title="Awesome Repositories"></a>Awesome Repositories</h2><table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://github.com/pardom-zz/ActiveAndroid" target="_blank" rel="noopener">ActiveAndroid</a></td>
+<td>Active record style SQLite persistence for Android.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jgilfelt/android-sqlite-asset-helper" target="_blank" rel="noopener">Android-sqlite-asset-helper</a></td>
+<td>An Android helper class to manage database creation and version management using an application’s raw asset files.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/litesuits/android-lite-orm" target="_blank" rel="noopener">Android-lite-orm</a></td>
+<td>A fast, small, powerful ORM framework for Android.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sqlcipher/android-database-sqlcipher" target="_blank" rel="noopener">Android-database-sqlcipher</a></td>
+<td>Android SQLite API based on SQLCipher.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sromku/android-storage" target="_blank" rel="noopener">Android Storage</a></td>
+<td>Create, read, delete, append, encrypt files and more, on internal or external disk spaces with a really simple API.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/facebook/conceal" target="_blank" rel="noopener">Conceal</a></td>
+<td>Conceal provides easy Android APIs for performing fast encryption and authentication of data.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/couchbase/couchbase-lite-android" target="_blank" rel="noopener">Couchbase-lite-android</a></td>
+<td>Lightweight, embedded, syncable NoSQL database engine for Android.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ConserveORM/main" target="_blank" rel="noopener">ConserveORM</a></td>
+<td>A library for storing your Java/Scala/Kotlin objects in a database.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Raizlabs/DBFlow" target="_blank" rel="noopener">DBFlow</a></td>
+<td>A blazing fast, powerful, and very simple ORM android database library that writes database code for you.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PDDStudio/EncryptedPreferences" target="_blank" rel="noopener">EncryptedPreferences</a></td>
+<td>AES-256 encrypted SharedPreferences for Android.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/greenrobot/greenDAO" target="_blank" rel="noopener">GreenDao</a></td>
+<td>greenDAO is a light &amp; fast ORM solution for Android that maps objects to SQLite databases.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/orhanobut/hawk" target="_blank" rel="noopener">Hawk</a></td>
+<td>Secure, simple key-value storage for Android.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/chibatching/Kotpref" target="_blank" rel="noopener">Kotpref</a></td>
+<td>Android SharedPreferences delegation library for Kotlin.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/LitePalFramework/LitePal" target="_blank" rel="noopener">LitePal</a></td>
+<td>An Android library that makes developers use SQLite database extremely easy.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/objectbox/objectbox-java" target="_blank" rel="noopener">ObjectBox</a></td>
+<td>ObjectBox is a superfast mobile database for objects.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/j256/ormlite-android" target="_blank" rel="noopener">Ormlite-android</a></td>
+<td>ORMLite Android functionality used in conjunction with ormlite-core.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pilgr/Paper" target="_blank" rel="noopener">Paper</a></td>
+<td>Paper is a fast NoSQL-like storage for Java/Kotlin objects on Android with automatic schema migration support.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/skydoves/PreferenceRoom" target="_blank" rel="noopener">PreferenceRoom</a></td>
+<td>Manage your android project’s SharedPreferences more efficiently.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/franmontiel/PersistentCookieJar" target="_blank" rel="noopener">PersistentCookieJar</a></td>
+<td>A persistent CookieJar implementation for OkHttp 3 based on SharedPreferences.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/realm/realm-java" target="_blank" rel="noopener">Realm</a></td>
+<td>Realm is a mobile database: a replacement for SQLite &amp; ORMs.</td>
+</tr>
+<tr>
+<td><a href="https://developer.android.com/topic/libraries/architecture/room" target="_blank" rel="noopener">Room Persistence</a></td>
+<td>The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/requery/requery" target="_blank" rel="noopener">Requery</a></td>
+<td>Modern SQL based query &amp; persistence for Java / Kotlin / Android.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/f2prateek/rx-preferences" target="_blank" rel="noopener">Rx-preferences</a></td>
+<td>Reactive SharedPreferences for Android.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/afollestad/rxkprefs" target="_blank" rel="noopener">Rxkprefs</a></td>
+<td>A small, Rx-powered shared preferences library for Kotlin.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/NYTimes/Store" target="_blank" rel="noopener">Store</a></td>
+<td>Android Library for Async Data Loading and Caching.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pushtorefresh/storio" target="_blank" rel="noopener">Storio</a></td>
+<td>Reactive API for SQLiteDatabase and ContentResolver.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/chennaione/sugar" target="_blank" rel="noopener">Sugar</a></td>
+<td>Insanely easy way to work with Android Database.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/yahoo/squidb" target="_blank" rel="noopener">Squidb</a></td>
+<td>SquiDB is a SQLite database library for Android and iOS.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/requery/sqlite-android" target="_blank" rel="noopener">Sqlite-android</a></td>
+<td>Android SQLite support library.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/iamMehedi/Secured-Preference-Store" target="_blank" rel="noopener">Secured-Preference-Store</a></td>
+<td>A cryptography library and a SharedPreferences wrapper for Android that encrypts the content with 256 bit AES encryption. The Encryption key is securely stored in device’s KeyStore.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/grandcentrix/tray" target="_blank" rel="noopener">Tray</a></td>
+<td>A SharedPreferences replacement for Android with multiprocess support.</td>
+</tr>
+<tr>
+<td>## <strong>No Sql</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>—</td>
+<td></td>
+</tr>
+<tr>
+<td>- **<a href="http://github.com/cesarferreira/RxPaper#handle-data-structure-changes" target="_blank" rel="noopener">RxPaper</a>   Like  below Paper **</td>
+<td></td>
+</tr>
+<tr>
+<td>- <a href="http://github.com/f2prateek/rx-preferences" target="_blank" rel="noopener">Rx-preferences</a>   <strong>Reactive SharedPreferences for Android <a href="http://f2prateek.com/2015/10/05/rx-preferences/" target="_blank" rel="noopener">http://f2prateek.com/2015/10/05/rx-preferences/</a></strong></td>
+<td></td>
+</tr>
+<tr>
+<td>- **<a href="http://github.com/google/leveldb" target="_blank" rel="noopener">Leveldb</a>  **<a href="http://github.com/google/leveldb" target="_blank" rel="noopener"></a>is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.</td>
+<td></td>
+</tr>
+<tr>
+<td>- <a href="http://github.com/pilgr/Paper#benchmark-results" target="_blank" rel="noopener">Paper</a>   save/restore Java objects by using efficient Kryo serialization and handling data structure changes automatically.</td>
+<td></td>
+</tr>
+<tr>
+<td>- <a href="https://github.com/FabianTerhorst/Iron" target="_blank" rel="noopener">Iron</a>  Fast and easy to use NoSQL data storage</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="轻量"><a href="#轻量" class="headerlink" title="轻量"></a>轻量</h2><blockquote>
+<p>轻量对原生方法的封装（Origin API Extension）</p>
+</blockquote>
+<hr>
+<ul>
+<li><a href="http://github.com/soarcn/Favor" target="_blank" rel="noopener">Favor </a> A easy way to use android sharepreference</li>
+<li>SQLite ORM</li>
+<li><a href="http://https//github.com/LitePalFramework/LitePal" target="_blank" rel="noopener">LitePal</a>    <a href="http://blog.csdn.net/guolin_blog/article/details/38083103" target="_blank" rel="noopener">Android数据库高手秘籍</a> </li>
+<li><a href="http://github.com/greenrobot/greenDAO" target="_blank" rel="noopener">greendao </a>  <strong>Home page, documentation, and support links: <a href="http://greenrobot.org/greendao/" target="_blank" rel="noopener">http://greenrobot.org/greendao/</a></strong>   Chinese <a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0727/3223.html" target="_blank" rel="noopener">tutorial</a>   </li>
+<li><a href="https://github.com/requery/requery" target="_blank" rel="noopener">requery</a> 又一轻量ORM库</li>
+<li><a href="http://stackoverflow.com/questions/6645665/what-is-a-good-tutorial-for-using-ormlite-with-sqlite-and-android" target="_blank" rel="noopener">What is a good tutorial for using ORMLite with SQLite and Android</a></li>
+</ul>
+<h3 id="Improve-SQLiteOpenHelper-and-ContentResolver"><a href="#Improve-SQLiteOpenHelper-and-ContentResolver" class="headerlink" title="Improve SQLiteOpenHelper and ContentResolver"></a>Improve SQLiteOpenHelper and ContentResolver</h3><p><a href="https://github.com/square" target="_blank" rel="noopener">Square</a> 出品</p>
+<ul>
+<li><a href="http://github.com/square/sqlbrite" target="_blank" rel="noopener">Sqlbrite</a>  A lightweight wrapper around SQLiteOpenHelper which introduces reactive stream semantics to SQL operations.**<a href="http://square.github.io/sqlbrite/" target="_blank" rel="noopener">http://square.github.io/sqlbrite/</a><br>** </li>
+<li><strong><a href="https://github.com/square/sqldelight" target="_blank" rel="noopener">sqldelight</a></strong> Generates Java models from CREATE TABLE statements.（从sql语句生成Java模式 ）能把sql统一管理</li>
+<li><strong><a href="https://github.com/geralt-encore/Delightful-SQLBrite" target="_blank" rel="noopener">Delightful-SQLBrite</a></strong> sqldelight 和 SQLBrite 例子</li>
+</ul>
+<p>Qit</p>
+<ul>
+<li><a href="http://github.com/pushtorefresh/storio" target="_blank" rel="noopener">Storio</a>  Beautiful API for SQLiteDatabase and ContentResolver </li>
+<li>Android Instance<a href="http://github.com/frankiesardo/icepick" target="_blank" rel="noopener">Icepick</a>  Android Instance State made easy It works for Activities, Fragments or any object that needs to serialize its state on a Bundle</li>
+</ul>
+<h2 id="Tools-工具"><a href="#Tools-工具" class="headerlink" title="Tools(工具)"></a>Tools(工具)</h2><ul>
+<li><strong><a href="https://github.com/infinum/android_dbinspector" target="_blank" rel="noopener">android_dbinspector</a></strong><br><img src="https://camo.githubusercontent.com/5a2f9fe0725a29ff92f941daa814a65f2bdc193c/68747470733a2f2f7261772e6769746875622e636f6d2f696e66696e756d2f616e64726f69645f6462696e73706563746f722f6d61737465722f73637265656e73686f74732e706e67" alt></li>
+</ul>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><hr>
+<ul>
+<li>WeChat Sqliste  <a href="http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&mid=207548094&idx=1&sn=1a277620bc28349368b68ed98fbefebe" target="_blank" rel="noopener">微信ANDROID客户端-会话速度提升70%的背后</a></li>
+<li><a href="http://code.google.com/p/protobuf/" target="_blank" rel="noopener">protocol buffer (protobuf)</a>  </li>
+</ul>
+<h2 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h2><p>Sqlite3</p>
+<ul>
+<li>sqlite3 not found<br>blog:<ul>
+<li><a href="http://ramosli.iteye.com/blog/1966202" target="_blank" rel="noopener">sqlite3 not found的解决办法</a></li>
+<li><a href="http://android.stackexchange.com/questions/60446/cant-remount-system-in-rw" target="_blank" rel="noopener">cant-remount-system-in-rw</a> Nexus5使用有效果的命令：<code>mount -o remount,rw /system chmod 4755 /system/xbin/sqlite3</code></li>
+<li><code>sqlite3 robot.db</code> ==&gt; error: only position independent executables (PIE) are supported.</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/database/" rel="tag"># database</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/04/2016-08-04-New-trend-for-Android/" rel="next" title="Android 相关的新技术">
+                <i class="fa fa-chevron-left"></i> Android 相关的新技术
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/20/2016-11-20-React-Native-for-Android/" rel="prev" title="React Native for Android">
+                React Native for Android <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2016/09/08/2016-09-08-Android-database-note/" data-title="Android 数据处理资源总汇" data-url="http://linz.tech/2016/09/08/2016-09-08-Android-database-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据格式"><span class="nav-number">1.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化-Parcelable"><span class="nav-number">2.</span> <span class="nav-text">序列化 Parcelable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Parcelable-AutoValue"><span class="nav-number">2.1.</span> <span class="nav-text">Parcelable AutoValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-状态保存"><span class="nav-number">2.2.</span> <span class="nav-text">Android 状态保存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-number">3.</span> <span class="nav-text">笔记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Awesome-Repositories"><span class="nav-number">4.</span> <span class="nav-text">Awesome Repositories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#轻量"><span class="nav-number">5.</span> <span class="nav-text">轻量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Improve-SQLiteOpenHelper-and-ContentResolver"><span class="nav-number">5.1.</span> <span class="nav-text">Improve SQLiteOpenHelper and ContentResolver</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools-工具"><span class="nav-number">6.</span> <span class="nav-text">Tools(工具)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-number">7.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题处理"><span class="nav-number">8.</span> <span class="nav-text">问题处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="tool,API,json-server,REST ,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] 安装运行#Linxu/Mac os sudo npm install json-server -g #window npm install json-server -g新建db.json用于测试json-server db.json -p 3003,-p 指定端口号为3003  json-server --watch db.json  在db.json 改变的时候不用重启服务器  {">
+<meta name="keywords" content="tool,API,json-server,REST ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自建-模拟JSON REST API-从入门到精通-前端必备技能-你还在等你后台API吗？">
+<meta property="og:url" content="http://linz.tech/2019/09/09/2018-9-9-json-server/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="[TOC] 安装运行#Linxu/Mac os sudo npm install json-server -g #window npm install json-server -g新建db.json用于测试json-server db.json -p 3003,-p 指定端口号为3003  json-server --watch db.json  在db.json 改变的时候不用重启服务器  {">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohlb58e07.bkt.clouddn.com/2018-09-09_17-19-03_json_view.gif">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.488Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自建-模拟JSON REST API-从入门到精通-前端必备技能-你还在等你后台API吗？">
+<meta name="twitter:description" content="[TOC] 安装运行#Linxu/Mac os sudo npm install json-server -g #window npm install json-server -g新建db.json用于测试json-server db.json -p 3003,-p 指定端口号为3003  json-server --watch db.json  在db.json 改变的时候不用重启服务器  {">
+<meta name="twitter:image" content="http://ohlb58e07.bkt.clouddn.com/2018-09-09_17-19-03_json_view.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/09/09/2018-9-9-json-server/">
+
+
+
+
+
+  <title>自建-模拟JSON REST API-从入门到精通-前端必备技能-你还在等你后台API吗？ | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/09/09/2018-9-9-json-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自建-模拟JSON REST API-从入门到精通-前端必备技能-你还在等你后台API吗？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T17:24:54+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/09/2018-9-9-json-server/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/09/2018-9-9-json-server/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="安装运行"><a href="#安装运行" class="headerlink" title="安装运行"></a>安装运行</h1><pre><code>#Linxu/Mac os
+sudo npm install json-server -g
+#window
+npm install json-server -g</code></pre><p>新建db.json用于测试<code>json-server db.json -p 3003</code>,-p 指定端口号为3003</p>
+<ul>
+<li><code>json-server --watch db.json</code>  在db.json 改变的时候不用重启服务器</li>
+</ul>
+<pre><code>{
+  &quot;news&quot;:[
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;曹县宣布昨日晚间登日成功&quot;,
+      &quot;date&quot;: &quot;2016-08-12&quot;,
+      &quot;likes&quot;: 55,
+      &quot;views&quot;: 100086
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;长江流域首次发现海豚&quot;,
+      &quot;date&quot;: &quot;2016-08-12&quot;,
+      &quot;likes&quot;: 505,
+      &quot;views&quot;: 9800
+    }
+  ],
+  &quot;comments&quot;:[
+    {
+      &quot;id&quot;: 1,
+      &quot;news_id&quot;: 1,
+      &quot;data&quot;: [
+        {
+          &quot;id&quot;: 1,
+          &quot;content&quot;: &quot;支持党中央决定&quot;
+        },
+        {
+          &quot;id&quot;: 2,
+          &quot;content&quot;: &quot;抄写党章势在必行！&quot;
+        }
+      ]
+    }
+  ]
+}</code></pre><h2 id="出现错误："><a href="#出现错误：" class="headerlink" title="出现错误："></a>出现错误：</h2><p><code>/usr/bin/env: node: No such file or directory</code> 解决</p>
+<pre><code>ln -s /usr/bin/nodejs /usr/bin/node</code></pre><p><code>json-server requires at least version 6 of Node, please upgrade</code> 解决</p>
+<pre><code>sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable</code></pre><h2 id="快速启动脚本"><a href="#快速启动脚本" class="headerlink" title="快速启动脚本"></a>快速启动脚本</h2><p>db.json 目录下新建<code>package.json</code>, 运行<code>npm run mock</code></p>
+<pre><code>{
+  &quot;scripts&quot;: {
+    &quot;mock&quot;: &quot;json-server db.json --port 3003&quot;
+  }
+}</code></pre><h1 id="简单的数据操作"><a href="#简单的数据操作" class="headerlink" title="简单的数据操作"></a>简单的数据操作</h1><ul>
+<li><a href="https://blog.csdn.net/u011108439/article/details/80612917" target="_blank" rel="noopener">json-server和postman 简单教程</a> postman是模拟请求的开发神器</li>
+<li>POST, PUT, PATCH or DELETE 这些操作会自动的保存在db.json文件里，请求必须是Json格式，包含头文件<code>Content-Type: application/json</code> 否则返回的虽然是200 OK，但是不会修改数据</li>
+<li>id 的值是不可以修改的。任何<code>id</code>值在你的PUT 或者PATCH的<code>body</code>请求中将会被忽略。只有POST请求并且id值没有重复的时候会被考虑。注意：Object 如：profile:{} ，id值是可以改变的</li>
+</ul>
+<h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p><a href="http://localhost:3003/db" target="_blank" rel="noopener">http://localhost:3003/db</a> ==&gt; 返回所以db.json数据<br><a href="http://localhost:3003/news" target="_blank" rel="noopener">http://localhost:3003/news</a> ==&gt; 返回所有news节点</p>
+<p><a href="http://localhost:3003/news/1" target="_blank" rel="noopener">http://localhost:3003/news/1</a> ==&gt; 返回<code>news节点id=1</code> 的数据， </p>
+<p><strong>&lt; font color=red &gt; 注意：必须存在id这个属性,并且类型为Integer</strong></p>
+<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>Postman向<code>http://localhost:3003/news</code> 新增id=3的参数</p>
+<pre><code>{
+    &quot;id&quot;: 3,
+    &quot;title&quot;: &quot;我是新加入的新闻&quot;,
+    &quot;date&quot;: &quot;2016-08-12&quot;,
+    &quot;likes&quot;: 0,
+    &quot;views&quot;: 0
+}</code></pre><p>json-server 后台反应</p>
+<pre><code>POST /news?id=3&amp;title=%E6%88%91%E6%98%AF%E6%96%B0%E5%8A%A0%E5%85%A5%E7%9A%84%E6%96%B0%E9%97%BB&amp;date=2016-08-12&amp;likes=0&amp;views=0 201 2.622 ms - 13</code></pre><p>使用<a href="http://tool.chinaz.com/tools/urlencode.aspx" target="_blank" rel="noopener">url encode 解码</a>点击UrlDecode解码</p>
+<pre><code>POST /news?id=3&amp;title=我是新加入的新闻&amp;date=2016-08-12&amp;likes=0&amp;views=0 201 2.622 ms - 13</code></pre><p>##DELETE</p>
+<p>删除news节点中id=3的参数</p>
+<pre class="line-numbers language-shell"><code class="language-shell">Postman向http://localhost:3003/news/3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="请求方式PUT"><a href="#请求方式PUT" class="headerlink" title="请求方式PUT"></a>请求方式PUT</h2><pre class="line-numbers language-shell"><code class="language-shell">http://localhost:3003/news/2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>原参数为：</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"我"</span><span class="token punctuation">,</span>
+    <span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2016-08-12"</span><span class="token punctuation">,</span>
+    <span class="token property">"likes"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">"views"</span><span class="token operator">:</span> <span class="token number">5</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请求参数为：</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+<span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"我"</span><span class="token punctuation">,</span>
+<span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2016-08-12"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果<code>全量</code>更新news节点id=2的参数</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"我"</span><span class="token punctuation">,</span>
+    <span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2016-08-12"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>json-server 后台打印</p>
+<pre><code>PUT /news?title=我是新加入的新闻&amp;date=2016-08-12&amp;likes=55&amp;views=100086 404 2.430 ms - 2</code></pre><h2 id="请求方式PATCH（部分更新）"><a href="#请求方式PATCH（部分更新）" class="headerlink" title="请求方式PATCH（部分更新）"></a>请求方式PATCH（部分更新）</h2><pre class="line-numbers language-shell"><code class="language-shell">http://localhost:3003/news/2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>原参数为：</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"我"</span><span class="token punctuation">,</span>
+    <span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2016-08-12"</span><span class="token punctuation">,</span>
+    <span class="token property">"likes"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">"views"</span><span class="token operator">:</span> <span class="token number">5</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请求参数</p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+    "title": "我2"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>修改结果：</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"我"</span><span class="token punctuation">,</span>
+    <span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2016-08-12"</span><span class="token punctuation">,</span>
+    <span class="token property">"likes"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">"views"</span><span class="token operator">:</span> <span class="token number">5</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="数据加工"><a href="#数据加工" class="headerlink" title="数据加工"></a>数据加工</h2><h3 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a><strong>Filter</strong></h3><p>对应的数据九宫格</p>
+<pre class="line-numbers language-json"><code class="language-json"> comments<span class="token operator">:</span><span class="token punctuation">[</span>
+ <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">"news_id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">"author"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+      <span class="token property">"name"</span><span class="token operator">:</span><span class="token string">"Steven-jobs"</span><span class="token punctuation">,</span>
+      <span class="token property">"age"</span><span class="token operator">:</span><span class="token number">32</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+          <span class="token property">"content"</span><span class="token operator">:</span> <span class="token string">"支持党中央决定"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+          <span class="token property">"content"</span><span class="token operator">:</span> <span class="token string">"抄写党章势在必行！"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"posts"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"json-server"</span><span class="token punctuation">,</span> <span class="token property">"author"</span><span class="token operator">:</span> <span class="token string">"typicode"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"json-server2"</span><span class="token punctuation">,</span> <span class="token property">"author"</span><span class="token operator">:</span> <span class="token string">"google"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"json-server3"</span><span class="token punctuation">,</span> <span class="token property">"author"</span><span class="token operator">:</span> <span class="token string">"facebook"</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查询语句：</p>
+<pre><code>GET /comments?id=1&amp;new_id=2
+GET /posts?id=1&amp;id=2
+GET /comments?author.name=Steven-jobs</code></pre><h3 id="Paginate-分页"><a href="#Paginate-分页" class="headerlink" title="Paginate 分页"></a>Paginate 分页</h3><pre><code>GET /posts?_page=7
+GET /posts?_page=7&amp;_limit=20</code></pre><ul>
+<li>默认返回 10 items</li>
+<li>表头会出现 first, prev, next and last 的直接访问地址，x-total-count数据总数信息<pre><code>access-control-expose-headers →X-Total-Count, Link
+link →&lt;http://localhost:3000/news?_page=1&gt;; rel=&quot;first&quot;, &lt;http://localhost:3000/news?_page=2&gt;; rel=&quot;next&quot;, &lt;http://localhost:3000/news?_page=2&gt;; rel=&quot;last&quot;
+x-total-count →20</code></pre></li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><strong>排序</strong><br>默认升序</p>
+<pre><code>GET /posts?_sort=views&amp;_order=asc
+GET /posts/1/comments?_sort=votes&amp;_order=asc</code></pre><p><strong>切片 Slice</strong><br>包括_star,不包括_end</p>
+<pre><code>GET /posts/1/comments?_start=20&amp;_end=30
+GET /posts/1/comments?_start=20&amp;_limit=10</code></pre><p><strong>汇总</strong></p>
+<pre><code># _gte &gt; || _lte &lt;
+GET /posts?views_gte=10&amp;views_lte=20
+# _ne !=
+GET /posts?id_ne=1
+# _like 注意title的字段名称
+GET /posts?title_like=server
+# 全局搜索
+GET /posts?q=internet
+# 直接获取数据
+GET /db</code></pre><h3 id="关系图谱"><a href="#关系图谱" class="headerlink" title="关系图谱"></a>关系图谱</h3><p>posts id 和comments id 是关联的</p>
+<pre><code>{
+  &quot;posts&quot;: [
+    { &quot;id&quot;: 1, &quot;title&quot;: &quot;post的第一个title&quot;, &quot;author&quot;: &quot;typicode&quot; },
+    { &quot;id&quot;: 2, &quot;title&quot;: &quot;post的第二个title&quot;, &quot;author&quot;: &quot;tangcaiye&quot; }
+  ],
+  &quot;comments&quot;: [
+    { &quot;id&quot;: 1, &quot;body&quot;: &quot;some comment1111&quot;, &quot;postId&quot;: 2 },
+    { &quot;id&quot;: 2, &quot;body&quot;: &quot;some comment2222&quot;, &quot;postId&quot;: 1 }
+  ],
+  &quot;profile&quot;: { &quot;name&quot;: &quot;typicode&quot; }
+}</code></pre><ul>
+<li>_embed <code>http://localhost:3000/posts/2?_embed=comments</code> 返回<code>posts/2</code>下级关联数据<code>comments</code><pre><code>{
+&quot;id&quot;: 2,
+&quot;title&quot;: &quot;post的第二个title&quot;,
+&quot;author&quot;: &quot;tangcaiye&quot;,
+&quot;comments&quot;: [
+  {
+    &quot;id&quot;: 1,
+    &quot;body&quot;: &quot;some comment1111&quot;,
+    &quot;postId&quot;: 2
+  }
+]
+}</code></pre></li>
+<li>_expand <code>http://localhost:3000/comments/2?_expand=post</code> 返回comments上级关联数据<code>post</code><pre><code>{
+&quot;id&quot;: 2,
+&quot;body&quot;: &quot;some comment2222&quot;,
+&quot;postId&quot;: 1,
+&quot;post&quot;: {
+  &quot;id&quot;: 1,
+  &quot;title&quot;: &quot;post的第一个title&quot;,
+  &quot;author&quot;: &quot;typicode&quot;
+}
+}</code></pre></li>
+</ul>
+<h1 id="模拟动态数据"><a href="#模拟动态数据" class="headerlink" title="模拟动态数据"></a>模拟动态数据</h1><h2 id="简单的返回数组"><a href="#简单的返回数组" class="headerlink" title="简单的返回数组"></a>简单的返回数组</h2><p>/mock/db.js</p>
+<pre><code>module.exports = function() {
+  var data = { users: [] }
+  // Create 1000 users
+  for (var i = 0; i &lt; 1000; i++) {
+    data.users.push({ id: i, name: &#39;user&#39; + i })
+  }
+  return data
+}</code></pre><p>运行</p>
+<pre><code>json-server db.js -p 3003</code></pre><p>访问</p>
+<pre><code>http://localhost:3003/users</code></pre><p>返回</p>
+<pre><code>[
+    {
+        &quot;id&quot;: 0,
+        &quot;name&quot;: &quot;user0&quot;
+    },
+    {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;user1&quot;
+    }
+    ......
+]</code></pre><h2 id="拒绝僵硬的数据，引入mockjs"><a href="#拒绝僵硬的数据，引入mockjs" class="headerlink" title="拒绝僵硬的数据，引入mockjs"></a>拒绝僵硬的数据，引入mockjs</h2><p>安装mockjs 在 <code>/mock</code> 目录下安装</p>
+<pre><code>npm install mockjs --save</code></pre><p><em>示例:返回100条新闻数据</em></p>
+<pre><code>// # /mock/db.js
+
+let Mock  = require(&#39;mockjs&#39;);
+let Random = Mock.Random;
+
+module.exports = function() {
+  var data = {
+      news: []
+  };
+
+  var images = [1,2,3].map(x=&gt;Random.image(&#39;200x100&#39;, Random.color(), Random.word(2,6)));
+
+  for (var i = 0; i &lt; 100; i++) {
+
+    var content = Random.cparagraph(0,10);
+
+    data.news.push({
+         id: i,
+         title: Random.cword(8,20),
+         desc: content.substr(0,40),
+         tag: Random.cword(2,6),
+         views: Random.integer(100,5000),
+         images: images.slice(0,Random.integer(1,3))
+    })
+  }
+
+  return data
+}</code></pre><p>运行</p>
+<pre><code>json-server db.js -p 3000</code></pre><p>访问<code>http://localhost:3000/news</code>返回</p>
+<pre><code>[
+    {
+        &quot;id&quot;: 0,
+        &quot;title&quot;: &quot;元小总小把清保住影办历战资和总由&quot;,
+        &quot;desc&quot;: &quot;共先定制向向圆适者定书她规置斗平相。要广确但教金更前三响角面等以白。眼查何参提适&quot;,
+        &quot;tag&quot;: &quot;值集空&quot;,
+        &quot;views&quot;: 3810,
+        &quot;images&quot;: [
+            &quot;http://dummyimage.com/200x100/79f2a5&amp;text=别角置&quot;,
+            &quot;http://dummyimage.com/200x100/f28279&amp;text=收面几容受取&quot;,
+            &quot;http://dummyimage.com/200x100/7993f2&amp;text=做件&quot;
+        ]
+    },
+    ......
+]</code></pre><h3 id="Mock-语法"><a href="#Mock-语法" class="headerlink" title="Mock 语法"></a>Mock 语法</h3><p><strong>Mock.mock</strong><br>repeat 方法（部分）</p>
+<pre><code>Mock.mock({
+  &quot;string|5&quot;: &quot;★&quot;       =&gt;   &quot;string&quot;: &quot;★★★★★&quot;
+  &quot;string|1-10&quot;: &quot;★&quot;    =&gt;   &quot;string&quot;: &quot;★★&quot;
+  &quot;number|1-100&quot;: 100    =&gt;   &quot;number&quot;: 85
+  &quot;number|1-100.2&quot;: 100  =&gt;   &quot;number&quot;: 25.69
+})</code></pre><p><strong>Mock.Random</strong></p>
+<pre><code>Random.boolean()           =&gt; true false 各50%
+Random.integer(60, 100)    =&gt; 78
+Random.float(60, 100)      =&gt; 89.565475
+Random.range(60, 100)      =&gt; [60,61,62,...,99]
+Random.date()              =&gt; &quot;2018-12-28&quot;
+Random.image(&#39;200x100&#39;,&#39;#396&#39;) =&gt; &quot;http://dummyimage.com/200x100/396&quot;
+Random.color()             =&gt; &quot;#79d8f2&quot;  (默认使用hex颜色)
+Random.county(true)        =&gt; &quot;浙江省 舟山市 岱山县&quot;</code></pre><ul>
+<li>Rnadom.image<pre><code>Random.image()
+// =&gt; &quot;http://dummyimage.com/125x125&quot;
+Random.image(&#39;200x100&#39;)
+// =&gt; &quot;http://dummyimage.com/200x100&quot;
+Random.image(&#39;200x100&#39;, &#39;#fb0a2a&#39;)
+// =&gt; &quot;http://dummyimage.com/200x100/fb0a2a&quot;
+Random.image(&#39;200x100&#39;, &#39;#02adea&#39;, &#39;Hello&#39;)
+// =&gt; &quot;http://dummyimage.com/200x100/02adea&amp;text=Hello&quot;
+Random.image(&#39;200x100&#39;, &#39;#00405d&#39;, &#39;#FFF&#39;, &#39;Mock.js&#39;)
+// =&gt; &quot;http://dummyimage.com/200x100/00405d/FFF&amp;text=Mock.js&quot;
+Random.image(&#39;200x100&#39;, &#39;#ffcc33&#39;, &#39;#FFF&#39;, &#39;png&#39;, &#39;!&#39;)
+// =&gt; &quot;http://dummyimage.com/200x100/ffcc33/FFF.png&amp;text=!&quot;</code></pre></li>
+<li>Text<pre><code>paragraph-&gt; centence -&gt; word -&gt; title
+#中文
+Random.cparagraph()
+Random.cparagraph( len )
+Random.cparagraph( min, max )
+#随机生成一段中文文本
+Random.csentence()
+Random.csentence( len )
+Random.csentence( min, max )
+# 随机生成一个汉字
+Random.cword()
+Random.cword( pool )
+Random.cword( length )
+Random.cword( pool, length )
+Random.cword( min, max )
+Random.cword( pool, min, max )</code></pre></li>
+</ul>
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><h3 id="路由设置"><a href="#路由设置" class="headerlink" title="路由设置"></a>路由设置</h3><blockquote>
+<p><font color="red">注意：没有设置路由（主要是： “host”: “0.0.0.0” 属性）之前 <code>json-server --watch db.json</code> 只有本机能访问，也就是局域网外网都不能访问</font></p>
+</blockquote>
+<ol>
+<li>可以用-H 命令指定<pre><code>json-server --watch db.json -H 0.0.0.0</code></pre></li>
+<li>host 设置为<code>127.0.0.1</code> 或者本地局域网IP地址 如<code>192.168.1.168</code> 无效 ，(服务器指定127.0.0.1/ 192.168.1.168是本地调试模式)<br><a href="https://blog.csdn.net/u012814696/article/details/55098249" target="_blank" rel="noopener">具体解释网址</a>  大意： 0.0.0.0指的是本机上的所有IPV4地址<blockquote>
+<p>IPV4中，0.0.0.0地址被用于表示一个无效的，未知的或者不可用的目标。* 在服务器中，0.0.0.0指的是本机上的所有IPV4地址，如果一个主机有两个IP地址，192.168.1.1 和 10.1.2.1，并且该主机上的一个服务监听的地址是0.0.0.0,那么通过两个ip地址都能够访问该服务。 * 在路由中，0.0.0.0表示的是默认路由，即当路由表中没有找到完全匹配的路由的时候所对应的路由。</p>
+</blockquote>
+<h4 id="设置的两种方法"><a href="#设置的两种方法" class="headerlink" title="设置的两种方法"></a>设置的两种方法</h4></li>
+</ol>
+<ul>
+<li>直接命令行指定路由文件<pre><code>json-server db.js -p 3003 -d 500 -q -r ./routes.json</code></pre></li>
+<li><code>json-server.json</code> 文件进行配置后，直接<code>json-server db.json</code><pre><code># /mock/json-server.json
+{
+  &quot;host&quot;: &quot;0.0.0.0&quot;,
+  &quot;port&quot;: &quot;3003&quot;,
+  &quot;watch&quot;: false,
+  &quot;delay&quot;: 500,
+  &quot;quiet&quot;: true,
+  &quot;routes&quot;: &quot;./routes.json&quot;
+}</code></pre>自定义路由，可以指定访问链接返回指定的数据，而且可以动态修改</li>
+</ul>
+<p><strong>routes.json</strong></p>
+<pre><code>{
+  &quot;/api/*&quot;: &quot;/$1&quot;,
+  &quot;/:resource/:id/show&quot;: &quot;/:resource/:id&quot;,
+  &quot;/posts/:category&quot;: &quot;/posts?category=:category&quot;,
+  &quot;/articles\\?id=:id&quot;: &quot;/posts/:id&quot;
+}</code></pre><p>对应的效果</p>
+<pre><code>/api/posts # → /posts
+/api/posts/1  # → /posts/1
+/posts/1/show # → /posts/1
+/posts/javascript # → /posts?category=javascript
+/articles?id=1 # → /posts/1</code></pre><ul>
+<li><code>&quot;/api/*&quot;: &quot;/$1&quot;</code> 相当于把api路径给忽略掉</li>
+<li><code>/:resource</code> 取值是变动的</li>
+<li>每个路径必须以<code>/</code>开头<h3 id="增加中间件"><a href="#增加中间件" class="headerlink" title="增加中间件"></a>增加中间件</h3></li>
+</ul>
+<pre><code>// hello.js
+module.exports = (req, res, next) =&gt; {
+  res.header(&#39;X-Hello&#39;, &#39;World&#39;)
+  next()
+}
+
+json-server db.json --middlewares ./hello.js
+json-server db.json --middlewares ./first.js ./second.js</code></pre><h3 id="Nodejs-Module-不用等后台同事API"><a href="#Nodejs-Module-不用等后台同事API" class="headerlink" title="Nodejs  Module 不用等后台同事API"></a>Nodejs  Module 不用等后台同事API</h3><p>为什么学了上面还要学nodejs的案例呢？ 因为上面的技能还不能很好的满足开发中REST API的需求</p>
+<ul>
+<li>rount.json 储存在文件中修改比较麻烦</li>
+<li>只用配置文件，不很好使用Mock的相关功能</li>
+<li>把配置放在js中相对灵活，能动态的拦截返回和处理相关逻辑</li>
+</ul>
+<h4 id="最简单案例"><a href="#最简单案例" class="headerlink" title="最简单案例"></a>最简单案例</h4><p>node 安装 json-server模块</p>
+<pre><code>$ npm install json-server --save-dev</code></pre><pre><code>// server.js
+const jsonServer = require(&#39;json-server&#39;)
+const server = jsonServer.create()
+const router = jsonServer.router(&#39;db.json&#39;) //默认为当前目录
+//const path = require(&#39;path&#39;) 指定其他目录
+//const router = jsonServer.router(path.join(__dirname, &#39;db.json&#39;))
+const middlewares = jsonServer.defaults()
+
+server.use(middlewares)
+server.use(router)
+server.listen(3000, () =&gt; {
+  console.log(&#39;JSON Server is running&#39;)
+})
+// 运行
+$ node server.js</code></pre><h4 id="自定义路由"><a href="#自定义路由" class="headerlink" title="自定义路由"></a>自定义路由</h4><pre><code>const jsonServer = require(&#39;json-server&#39;)
+const server = jsonServer.create()
+const router = jsonServer.router(&#39;db.json&#39;)
+const middlewares = jsonServer.defaults()
+
+// Set default middlewares (logger, static, cors and no-cache)
+server.use(middlewares)
+
+// Add custom routes before JSON Server router
+server.get(&#39;/echo&#39;, (req, res) =&gt; {
+  res.jsonp(req.query)
+})
+
+// To handle POST, PUT and PATCH you need to use a body-parser
+// You can use the one used by JSON Server
+server.use(jsonServer.bodyParser)
+server.use((req, res, next) =&gt; {
+  if (req.method === &#39;POST&#39;) {
+    req.body.createdAt = Date.now()
+  }
+  // Continue to JSON Server router
+  next()
+})
+
+// Use default router
+server.use(router)
+server.listen(3000, () =&gt; {
+  console.log(&#39;JSON Server is running&#39;)
+})</code></pre><p>对上面的几点进行说明<br>res.jsonp res ==&gt; respose</p>
+<pre><code>res.status(500).jsonp({
+      error: &quot;error message here&quot;
+      &quot;id&quot;: 21,
+      &quot;title&quot;: &quot;长江&quot;,
+      &quot;date&quot;: &quot;2016-09-12&quot;,
+      &quot;likes&quot;: 509,
+      &quot;views&quot;: 9900
+  })</code></pre><p>请求的返回Json格式</p>
+<pre><code>{
+  &quot;error&quot;: &quot;error message here&quot;
+  &quot;id&quot;: 21,
+  &quot;title&quot;: &quot;长江&quot;,
+  &quot;date&quot;: &quot;2016-09-12&quot;,
+  &quot;likes&quot;: 509,
+  &quot;views&quot;: 9900
+}</code></pre><p>req.body.createdAt = Date.now() 往返回的jons中插入createAt字段，如本应返回</p>
+<pre><code>{
+      &quot;id&quot;: 21,
+      &quot;title&quot;: &quot;长江&quot;,
+      &quot;date&quot;: &quot;2016-09-12&quot;,
+      &quot;likes&quot;: 509,
+      &quot;views&quot;: 9900
+ }</code></pre><p>加入req.body.createdAt = Date.now()后返回</p>
+<pre><code>{
+    &quot;id&quot;: 21,
+    &quot;title&quot;: &quot;长江&quot;,
+    &quot;date&quot;: &quot;2016-09-12&quot;,
+    &quot;likes&quot;: 509,
+    &quot;views&quot;: 9900,
+    &quot;createdAt&quot;: 1536476508883,
+}</code></pre><h4 id="js-增加router-json-配置"><a href="#js-增加router-json-配置" class="headerlink" title="js 增加router.json 配置"></a>js 增加router.json 配置</h4><pre><code>// Add this before server.use(router)
+server.use(jsonServer.rewriter({
+  &#39;/api/*&#39;: &#39;/$1&#39;,
+  &#39;/blog/:resource/:id/show&#39;: &#39;/:resource/:id&#39;
+}))</code></pre><h4 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h4><pre><code>const jsonServer = require(&#39;json-server&#39;)
+const server = jsonServer.create()
+const router = jsonServer.router(&#39;db.json&#39;)
+const middlewares = jsonServer.defaults()
+
+server.use(middlewares)
+server.use((req, res, next) =&gt; {
+ if (isAuthorized(req)) { // add your authorization logic here
+   next() // continue to JSON Server router
+ } else {
+   res.sendStatus(401)
+ }
+})
+server.use(router)
+server.listen(3000, () =&gt; {
+  console.log(&#39;JSON Server is running&#39;)
+})</code></pre><h4 id="自定义输出"><a href="#自定义输出" class="headerlink" title="自定义输出"></a>自定义输出</h4><pre><code>// In this example, returned resources will be wrapped in a body property
+router.render = (req, res) =&gt; {
+  res.jsonp({
+    body: res.locals.data
+  })
+  //res.jsonp =&gt; 包裹数据成json格式
+  //res.send  =&gt; 直接发送字符串
+}</code></pre><p>访问本应返回</p>
+<pre><code>{
+      &quot;id&quot;: 21,
+      &quot;title&quot;: &quot;长江&quot;,
+      &quot;date&quot;: &quot;2016-09-12&quot;
+ }</code></pre><p>增加 body: res.locals.data后返回</p>
+<pre><code>{
+    body: {
+        id: 1,
+        title: &quot;曹县宣布昨日晚间登日成功&quot;,
+        date: &quot;2016-08-12&quot;,
+        likes: 55,
+        views: 100086
+    }
+}</code></pre><h3 id="终极Demo"><a href="#终极Demo" class="headerlink" title="终极Demo"></a>终极Demo</h3><p>访问<code>http://localhost:3000/echo</code> 返回模拟数据</p>
+<pre><code>const jsonServer = require(&#39;json-server&#39;)
+const server = jsonServer.create()
+const router = jsonServer.router(&#39;db.json&#39;)
+const middlewares = jsonServer.defaults()
+let Mock  = require(&#39;mockjs&#39;);
+
+server.use(middlewares)
+
+var template = {
+    &#39;titles&#39;: &#39;Syntax Demo&#39;,
+
+    &#39;string1|1-10&#39;: &#39;★&#39;,
+    &#39;string2|3&#39;: &#39;value&#39;,
+
+    &#39;number1|+1&#39;: 100,
+    &#39;number2|1-100&#39;: 100,
+    &#39;number3|1-100.1-10&#39;: 1,
+    &#39;number4|123.1-10&#39;: 1,
+    &#39;number5|123.3&#39;: 1,
+    &#39;number6|123.10&#39;: 1.123,
+
+    &#39;boolean1|1&#39;: true,
+    &#39;boolean2|1-2&#39;: true,
+
+    &#39;object1|2-4&#39;: {
+        &#39;110000&#39;: &#39;北京市&#39;,
+        &#39;120000&#39;: &#39;天津市&#39;,
+        &#39;130000&#39;: &#39;河北省&#39;,
+        &#39;140000&#39;: &#39;山西省&#39;
+    },
+    &#39;object2|2&#39;: {
+        &#39;310000&#39;: &#39;上海市&#39;,
+        &#39;320000&#39;: &#39;江苏省&#39;,
+        &#39;330000&#39;: &#39;浙江省&#39;,
+        &#39;340000&#39;: &#39;安徽省&#39;
+    },
+
+    &#39;array1|1&#39;: [&#39;AMD&#39;, &#39;CMD&#39;, &#39;KMD&#39;, &#39;UMD&#39;],
+    &#39;array2|1-10&#39;: [&#39;Mock.js&#39;],
+    &#39;array3|3&#39;: [&#39;Mock.js&#39;],
+
+    &#39;function&#39;: function() {
+        return this.titles
+    }
+}
+
+server.get(&#39;/echo&#39;, (req, res) =&gt; {
+    var data = Mock.mock(template)
+    var json = JSON.stringify(data, null, 4)
+    console.log(&#39;-----------------\n&#39; + json)
+    res.send(json)
+})
+
+// To handle POST, PUT and PATCH you need to use a body-parser
+// You can use the one used by JSON Server
+server.use(jsonServer.bodyParser)
+server.use((req, res, next) =&gt; {
+  console.log(&#39;--------------&#39;+req.method)
+  if (req.method === &#39;POST&#39;) {
+    req.body.createdAt = Date.now()
+    req.body.test = 1
+  }
+  // Continue to JSON Server router
+  next()
+})
+
+// 返回错误码，和指定json格式的数据
+//router.render = (req, res) =&gt; {
+//   res.status(500).jsonp({
+//        error: &quot;error message here&quot;
+//        &quot;id&quot;: 21,
+//      &quot;title&quot;: &quot;长江&quot;,
+//      &quot;date&quot;: &quot;2016-09-12&quot;,
+//      &quot;likes&quot;: 509,
+//      &quot;views&quot;: 9900
+//  })
+//}
+
+// Add this before server.use(router)
+server.use(jsonServer.rewriter({
+  &#39;/api/*&#39;: &#39;/$1&#39;,
+  &#39;/blog/:resource/:id/show&#39;: &#39;/:resource/:id&#39;
+}))
+
+router.render = (req, res) =&gt; {
+  res.jsonp({
+    body: res.locals.data
+  })
+}
+
+server.use(router)
+
+server.listen(3000, () =&gt; {
+  console.log(&#39;JSON Server is running&#39;)
+})</code></pre><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="json-server-命令参数"><a href="#json-server-命令参数" class="headerlink" title="json-server 命令参数"></a>json-server 命令参数</h2><pre><code> json-server
+index.js [options] &lt;source&gt;
+
+选项：
+  --config, -c               Path to config file    [默认值: &quot;json-server.json&quot;]
+  --port, -p                 Set port                             [默认值: 3000]
+  --host, -H                 Set host                      [默认值: &quot;localhost&quot;]
+  --watch, -w                Watch file(s)                                [布尔]
+  --routes, -r               Path to routes file
+  --middlewares, -m          Paths to middleware files                    [数组]
+  --static, -s               Set static files directory
+  --read-only, --ro          Allow only GET requests                      [布尔]
+  --no-cors, --nc            Disable Cross-Origin Resource Sharing        [布尔]
+  --no-gzip, --ng            Disable GZIP Content-Encoding                [布尔]
+  --snapshots, -S            Set snapshots directory               [默认值: &quot;.&quot;]
+  --delay, -d                Add delay to responses (ms)
+  --id, -i                   Set database id property (e.g. _id)  [默认值: &quot;id&quot;]
+  --foreignKeySuffix, --fks  Set foreign key suffix (e.g. _id as in post_id)
+                                                                  [默认值: &quot;Id&quot;]
+  --quiet, -q                Suppress log messages from output            [布尔]
+  --help, -h                 显示帮助信息                                 [布尔]
+  --version, -v              显示版本号                                   [布尔]
+
+示例：
+  index.js db.json
+  index.js file.js
+  index.js http://example.com/db.json
+
+https://github.com/typicode/json-server
+
+Missing &lt;source&gt; argument</code></pre><h2 id="URL-加密解密工具"><a href="#URL-加密解密工具" class="headerlink" title="URL 加密解密工具"></a><a href="http://tool.chinaz.com/tools/urlencode.aspx" target="_blank" rel="noopener">URL 加密解密工具</a></h2><h2 id="Json-server-Github网址"><a href="#Json-server-Github网址" class="headerlink" title="Json-server Github网址"></a><a href="https://github.com/typicode/json-server" target="_blank" rel="noopener">Json-server Github网址</a></h2><blockquote>
+<p>上面有更详细的使用说明</p>
+</blockquote>
+<h2 id="Mockjs-WiKi"><a href="#Mockjs-WiKi" class="headerlink" title="Mockjs WiKi"></a><a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="noopener">Mockjs WiKi</a></h2><h2 id="JSONView：json美化-Chrome-插件"><a href="#JSONView：json美化-Chrome-插件" class="headerlink" title="JSONView：json美化 Chrome 插件 "></a><a href="http://chromecj.com/web-development/2017-11/850.html" target="_blank" rel="noopener">JSONView：json美化 Chrome 插件 </a></h2><p>使用Chrome 的同学推荐使用</p>
+<p><img src="http://ohlb58e07.bkt.clouddn.com/2018-09-09_17-19-03_json_view.gif" alt></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://segmentfault.com/a/1190000005793257" target="_blank" rel="noopener">用JSON-server模拟REST API(一) 安装运行</a></li>
+<li><a href="https://segmentfault.com/a/1190000005793320" target="_blank" rel="noopener">用JSON-server模拟REST API(二) 动态数据</a></li>
+<li><a href="https://segmentfault.com/a/1190000005793520" target="_blank" rel="noopener">用JSON-server模拟REST API(三) 进阶使用</a></li>
+<li><a href="https://segmentfault.com/a/1190000010449453?_ea=2302005" target="_blank" rel="noopener">json-server的关系图谱详解（Relationships）</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tool/" rel="tag"># tool</a>
+          
+            <a href="/tags/API/" rel="tag"># API</a>
+          
+            <a href="/tags/json-server/" rel="tag"># json-server</a>
+          
+            <a href="/tags/REST/" rel="tag"># REST </a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/04/2019-9-4-RxJava-review-note/" rel="next" title="RxJava 复习笔记">
+                <i class="fa fa-chevron-left"></i> RxJava 复习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/09/2019-9-9-test-note/" rel="prev" title="测试框架学习">
+                测试框架学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/09/09/2018-9-9-json-server/" data-title="自建-模拟JSON REST API-从入门到精通-前端必备技能-你还在等你后台API吗？" data-url="http://linz.tech/2019/09/09/2018-9-9-json-server/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装运行"><span class="nav-number">1.</span> <span class="nav-text">安装运行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#出现错误："><span class="nav-number">1.1.</span> <span class="nav-text">出现错误：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速启动脚本"><span class="nav-number">1.2.</span> <span class="nav-text">快速启动脚本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单的数据操作"><span class="nav-number">2.</span> <span class="nav-text">简单的数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">2.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">2.2.</span> <span class="nav-text">POST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求方式PUT"><span class="nav-number">2.3.</span> <span class="nav-text">请求方式PUT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求方式PATCH（部分更新）"><span class="nav-number">2.4.</span> <span class="nav-text">请求方式PATCH（部分更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据加工"><span class="nav-number">2.5.</span> <span class="nav-text">数据加工</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter"><span class="nav-number">2.5.1.</span> <span class="nav-text">Filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paginate-分页"><span class="nav-number">2.5.2.</span> <span class="nav-text">Paginate 分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.5.3.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系图谱"><span class="nav-number">2.5.4.</span> <span class="nav-text">关系图谱</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模拟动态数据"><span class="nav-number">3.</span> <span class="nav-text">模拟动态数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的返回数组"><span class="nav-number">3.1.</span> <span class="nav-text">简单的返回数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拒绝僵硬的数据，引入mockjs"><span class="nav-number">3.2.</span> <span class="nav-text">拒绝僵硬的数据，引入mockjs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mock-语法"><span class="nav-number">3.2.1.</span> <span class="nav-text">Mock 语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶"><span class="nav-number">3.3.</span> <span class="nav-text">进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由设置"><span class="nav-number">3.3.1.</span> <span class="nav-text">路由设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置的两种方法"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">设置的两种方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加中间件"><span class="nav-number">3.3.2.</span> <span class="nav-text">增加中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nodejs-Module-不用等后台同事API"><span class="nav-number">3.3.3.</span> <span class="nav-text">Nodejs  Module 不用等后台同事API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最简单案例"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">最简单案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义路由"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">自定义路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js-增加router-json-配置"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">js 增加router.json 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问控制"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">访问控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义输出"><span class="nav-number">3.3.3.5.</span> <span class="nav-text">自定义输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#终极Demo"><span class="nav-number">3.3.4.</span> <span class="nav-text">终极Demo</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#json-server-命令参数"><span class="nav-number">4.1.</span> <span class="nav-text">json-server 命令参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL-加密解密工具"><span class="nav-number">4.2.</span> <span class="nav-text">URL 加密解密工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Json-server-Github网址"><span class="nav-number">4.3.</span> <span class="nav-text">Json-server Github网址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mockjs-WiKi"><span class="nav-number">4.4.</span> <span class="nav-text">Mockjs WiKi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONView：json美化-Chrome-插件"><span class="nav-number">4.5.</span> <span class="nav-text">JSONView：json美化 Chrome 插件 </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

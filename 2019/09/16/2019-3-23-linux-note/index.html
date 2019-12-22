@@ -1,0 +1,2473 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Basic,Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第五章、Linux  的文件权限与目录配置用户管理[root@study ~]# groupadd project        交换区总量, 3998716 free－－&amp;gt;空闲交换区总量, 0 used－－&amp;gt;使用的交换区总量. 3327816 avail Mem－－&amp;gt;  进程信息 PID－－&amp;gt;进程ＩＤ  USER－－&amp;gt;用户  PR－－&amp;gt;优先级  NI－－&amp;gt;nice值。负值表示高优先级，正值表示低">
+<meta name="keywords" content="Basic,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 菜鸟私房菜知识架构">
+<meta property="og:url" content="http://linz.tech/2019/09/16/2019-3-23-linux-note/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="第五章、Linux  的文件权限与目录配置用户管理[root@study ~]# groupadd project        交换区总量, 3998716 free－－&amp;gt;空闲交换区总量, 0 used－－&amp;gt;使用的交换区总量. 3327816 avail Mem－－&amp;gt;  进程信息 PID－－&amp;gt;进程ＩＤ  USER－－&amp;gt;用户  PR－－&amp;gt;优先级  NI－－&amp;gt;nice值。负值表示高优先级，正值表示低">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdn.net/20180611104357519?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NkMTk5MzA1MDg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2019-12-22T05:12:29.491Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 菜鸟私房菜知识架构">
+<meta name="twitter:description" content="第五章、Linux  的文件权限与目录配置用户管理[root@study ~]# groupadd project        交换区总量, 3998716 free－－&amp;gt;空闲交换区总量, 0 used－－&amp;gt;使用的交换区总量. 3327816 avail Mem－－&amp;gt;  进程信息 PID－－&amp;gt;进程ＩＤ  USER－－&amp;gt;用户  PR－－&amp;gt;优先级  NI－－&amp;gt;nice值。负值表示高优先级，正值表示低">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180611104357519?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NkMTk5MzA1MDg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/09/16/2019-3-23-linux-note/">
+
+
+
+
+
+  <title>Linux 菜鸟私房菜知识架构 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/09/16/2019-3-23-linux-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux 菜鸟私房菜知识架构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-16T00:11:07+08:00">
+                2019-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/16/2019-3-23-linux-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/16/2019-3-23-linux-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第五章、Linux-的文件权限与目录配置"><a href="#第五章、Linux-的文件权限与目录配置" class="headerlink" title="第五章、Linux  的文件权限与目录配置"></a>第五章、Linux  的文件权限与目录配置</h1><h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# groupadd project        <==增加新的群组 [root@study ~]# useradd -g project alex <="=建立" 账号，且支持 arod id 账号的属性 uid="1001(alex)" gid="1002(alex)" groups="1002(alex),1001(project)" <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></==增加新的群组></code></pre>
+<h2 id="man-page"><a href="#man-page" class="headerlink" title="man page"></a>man page</h2><table>
+<thead>
+<tr>
+<th align="center">按键</th>
+<th align="center">header 2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">空格</td>
+<td align="center">下翻一页</td>
+</tr>
+<tr>
+<td align="center">home</td>
+<td align="center">去到第一页</td>
+</tr>
+<tr>
+<td align="center">End</td>
+<td align="center">去到最后一页</td>
+</tr>
+<tr>
+<td align="center">/？string</td>
+<td align="center">向下/上搜索</td>
+</tr>
+</tbody></table>
+<h2 id="文件权限与配置"><a href="#文件权限与配置" class="headerlink" title="文件权限与配置"></a>文件权限与配置</h2><pre class="line-numbers language-shell"><code class="language-shell">chgrp ：改变文件所属群组 
+chown ：改变文件拥有者 
+chmod ：改变文件的权限, SUID, SGID, SBIT 等等的特性 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell"> #将file_new的拥有者与群组改回为 chown user:group file
+ chown root:root file_new <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>chmod </p>
+<pre class="line-numbers language-shell"><code class="language-shell">        u 
+        g      +(加入)  r:4
+chmod   o      -(除去)  w:2    file
+        a      =(设定)  x:1
+
+ chmod  u=rwx,go=rx  .bashrc 
+ #拿掉全部人的可执行权限
+  chmod  a-x  .bashrc <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="文件与目录管理"><a href="#文件与目录管理" class="headerlink" title="文件与目录管理"></a>文件与目录管理</h2><h3 id="cp-mv"><a href="#cp-mv" class="headerlink" title="cp,mv"></a>cp,mv</h3><ul>
+<li>cp (复制文件或目录) </li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# cp [options] source1 source2 source3 .... directory 
+选项与参数： 
+-a  ：相当于 -dr --preserve=all 的意思，至于 dr 请参考下列说明；(常用) 
+-d  ：若来源文件为链接文件的属性(link file)，则复制链接文件属性而非文件本身； 
+-f  ：为强制(force)的意思，若目标文件已经存在且无法开启，则移除后再尝试一次； 
+-i  ：若目标文件(destination)已经存在时，在覆盖时会先询问动作的进行(常用) 
+-l  ：进行硬式连结(hard link)的连结档建立，而非复制文件本身； 
+-p  ：连同文件的属性(权限、用户、时间)一起复制过去，而非使用默认属性(备份常用)； 
+-r  ：递归持续复制，用于目录的复制行为；(常用) 
+-s  ：复制成为符号链接文件 (symbolic link)，亦即『快捷方式』文件； 
+-u  ：destination 比 source 旧才更新 destination，或 destination 不存在的情况下才复制。 
+--preserve=all ：除了 -p 的权限相关参数外，还加入 SELinux 的属性, links, xattr 等也复制了。 
+最后需要注意的，如果来源档有两个以上，则最后一个目的文件一定要是『目录』才行！ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>mv </p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# mv [-fiu] source destination 
+选项与参数： 
+-f  ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖； 
+-i  ：若目标文件 (destination) 已经存在时，就会询问是否覆盖！ 
+-u  ：若目标文件已经存在，且 source 比较新，才会更新 (update) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="文件名与目录名称"><a href="#文件名与目录名称" class="headerlink" title="文件名与目录名称"></a>文件名与目录名称</h3><pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# basename /etc/sysconfig/network 
+network         <== 很简单！就取得最后的档名～ [root@study ~]# dirname etc sysconfig network <="=" 取得的变成目录名了！ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></==></code></pre>
+<h3 id="文件内容查阅"><a href="#文件内容查阅" class="headerlink" title="文件内容查阅"></a>文件内容查阅</h3><ul>
+<li><p>cat [-AbEnTv]  / tac（反向显示）</p>
+<pre class="line-numbers language-shell"><code class="language-shell">选项与参数： 
+-A  ：相当于 -vET 的整合选项，可列出一些特殊字符而不是空白而已； 
+-b  ：列出行号，仅针对非空白行做行号显示，空白行不标行号！ 
+-E  ：将结尾的断行字符 $ 显示出来； 
+-n  ：打印出行号，连同空白行也会有行号，与 -b 的选项不同； 
+-T  ：将 [tab] 按键以 ^I 显示出来； 
+-v  ：列出一些看不出来的特殊字符 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>nl (添加行号打印) z</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# nl [-bnw] 文件 
+选项与参数： 
+-b  ：指定行号指定的方式，主要有两种： 
+      -b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)； 
+      -b t ：如果有空行，空的那一行不要列出行号(默认值)； 
+-n  ：列出行号表示的方法，主要有三种： 
+      -n ln ：行号在屏幕的最左方显示； 
+      -n rn ：行号在自己字段的最右方显示，且不加 0 ； 
+      -n rz ：行号在自己字段的最右方显示，且加 0 ； 
+-w  ：行号字段的占用的字符数。 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="文件预设权限：umask"><a href="#文件预设权限：umask" class="headerlink" title="文件预设权限：umask"></a>文件预设权限：umask</h3><pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# umask 
+0022             <==与一般权限有关的是后面三个数字！ [root@study ~]# umask -s u="rwx,g=rx,o=rx" <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></==与一般权限有关的是后面三个数字！></code></pre>
+<h3 id="文件隐藏属性"><a href="#文件隐藏属性" class="headerlink" title="文件隐藏属性"></a>文件隐藏属性</h3><h4 id="chattr"><a href="#chattr" class="headerlink" title="chattr"></a>chattr</h4><pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# chattr [+-=][ASacdistu] 文件或目录名称 
+选项与参数： 
++   ：增加某一个特殊参数，其他原本存在参数则不动。 
+-   ：移除某一个特殊参数，其他原本存在参数则不动。 
+=   ：设定一定，且仅有后面接的参数 
+
+A  ：当设定了 A 这个属性时，若你有存取此文件(或目录)时，他的访问时间 atime 将不会被修改， 
+     可避免 I/O 较慢的机器过度的存取磁盘。(目前建议使用文件系统挂载参数处理这个项目) 
+S  ：一般文件是异步写入磁盘的(原理请参考前一章 sync 的说明)，如果加上 S 这个属性时， 
+     当你进行任何文件的修改，该更动会『同步』写入磁盘中。 
+a  ：当设定 a 之后，这个文件将只能增加数据，而不能删除也不能修改数据，只有 root 才能设定这属性 
+c  ：这个属性设定之后，将会自动的将此文件『压缩』，在读取的时候将会自动解压缩， 
+     但是在储存的时候，将会先进行压缩后再储存(看来对于大文件似乎蛮有用的！) 
+d  ：当 dump 程序被执行的时候，设定 d 属性将可使该文件(或目录)不会被 dump 备份 
+i  ：这个 i 可就很厉害了！他可以让一个文件『不能被删除、改名、设定连结也无法写入或新增数据！』 
+     对于系统安全性有相当大的帮助！只有 root 能设定此属性 
+s  ：当文件设定了 s 属性时，如果这个文件被删除，他将会被完全的移除出这个硬盘空间， 
+     所以如果误删了，完全无法救回来了喔！ 
+u  ：与 s 相反的，当使用 u 来配置文件案时，如果该文件被删除了，则数据内容其实还存在磁盘中， 
+     可以使用来救援该文件喔！ 
+注意 1：属性设定常见的是 a 与 i 的设定值，而且很多设定值必须要身为 root 才能设定 
+注意 2：xfs 文件系统仅支援 AadiS 而已 
+范例：请尝试到/tmp 底下建立文件，并加入 i 的参数，尝试删除看看。 
+
+[root@study ~]# cd /tmp 
+[root@study tmp]# touch attrtest     <==建立一个空文件 [root@study tmp]# chattr +i attrtest <="=给予" i 的属性 rm rm: remove regular empty file `attrtest'? y cannot `attrtest': operation not permitted # 看到了吗？呼呼！连 root 也没有办法将这个文件删除呢！赶紧解除设定！ 范例：请将该文件的 属性取消！ -i <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></==建立一个空文件></code></pre>
+<h4 id="lsattr-显示文件隐藏属性"><a href="#lsattr-显示文件隐藏属性" class="headerlink" title="lsattr (显示文件隐藏属性)"></a>lsattr (显示文件隐藏属性)</h4><pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# lsattr [-adR] 文件或目录 
+选项与参数： 
+-a ：将隐藏文件的属性也秀出来； 
+-d ：如果接的是目录，仅列出目录本身的属性而非目录内的文件名； 
+-R ：连同子目录的数据也一并列出来！  
+
+[root@study tmp]# chattr +aiS attrtest 
+[root@study tmp]# lsattr attrtest 
+--S-ia---------- attrtest <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="文件特殊权限："><a href="#文件特殊权限：" class="headerlink" title="文件特殊权限："></a>文件特殊权限：</h3><p><code>-rwsr-xr-x</code> Set UID </p>
+<ul>
+<li>二进制可执行</li>
+<li>运行拥有owner权限</li>
+</ul>
+<blockquote>
+<p>SUID  仅可用在 binary program  上，  不能够用在  shell script  上面！</p>
+</blockquote>
+<p><code>-rwx--s--x.</code> Set GID </p>
+<ul>
+<li>二进制可执行</li>
+<li>运行拥有Group权限</li>
+</ul>
+<p><code>drwxrwxrwt</code>  Sticky Bit 目录有效，文件无效</p>
+<ul>
+<li>用户具有w,x</li>
+<li>当用户在该目录下建立文件或目录时，仅有自己与  root  才有权力删除该文件</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">4  为  SUID 
+2  为  SGID 
+1  为  SBIT 
+file 设置 -rwsr-xr-x ==> chmod 4755 filename (4 + 755) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study tmp]# chmod 6755 test; ls -l test <==加入具有 0 1 16 1755 7666 suid sgid 的权限 -rwsr-sr-x root jun 02:53 test [root@study tmp]# chmod test; ls -l <="=加入" sbit 的功能！ -rwxr-xr-t 权限 -rwsrwsrwt 为 u+s ，而 g+s ，sbit 则是 o+t # 设定权限成为 -rws--x--x 的模样： u="rwxs,go=x" 承上，加上 与 在上述的文件权限中！ g+s,o+t -rws--s--t <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></==加入具有></code></pre>
+<h2 id="脚本文件名的搜寻"><a href="#脚本文件名的搜寻" class="headerlink" title="脚本文件名的搜寻"></a>脚本文件名的搜寻</h2><h3 id="which-寻找『执行档』"><a href="#which-寻找『执行档』" class="headerlink" title="which (寻找『执行档』)"></a>which (寻找『执行档』)</h3><pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# which [-a] command 
+选项或参数： 
+-a ：将所有由 PATH 目录中可以找到的指令均列出，而不止第一个被找到的指令名称 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="whereis-由一些特定的目录中寻找文件文件名"><a href="#whereis-由一些特定的目录中寻找文件文件名" class="headerlink" title="whereis (由一些特定的目录中寻找文件文件名)"></a>whereis (由一些特定的目录中寻找文件文件名)</h3><blockquote>
+<p>只找系统中某些特定目录底下的文件</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# whereis [-bmsu] 文件或目录名 
+选项与参数： 
+-l    :可以列出 whereis 会去查询的几个主要目录而已 
+-b    :只找 binary 格式的文件 
+-m    :只找在说明文件 manual 路径下的文件 
+-s    :只找 source 来源文件 
+-u    :搜寻不在上述三个项目当中的其他特殊文件 
+
+范例一：请找出 ifconfig 这个档名 
+[root@study ~]# whereis ifconfig  
+ifconfig: /sbin/ifconfig /usr/share/man/man8/ifconfig.8.gz 
+
+范例二：只找出跟 passwd 有关的『说明文件』档名(man page) 
+[root@study ~]# whereis passwd     # 全部的档名通通列出来！ 
+passwd: /usr/bin/passwd /etc/passwd /usr/share/man/man1/passwd.1.gz 
+/usr/share/man/man5/passwd.5.gz 
+[root@study ~]# whereis -m passwd  # 只有在 man 里面的档名才抓出来！ 
+passwd: /usr/share/man/man1/passwd.1.gz /usr/share/man/man5/passwd.5.gz <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="locate-updatedb"><a href="#locate-updatedb" class="headerlink" title="locate / updatedb"></a>locate / updatedb</h3><blockquote>
+<p>是利用数据库来搜寻文件名,『已建立的数据库  /var/lib/mlocate/</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# locate [-ir] keyword 
+选项与参数： 
+-i  ：忽略大小写的差异； 
+-c  ：不输出档名，仅计算找到的文件数量 
+-l  ：仅输出几行的意思，例如输出五行则是 -l 5 
+-S  ：输出 locate 所使用的数据库文件的相关信息，包括该数据库纪录的文件/目录数量等 
+-r  ：后面可接正规表示法的显示方式 
+
+范例一：找出系统中所有与 passwd 相关的档名，且只列出 5 个 
+[root@study ~]# locate -l 5 passwd 
+/etc/passwd 
+/etc/passwd- 
+/etc/pam.d/passwd 
+/etc/security/opasswd 
+/usr/bin/gpasswd 
+
+范例二：列出 locate 查询所使用的数据库文件之文件名与各数据数量 
+[root@study ~]# locate -S 
+Database /var/lib/mlocate/mlocate.db: 
+        8,086 directories     # 总纪录目录数 
+        109,605 files         # 总纪录文件数 
+        5,190,295 bytes in file names 
+        2,349,150 bytes used to store database <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>updatedb   更新数据库， updatedb  指令会去读取  /etc/updatedb.conf  这个配置文件的设定</p>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><ul>
+<li><p>时间相关</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# find [PATH] [option] [action] 
+选项与参数： 
+1. 与时间有关的选项：共有 -atime, -ctime 与 -mtime ，以 -mtime 说明 
+   -mtime  n ：n 为数字，意义为在 n 天之前的『一天之内』被更动过内容的文件； 
+   -mtime +n ：列出在 n 天之前(不含 n 天本身)被更动过内容的文件档名； 
+   -mtime -n ：列出在 n 天之内(含 n 天本身)被更动过内容的文件档名。 
+   -newer file ：file 为一个存在的文件，列出比 file 还要新的文件档名 
+
+范例一：将过去系统上面 24 小时内有更动过内容 (mtime) 的文件列出 
+[root@study ~]# find / -mtime 0 
+# 那个 0 是重点！0 代表目前的时间，所以，从现在开始到 24 小时前， 
+# 有变动过内容的文件都会被列出来！那如果是三天前的 24 小时内？ 
+# find / -mtime 3 有变动过的文件都被列出的意思！ 
+
+范例二：寻找 /etc 底下的文件，如果文件日期比 /etc/passwd 新就列出 
+[root@study ~]# find /etc -newer /etc/passwd 
+# -newer 用在分辨两个文件之间的新旧关系是很有用的！ 
+
+范例三：
+  4 则是代表 4-5 那一天的文件档名：ex> find /var -mtime 4 
+  -4 代表小于等于 4 天内的文件档名：ex> find /var -mtime -4 
+  +4 代表大于等于 5 天前的檔名：ex> find /var -mtime +4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>用户相关</p>
+<pre class="line-numbers language-shell"><code class="language-shell">选项与参数： 
+2. 与使用者或组名有关的参数： 
+   -uid n ：n 为数字，这个数字是用户的账号 ID，亦即 UID ，这个 UID 是记录在 
+            /etc/passwd 里面与账号名称对应的数字。这方面我们会在第四篇介绍。 
+   -gid n ：n 为数字，这个数字是组名的 ID，亦即 GID，这个 GID 记录在 
+            /etc/group，相关的介绍我们会第四篇说明～ 
+   -user name ：name 为使用者账号名称喔！例如 dmtsai  
+   -group name：name 为组名喔，例如 users ； 
+   -nouser    ：寻找文件的拥有者不存在 /etc/passwd 的人！ 
+   -nogroup   ：寻找文件的拥有群组不存在于 /etc/group 的文件！ 
+                当你自行安装软件时，很可能该软件的属性当中并没有文件拥有者， 
+                这是可能的！在这个时候，就可以使用 -nouser 与 -nogroup 搜寻。 
+
+范例三：搜寻 /home 底下属于 dmtsai 的文件 
+[root@study ~]# find /home -user dmtsai 
+# 这个东西也很有用的～当我们要找出任何一个用户在系统当中的所有文件时， 
+# 就可以利用这个指令将属于某个使用者的所有文件都找出来喔！ 
+
+范例四：搜寻系统中不属于任何人的文件 
+[root@study ~]# find / -nouser 
+# 透过这个指令，可以轻易的就找出那些不太正常的文件。如果有找到不属于系统任何人的文件时， 
+# 不要太紧张，那有时候是正常的～尤其是你曾经以原始码自行编译软件时。 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>文件类型</p>
+<pre class="line-numbers language-shell"><code class="language-shell">3. 与文件权限及名称有关的参数： 
+   -name filename：搜寻文件名为 filename 的文件； 
+   -size [+-]SIZE：搜寻比 SIZE 还要大(+)或小(-)的文件。这个 SIZE 的规格有： 
+                   c: 代表 byte， k: 代表 1024bytes。所以，要找比 50KB 
+                   还要大的文件，就是『 -size +50k 』 
+   -type TYPE    ：搜寻文件的类型为 TYPE 的，类型主要有：一般正规文件 (f), 装置文件 (b, c), 
+                   目录 (d), 连结档 (l), socket (s), 及 FIFO (p) 等属性。 
+   -perm mode  ：搜寻文件权限『刚好等于』 mode 的文件，这个 mode 为类似 chmod 
+                 的属性值，举例来说， -rwsr-xr-x 的属性为 4755 ！ 
+   -perm -mode ：搜寻文件权限『必须要全部囊括 mode 的权限』的文件，举例来说，                  我们要搜寻 -rwxr--r-- ，亦即 0744 的文件，使用 -perm -0744， 
+                 当一个文件的权限为 -rwsr-xr-x ，亦即 4755 时，也会被列出来， 
+                 因为 -rwsr-xr-x 的属性已经囊括了 -rwxr--r-- 的属性了。 
+   -perm /mode ：搜寻文件权限『包含任一 mode 的权限』的文件，举例来说，我们搜寻 
+                 -rwxr-xr-x ，亦即 -perm /755 时，但一个文件属性为 -rw------- 
+                 也会被列出来，因为他有 -rw.... 的属性存在！ 
+
+范例五：找出档名为 passwd 这个文件 
+[root@study ~]# find / -name passwd 
+
+范例五-1：找出文件名包含了 passwd 这个关键词的文件 
+[root@study ~]# find / -name "*passwd*" 
+# 利用这个 -name 可以搜寻档名啊！默认是完整文件名，如果想要找关键词， 
+# 可以使用类似 * 的任意字符来处理 
+
+范例六：找出 /run 目录下，文件类型为 Socket 的檔名有哪些？ 
+[root@study ~]# find /run -type s 
+# 这个 -type 的属性也很有帮助喔！尤其是要找出那些怪异的文件， 
+# 例如 socket 与 FIFO 文件，可以用 find /run -type p 或 -type s 来找！ 
+
+范例七：搜寻文件当中含有 SGID 或 SUID 或 SBIT 的属性 
+[root@study ~]# find / -perm /7000  
+# 所谓的 7000 就是 ---s--s--t ，那么只要含有 s 或 t 的就列出，所以当然要使用 /7000， 
+# 使用 -7000 表示要同时含有 ---s--s--t 的所有三个权限。而只需要任意一个，就是 /7000 ～瞭乎？ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>额~外可进行的动作：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">4. 额外可进行的动作： 
+   -exec command ：command 为其他指令，-exec 后面可再接额外的指令来处理搜寻到的结果。 
+   -print        ：将结果打印到屏幕上，这个动作是预设动作！ 
+
+范例八：将上个范例找到的文件使用 ls -l 列出来～ 
+[root@study ~]# find /usr/bin /usr/sbin -perm /7000 -exec ls -l {} \; 
+# 注意到，那个 -exec 后面的 ls -l 就是额外的指令，指令不支持命令别名， 
+# 所以仅能使用 ls -l 不可以使用 ll 喔！注意注意！ 
+
+范例九：找出系统中，大于 1MB 的文件 
+[root@study ~]# find / -size +1M <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h1 id="第七章、Linux磁盘与文件系统"><a href="#第七章、Linux磁盘与文件系统" class="headerlink" title="第七章、Linux磁盘与文件系统"></a>第七章、Linux磁盘与文件系统</h1><h2 id="EXT2-inode"><a href="#EXT2-inode" class="headerlink" title="EXT2 inode"></a>EXT2 inode</h2><ul>
+<li><p>dumpe2fs：  查询  Ext  家族  superblock  信息的指令 </p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# dumpe2fs [-bh] 装置文件名 
+选项与参数： 
+-b ：列出保留为坏轨的部分(一般用不到吧！？) 
+-h ：仅列出 superblock 的数据，不会列出其他的区段内容！ 
+
+范例：鸟哥的一块 1GB ext4 文件系统内容 
+[root@study ~]# blkid   <==这个指令可以叫出目前系统有被格式化的装置 dev vda3: uuid="12y99K-bv2A-y7RY-jhEW-rIWf-PcH5-SaiApN" type="LVM2_member" vda5: <="=看到" ext4 了！ [root@study ~]# dumpe2fs vda5 1.42.9 (28-dec-2013) filesystem volume name: <none>           # 文件系统的名称(不一定会有) 
+Last mounted on:          <not available>  # 上一次挂载的目录位置 
+Filesystem UUID:          e20d65d9-20d4-472f-9f91-cdcfb30219d6 
+Filesystem magic number:  0xEF53           # 上方的 UUID 为 Linux 对装置的定义码 
+Filesystem revision #:    1 (dynamic)      # 下方的 features 为文件系统的特征数据 
+Filesystem features:      has_journal ext_attr resize_inode dir_index filetype extent 64bit  
+ flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize 
+Filesystem flags:         signed_directory_hash 
+Default mount options:    user_xattr acl   # 预设在挂载时会主动加上的挂载参数 
+Filesystem state:         clean            # 这块文件系统的状态为何，clean 是没问题 
+Errors behavior:          Continue 
+Filesystem OS type:       Linux 
+Inode count:              65536            # inode 的总数 
+Block count:              262144           # block 的总数 
+Reserved block count:     13107            # 保留的 block 总数 
+Free blocks:              249189           # 还有多少的 block 可用数量 
+Free inodes:              65525            # 还有多少的 inode 可用数量 
+First block:              0 
+Block size:               4096             # 单个 block 的容量大小 
+Fragment size:            4096 
+Group descriptor size:    64 
+....(中间省略).... 
+Inode size:               256              # inode 的容量大小！已经是 256 了喔！ 
+....(中间省略).... 
+Journal inode:            8 
+Default directory hash:   half_md4 
+Directory Hash Seed:      3c2568b4-1a7e-44cf-95a2-c8867fb19fbc 
+Journal backup:           inode blocks 
+Journal features:         (none) 
+Journal size:             32M              # Journal 日志式数据的可供纪录总容量 
+Journal length:           8192 
+Journal sequence:         0x00000001 
+Journal start:            0 
+
+Group 0: (Blocks 0-32767)                  # 第一块 block group 位置 
+  Checksum 0x13be, unused inodes 8181 
+  Primary superblock at 0, Group descriptors at 1-1   # 主要 superblock 的所在喔！ 
+
+ Reserved GDT blocks at 2-128 
+  Block bitmap at 129 (+129), Inode bitmap at 145 (+145) 
+  Inode table at 161-672 (+161)                       # inode table 的所在喔！ 
+  28521 free blocks, 8181 free inodes, 2 directories, 8181 unused inodes 
+  Free blocks: 142-144, 153-160, 4258-32767           # 底下两行说明剩余的容量有多少 
+  Free inodes: 12-8192 
+Group 1: (Blocks 32768-65535) [INODE_UNINIT]          # 后续为更多其他的 block group 喔！ 
+....(底下省略).... 
+# 由于数据量非常的庞大，因此鸟哥将一些信息省略输出了！上表与你的屏幕会有点差异。 
+# 前半部在秀出 supberblock 的内容，包括标头名称(Label)以及 inode/block 的相关信息 
+# 后面则是每个 block group 的个别信息了！您可以看到各区段数据所在的号码！ 
+# 也就是说，基本上所有的数据还是与 block 的号码有关就是了！很重要！ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></not></==这个指令可以叫出目前系统有被格式化的装置></code></pre>
+</li>
+</ul>
+<h2 id="文件系统的简单操作"><a href="#文件系统的简单操作" class="headerlink" title="文件系统的简单操作"></a>文件系统的简单操作</h2><ul>
+<li><p>df：列出文件系统的整体磁盘使用量</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# df [-ahikHTm] [目录或文件名] 
+选项与参数： 
+-a  ：列出所有的文件系统，包括系统特有的 /proc 等文件系统； 
+-k  ：以 KBytes 的容量显示各文件系统； 
+-m  ：以 MBytes 的容量显示各文件系统； 
+-h  ：以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示； 
+-H  ：以 M=1000K 取代 M=1024K 的进位方式； 
+-T  ：连同该 partition 的 filesystem 名称 (例如 xfs) 也列出； 
+-i  ：不用磁盘容量，而以 inode 的数量来显示 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>案例：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">范例一：将系统内所有的 filesystem 列出来！
+[root@study ~]# df 
+Filesystem              1K-blocks    Used Available Use% Mounted on 
+/dev/mapper/centos-root  10475520 3409408   7066112  33% / 
+devtmpfs                   627700       0    627700   0% /dev 
+tmpfs                      637568      80    637488   1% /dev/shm 
+范例二：将系统内的所有特殊文件格式及名称都列出来 
+[root@study ~]# df -aT 
+Filesystem              Type        1K-blocks    Used Available Use% Mounted on 
+rootfs                  rootfs       10475520 3409368   7066152  33% / 
+proc                    proc                0       0         0    - /proc 
+sysfs                   sysfs               0       0         0    - /sys 
+devtmpfs                devtmpfs       627700       0    627700   0% /dev <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>du：评估文件系统的磁盘使用量</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# du [-ahskm] 文件或目录名称 
+选项与参数： 
+-a  ：列出所有的文件与目录容量，因为默认仅统计目录底下的文件量而已。 
+-h  ：以人们较易读的容量格式 (G/M) 显示； 
+-s  ：列出总量而已，而不列出每个各别的目录占用容量； 
+-S  ：不包括子目录下的总计，与 -s 有点差别。 
+-k  ：以 KBytes 列出容量显示； 
+-m  ：以 MBytes 列出容量显示； <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>案例：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">范例一：列出目前目录下的所有文件容量 
+[root@study ~]# du 
+4       ./.cache/dconf  <==每个目录都会列出来 0 4 8 . .cache abrt ....(中间省略).... test4 .ssh <="=包括隐藏文件的目录" <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></==每个目录都会列出来></code></pre>
+</li>
+</ul>
+<h2 id="磁盘的分区、格式化、检验"><a href="#磁盘的分区、格式化、检验" class="headerlink" title="磁盘的分区、格式化、检验"></a>磁盘的分区、格式化、检验</h2><blockquote>
+<p>使用逻辑： 你应该要透过  lsblk  或  blkid  先找到磁盘，再用  parted /dev/xxx print  来找出内部的分区表类型，之<br>后才用  gdisk  或  fdisk  来操作系统</p>
+</blockquote>
+<ul>
+<li><p>lsblk  列出系统上的所有磁盘列表 </p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# lsblk [-dfimpt] [device] 
+选项与参数： 
+-d  ：仅列出磁盘本身，并不会列出该磁盘的分区数据 
+-f  ：同时列出该磁盘内的文件系统名称 
+-i  ：使用 ASCII 的线段输出，不要使用复杂的编码 (再某些环境下很有用) 
+-m  ：同时输出该装置在 /dev 底下的权限数据 (rwx 的数据) 
+-p  ：列出该装置的完整文件名！而不是仅列出最后的名字而已。 
+-t  ：列出该磁盘装置的详细数据，包括磁盘队列机制、预读写的数据量大小等 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>blkid  列出装置的  UUID  等参数 </p>
+</li>
+<li><p>parted  列出磁盘的分区表类型与分区信息 </p>
+<pre class="line-numbers language-shell"><code class="language-shell">范例一：列出 /dev/vda 磁盘的相关数据 
+[root@study ~]# parted /dev/vda print 
+Model: Virtio Block Device (virtblk)        # 磁盘的模块名称(厂商) 
+Disk /dev/vda: 42.9GB                       # 磁盘的总容量 
+Sector size (logical/physical): 512B/512B   # 磁盘的每个逻辑/物理扇区容量 
+Partition Table: gpt                        # 分区表的格式 (MBR/GPT) 
+Disk Flags: pmbr_boot 
+
+Number  Start   End     Size    File system  Name  Flags      # 底下才是分区数据 
+ 1      1049kB  3146kB  2097kB                     bios_grub 
+ 2      3146kB  1077MB  1074MB  xfs 
+ 3      1077MB  33.3GB  32.2GB                     lvm <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="gdisk"><a href="#gdisk" class="headerlink" title="gdisk"></a>gdisk</h3><p>实践最简单Demo</p>
+<pre class="line-numbers language-shell"><code class="language-shell">范例：由前一小节的 lsblk 输出，我们知道系统有个 /dev/vda，请观察该磁盘的分区与相关数据 
+[root@study ~]# gdisk /dev/vda  <==仔细看，不要加上数字喔！ 1 2 3 128 512 2048 6143 6144 2103295 2103296 18862013 65026047 83886046 83886080 gpt fdisk (gdisk) version 0.8.6 partition table scan: mbr: protective bsd: not present apm: gpt: found valid with mbr; using gpt. <="=找到了" 的分区表！ command (? for help): (?) 来查看可用指令 ? b back up data to a file c change partition's name d delete # 删除一个分区 i show detailed information on l list known types n add new 增加一个分区 o create empty guid (gpt) p print the 印出分区表 (常用) q quit without saving changes 不储存分区就直接离开 gdisk r recovery and transformation options (experts only) s sort partitions t type code v verify disk w write exit 储存分区操作后离开 x extra functionality this menu 这里可以输出目前磁盘的状态 dev vda: sectors, 40.0 gib 磁盘文件名 扇区数与总容量 logical sector size: bytes 单一扇区大小为 identifier (guid): a4c3c813-62af-4bfe-bac9-112ebd87a483 磁盘的 标识符 holds entries first usable is 34, last will be aligned 2048-sector boundaries total free space sectors (9.0 gib) number start (sector) end size 底下为完整的分区信息了！ 2.0 mib ef02 第一个分区槽数据 1024.0 0700 30.0 8e00 分区编号 开始扇区号码 结束扇区号码 容量大小 想要不储存离开吗？按下 就对了！不要随便按 啊！ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></==仔细看，不要加上数字喔！></code></pre>
+<h1 id="第十二章、-学习Shell-Scripts"><a href="#第十二章、-学习Shell-Scripts" class="headerlink" title="第十二章、 学习Shell Scripts"></a>第十二章、 学习Shell Scripts</h1><h2 id="12-1-常用命令解析"><a href="#12-1-常用命令解析" class="headerlink" title="12.1 常用命令解析"></a>12.1 常用命令解析</h2><pre class="line-numbers language-shell"><code class="language-shell">sudo lsb_release -a　// look ubuntu version
+uname -r  //kernal version
+
+netstat –tln //查看服务监听端口
+netstat      //查看进程号
+ps –aux     //查看进程号
+ps –aux | more //全部查看
+ps –ef | grep mysql //查看mysql的进程
+kill -9 3306 //强制杀掉进程号3306
+
+# 查看80端口占用
+netstat -luntp | grep 80
+# 查看对应程序是否启动
+netstat -luntp | grep mysql
+
+diff -ruNa dir1  dir2 > s12.diff
+
+#几种快速清空文件内容的方法
+echo "" > fileName
+echo /dev/null > fileName
+echo > fileName
+cat /dev/null > fileName<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>ln</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">ln -fs Target_file/Target_dir #在当前目录下新建一个同名链接
+ln -fs Target_file/Target_dir  link_rename #指定链接名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>tar</strong> 加压解压</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># bz2
+压包：tar  -jcf  target.tar.bz2   target
+解压：tar  -jxf  target.tar.bz2
+# gz
+压包：tar  -zcf  target.tar.gz   target
+解压：tar  -zxf  target.tar.gz
+# 解压或压包到指定目录： -C
+tar  -zxf  target.tar.gz –C /home/dream123/Desktop/(目录)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>命令详解</p>
+<pre class="line-numbers language-shell"><code class="language-shell">-x 解压
+-t 查看内容<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>grep</strong>  </p>
+<ul>
+<li><a href="https://www.cnblogs.com/ggjucheng/archive/2013/01/13/2856896.html" target="_blank" rel="noopener">linux grep命令详解</a> </li>
+</ul>
+<p>*<em>awk *</em></p>
+<p><strong>sed</strong><br> <a href="http://blog.itpub.net/519536/viewspace-558364/" target="_blank" rel="noopener">【Shell】sed使用心得</a><br>%s/.*/# &amp;/g 在整个文件的首行插入#<br>2,10s/Type/type/g #第2至第10行替换Type为type</p>
+<p><strong>date</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">date +%F #2017-01-29
+date "+%Y-%m-%d %H:%M:%S" #2017-01-29 10:57:02<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>应用场景</p>
+<pre class="line-numbers language-shell"><code class="language-shell">tar zcvf etc-$(date +%F).tar.gz /etc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>进行简单运算</p>
+<pre class="line-numbers language-shell"><code class="language-shell">date +%F -d "-1day" #减一天
+date +%F -d "+1day" #加一天
+date +%F -d "+2hour"#加2hour
+date -d -1month +%Y%m%d #减1个月<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>别名</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#列出别名信息
+alias
+#设置
+alias rgrep='ps -ef| grep redis'
+//删除
+unalias rgrep<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h3><ul>
+<li><p>uptime </p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@www ~]# uptime 
+ 15:47:19 up 69 days, 20:24,  1 user,  load average: 0.06, 0.08, 0.11<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li>15:47:19 系统时间</li>
+<li>69 days, 20:24 运行时间</li>
+<li><code>1 user</code> 一个终端连接（终端Terminal连接数）</li>
+<li><code>0.06, 0.08, 0.11</code> 在过去1,5,15分钟内的系统平均负载（运行队列中的平均进程数）</li>
+</ul>
+</li>
+<li><p>top</p>
+<pre class="line-numbers language-sh"><code class="language-sh">top - 17:19:17 up 69 days, 21:55,  3 users,  load average: 0.02, 0.12, 0.13
+Tasks: 259 total,   2 running, 257 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  10.0/4.6    15[|||||||                                              ]
+KiB Mem :  5971944 total,  2069108 free,  1897640 used,  2005196 buff/cache
+KiB Swap:  3998716 total,  3998716 free,        0 used.  3270516 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND     
+ 2383 joel      20   0 2311856 286256 168372 S  18.6  4.8  10:48.61 chromium-b+ 
+ 1916 joel      20   0 1520768 130752  73584 R  11.0  2.2   3:32.51 compiz      
+  908 root      20   0  359740  46208  33532 S  10.3  0.8   3:37.90 Xorg        
+ 2542 joel      20   0 1346212 323796  99516 S  10.0  5.4   4:51.57 chromium-b+ 
+ 2039 joel       9 -11  507632  11780   8812 S   3.7  0.2   0:45.57 pulseaudio  
+ 2796 joel      20   0 1215292 157504  87592 S   3.7  2.6   0:53.10 chromium-b+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><p>top第一行命令, 如上uptime</p>
+</li>
+<li><p>top第二行命令介绍(进程信息)</p>
+<pre class="line-numbers language-shell"><code class="language-shell">Tasks: 259 total(进程总数) 2 running(正在运行的进程数) 257 sleeping(睡眠的进程数) 0 stopped(停止的进程数) 0 zombie(僵尸进程数)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>第三行命令介绍(CPU信息)</p>
+<pre class="line-numbers language-shell"><code class="language-shell">%Cpu(s): 9.6 us－－>用户空间占用CPU百分比 4.5 sy－－>内核空间占用CPU百分比 0.0 ni－－>用户进程空间内改变过优先级的进程占用CPU百分比 85.7 id－－>空闲CPU百分比 0.3 wa－－>等待输入输出的CPU时间百分比 0.0 hi－－> 0.0 si－－> 0.0 st－－><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>第四、五行命令介绍(内存信息)</p>
+<pre class="line-numbers language-shell"><code class="language-shell">KiB Mem : 5971944 total－－>物理内存总量 2114336 free－－>空闲内存总量 1833032 used－－>使用的物理内存总量 2024576 buff/cache－－>用作内核缓存的内存量 
+KiB Swap: 3998716 total－－>交换区总量, 3998716 free－－>空闲交换区总量, 0 used－－>使用的交换区总量. 3327816 avail Mem－－><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>进程信息</p>
+<pre class="line-numbers language-shell"><code class="language-shell">PID－－>进程ＩＤ 
+USER－－>用户 
+PR－－>优先级 
+NI－－>nice值。负值表示高优先级，正值表示低优先级 
+VIRT－－>进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES 
+RES－－>进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA 
+SHR－－>共享内存大小，单位kb 
+S－－>进程状态。 D=不可中断的睡眠状态R=运行 S=睡眠T=跟踪/停止Z=僵尸进程 
+%CPU－－>上次更新到现在的CPU时间占用百分比 
+%MEM－－>进程使用的物理内存百分比 
+TIME+－－>进程使用的CPU时间总计，单位1/100秒 
+COMMAND－－>命令名/命令行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+</li>
+<li><p>vmstat  - Report virtual memory statistics<br><img src="https://img-blog.csdn.net/20180611104357519?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NkMTk5MzA1MDg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="vmstat结果"></p>
+<blockquote>
+<p>vmstat 1 4 每一秒采集一次，共采集四次</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="12-2-常用应用场景解析"><a href="#12-2-常用应用场景解析" class="headerlink" title="12.2 常用应用场景解析"></a>12.2 常用应用场景解析</h2><h3 id="12-2-1-变量相关"><a href="#12-2-1-变量相关" class="headerlink" title="12.2.1 变量相关"></a>12.2.1 变量相关</h3><p>1、变量获取，截取，替换，（没设置、空值、非空值） </p>
+<ul>
+<li><a href="https://blog.csdn.net/shmilyringpull/article/details/7631106" target="_blank" rel="noopener">shell中的${}，##和%%的使用</a></li>
+</ul>
+<p>2、Shell特殊变量：Shell $0, $#, $*, $@, $?, $和命令行参数  <a href="http://www.jb51.net/article/48686.htm" target="_blank" rel="noopener">bash shell命令行选项与修传入参数处理</a></p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$n</td>
+<td>$1 the first parameter,$2 the second…</td>
+</tr>
+<tr>
+<td>$#</td>
+<td>The number of command-line parameters.</td>
+</tr>
+<tr>
+<td>$0</td>
+<td>The name of current program.</td>
+</tr>
+<tr>
+<td>$?</td>
+<td>Last command or function’s return value.</td>
+</tr>
+<tr>
+<td>$$</td>
+<td>The program’s PID.</td>
+</tr>
+<tr>
+<td>$!</td>
+<td>Last program’s PID.</td>
+</tr>
+<tr>
+<td>$@</td>
+<td>Save all the parameters.</td>
+</tr>
+</tbody></table>
+<p>3、shell 脚本中批量导入指定配置 <code>envsubst</code></p>
+<p>比如手上有个配置文件<code>redis.conf</code>，需要动态修改其参数，如下：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">THREAD_NUM:${thread_num}
+GPU_ID:${gpu_id}
+bind ${ip} ${port}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>解决方案一：<code>envsubst</code></p>
+<p>a) 安装</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yum install gettext -y<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>b) 使用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">export thread_num=24
+export gpu_id=2
+export ip=192.168.1.168
+export port=6379
+envsubst <redis.conf> redis_6379.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></redis.conf></code></pre>
+<p>注意：如果有n个export想死的心都有哈哈，解决方案，统一丢到一个文件里面，如<code>config.conf</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">export thread_num=24
+export gpu_id=2
+export ip=192.168.1.168
+export port=6379<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使其批量生效 <code>source config.conf</code>,一句命令应用就好了</p>
+<pre class="line-numbers language-shell"><code class="language-shell">envsubst <redis.conf> redis_6379.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></redis.conf></code></pre>
+<h2 id="12-3-条件判断"><a href="#12-3-条件判断" class="headerlink" title="12.3 条件判断"></a>12.3 条件判断</h2><h3 id="12-3-1-if-条件"><a href="#12-3-1-if-条件" class="headerlink" title="12.3.1 if 条件"></a>12.3.1 if 条件</h3><ul>
+<li><a href="https://www.cnblogs.com/wangkongming/p/4221503.html" target="_blank" rel="noopener">shell比较两个字符串是否相等</a></li>
+<li>文档比较运算符  </li>
+<li>if 命令参数说明</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">[ -a FILE ]  如果 FILE 存在则为真。  
+[ -b FILE ]  如果 FILE 存在且是一个块特殊文件则为真。  
+[ -c FILE ]  如果 FILE 存在且是一个字特殊文件则为真。  
+[ -d FILE ]  如果 FILE 存在且是一个目录则为真。  
+[ -e FILE ]  如果 FILE 存在则为真。  
+[ -f FILE ]  如果 FILE 存在且是一个普通文件则为真。  
+[ -g FILE ] 如果 FILE 存在且已经设置了SGID则为真。 [ -h FILE ]  如果 FILE 存在且是一个符号连接则为真。  
+[ -k FILE ]  如果 FILE 存在且已经设置了粘制位则为真。  
+[ -p FILE ]  如果 FILE 存在且是一个名字管道(F如果O)则为真。  
+[ -r FILE ]  如果 FILE 存在且是可读的则为真。  
+[ -s FILE ]  如果 FILE 存在且大小不为0则为真。  
+[ -t FD ]  如果文件描述符 FD 打开且指向一个终端则为真。  
+[ -u FILE ]  如果 FILE 存在且设置了SUID (set user ID)则为真。  
+[ -w FILE ]  如果 FILE 如果 FILE 存在且是可写的则为真。  
+[ -x FILE ]  如果 FILE 存在且是可执行的则为真。  
+[ -O FILE ]  如果 FILE 存在且属有效用户ID则为真。  
+[ -G FILE ]  如果 FILE 存在且属有效用户组则为真。  
+[ -L FILE ]  如果 FILE 存在且是一个符号连接则为真。  
+[ -N FILE ]  如果 FILE 存在 and has been mod如果ied since it was last read则为真。  
+[ -S FILE ]  如果 FILE 存在且是一个套接字则为真。  
+[ FILE1 -nt FILE2 ]  如果 FILE1 has been changed more recently than FILE2, or 如果 FILE1 exists and FILE2 does not则为真。  
+[ FILE1 -ot FILE2 ]  如果 FILE1 比 FILE2 要老, 或者 FILE2 存在且 FILE1 不存在则为真。  
+[ FILE1 -ef FILE2 ]  如果 FILE1 和 FILE2 指向相同的设备和节点号则为真。  
+[ -o OPTIONNAME ]  如果 shell选项 “OPTIONNAME” 开启则为真。  
+[ -z STRING ]  “STRING” 的长度为零则为真。  
+[ -n STRING ] or [ STRING ]  “STRING” 的长度为非零 non-zero则为真。  
+[ STRING1 == STRING2 ]  如果2个字符串相同。 “=” may be used instead of “==” for strict POSIX compliance则为真。  
+[ STRING1 != STRING2 ]  如果字符串不相等则为真。 
+[ STRING1 < STRING2 ]  如果 “STRING1” sorts before “STRING2” lexicographically in the current locale则为真。  
+[ STRING1 > STRING2 ]  如果 “STRING1” sorts after “STRING2” lexicographically in the current locale则为真。  
+[ ARG1 OP ARG2 ] “OP” is one of -eq, -ne, -lt, -le, -gt or -ge. These arithmetic binary operators return true if “ARG1” is equal to, not equal to, less than, less than or equal to, greater than, or greater than or equal to “ARG2”, respectively. “ARG1” and “ARG2” are integers.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="12-3-2-while"><a href="#12-3-2-while" class="headerlink" title="12.3.2 while"></a>12.3.2 while</h3><pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh
+
+time = 7006
+while[[ "$time" gt 7000 ]]
+do
+    echo "$time"
+    time = $(($time -1 ))
+done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="12-4-三剑客详解及案例"><a href="#12-4-三剑客详解及案例" class="headerlink" title="12.4 三剑客详解及案例"></a>12.4 三剑客详解及案例</h2><h3 id="12-4-1-grep"><a href="#12-4-1-grep" class="headerlink" title="12.4.1 grep"></a>12.4.1 grep</h3><h4 id="1）支持正则"><a href="#1）支持正则" class="headerlink" title="1）支持正则"></a>1）支持正则</h4><pre class="line-numbers language-shell"><code class="language-shell">-E，--extended-regexp 模式是扩展正则表达式（ERE）
+-P，--perl-regexp 模式是 Perl 正则表达式
+-e，--regexp=PATTERN 使用模式匹配，可指定多个模式匹
+-f，--file=FILE 从文件每一行获取匹配模式
+-i，--ignore-case 忽略大小写
+-w，--word-regexp 模式匹配整个单词
+-x，--line-regexp 模式匹配整行
+-v，--invert-match 打印不匹配的行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1、正则过滤</p>
+<p>a. 去除空格 http.conf 文件空行或开头#号的行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">grep -E -v "^$|^#" /etc/httpd/conf/httpd.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li><code>grep -n &#39;de$&#39;</code> 匹配 de 字符结尾</li>
+<li><code>echo &quot;a bc de&quot; |xargs -n1 |grep &#39;^b&#39;</code> -&gt; 匹配 b 字符开头的行</li>
+</ul>
+<p>b. 不区分大小写</p>
+<pre class="line-numbers language-shell"><code class="language-shell">echo "A a b c" |xargs -n1 |grep -i a
+echo "A a b c" |xargs -n1 |grep '[Aa]'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>2、参数匹配功能</p>
+<pre class="line-numbers language-shell"><code class="language-shell">echo "a bc de" |xargs -n1 |grep -e 'a' -e 'bc
+#output 
+a
+bc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3、对比功能</p>
+<p>输出 b 文件中在 a文件相同的行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">grep -f a b<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>不同行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">grep -f -v a b<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="2-输入输出控制"><a href="#2-输入输出控制" class="headerlink" title="2) 输入输出控制"></a>2) 输入输出控制</h4><pre class="line-numbers language-shell"><code class="language-shell">-m，--max-count=NUM 输出匹配的结果 num 数
+-n，--line-number 打印行号
+-H，--with-filename 打印每个匹配的文件名
+-h，--no-filename 不输出文件名
+-q，--quiet 不输出正常信息
+-s, --no-messages 不输出错误信息
+-r，--recursive 递归目录
+-c，--count 只打印每个文件匹配的行数
+-o，--only-matching 只打印匹配的内容
+--include=FILE_PATTERN   只检索匹配的文件
+--exclude=FILE_PATTERN   跳过匹配的文件
+--exclude-from=FILE       跳过匹配的文件，来自文件模式
+--exclude-dir=PATTERN     跳过匹配的目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1、过滤功能</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#包含*.conf
+grep -r '192.167.1.1' /etc --include *.conf
+#排除*.bak
+grep -r '192.167.1.1' /etc --exclude *.bak
+#排除指定文件
+grep -r '192.167.1.1' /opt --exclude-from <file_name><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></file_name></code></pre>
+<p>2、匹配的前五个结果</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 1 20 |grep -m 5 -E '[0-9]{2}'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>3、统计匹配两位数的有多少行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 1 20 |grep -c -E '[0-9]{2}'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="3-内容行控制"><a href="#3-内容行控制" class="headerlink" title="3) 内容行控制"></a>3) 内容行控制</h4><pre class="line-numbers language-shell"><code class="language-shell">-B，--before-context=NUM 打印匹配的前几行
+-A，--after-context=NUM 打印匹配的后几行
+-C，--context=NUM 打印匹配的前后几行
+--color[=WHEN], 匹配的字体颜色
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1、我是一个案例</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#匹配结果及后 3 行
+seq 1 10 |grep 5 -A 3
+#匹配结果及前 3 行
+seq 1 10 |grep 5 -B 3
+#匹配结果及前后 3 行
+seq 1 10 |grep 5 -C 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="12-4-2-sed"><a href="#12-4-2-sed" class="headerlink" title="12.4.2 sed"></a>12.4.2 sed</h3><blockquote>
+<p>sed 命令将当前处理的行读入模式空间进行处理，处理完把结果输出，并清空模式空间。然后再将下一行读入模式空间进行处理输出，以此类推，直到最后一行。还有一个空间叫保持空间，又称暂存空间，可以暂时存放一些处理的数据，但不能直接输出，只能放到模式空间输出。</p>
+</blockquote>
+<h4 id="1）命令详解"><a href="#1）命令详解" class="headerlink" title="1）命令详解"></a>1）命令详解</h4><pre class="line-numbers language-shell"><code class="language-shell">-n 不打印模式空间
+-e 执行脚本、表达式来处理
+-f 执行动作从文件读取执行
+-i 修改原文件
+-r 使用扩展正则表达式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>命令描述</p>
+<pre class="line-numbers language-shell"><code class="language-shell">s/regexp/replacement/ 替换字符串
+
+p 打印当前模式空间
+P 打印模式空间的第一行
+
+d 删除模式空间，开始下一个循环
+D 删除模式空间的第一行，开始下一个循环
+
+= 打印当前行号
+
+a \text 当前行追加文本
+
+i \text 当前行上面插入文本
+
+c \text 所选行替换新文本
+
+q 立即退出 sed 脚本
+
+r 追加文本来自文件
+
+: label label 为 b 和 t 命令
+
+b label 分支到脚本中带有标签的位置，如果分支不存在则分支到脚本的末尾
+
+t label 如果 s///是一个成功的替换，才跳转到标签
+
+h H 复制/追加模式空间到保持空间
+
+g G 复制/追加保持空间到模式空间
+
+x 交换模式空间和保持空间内容
+
+l 打印模式空间的行，并显示控制字符$
+
+n N 读取/追加下一行输入到模式空间
+
+w filename 写入当前模式空间到文件
+! 取反、否定<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1、地址匹配</p>
+<ul>
+<li>first~step 步长，每 step 行，从第 first 开始</li>
+<li>addr1， add2  -&gt; 定址 addr1， add2 决定用于对哪些行进行编辑</li>
+<li>addr1， +N -&gt; 从 addr1 这行到往下 N 行匹配，总共匹配 N+1 行</li>
+</ul>
+<p>案例1：打印从第 5 行开始第一个以 northeast 开头的行之间的所有行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sed -n '5,/northeast/p' ceshi.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>2、<code>s</code>分隔符替换</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#在查找替换有 / 或者其他特殊字符时有用
+tail /etc/services | sed -r 's#([0-9]+/udp)#test#g'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<blockquote>
+<p>紧跟在 s 命令后的字符就是查找串和替换串之间的分隔符。分隔符默认默认为正斜杠，但可以改变。无论什么字符（换行符，反斜线除外），只要紧跟在 s 命令</p>
+</blockquote>
+<h4 id="2）打印匹配"><a href="#2）打印匹配" class="headerlink" title="2）打印匹配"></a>2）打印匹配</h4><pre class="line-numbers language-shell"><code class="language-shell">#打印匹配 blp5 开头的行
+tail /etc/services |sed -n '/^blp5/p'
+#打印第行1
+tail /etc/services |sed -n '1p'
+#打印奇数行
+seq 10 |sed -n '1~2p'
+#打印最后一行
+tail /etc/services |sed -n '$p'
+#不打印最后一行
+tail /etc/services |sed -n '$!p'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>增加匹配范围</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#匹配blp5,com 开头
+tail /etc/services |sed -n '/^blp5/,/^com/p'
+#匹配blp5开头行到最后一行
+tail /etc/services |sed -n '/blp5/,$p'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>2、使用环境变量</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> a=1
+ tail /etc/services |sed -n ''$a',3p'
+ tail /etc/services |sed -n "$a,3p"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>3、匹配删除</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#删除匹配blp5
+tail /etc/services |sed '/blp5/d'
+#删除第一行
+tail /etc/services |sed '1d'
+tail /etc/services |sed '1~2d'
+tail /etc/services |sed '1,3d'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="3）替换"><a href="#3）替换" class="headerlink" title="3）替换"></a>3）替换</h4><p>1、简单替换</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#替换 blp5 字符串为 test --> 每行替换首个
+tail /etc/services |sed 's/blp5/test/'
+#+ g全部替换
+tail /etc/services |sed 's/blp5/test/g'
+#替换开头是 blp5 的字符串并打印
+tail /etc/services |sed -n 's/^blp5/test/p'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2、匹配引用 <code>&amp;</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">tail /etc/services | sed 's/udp/&.hao/g'
+#单引号转双引号
+echo '10.10.10.1 10.10.10.2 10.10.10.3' |sed -r 's/[^ ]+/"&"/g'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>3、过滤</p>
+<p>案例1：对 1-4 行的 blp5 进行替换</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#对 1-4 行的 blp5 进行替换
+tail /etc/services | sed '1,4s/blp5/test/'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>案例2：指定匹配条件替换</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#指定存在 48129/tcp 的内容，替换blp5为test
+tail /etc/services | sed '/48129\/tcp/s/blp5/test/'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>案例3：注释匹配行后的多少行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 10 |sed '/5/,+3s/^/#/'
+#output
+1
+2
+3
+4
+#5
+#6
+#7
+#8
+9
+10<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>案例4：指定替换</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> seq 5 |sed -r 's/^3|^4/#&/'
+ seq 5 |sed -r '/^3|^4/s/^/#/'
+ seq 5 |sed -r 's/^3|^4/#\0/' 
+ # 以上三种表达式效果一样，
+ 1
+ 2
+ #3
+ #4
+ 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>4、连续替换</p>
+<pre class="line-numbers language-shell"><code class="language-shell">tail /etc/services |sed 's/blp5/test/;s/3g/4g/'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>5、正则分组精确替换</p>
+<p>字符如： <code>3gpp-cbsp 48049/tcp # 3GPP Cell Broadcast Service</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">tail /etc/services |sed -r 's/(.*) (.*)(#.*)/\1\2test \3/'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>注解： 可以对\1, \2, \3 进行删减，添加指定的内容</p>
+<ul>
+<li>\1 -&gt; 3gpp-cbsp</li>
+<li>\2 -&gt; 48049/tcp</li>
+<li>\3 -&gt; # 3GPP Cell Broadcast Service</li>
+</ul>
+<p>案例2: 协议和端口互换</p>
+<pre class="line-numbers language-shell"><code class="language-shell">tail /etc/services |sed -r 's/(.*)(\<[0-9]+\>)\/(tcp|udp)(.*)/\1\3\/\2\4/'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></[0-9]+\></code></pre>
+<p>案例3：位置替换 -&gt;替换 x 字符为大写：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">echo "abc cde xyz" |sed -r 's/(.*)x/\1X/'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>案例4：位置替换-&gt; 456 与 cde 调换</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> echo "abc:cde;123:456" |sed -r 's/([^:]+)(;.*:)([^:]+$)/\3\2\1/'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>案例5：去除开头和结尾空格或制表符</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> echo " 1 2 3 " |sed 's/^[ \t]*//;s/[ \t]*$//'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="4-多重编辑与添加"><a href="#4-多重编辑与添加" class="headerlink" title="4) 多重编辑与添加"></a>4) 多重编辑与添加</h4><p>案例1：删除1,2行，并替换</p>
+<pre class="line-numbers language-shell"><code class="language-shell">tail /etc/services |sed -e '1,2d' -e 's/blp5/test/'
+#可以用；隔开
+tail /etc/services |sed '1,2d;s/blp5/test/'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>案例2：<strong>添加新内容（a、i 和 c）</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">#在 blp5 上一行添加 test
+tail /etc/services |sed '/blp5/i \test'
+#在 blp5 下一行添加 test
+tail /etc/services |sed '/blp5/a \test'
+#blp5所在行整行替换
+tail /etc/services |sed '/blp5/c \test'
+#指定行下一行添加内容
+tail /etc/services |sed '2a \test'
+# 在指定行前面和后面添加一行
+seq 5 |sed '3s/.*/txt\n&/'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>案例3：读取文件并追加到匹配行后（r）</p>
+<pre class="line-numbers language-shell"><code class="language-shell">tail /etc/services |sed '/blp5/r a.txt'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>案例3：将匹配行写到文件（w）</p>
+<pre class="line-numbers language-shell"><code class="language-shell">tail /etc/services |sed '/blp5/w b.txt'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="5）读取下一行（n-和-N）"><a href="#5）读取下一行（n-和-N）" class="headerlink" title="5）读取下一行（n 和 N）"></a>5）读取下一行（n 和 N）</h4><ul>
+<li><p>n 读取下一行到模式空间。</p>
+</li>
+<li><p>N <code>追加</code>下一行内容到模式空间，并以换行符\n 分隔。</p>
+</li>
+</ul>
+<p>1、 打印匹配的下一行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 5 |sed -n '/3/{n;p}'
+#output
+4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>2、打印偶数</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed -n 'n;p'
+#output
+2
+4
+6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>sed 先读取第一行 1，执行 n 命令，获取下一行 2，此时模式空间是 2，执行 p 命令，打印模式空</p>
+<p>间。 现在模式空间是 2，sed 再读取 3，执行 n 命令，获取下一行 4，此时模式空间为 4，执行 p 命</p>
+<p>令，以此类推。</p>
+</blockquote>
+<p>习题：打印奇数</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed 'n;d'
+#output
+1
+3
+5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>sed 先读取第一行 1，此时模式空间是 1，并打印模式空间 1，执行 n 命令，获取下一行 2，执行 d</p>
+<p>命令，删除模式空间的 2，sed 再读取 3，此时模式空间是 3，并打印模式空间，再执行 n 命令，获</p>
+<p>取下一行 4，执行 d 命令，删除模式空间的 3，以此类推。</p>
+</blockquote>
+<p>3、每三行执行一次 p 命令</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 | sed 'n;n;p'
+1
+2
+3
+3
+4
+5
+6
+6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意：</p>
+<ul>
+<li>sed 先读取1行</li>
+<li>n 读取下一行</li>
+</ul>
+<blockquote>
+<p>sed 先读取第一行 1，并打印模式空间 1，执行 n 命令，获取下一行 2，并打印模式空间 2，再执行 n</p>
+<p>命令，获取下一行 3，执行 p 命令，打印模式空间 3。sed 读取下一行 3，并打印模式空间 3,以此类</p>
+<p>推。</p>
+</blockquote>
+<p>4、每三行替换一次</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed 'n;n;s/^/=/;s/$/=/'
+seq 6 |sed '3~3{s/^/=/;s/$/=/}'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p> N 命令的相关功能</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed 'N;q'
+#合并两行
+seq 6 |sed 'N;s/\n//'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>1、奇数行数读取问题</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># seq 5 |sed -n N;p
+1
+2
+3
+4
+# seq 6 |sed -n 'N;p'
+1
+2
+3
+4
+5
+6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>为什么第一个不打印 5 呢？</p>
+<p>因为 N 命令是读取下一行追加到 sed 读取的当前行，当 N 读取下一行没有内容时，则退出，也不会</p>
+<p>执行 p 命令打印当前行。</p>
+<p>当行数为偶数时，N 始终就能读到下一行，所以也会执行 p 命令。</p>
+</blockquote>
+<p>处理方案：打印奇数行数时的最后一行</p>
+<pre class="line-numbers language-shell"><code class="language-shell"> seq 5 |sed -n '$!N;p'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>sed 执行到最后一行时，用感叹号不去执行 N 命令</p>
+<h4 id="6-打印和删除模式空间第一行（P-和-D）"><a href="#6-打印和删除模式空间第一行（P-和-D）" class="headerlink" title="6) 打印和删除模式空间第一行（P 和 D）"></a>6) 打印和删除模式空间第一行（P 和 D）</h4><ul>
+<li><p>P 打印模式空间的第一行。</p>
+</li>
+<li><p>D 删除模式空间的第一行。</p>
+</li>
+</ul>
+<p>1、 打印奇数</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed -n 'N;P'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>2、保留最后一行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed 'N;D'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>读取第一行 1，执行 N 命令读取下一行并追加到模式空间，此时模式空间是 1\n2，执行 D 命令删除</p>
+<p>模式空间第一行 1，剩余 2。</p>
+<p>读取第二行，执行 N 命令，此时模式空间是 3\n4，执行 D 命令删除模式空间第一行 3，剩余 4。</p>
+<p>以此类推，读取最后一行打印时，而 N 获取不到下一行则退出，不再执行 D，因此模式空间只剩余 6</p>
+<p>就打印。</p>
+</blockquote>
+<h4 id="7-保持空间操作（h-与-H、g-与-G-和-x）"><a href="#7-保持空间操作（h-与-H、g-与-G-和-x）" class="headerlink" title="7) 保持空间操作（h 与 H、g 与 G 和 x）"></a>7) 保持空间操作（h 与 H、g 与 G 和 x）</h4><ul>
+<li><p>h 复制模式空间内容到保持空间（覆盖）。</p>
+</li>
+<li><p>H 复制模式空间内容追加到保持空间。</p>
+</li>
+<li><p>g 复制保持空间内容到模式空间（覆盖）。</p>
+</li>
+<li><p>G 复制保持空间内容追加到模式空间。</p>
+</li>
+</ul>
+<p>1、 匹配内容的暂存和输出</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed -e '/3/{h;d}' -e '/5/g'
+#output
+1
+2
+4
+3
+6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2、将匹配的内容放到最后</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed -e '/3/{h;d}' -e '$G'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>3、交换模式空间和保持空间</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed -e '/3/{h;d}' -e '/5/x' -e '$G'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>解读</p>
+<blockquote>
+<p>看后面命令，在模式空间匹配 5 并将保持空间的 3 与 5 交换，5 就变成了 3,。最后把保持空间的 5</p>
+<p>追加到模式空间的。</p>
+</blockquote>
+<p>4、倒叙输出 【难点】</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 5 |sed '1!G;h;$!d'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>分析： 1!G 第一行不执行把保持空间内容追加到模式空间，因为现在保持空间还没有数据。</p>
+<p>h 将模式空间放到保持空间暂存。</p>
+<p>$!d 最后一行不执行删除模式空间的内容。</p>
+<p>读取第一行 1 时，跳过 G 命令，执行 h 命令将模式空间 1 复制到保持空间，执行 d 命令删除模式空</p>
+<p>间的 1。</p>
+<p>读取第二行 2 时，模式空间是 2，执行 G 命令，将保持空间 1 追加到模式空间，此时模式空间是</p>
+<p>2\n1，执行 h 命令将 2\n1 覆盖到保持空间，d 删除模式空间。</p>
+<p>读取第三行 3 时，模式空间是 3，执行 G 命令，将保持空间 2\n1 追加到模式空间，此时模式空间是</p>
+<p>3\n2\n1，执行 h 命令将模式空间内容复制到保持空间，d 删除模式空间。</p>
+<p>以此类推读到第 行时模式空间是 执行 命令将保持空间的 追加模式空间</p>
+<p>以此类推，读到第 5 行时，模式空间是 5，执行 G 命令，将保持空间的 4\n3\n2\n1 追加模式空间，</p>
+<p>然后复制到模式空间，5\n4\n3\n2\n1，不执行 d，模式空间保留，输出。</p>
+<p>由此可见，每次读取的行先放到模式空间，再复制到保持空间，d 命令删除模式空间内容，防止输</p>
+<p>出，再追加到模式空间，因为追加到模式空间，会追加到新读取的一行的后面，循环这样操作， 就</p>
+<p>把所有行一行行追加到新读取行的后面，就形成了倒叙。</p>
+</blockquote>
+<p>5、 每行后面添加新空行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 10 |sed G<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>6、打印匹配行的上一行内容</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 5 |sed -n '/3/{x;p};h'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>解析：</p>
+<p>读取第一行 1，没有匹配到 3，不执行{x;p}，执行 h 命令将模式空间内容 1 覆盖到保持空间。</p>
+<p>读取第二行 2，没有匹配到 3，不执行{x;p}，执行 h 命令将模式空间内容 2 覆盖到保持空间。</p>
+<p>读取第三行 3，匹配到 3，执行 x 命令把模式空间 3 与保持空间 2 交换，再执行 p 打印模式空间 2.</p>
+<p>以此类推。</p>
+</blockquote>
+<ul>
+<li>注意 <code>/3/{x;p}</code> <code>h</code> 是并行的</li>
+</ul>
+<h4 id="8-标签（-、b-和-t）"><a href="#8-标签（-、b-和-t）" class="headerlink" title="8) 标签（:、b 和 t）"></a>8) 标签（:、b 和 t）</h4><p>标签可以控制流，实现分支判断。</p>
+<p>: lable name 定义标签</p>
+<ul>
+<li>b lable 跳转到指定标签，如果没有标签则到脚本末尾</li>
+<li>t lable 跳转到指定标签，前提是 s///命令执行成功</li>
+</ul>
+<p>案例1：将换行符替换成逗号</p>
+<p>方法一：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed ':a;N;s/\n/,/;b a'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>行 1，N 命令读取下行 2，此时模式空间是 1\n2$，执行替换，此时模式空间是</p>
+<p>1,2$，执行 b 命令再跳转到标签 a 位置继续执行 N 命令，读取下一行 3 追加到模式空间，此时模式</p>
+<p>空间是 1,2\n3$，再替换，以此类推，不断追加替换，直到最后一行 N 读不到下一行内容退出。</p>
+</blockquote>
+<p>方法二</p>
+<pre class="line-numbers language-shell"><code class="language-shell">seq 6 |sed ':a;N;$!b a;s/\n/,/g'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>先将每行读入到模式空间，最后再执行全局替换。$!是如果是最后一行，则不执行 b a 跳转，最后</p>
+<p>执行全局替换。</p>
+</blockquote>
+<p>案例2： 每三个数字加个一个逗号</p>
+<pre class="line-numbers language-shell"><code class="language-shell">echo "123456789" | sed -r ':a;s/([0-9]{3})([0-9]{3})/\1,\2/;t a'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>案例3 忽略大小写</p>
+<h4 id="9-y-指定转化"><a href="#9-y-指定转化" class="headerlink" title="9) y 指定转化"></a>9) y 指定转化</h4><blockquote>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">echo "northwest" | sed 'y/north/cARTc/'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="12-4-3-awk"><a href="#12-4-3-awk" class="headerlink" title="12.4.3 awk"></a>12.4.3 awk</h3><blockquote>
+<p>是一个处理文本的编程语言工具，能用简短的程序处理标准输入或文件、数据排序、计算以及</p>
+<p>生成报表等等</p>
+</blockquote>
+<h3 id="12-4-5-综合案例"><a href="#12-4-5-综合案例" class="headerlink" title="12.4.5 综合案例"></a>12.4.5 综合案例</h3><p>1、循环替换端口号</p>
+<pre class="line-numbers language-shell"><code class="language-shell">port=7006
+while [[ "$port" -gt 7000 ]]
+do
+        mkdir -p /var/redis/"$port"
+        cp ./6379.conf ./"$port".conf
+        sed -i ``s/__port__/"$port"/g`` `grep __port__ -rl ./$port.conf`
+        echo "port = $port"
+        port=$(($port -1 ))
+done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="12-5-远程"><a href="#12-5-远程" class="headerlink" title="12. 5 远程"></a>12. 5 远程</h2><h3 id="12-5-1-远程拷贝"><a href="#12-5-1-远程拷贝" class="headerlink" title="12.5.1 远程拷贝"></a>12.5.1 远程拷贝</h3><p>1、拷贝远程机器<code>文件夹</code>到本地</p>
+<pre class="line-numbers language-shell"><code class="language-shell">scp -r jiangzhaowei@211.154.138.107:/kk/ ./
+scp  jiangzhaowei@211.154.138.107:/kk/my.sql  ./<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://www.cnblogs.com/peida/tag/%E6%AF%8F%E6%97%A5%E4%B8%80linux%E5%91%BD%E4%BB%A4/default.html?page=1" target="_blank" rel="noopener">每日一linux命令</a></li>
+</ul>
+<h1 id="第十五章、例行性工作排程（crontab）"><a href="#第十五章、例行性工作排程（crontab）" class="headerlink" title="第十五章、例行性工作排程（crontab）"></a>第十五章、例行性工作排程（crontab）</h1><h2 id="仅执行一次的工作排程"><a href="#仅执行一次的工作排程" class="headerlink" title="仅执行一次的工作排程"></a>仅执行一次的工作排程</h2><h2 id="循环执行的例行性工作排程"><a href="#循环执行的例行性工作排程" class="headerlink" title="循环执行的例行性工作排程"></a>循环执行的例行性工作排程</h2><h2 id="可唤醒停机间工作的排程"><a href="#可唤醒停机间工作的排程" class="headerlink" title="可唤醒停机间工作的排程"></a>可唤醒停机间工作的排程</h2><h1 id="第二十章、基础系统设定与备份策略"><a href="#第二十章、基础系统设定与备份策略" class="headerlink" title="第二十章、基础系统设定与备份策略"></a>第二十章、基础系统设定与备份策略</h1><h2 id="20-1-系统基本设定"><a href="#20-1-系统基本设定" class="headerlink" title="20.1 系统基本设定"></a>20.1 系统基本设定</h2><h3 id="20-1-1-网络设置"><a href="#20-1-1-网络设置" class="headerlink" title="20.1.1 网络设置"></a>20.1.1 网络设置</h3><h4 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h4><pre class="line-numbers language-shell"><code class="language-shell">#hosts地址
+/etc/hosts<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="nmcli"><a href="#nmcli" class="headerlink" title="nmcli"></a>nmcli</h4><blockquote>
+<p>全称是”NetworkManage CommandLine Interface”</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">#1. nmcli device show 查看网络配置简写
+nmcli d show 
+#2. nmcli connection show 查看网络状态的简写
+nmcli con show
+# 3 查看网络设备状态
+nmcli dev status 
+# 4. 查看网络状态
+nmcli dev status
+# 5.快速修改连接配置
+nmcli con mod “eth0” connection.autoconnect no
+nmcli con mod “eth0” ipv4.dns 172.16.0.1
+nmcli con mod “eth0” +ipv4.dns 8.8.8.8
+nmcli con mod “eth0” -ipv4.dns 8.8.8.8
+nmcli con mod “eth0” ipv4.addresses “172.25.X.10/24 172.25.X.254”
+nmcli con mod “eth0” +ipv4.addresses 10.10.10.10/16
+# 5.1 生效
+nmcli con reload
+#6 激活和禁用网卡
+nmcli con down “system eth0” 可被自动激活
+nmcli con up “system eth0”
+nmcli dev dis eth0 禁用网卡，访止被自动激活<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意：如果出现<code>Error: NetworkManager is not running.</code> 重启network service <code>sudo /etc/init.d/network-manager restart</code>  修改完成后禁止NetworkMananger <code>systemctl disable NetworkManager</code></p>
+<p>1） <strong>手动设定 IP 网络参数</strong></p>
+<ol>
+<li><p>查看指定网卡状态 <code>nmcli con show eth0</code>, 重要参数</p>
+<pre class="line-numbers language-shell"><code class="language-shell">connection.autoconnect [yes|no]  ：是否于开机时启动这个联机，预设通常是  yes  才对！
+ipv4.method [auto|manual]  ：自动还是手动设定网络参数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre><code></code></pre></li>
+<li><p>设置网络参数 <code>nmcli con modify eth0</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@study ~]# nmcli con modify eth0 \ 
+>  connection.autoconnect yes \ 
+>  ipv4.method manual \ 
+>  ipv4.addresses 172.16.1.1/16 \ 
+>  ipv4.gateway 172.16.200.254 \ 
+>  ipv4.dns 172.16.200.254 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>生效 <code>nmcli con up eth0</code></p>
+</li>
+<li><p>验证是否生效 <code>nmcli con show eth0</code> </p>
+</li>
+</ol>
+<p><strong>网络会话配置快速实现IP地址等网络配置的变更</strong></p>
+<ol>
+<li><p>新增网络会话,<code>ens192</code>为 <code>nmcli con show</code>  name 栏目下的硬件，设置<code>interface-name</code>网络接口</p>
+<pre class="line-numbers language-shell"><code class="language-shell">nmcli con add con-name datacenter-daxing \
+ifname ens192 autoconnect no type ethernet \
+ip4 172.16.60.100/16 \
+gw4 172.16.0.1\
+ipv4.dns 202.101.172.35<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>开启会话 <code>nmcli con up datacenter-daxing</code></p>
+</li>
+<li><p>删除会话 <code>nmcli con del datacenter-daxing</code></p>
+</li>
+</ol>
+<hr>
+<h1 id="第二十一、章-软件安装"><a href="#第二十一、章-软件安装" class="headerlink" title="第二十一、章 软件安装"></a>第二十一、章 软件安装</h1><h2 id="常用软件安装"><a href="#常用软件安装" class="headerlink" title="常用软件安装"></a>常用软件安装</h2><ul>
+<li><p>软件管理工具</p>
+<p><a href="https://github.com/Linuxbrew/brew" target="_blank" rel="noopener">Homebrew for linux </a></p>
+</li>
+<li><p>编译工具</p>
+<ul>
+<li><p><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/01.1.md" target="_blank" rel="noopener">go 系统安装说明</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+source $HOME/.profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p><a href="https://blog.csdn.net/laomd/article/details/80710451" target="_blank" rel="noopener">Ubuntu使用snap安装常用软件</a></p>
+</li>
+</ul>
+<h3 id="VPN（翻墙）"><a href="#VPN（翻墙）" class="headerlink" title="VPN（翻墙）"></a>VPN（翻墙）</h3><h4 id="影梭"><a href="#影梭" class="headerlink" title="影梭"></a><strong>影梭</strong></h4><p><a href="http://shadowsocks.org/en/index.html" target="_blank" rel="noopener">Shadowsocks官网 有Client和Server下载，常用配置</a></p>
+<p>Chrome插件：<a href="http://okzhjyy82.bkt.clouddn.com/SwitchyOptions.bak" target="_blank" rel="noopener">SwitchyOptions.bak下载</a><br><strong>Ubuntu直接安装</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo add-apt-repository ppa:hzwhuang/ss-qt5
+sudo apt-get update
+sudo apt-get install shadowsocks-qt5
+ss-qt5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="软件配置及使用"><a href="#软件配置及使用" class="headerlink" title="软件配置及使用"></a>软件配置及使用</h2><h3 id="常用配置-1"><a href="#常用配置-1" class="headerlink" title="常用配置"></a>常用配置</h3><ol>
+<li><a href="http://www.linuxidc.com/Linux/2014-02/97349.htm" target="_blank" rel="noopener">Ubuntu下配置支持Windows访问的Samba共享</a></li>
+</ol>
+<h3 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h3><ul>
+<li><p>～/.vimrc</p>
+<ul>
+<li>hi Comment ctermfg =blue #蓝色注释</li>
+<li>git config –global core.editor vim</li>
+<li>中文乱码  set fencs=utf-8,GB18030,ucs-bom,default,latin1</li>
+<li>设置TAB<pre class="line-numbers language-shell"><code class="language-shell">set ts=4  (注：ts是tabstop的缩写，设TAB宽4个空格)
+set expandtab
+对于已保存的文件，可以使用下面的方法进行空格和TAB的替换：
+TAB替换为空格：
+:set ts=4
+:set expandtab
+:%retab!
+空格替换为TAB：
+:set ts=4
+:set noexpandtab
+:%retab!
+加!是用于处理非空白字符之后的TAB，即所有的TAB，若不加!，则只处理行首的TAB。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>常用命令</p>
+<blockquote>
+<p>vim  FileName  +LineNumber == vim + LineNumber Filename</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="问题解决记录"><a href="#问题解决记录" class="headerlink" title="问题解决记录"></a>问题解决记录</h2><h3 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h3><ol>
+<li>使用：<code>sudo apt-get install openvswitch-switch</code> 报错</li>
+</ol>
+<pre class="line-numbers language-shell"><code class="language-shell">E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)
+E: Unable to lock the administration directory (/var/lib/dpkg/), is another process using it?<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>解决：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li><p>ubuntu adb 安装<br>问题：adb devices: ?????? no permissions解决办法</p>
+<p><strong>lsusb</strong> ： 查看USB的连接状态</p>
+<pre class="line-numbers language-shell"><code class="language-shell">Bus 001 Device 003: ID 04f2:b5a7 Chicony Electronics Co., Ltd 
+Bus 001 Device 006: ID 05c6:9091 Qualcomm, Inc. 
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 003: ID 0e0f:0002 VMware, Inc. Virtual USB Hub
+Bus 002 Device 002: ID 0e0f:0003 VMware, Inc. Virtual Mouse
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>设置USB</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 编辑
+sudo echo '"SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0666", GROUP="plugdev""' >>  /etc/udev/rules.d/70-android.rules
+# 重启
+sudo chmod a+rx /etc/udev/rules.d/70-android.rules
+sudo service udev restart
+# adb 重启
+adb kill-server
+adb devices<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上没有下过的都无效果，查看硬件手动重启USB调试是否正常<br>参考： <a href="https://www.jianshu.com/p/82fcb8dd8486" target="_blank" rel="noopener">adb devices: ?????? no permissions解决办法</a></p>
+</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ul>
+<li><a href="https://blog.csdn.net/sxhong/article/details/78355341" target="_blank" rel="noopener">Centos国内下载源</a></li>
+<li><a href="https://blog.csdn.net/CSDN1887/article/details/81540311" target="_blank" rel="noopener">CentOS国内镜像-YUM源更新</a></li>
+</ul>
+<h2 id="日常解决问题"><a href="#日常解决问题" class="headerlink" title="日常解决问题"></a>日常解决问题</h2><ul>
+<li><p>设置影梭代理</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#1.临时方案
+export ALL_PROXY=socks5://127.0.0.1:1080
+#永久方案
+echo export ALL_PROXY=socks5://127.0.0.1:1080 >> ~/.bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>ubuntu 下 su: Authentication failure</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo passwd root
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>Linux termial shortcut</strong> 终端操作快捷键</p>
+<table>
+<thead>
+<tr>
+<th align="center">cmd</th>
+<th align="center">function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ctrl + a /&lt;-</td>
+<td align="center">move to line head</td>
+</tr>
+<tr>
+<td align="center">ctrl + e/-&gt;</td>
+<td align="center">move to line tail</td>
+</tr>
+<tr>
+<td align="center">ctrl + b /f</td>
+<td align="center">move back/front  a char</td>
+</tr>
+<tr>
+<td align="center">alt + b</td>
+<td align="center">move back a word</td>
+</tr>
+<tr>
+<td align="center">ctrl+w</td>
+<td align="center">delete a word before cursor</td>
+</tr>
+<tr>
+<td align="center">alt + d</td>
+<td align="center">delete a word after cursor</td>
+</tr>
+<tr>
+<td align="center">ctrl +k</td>
+<td align="center">delete all word after cursor</td>
+</tr>
+</tbody></table>
+<h2 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h2><h3 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h3><ul>
+<li><a href="http://www.cnblogs.com/stephen-liu74/archive/2011/12/20/2285454.html" target="_blank" rel="noopener"> </a><a href="http://www.cnblogs.com/stephen-liu74/archive/2011/12/20/2285454.html" target="_blank" rel="noopener">Linux shell 常用技巧系列教程</a> </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Basic/" rel="tag"># Basic</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/16/2019-9-16-circle-queue-LeetCode/" rel="next" title="设计循环队列-LeetCode">
+                <i class="fa fa-chevron-left"></i> 设计循环队列-LeetCode
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/12/2019-11-12-Android_Debug_Bridge/" rel="prev" title="Android Debug Bridge (ADB) 使用总结">
+                Android Debug Bridge (ADB) 使用总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/09/16/2019-3-23-linux-note/" data-title="Linux 菜鸟私房菜知识架构" data-url="http://linz.tech/2019/09/16/2019-3-23-linux-note/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章、Linux-的文件权限与目录配置"><span class="nav-number">1.</span> <span class="nav-text">第五章、Linux  的文件权限与目录配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">1.1.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#man-page"><span class="nav-number">1.2.</span> <span class="nav-text">man page</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限与配置"><span class="nav-number">1.3.</span> <span class="nav-text">文件权限与配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件与目录管理"><span class="nav-number">1.4.</span> <span class="nav-text">文件与目录管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cp-mv"><span class="nav-number">1.4.1.</span> <span class="nav-text">cp,mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件名与目录名称"><span class="nav-number">1.4.2.</span> <span class="nav-text">文件名与目录名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件内容查阅"><span class="nav-number">1.4.3.</span> <span class="nav-text">文件内容查阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件预设权限：umask"><span class="nav-number">1.4.4.</span> <span class="nav-text">文件预设权限：umask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件隐藏属性"><span class="nav-number">1.4.5.</span> <span class="nav-text">文件隐藏属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chattr"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">chattr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lsattr-显示文件隐藏属性"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">lsattr (显示文件隐藏属性)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件特殊权限："><span class="nav-number">1.4.6.</span> <span class="nav-text">文件特殊权限：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本文件名的搜寻"><span class="nav-number">1.5.</span> <span class="nav-text">脚本文件名的搜寻</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#which-寻找『执行档』"><span class="nav-number">1.5.1.</span> <span class="nav-text">which (寻找『执行档』)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#whereis-由一些特定的目录中寻找文件文件名"><span class="nav-number">1.5.2.</span> <span class="nav-text">whereis (由一些特定的目录中寻找文件文件名)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locate-updatedb"><span class="nav-number">1.5.3.</span> <span class="nav-text">locate / updatedb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">1.5.4.</span> <span class="nav-text">find</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第七章、Linux磁盘与文件系统"><span class="nav-number">2.</span> <span class="nav-text">第七章、Linux磁盘与文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EXT2-inode"><span class="nav-number">2.1.</span> <span class="nav-text">EXT2 inode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件系统的简单操作"><span class="nav-number">2.2.</span> <span class="nav-text">文件系统的简单操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘的分区、格式化、检验"><span class="nav-number">2.3.</span> <span class="nav-text">磁盘的分区、格式化、检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gdisk"><span class="nav-number">2.3.1.</span> <span class="nav-text">gdisk</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十二章、-学习Shell-Scripts"><span class="nav-number">3.</span> <span class="nav-text">第十二章、 学习Shell Scripts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-常用命令解析"><span class="nav-number">3.1.</span> <span class="nav-text">12.1 常用命令解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能监控"><span class="nav-number">3.1.1.</span> <span class="nav-text">性能监控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-2-常用应用场景解析"><span class="nav-number">3.2.</span> <span class="nav-text">12.2 常用应用场景解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-2-1-变量相关"><span class="nav-number">3.2.1.</span> <span class="nav-text">12.2.1 变量相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-条件判断"><span class="nav-number">3.3.</span> <span class="nav-text">12.3 条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-3-1-if-条件"><span class="nav-number">3.3.1.</span> <span class="nav-text">12.3.1 if 条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-3-2-while"><span class="nav-number">3.3.2.</span> <span class="nav-text">12.3.2 while</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-4-三剑客详解及案例"><span class="nav-number">3.4.</span> <span class="nav-text">12.4 三剑客详解及案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-1-grep"><span class="nav-number">3.4.1.</span> <span class="nav-text">12.4.1 grep</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）支持正则"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">1）支持正则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-输入输出控制"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">2) 输入输出控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-内容行控制"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">3) 内容行控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-2-sed"><span class="nav-number">3.4.2.</span> <span class="nav-text">12.4.2 sed</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）命令详解"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">1）命令详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）打印匹配"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">2）打印匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）替换"><span class="nav-number">3.4.2.3.</span> <span class="nav-text">3）替换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-多重编辑与添加"><span class="nav-number">3.4.2.4.</span> <span class="nav-text">4) 多重编辑与添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5）读取下一行（n-和-N）"><span class="nav-number">3.4.2.5.</span> <span class="nav-text">5）读取下一行（n 和 N）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-打印和删除模式空间第一行（P-和-D）"><span class="nav-number">3.4.2.6.</span> <span class="nav-text">6) 打印和删除模式空间第一行（P 和 D）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-保持空间操作（h-与-H、g-与-G-和-x）"><span class="nav-number">3.4.2.7.</span> <span class="nav-text">7) 保持空间操作（h 与 H、g 与 G 和 x）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-标签（-、b-和-t）"><span class="nav-number">3.4.2.8.</span> <span class="nav-text">8) 标签（:、b 和 t）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-y-指定转化"><span class="nav-number">3.4.2.9.</span> <span class="nav-text">9) y 指定转化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-3-awk"><span class="nav-number">3.4.3.</span> <span class="nav-text">12.4.3 awk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-5-综合案例"><span class="nav-number">3.4.4.</span> <span class="nav-text">12.4.5 综合案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-5-远程"><span class="nav-number">3.5.</span> <span class="nav-text">12. 5 远程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-5-1-远程拷贝"><span class="nav-number">3.5.1.</span> <span class="nav-text">12.5.1 远程拷贝</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.6.</span> <span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十五章、例行性工作排程（crontab）"><span class="nav-number">4.</span> <span class="nav-text">第十五章、例行性工作排程（crontab）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#仅执行一次的工作排程"><span class="nav-number">4.1.</span> <span class="nav-text">仅执行一次的工作排程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环执行的例行性工作排程"><span class="nav-number">4.2.</span> <span class="nav-text">循环执行的例行性工作排程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可唤醒停机间工作的排程"><span class="nav-number">4.3.</span> <span class="nav-text">可唤醒停机间工作的排程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二十章、基础系统设定与备份策略"><span class="nav-number">5.</span> <span class="nav-text">第二十章、基础系统设定与备份策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#20-1-系统基本设定"><span class="nav-number">5.1.</span> <span class="nav-text">20.1 系统基本设定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#20-1-1-网络设置"><span class="nav-number">5.1.1.</span> <span class="nav-text">20.1.1 网络设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用配置"><span class="nav-number">5.1.1.1.</span> <span class="nav-text">常用配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nmcli"><span class="nav-number">5.1.1.2.</span> <span class="nav-text">nmcli</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二十一、章-软件安装"><span class="nav-number">6.</span> <span class="nav-text">第二十一、章 软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用软件安装"><span class="nav-number">6.1.</span> <span class="nav-text">常用软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN（翻墙）"><span class="nav-number">6.1.1.</span> <span class="nav-text">VPN（翻墙）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#影梭"><span class="nav-number">6.1.1.1.</span> <span class="nav-text">影梭</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件配置及使用"><span class="nav-number">6.2.</span> <span class="nav-text">软件配置及使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用配置-1"><span class="nav-number">6.2.1.</span> <span class="nav-text">常用配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim"><span class="nav-number">6.2.2.</span> <span class="nav-text">vim</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解决记录"><span class="nav-number">6.3.</span> <span class="nav-text">问题解决记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#软件安装"><span class="nav-number">6.3.1.</span> <span class="nav-text">软件安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#日常解决问题"><span class="nav-number">7.1.</span> <span class="nav-text">日常解决问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">7.2.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习资料"><span class="nav-number">7.3.</span> <span class="nav-text">学习资料</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#博客"><span class="nav-number">7.3.1.</span> <span class="nav-text">博客</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
