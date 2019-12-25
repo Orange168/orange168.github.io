@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="经验,Arouter,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第1节 组件化原因 抽离出常用的公共模块，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性： 抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。 抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。 把功能模块放入内部版本仓库，使代码更简洁，各版本修改bug追踪">
+<meta name="keywords" content="经验,Arouter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里巴巴arouter组件化总结">
+<meta property="og:url" content="http://linz.tech/2019/12/25/2019-12-25-阿里巴巴arouter组件化总结/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="第1节 组件化原因 抽离出常用的公共模块，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性： 抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。 抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。 把功能模块放入内部版本仓库，使代码更简洁，各版本修改bug追踪">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-25T06:47:53.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阿里巴巴arouter组件化总结">
+<meta name="twitter:description" content="第1节 组件化原因 抽离出常用的公共模块，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性： 抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。 抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。 把功能模块放入内部版本仓库，使代码更简洁，各版本修改bug追踪">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/12/25/2019-12-25-阿里巴巴arouter组件化总结/">
+
+
+
+
+
+  <title>阿里巴巴arouter组件化总结 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/12/25/2019-12-25-阿里巴巴arouter组件化总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">阿里巴巴arouter组件化总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T14:40:59+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/25/2019-12-25-阿里巴巴arouter组件化总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/12/25/2019-12-25-阿里巴巴arouter组件化总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第1节-组件化原因"><a href="#第1节-组件化原因" class="headerlink" title="第1节 组件化原因"></a>第1节 组件化原因</h1><ol>
+<li><strong>抽离出常用的公共模块</strong>，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性：<ol>
+<li>抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。</li>
+<li>抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。</li>
+<li>把功能模块放入内部版本仓库，使代码更简洁，各版本修改bug追踪有日志可查，使代码更健壮。</li>
+</ol>
+</li>
+<li><strong>各业务模块间解耦</strong><ol>
+<li>能达到各模块组合快速完成一个App，现实开发场景中，一个公司很多项目并行开发，其实很多业务模块是可以共用的。</li>
+<li>能动态替换某一模块；</li>
+</ol>
+</li>
+<li><strong>页面跳转，服务调用URL化</strong>，更切合hybird和多端开发的场景，如<ol>
+<li>由于路径化Web和原生界面相互跳转会很方便；</li>
+<li>Web调用Android\IOS原生页面统一化提高开发效率;</li>
+<li>通过动态加载路由，能实现动态化路由这种黑科技；</li>
+</ol>
+</li>
+<li>路由跳转监听和拦截<ol>
+<li>通过路由拦截的功能，可以在很轻松的实现权限分组，权限细分及权限动态配置；</li>
+<li>通过路由监听可以把一些埋点统一放到jiant</li>
+</ol>
+</li>
+<li>路由降级寻址 <ol>
+<li>处理寻址异常降级寻址的问题；</li>
+<li>在原生页面崩溃异常时，可以通过动态路由表，<font color="red">拦截原生路由跳转到H5</font>;</li>
+</ol>
+</li>
+</ol>
+<h1 id="第2节-组件化须考虑的问题"><a href="#第2节-组件化须考虑的问题" class="headerlink" title="第2节 组件化须考虑的问题"></a>第2节 组件化须考虑的问题</h1><ol>
+<li><p>组件化之间的通信；</p>
+</li>
+<li><p>组件生命周期管理(模块能处理Application的生命周期)；</p>
+</li>
+<li><p>混合开发，网页端跳转到Android 和IOS统一跳转参数；</p>
+<blockquote>
+<p><font color="red"> 注意：实践心得体会，统一参数必须用String类型</font></p>
+<p>举个栗子：</p>
+<p>用Html 传递json格式的5.0参数{“key”:5.0}， JavaScript语法会自动把5.0变成5也就是， double 变成 int，如果Android 和IOS有做类型区分就会传参失败,Android经典场景如下：</p>
+<pre class="line-numbers language-java"><code class="language-java">intent<span class="token punctuation">.</span><span class="token function">getIntExtra</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+intent<span class="token punctuation">.</span><span class="token function">getDoubleExtra</span><span class="token punctuation">(</span><span class="token punctuation">)</span>；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>然后本来是逻辑走double的没有走。</p>
+<p>第二栗子：<br><font color="red">json数据中false 和true 专递也最好用”1”和”0”代替</font><br>跟IOS同事讨论了很久，IOS Oject-C 处理true和false的机制和Android 不同<br><strong>故为了防止不同编程语言中处理方式不同尽量使用字符会少很多麻烦</strong></p>
+</blockquote>
+</li>
+<li><p>统一各模块依赖版本库</p>
+</li>
+<li><p>混淆文件管理</p>
+</li>
+</ol>
+<h1 id="第3节-ARouter使用"><a href="#第3节-ARouter使用" class="headerlink" title="第3节 ARouter使用"></a>第3节 ARouter使用</h1><h2 id="3-1-初始化配置"><a href="#3-1-初始化配置" class="headerlink" title="3.1 初始化配置"></a>3.1 初始化配置</h2><p>第一步：build.gradle(project) 设置 使用gradle插件自动化注册</p>
+<pre class="line-numbers language-gradle"><code class="language-gradle"> classpath "com.alibaba:arouter-register:$arouter_register_version" //1.0.2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>gradle.properties</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">arouter_register_version<span class="token operator">=</span><span class="token number">1.0</span><span class="token operator">.</span><span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第二步：新建lib_base 模块存放各子模块公用类，如路由表</p>
+<p><code>libs_base</code> build.gradle 配置</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">apply plugin<span class="token punctuation">:</span> <span class="token string">'com.alibaba.arouter'</span>
+
+android <span class="token punctuation">{</span>
+   defaultConfig <span class="token punctuation">{</span>
+          javaCompileOptions <span class="token punctuation">{</span>
+            annotationProcessorOptions <span class="token punctuation">{</span>
+                arguments <span class="token operator">=</span> <span class="token punctuation">[</span>AROUTER_MODULE_NAME<span class="token punctuation">:</span> project<span class="token operator">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    compileOptions <span class="token punctuation">{</span>
+        sourceCompatibility <span class="token operator">=</span> <span class="token string">'1.8'</span>
+        targetCompatibility <span class="token operator">=</span> <span class="token string">'1.8'</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+dependencies <span class="token punctuation">{</span>
+    implementation <span class="token function">fileTree</span><span class="token punctuation">(</span>dir<span class="token punctuation">:</span> <span class="token string">'libs'</span><span class="token punctuation">,</span> include<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'*.jar'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">//可以定义一个公共资源模块，用于各模块资源共享</span>
+    implementation <span class="token function">project</span><span class="token punctuation">(</span><span class="token string">':lib_resource'</span><span class="token punctuation">)</span>
+    <span class="token function">api</span> <span class="token punctuation">(</span><span class="token string">'com.alibaba:arouter-api:1.4.1'</span><span class="token punctuation">)</span>
+    annotationProcessor <span class="token string">'com.alibaba:arouter-compiler:1.2.2'</span>
+
+    <span class="token comment" spellcheck="true">//json解析框架</span>
+    api <span class="token string">'com.google.code.gson:gson:2.8.2'</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步： 子模块build.gradle 配置</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">apply plugin<span class="token punctuation">:</span> <span class="token string">'com.alibaba.arouter'</span> <span class="token comment" spellcheck="true">//ARouter 路径注册优化</span>
+android <span class="token punctuation">{</span>
+   defaultConfig <span class="token punctuation">{</span>
+          javaCompileOptions <span class="token punctuation">{</span>
+            annotationProcessorOptions <span class="token punctuation">{</span>
+                arguments <span class="token operator">=</span> <span class="token punctuation">[</span>AROUTER_MODULE_NAME<span class="token punctuation">:</span> project<span class="token operator">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    compileOptions <span class="token punctuation">{</span>
+        sourceCompatibility <span class="token operator">=</span> <span class="token string">'1.8'</span>
+        targetCompatibility <span class="token operator">=</span> <span class="token string">'1.8'</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+dependencies<span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">//必须使用注解，自动生成路由</span>
+  annotationProcessor <span class="token string">'com.alibaba:arouter-compiler:1.2.2'</span>
+  <span class="token comment" spellcheck="true">//引用父模块，用于共享类存放</span>
+  implementation <span class="token function">project</span><span class="token punctuation">(</span><span class="token string">':lib_base'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：让组件自动运行</p>
+<p>Build.gradle </p>
+<pre class="line-numbers language-groovy"><code class="language-groovy"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isNeedMeModule<span class="token operator">.</span><span class="token function">toBoolean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    apply plugin<span class="token punctuation">:</span> <span class="token string">'com.android.application'</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    apply plugin<span class="token punctuation">:</span> <span class="token string">'com.android.library'</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>gradle.properties</code></p>
+<pre class="line-numbers language-java"><code class="language-java">isNeedMeModule<span class="token operator">=</span><span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第四步：壳工程配置</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isNeedMeModule<span class="token operator">.</span><span class="token function">toBoolean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  compile <span class="token function">project</span><span class="token punctuation">(</span><span class="token string">":module_home"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>第五步： 初始化</p>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token keyword">if</span> <span class="token punctuation">(</span>BuildConfig<span class="token punctuation">.</span>DEBUG<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ARouter<span class="token punctuation">.</span><span class="token function">openDebug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ARouter<span class="token punctuation">.</span><span class="token function">openLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+  ARouter<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>子模块引用<code>gradle.properties</code></p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">isNeedMeModule<span class="token operator">=</span><span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="3-2-高阶使用"><a href="#3-2-高阶使用" class="headerlink" title="3.2 高阶使用"></a>3.2 高阶使用</h2><h3 id="1-模块间调用"><a href="#1-模块间调用" class="headerlink" title="1. 模块间调用"></a>1. 模块间调用</h3><p>第一步： lib_base 模块定义接口</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IHelloModuleService</span> <span class="token keyword">extends</span> <span class="token class-name">IProvider</span> <span class="token punctuation">{</span>
+    String <span class="token function">getUserName</span><span class="token punctuation">(</span>String usrID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>第二步：子模块实现接口</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Route</span><span class="token punctuation">(</span>path <span class="token operator">=</span> Router<span class="token punctuation">.</span>SERVICE_HELLO<span class="token punctuation">,</span>name <span class="token operator">=</span> <span class="token string">"测试服务"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">IHelloModuleService</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">getUserName</span><span class="token punctuation">(</span>String usrID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Test provider"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span>Context context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：调用其他模块提供的接口</p>
+<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">getUserName</span><span class="token punctuation">(</span>String userId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        IHelloModuleService chatModuleService <span class="token operator">=</span> ARouterHelper<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">navigation</span><span class="token punctuation">(</span>IHelloModuleService<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>chatModuleService <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> chatModuleService<span class="token punctuation">.</span><span class="token function">getUserName</span><span class="token punctuation">(</span>userId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-全局分组拦截"><a href="#2-全局分组拦截" class="headerlink" title="2. 全局分组拦截"></a>2. 全局分组拦截</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Interceptor</span><span class="token punctuation">(</span>priority <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>name <span class="token operator">=</span> <span class="token string">"全局分组拦截"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalDefaultInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">IInterceptor</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">process</span><span class="token punctuation">(</span>Postcard postcard<span class="token punctuation">,</span> InterceptorCallback callback<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token comment" spellcheck="true">//        获取当前组</span>
+<span class="token comment" spellcheck="true">//        postcard.getGroup()</span>
+<span class="token comment" spellcheck="true">//        直接执行</span>
+<span class="token comment" spellcheck="true">//        callback.onContinue(postcard);</span>
+<span class="token comment" spellcheck="true">//        onLost</span>
+<span class="token comment" spellcheck="true">//        callback.onInterrupt(null);</span>
+        callback<span class="token punctuation">.</span><span class="token function">onContinue</span><span class="token punctuation">(</span>postcard<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span>Context context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-降级处理"><a href="#3-降级处理" class="headerlink" title="3. 降级处理"></a>3. 降级处理</h3><blockquote>
+<p>注意： path 必须有值否则，安装Arouter的架构无法实例化<code>GlobalDegradeServiceImpl</code></p>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Route</span><span class="token punctuation">(</span>path <span class="token operator">=</span> <span class="token string">"/root/degrade_service"</span><span class="token punctuation">,</span>name <span class="token operator">=</span> <span class="token string">"全局降级策略"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalDegradeServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">DegradeService</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String TAG <span class="token operator">=</span> <span class="token string">"GlobalDegradeServiceImp"</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onLost</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> Postcard postcard<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span>TAG<span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"Degrade path %s"</span><span class="token punctuation">,</span> postcard<span class="token punctuation">.</span><span class="token function">getPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span>Context context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-路径替换"><a href="#4-路径替换" class="headerlink" title="4. 路径替换"></a>4. 路径替换</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Route</span><span class="token punctuation">(</span>path <span class="token operator">=</span> <span class="token string">"/root/path_replace"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 必须标明注解</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PathReplaceServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">PathReplaceService</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 重写路径
+     * @param path raw path
+     * @return new path
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">forString</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> path<span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 按照一定的规则处理之后返回处理后的结果</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Uri <span class="token function">forUri</span><span class="token punctuation">(</span>Uri uri<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> uri<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span>Context context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="5-默认JavaBean序列化控制类"><a href="#5-默认JavaBean序列化控制类" class="headerlink" title="5. 默认JavaBean序列化控制类"></a>5. 默认JavaBean序列化控制类</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Route</span><span class="token punctuation">(</span>path <span class="token operator">=</span> <span class="token string">"/root/serialization_service"</span><span class="token punctuation">,</span>name <span class="token operator">=</span> <span class="token string">"默认JavaBean序列化控制类"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JsonServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">SerializationService</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> Gson gson <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> T <span class="token function">json2Object</span><span class="token punctuation">(</span>String input<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span>T<span class="token operator">></span> clazz<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> gson<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">object2Json</span><span class="token punctuation">(</span>Object instance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> gson<span class="token punctuation">.</span><span class="token function">toJson</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> T <span class="token function">parseObject</span><span class="token punctuation">(</span>String input<span class="token punctuation">,</span> Type clazz<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> gson<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span>Context context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="第4节-Arouter采坑记录"><a href="#第4节-Arouter采坑记录" class="headerlink" title="第4节 Arouter采坑记录"></a>第4节 Arouter采坑记录</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><font color="red" size="22">开源库遇到问题到issue里找</font></p>
+<p><font color="green" size="22">开源库遇到问题到issue里找</font> </p>
+<p><font size="22" color="grey">开源库遇到问题到issue里找</font></p>
+<h2 id="4-1-AutoWrite"><a href="#4-1-AutoWrite" class="headerlink" title="4.1 AutoWrite"></a>4.1 AutoWrite</h2><p>错误写法</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token keyword">int</span> type <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<blockquote>
+<p>:question:原因： 自动注入是不能用<code>private</code>关键字的</p>
+</blockquote>
+<h2 id="4-2-navigation"><a href="#4-2-navigation" class="headerlink" title="4.2 navigation"></a>4.2 navigation</h2><pre><code>navigation() vs navigation(Context)</code></pre><p>使用过ARouter的同学，有知道区别的吗？当然我也是被坑才知道，之前也扫了一遍源码，还是没有get关键点</p>
+<h2 id="4-3-finish-时机不对产生白屏"><a href="#4-3-finish-时机不对产生白屏" class="headerlink" title="4.3  finish 时机不对产生白屏"></a>4.3  finish 时机不对产生白屏</h2><h1 id="第5节-实战总结-ARouter封装类"><a href="#第5节-实战总结-ARouter封装类" class="headerlink" title="第5节 实战总结 ARouter封装类"></a>第5节 实战总结 ARouter封装类</h1><h2 id="Postcard-的包装类"><a href="#Postcard-的包装类" class="headerlink" title="Postcard 的包装类"></a>Postcard 的包装类</h2><blockquote>
+<p>因为Postcard 是区分类型的在改造的时候用</p>
+<ul>
+<li>Java的多态的言语特性能简化很多工作量</li>
+<li>可以在后期全局修改添加属性</li>
+</ul>
+</blockquote>
+<p>PostcardWrapper.java</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PostcardWrapper</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> Postcard mPostcard<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">PostcardWrapper</span><span class="token punctuation">(</span>Uri uri<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard <span class="token operator">=</span> ARouter<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>uri<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Postcard <span class="token function">getPostcard</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Bundle <span class="token function">getOptionsBundle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getOptionsBundle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getEnterAnim</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getEnterAnim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getExitAnim</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getExitAnim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> IProvider <span class="token function">getProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">setProvider</span><span class="token punctuation">(</span>IProvider provider<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">setProvider</span><span class="token punctuation">(</span>provider<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">PostcardWrapper</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mPostcard <span class="token operator">=</span> ARouter<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">PostcardWrapper</span><span class="token punctuation">(</span>String path<span class="token punctuation">,</span> String group<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Postcard</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> group<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">PostcardWrapper</span><span class="token punctuation">(</span>String path<span class="token punctuation">,</span> String group<span class="token punctuation">,</span> Uri uri<span class="token punctuation">,</span> Bundle bundle<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Postcard</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> group<span class="token punctuation">,</span> uri<span class="token punctuation">,</span> bundle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isGreenChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">isGreenChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Object <span class="token function">getTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">setTag</span><span class="token punctuation">(</span>Object tag<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">setTag</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getTimeout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getTimeout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">int</span> timeout<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">setTimeout</span><span class="token punctuation">(</span>timeout<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Uri <span class="token function">getUri</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getUri</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">setUri</span><span class="token punctuation">(</span>Uri uri<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">setUri</span><span class="token punctuation">(</span>uri<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">greenChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">greenChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Object <span class="token function">navigation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">navigation</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">public</span> Object <span class="token function">navigation</span><span class="token punctuation">(</span>Context context<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">navigation</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Object <span class="token function">navigation</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> NavigationCallback callback<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> ARouter<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">navigation</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> mPostcard<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">navigation</span><span class="token punctuation">(</span>Activity mContext<span class="token punctuation">,</span> <span class="token keyword">int</span> requestCode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">navigation</span><span class="token punctuation">(</span>mContext<span class="token punctuation">,</span> requestCode<span class="token punctuation">,</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">navigation</span><span class="token punctuation">(</span>Activity mContext<span class="token punctuation">,</span> <span class="token keyword">int</span> requestCode<span class="token punctuation">,</span> NavigationCallback callback<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ARouter<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">navigation</span><span class="token punctuation">(</span>mContext<span class="token punctuation">,</span> mPostcard<span class="token punctuation">,</span> requestCode<span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span>Bundle bundle<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>bundle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">withFlags</span><span class="token punctuation">(</span><span class="token keyword">int</span> flag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withFlags</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">addFlags</span><span class="token punctuation">(</span><span class="token keyword">int</span> flags<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mPostcard<span class="token punctuation">.</span><span class="token function">addFlags</span><span class="token punctuation">(</span>flags<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getFlags</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getFlags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> Object value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withObject</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> String value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withString</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token keyword">boolean</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withBoolean</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token keyword">short</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withShort</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withInt</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token keyword">long</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withLong</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token keyword">double</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withDouble</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token keyword">char</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withChar</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token keyword">float</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withFloat</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> CharSequence value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withCharSequence</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> Parcelable value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withParcelable</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> Parcelable<span class="token punctuation">[</span><span class="token punctuation">]</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withParcelableArray</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> SparseArray<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Parcelable</span><span class="token operator">></span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withSparseParcelableArray</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> Serializable value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withSerializable</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withByteArray</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> <span class="token keyword">short</span><span class="token punctuation">[</span><span class="token punctuation">]</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withShortArray</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withCharArray</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> <span class="token keyword">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withFloatArray</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> CharSequence<span class="token punctuation">[</span><span class="token punctuation">]</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withCharSequenceArray</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> Bundle value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withBundle</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 设置动画效果
+     * @param enterAnim 进入动画
+     * @param exitAnim 退出动画
+     * @return
+     */</span>
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token keyword">int</span> enterAnim<span class="token punctuation">,</span> <span class="token keyword">int</span> exitAnim<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withTransition</span><span class="token punctuation">(</span>enterAnim<span class="token punctuation">,</span> exitAnim<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">withTransition</span><span class="token punctuation">(</span><span class="token keyword">int</span> enterAnim<span class="token punctuation">,</span> <span class="token keyword">int</span> exitAnim<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withTransition</span><span class="token punctuation">(</span>enterAnim<span class="token punctuation">,</span> exitAnim<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 默认转换动画效果
+     * @return
+     */</span>
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">withDefaultTrans</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withTransition</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>anim<span class="token punctuation">.</span>anim_activity_slide_in_right<span class="token punctuation">,</span> R<span class="token punctuation">.</span>anim<span class="token punctuation">.</span>anim_activity_slide_out_left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@RequiresApi</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">withOptionsCompat</span><span class="token punctuation">(</span>ActivityOptionsCompat compat<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withOptionsCompat</span><span class="token punctuation">(</span>compat<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Set options compat
+     *
+     * @param compat compat
+     * @return this
+     */</span>
+    <span class="token annotation punctuation">@RequiresApi</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span>ActivityOptionsCompat compat<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withOptionsCompat</span><span class="token punctuation">(</span>compat<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"PostcardWrapper ==> s\ns"</span> <span class="token operator">+</span> mPostcard<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> mPostcard<span class="token punctuation">.</span><span class="token function">getAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">withAction</span><span class="token punctuation">(</span>String action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withAction</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span>String action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mPostcard<span class="token punctuation">.</span><span class="token function">withAction</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">with</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> ArrayList value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>value <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> value<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Object o <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                mPostcard<span class="token punctuation">.</span><span class="token function">withStringArrayList</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token keyword">instanceof</span> <span class="token class-name">CharSequence</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                mPostcard<span class="token punctuation">.</span><span class="token function">withCharSequenceArrayList</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token keyword">instanceof</span> <span class="token class-name">Integer</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                mPostcard<span class="token punctuation">.</span><span class="token function">withIntegerArrayList</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token keyword">instanceof</span> <span class="token class-name">Parcelable</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                mPostcard<span class="token punctuation">.</span><span class="token function">withParcelableArrayList</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ArouterHelper-帮助类"><a href="#ArouterHelper-帮助类" class="headerlink" title="ArouterHelper 帮助类"></a>ArouterHelper 帮助类</h2><p>ARouterHelper.java</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ARouterHelper</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token function">ARouterHelper</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">InstanceHolder</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// static 只执行一次，并严格保证按照顺序执行</span>
+        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> ARouterHelper instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ARouterHelper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> ARouterHelper <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> InstanceHolder<span class="token punctuation">.</span>instance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span>Application application<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>BuildConfig<span class="token punctuation">.</span>DEBUG<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ARouter<span class="token punctuation">.</span><span class="token function">openDebug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            ARouter<span class="token punctuation">.</span><span class="token function">openLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            ARouter<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        ARouter<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>application<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">inject</span><span class="token punctuation">(</span>Object thiz<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ARouter<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">inject</span><span class="token punctuation">(</span>thiz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * CMUBaseActivity CMUBaseFragment 两个base类重写 startActivity 默认跳转动画
+     * @param path
+     * @return
+     */</span>
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">build</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">build</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * @param path
+     * @param useDefaultTransition 使用 CMUBaseActivity CMUBaseFragment 配置的跳转方式
+     * @return
+     */</span>
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">build</span><span class="token punctuation">(</span>String path<span class="token punctuation">,</span> <span class="token keyword">boolean</span> useDefaultTransition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        PostcardWrapper postcardWrapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PostcardWrapper</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>useDefaultTransition<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            postcardWrapper<span class="token punctuation">.</span><span class="token function">withDefaultTrans</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> postcardWrapper<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 使用主题默认跳转动画
+     * @param path
+     * @return
+     */</span>
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">buildWithThemeAnim</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">PostcardWrapper</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment" spellcheck="true">/**
+     * 无动画转换
+     * @param path
+     * @return
+     */</span>
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">buildWithoutAnim</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">PostcardWrapper</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withTransition</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> PostcardWrapper <span class="token function">build</span><span class="token punctuation">(</span>Uri uri<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">PostcardWrapper</span><span class="token punctuation">(</span>uri<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> T <span class="token function">navigation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">T</span><span class="token operator">></span> service<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> ARouter<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">navigation</span><span class="token punctuation">(</span>service<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Object <span class="token function">navigation</span><span class="token punctuation">(</span>Context mContext<span class="token punctuation">,</span> PostcardWrapper postcard<span class="token punctuation">,</span> <span class="token keyword">int</span> requestCode<span class="token punctuation">,</span> NavigationCallback callback<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> ARouter<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">navigation</span><span class="token punctuation">(</span>mContext<span class="token punctuation">,</span> postcard<span class="token punctuation">.</span><span class="token function">getPostcard</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> requestCode<span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/huangxiaoguo1/article/details/78753555" target="_blank" rel="noopener">使用阿里ARouter路由实现组件化（模块化）开发流程</a></li>
+<li><a href="https://www.jianshu.com/p/d0f5cf304fa4" target="_blank" rel="noopener">Android组件化开发实践（一）：为什么要进行组件化开发？</a></li>
+<li><a href="https://www.jianshu.com/p/5c109c51d7ba" target="_blank" rel="noopener">组件化知识梳理(1) - Arouter 的基本使用</a></li>
+</ul>
+<h2 id="学到知识点"><a href="#学到知识点" class="headerlink" title="学到知识点"></a>学到知识点</h2><p><a href="https://www.jianshu.com/p/8962d6ba936e" target="_blank" rel="noopener">api与implementation的区别</a></p>
+<p>implementation   不分享自己的依赖，只有在runtime是其他模块的依赖才可见<br>api 分享自己的依赖，但是在其变化时，其他依赖需重新编译</p>
+<p> <a href="https://www.cnblogs.com/bluestorm/p/8747860.html" target="_blank" rel="noopener">Android Studio添加文件注释头模板？</a></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ *    @Author  ex-linzhi002
+ *    @Date    $date$ $time$
+ *    @Description   
+ *    @Version: 1.0
+ */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Arouter 源码</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Provide degrade service for router, you can do something when route has lost.
+ *
+ * @author Alex &lt;a href="mailto:zhilong.liu@aliyun.com">Contact me.&lt;/a>
+ * @version 1.0
+ * @since 2016/9/22 14:51
+ */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/经验/" rel="tag"># 经验</a>
+          
+            <a href="/tags/Arouter/" rel="tag"># Arouter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/22/2016-12-03-hexo-tutorial/" rel="next" title="Hexo Tutorial再整理">
+                <i class="fa fa-chevron-left"></i> Hexo Tutorial再整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/12/25/2019-12-25-阿里巴巴arouter组件化总结/" data-title="阿里巴巴arouter组件化总结" data-url="http://linz.tech/2019/12/25/2019-12-25-阿里巴巴arouter组件化总结/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1节-组件化原因"><span class="nav-number">1.</span> <span class="nav-text">第1节 组件化原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2节-组件化须考虑的问题"><span class="nav-number">2.</span> <span class="nav-text">第2节 组件化须考虑的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3节-ARouter使用"><span class="nav-number">3.</span> <span class="nav-text">第3节 ARouter使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-初始化配置"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 初始化配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-高阶使用"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 高阶使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-模块间调用"><span class="nav-number">3.2.1.</span> <span class="nav-text">1. 模块间调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-全局分组拦截"><span class="nav-number">3.2.2.</span> <span class="nav-text">2. 全局分组拦截</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-降级处理"><span class="nav-number">3.2.3.</span> <span class="nav-text">3. 降级处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-路径替换"><span class="nav-number">3.2.4.</span> <span class="nav-text">4. 路径替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-默认JavaBean序列化控制类"><span class="nav-number">3.2.5.</span> <span class="nav-text">5. 默认JavaBean序列化控制类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4节-Arouter采坑记录"><span class="nav-number">4.</span> <span class="nav-text">第4节 Arouter采坑记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">4.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-AutoWrite"><span class="nav-number">4.2.</span> <span class="nav-text">4.1 AutoWrite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-navigation"><span class="nav-number">4.3.</span> <span class="nav-text">4.2 navigation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-finish-时机不对产生白屏"><span class="nav-number">4.4.</span> <span class="nav-text">4.3  finish 时机不对产生白屏</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5节-实战总结-ARouter封装类"><span class="nav-number">5.</span> <span class="nav-text">第5节 实战总结 ARouter封装类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Postcard-的包装类"><span class="nav-number">5.1.</span> <span class="nav-text">Postcard 的包装类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArouterHelper-帮助类"><span class="nav-number">5.2.</span> <span class="nav-text">ArouterHelper 帮助类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学到知识点"><span class="nav-number">6.2.</span> <span class="nav-text">学到知识点</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
