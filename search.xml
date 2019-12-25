@@ -1,9 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>程序员怎么高效做笔记</title>
+    <url>/2019/12/25/2018-9-20-method-for-note/</url>
+    <content><![CDATA[<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#25分搞定-markdown">25分搞定 Markdown</a><ul>
+<li><a href="#怎么快速入门markdown">怎么快速入门Markdown</a></li>
+<li><a href="#markdown的进阶玩法">Markdown的进阶玩法</a></li>
+<li><a href="#markdown-管理api或者项目说明文档">Markdown 管理API或者项目说明文档</a></li>
+</ul>
+</li>
+<li><a href="#巧用evernote，做网页笔记">巧用EverNote，做网页笔记</a></li>
+<li><a href="#用gist-记录经典和常用的代码块">用Gist 记录经典和常用的代码块</a></li>
+<li><a href="#用编程常用studio做笔记工具">用编程常用Studio做笔记工具</a><ul>
+<li><a href="#模仿android-studio的todo的样式">模仿Android studio的todo的样式</a></li>
+</ul>
+</li>
+<li><a href="#工具推荐">工具推荐</a> </li>
+<li><a href="#参考">参考</a></li>
+</ul>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p align="center"><img src="http://cdn.linz.tech/android_note.jpg" alt="logo"></p>
+<p align="center">告诉你一个秘密<br>我刚知道程序员怎么高效做笔记</p>
+# 25分搞定 Markdown 
+[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-4WAfdnsD-1574090733242)(http://cdn.linz.tech/2018-09-19-22-33-07-Markdown.png)]
+
+<p>作为程序员不知道Markdown那你真的是Out了，用Markdow语法写博客笔记几个<code>##</code>就能把你的文章，用清晰的分级标题理清楚，不再是没有重点一团乱麻，轻松的解决代码块插入无格式的老大难问题，加上各种插件，轻松打造美观的文章。Markdown支持转换为常见的文件格式如：HTML,doc,PDF等；</p>
+<h2 id="怎么快速入门Markdown"><a href="#怎么快速入门Markdown" class="headerlink" title="怎么快速入门Markdown"></a>怎么快速入门Markdown</h2><p>其实Markdown常用的语法就几个，最快速的方法是用支持Markdown语法的编辑器试一次UI中提供各种语法，15分基本能搞定，1分钟回顾一下，任何用到的时候忘记了在看一下案例。<br>推荐资源有：</p>
+<ul>
+<li><a href="https://pandao.github.io/editor.md/examples/simple.html" target="_blank" rel="noopener">pandao 提供的在线案例如上图</a></li>
+<li>使用有道笔记本，新建Markdown笔记；</li>
+</ul>
+<h2 id="Markdown的进阶玩法"><a href="#Markdown的进阶玩法" class="headerlink" title="Markdown的进阶玩法"></a>Markdown的进阶玩法</h2><ul>
+<li>目前大部分的博客网站都支持Markdown语法，如CSDN，掘金，简书等可以注册，尝试一下进入Markdown的世界；</li>
+<li>Gitbook 把你的Markdown弄成书<ul>
+<li><a href="https://blog.csdn.net/feosun/article/details/72806825" target="_blank" rel="noopener">Gitbook安装与使用教程</a> </li>
+<li>国外最流行的相关网站<a href="https://www.gitbook.com/" target="_blank" rel="noopener">www.gitbook.com</a>，能找到用gitbook写的各种书籍；</li>
+</ul>
+</li>
+<li><a href="https://github.com/geekcompany/DeerResume" target="_blank" rel="noopener">MarkDown在线简历工具，可在线预览、编辑和生成PDF</a></li>
+<li><a href="http://xianbai.me/learn-md/article/convert/html.html" target="_blank" rel="noopener">Markdown 转换成Work，HTML，PDF格式</a></li>
+<li><a href="https://hexo.io/" target="_blank" rel="noopener">使用Hexo搭建自己的博客</a> 如果一切顺利半天就能搭好博客，遇到一些问题已天就能搞定；</li>
+</ul>
+<blockquote>
+<p>注意： </p>
+<ol>
+<li>虽然很多网站都支持Markdown，但是很多网站对Markdown做了深度定制，这会导致不同编辑器之间出现显示偏差，如包有道的Markdown文件拷贝到Hexo博客上经常出现格式混乱的问题；<font color="red">注意，不同编辑器检查一下文章格式</font></li>
+<li>图片尽量放在自己的云服务器上，以便以后迁移不会丢失，这里推荐七牛云为个人提供10G的免费储存；</li>
+</ol>
+</blockquote>
+<h2 id="Markdown-管理API或者项目说明文档"><a href="#Markdown-管理API或者项目说明文档" class="headerlink" title="Markdown 管理API或者项目说明文档"></a>Markdown 管理API或者项目说明文档</h2><p>下面的工具都是使用Markdown语法，看自己喜欢什么样式直接安装</p>
+<ul>
+<li><a href="https://www.mkdocs.org/" target="_blank" rel="noopener">MkDocs</a></li>
+<li><a href="https://docusaurus.io/docs/en/installation" target="_blank" rel="noopener">Docusaurus</a></li>
+<li><a href="https://docsify.js.org/#/?id=docsify" target="_blank" rel="noopener">Docsify</a></li>
+<li><a href="http://docpress.github.io/#support" target="_blank" rel="noopener">docpress</a></li>
+</ul>
+<h1 id="巧用EverNote，做网页笔记"><a href="#巧用EverNote，做网页笔记" class="headerlink" title="巧用EverNote，做网页笔记"></a>巧用EverNote，做网页笔记</h1><p>相信现在很多人经常上网浏览网页，但是遇到一些一下子无法消化的内容，<font color="red">需要重复浏览和做笔记怎么办?</font> </p>
+<p><strong>Chrome 的Evernote插件很好的解决了这个痛点</strong>，如下：<br>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2Nkbi5saW56LnRlY2gvMjAxOC0wOS0xOV8yMy0zOC0yNi1ldmVybm90ZS5naWY" alt></p>
+<p>做好的网页笔记，不仅能在电脑端的客户端打开，而且还能进一步编辑，上传音视频文件：<br>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传<img src="https://imgconvert.csdnimg.cn/aHR0cDovL2Nkbi5saW56LnRlY2gvMjAxOC0wOS0xOV8yMy00MS0xOC1ldmVybm90ZTIucG5n?x-oss-process=image/format,png" alt></p>
+<h1 id="用Gist-记录经典和常用的代码块"><a href="#用Gist-记录经典和常用的代码块" class="headerlink" title="用Gist 记录经典和常用的代码块"></a>用Gist 记录经典和常用的代码块</h1><ul>
+<li>场景1：看源码的时候，我靠这段代码太经典/常用了我怎么保存他呢？</li>
+<li>场景2：这个功能的代码我看过，在哪个项目来着？</li>
+<li>场景3：关于文件操作的代码我看了好多，怎么集合在一起？</li>
+</ul>
+<p>上面的场景都是代码片段的保存需求，github上早就提供了代码片段管理Gist功能，只是国内需要翻墙使用比较麻烦，而没有普及开来；</p>
+<p>其他软件没用过，推荐我一直用很好用的Lepton软件：<br><a href="https://github.com/hackjutsu/Lepton" target="_blank" rel="noopener"><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3d3MS5zaW5haW1nLmNuL2xhcmdlLzY1NjFmZWVlancxZmNkMmN2ZnpodGoyMXRzMWQ0dG4xLmpwZw?x-oss-process=image/format,png" alt="Lepton"></a><br>推荐原因：</p>
+<ul>
+<li>跨平台Window，Mac，Linux都支持；</li>
+<li>UI设计简洁，操作简单；</li>
+<li>基本能解决国内无法访问问题，<font color="red">注意：但是有时候还是会登录不上</font></li>
+</ul>
+<h1 id="用编程常用Studio做笔记工具"><a href="#用编程常用Studio做笔记工具" class="headerlink" title="用编程常用Studio做笔记工具"></a>用编程常用Studio做笔记工具</h1><p>程序员每天都跟Studio打交道，对自己语言的Studio自然比其他软件更熟悉，各种快捷键手到擒来，当然用Studio最笔记自然无形中提高了效率，我自己就用Android studio 中的markdown插件写hexo博客</p>
+<h2 id="模仿Android-studio的todo的样式"><a href="#模仿Android-studio的todo的样式" class="headerlink" title="模仿Android studio的todo的样式"></a>模仿Android studio的todo的样式</h2><p><strong>想要达到的效果</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzEzMjE1MTItZGIzZjE1YTc0MjI0NzI5MC5qcGc?x-oss-process=image/format,png" alt="颜色，背景样式可设置"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzEzMjE1MTItZjRlY2I1N2FlYWM5Njg2Mi5qcGc?x-oss-process=image/format,png" alt="TODO中可以随意查看"></p>
+<p><strong>设置步骤</strong><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzEzMjE1MTItNjYwZjc4ZGU5NDc4OWE0Ny5qcGc?x-oss-process=image/format,png" alt="复制todo的Live Template"> </p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzEzMjE1MTItM2JlMGEyM2E4ODE2MDA5MS5qcGc?x-oss-process=image/format,png" alt="设置喜欢的样式"></p>
+<h1 id="工具推荐"><a href="#工具推荐" class="headerlink" title="工具推荐"></a>工具推荐</h1><h2 id="typora"><a href="#typora" class="headerlink" title="typora"></a><a href="https://www.typora.io" target="_blank" rel="noopener">typora</a></h2><blockquote>
+<p> 目前遇到最好用的Markdown编辑工具</p>
+</blockquote>
+<p>推荐原因</p>
+<ol>
+<li>可以自动生成预留目录；</li>
+<li>可以在当前目录下搜索Markdown内部文件，能快速导航到想找的文件；</li>
+<li>提供很多优雅的主题，我比较喜欢 GitHub主题<h2 id="markdown-toc"><a href="#markdown-toc" class="headerlink" title="markdown-toc"></a>markdown-toc</h2><blockquote>
+<p>有些 网页不支持 [TOC] 命令，只能手动生成一个</p>
+</blockquote>
+</li>
+</ol>
+<p>安装</p>
+<pre class="line-numbers language-js"><code class="language-js">npm install <span class="token operator">--</span>save markdown<span class="token operator">-</span>toc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>假设你需要为README.md生成目录,使用</p>
+<pre class="line-numbers language-js"><code class="language-js">npx markdown<span class="token operator">-</span>toc README<span class="token punctuation">.</span>md<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>把输出的内容拷贝到md文件即可</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.zhihu.com/question/21438053" target="_blank" rel="noopener">知乎：学习编程用什么做笔记比较好？</a> 基本都试过，只有<a href="https://www.notion.so" target="_blank" rel="noopener">notion</a>惊艳到我了</li>
+</ul>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计相关</title>
+    <url>/2019/12/25/2018-4-15-designer/</url>
+    <content><![CDATA[<h1 id="相关开源库"><a href="#相关开源库" class="headerlink" title="相关开源库"></a>相关开源库</h1><h2 id="Lottie"><a href="#Lottie" class="headerlink" title="Lottie"></a>Lottie</h2><blockquote>
+<p>官方全平台使用说明： <a href="https://airbnb.io/lottie/" target="_blank" rel="noopener">https://airbnb.io/lottie/</a></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/airbnb/lottie-android" target="_blank" rel="noopener">AE动画设计 + lottie-android</a> 【简易的惊艳动画.必看】</li>
+<li><a href="https://github.com/airbnb/lottie-web" target="_blank" rel="noopener">lottie-web</a><br><img src="https://raw.githubusercontent.com/airbnb/lottie-android/master/gifs/Example1.gif" alt></li>
+</ul>
+<p><em>效果预览</em></p>
+<ul>
+<li><a href="https://www.lottiefiles.com/" target="_blank" rel="noopener">lottiefiles</a> 在线data.json 预览效果</li>
+<li><a href="https://codepen.io/collection/nVYWZR/" target="_blank" rel="noopener">bodymovin</a> web 效果预览</li>
+</ul>
+<p><em>环境配置</em></p>
+<ul>
+<li><p><a href="https://github.com/bigxixi/bodymovin_cn" target="_blank" rel="noopener">bodymovie插件下载地址</a> 汉化版本地址</p>
+</li>
+<li><p><a href="https://bodymovin-editor.firebaseapp.com/" target="_blank" rel="noopener">在线编辑工具</a></p>
+</li>
+</ul>
+<p><em>参考博文</em></p>
+<ul>
+<li><a href="https://www.jianshu.com/p/a37b3e4d9ccd" target="_blank" rel="noopener">Android开发之Lottie动画解析库</a>  AE的简单实用和Lottie的简单实用</li>
+</ul>
+<p><em>附录</em></p>
+<ul>
+<li><a href="https://codepen.io/airnan/project/editor/ZeNONO" target="_blank" rel="noopener">web 最简单Demo</a></li>
+<li><a href="https://cdnjs.com/libraries/bodymovin" target="_blank" rel="noopener">bodymovin web javaScript libs</a>  <code>lottie.js</code> <code>lottie_light.js</code></li>
+</ul>
+<h2 id="fack-rebound-弹性动画-有网页Demo"><a href="#fack-rebound-弹性动画-有网页Demo" class="headerlink" title="fack-rebound 弹性动画 有网页Demo"></a><a href="http://facebook.github.io/rebound/" target="_blank" rel="noopener">fack-rebound 弹性动画</a> 有网页Demo</h2><blockquote>
+<p>能大大的提高用户体验</p>
+</blockquote>
+<h1 id="代码开源库"><a href="#代码开源库" class="headerlink" title="代码开源库"></a>代码开源库</h1><h2 id="控件"><a href="#控件" class="headerlink" title="控件"></a>控件</h2><ul>
+<li><a href="https://github.com/qiujuer/Genius-Android" target="_blank" rel="noopener">Genius-Android</a><br><img src="https://raw.githubusercontent.com/qiujuer/Genius-Android/master/caprice/release/pic_ui.png" alt></li>
+</ul>
+<h1 id="Sketch"><a href="#Sketch" class="headerlink" title="Sketch"></a>Sketch</h1><h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><ul>
+<li><a href="https://design.webkul.com/renamer/?utm_source=androidweekly.io&utm_medium=website" target="_blank" rel="noopener">Renamer</a> 多图层重命名工具</li>
+<li><a href="https://github.com/mascardoso/sketch-export" target="_blank" rel="noopener">sketch-export</a> Export Artboards in sketch to markdown or json</li>
+</ul>
+<h1 id="免费图片资源"><a href="#免费图片资源" class="headerlink" title="免费图片资源"></a>免费图片资源</h1><ul>
+<li><a href="https://iconsvg.xyz" target="_blank" rel="noopener">https://iconsvg.xyz</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>UI</tag>
+        <tag>设计</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>阿里巴巴arouter组件化总结</title>
     <url>/2019/12/25/2019-12-25-%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4arouter%E7%BB%84%E4%BB%B6%E5%8C%96%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="第1节-组件化原因"><a href="#第1节-组件化原因" class="headerlink" title="第1节 组件化原因"></a>第1节 组件化原因</h1><ol>
+    <content><![CDATA[<ul>
+<li><a href="#%E7%AC%AC1%E8%8A%82-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%8E%9F%E5%9B%A0">第1节 组件化原因</a></li>
+<li><a href="#%E7%AC%AC2%E8%8A%82-%E7%BB%84%E4%BB%B6%E5%8C%96%E9%A1%BB%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98">第2节 组件化须考虑的问题</a></li>
+<li><a href="#%E7%AC%AC3%E8%8A%82-arouter%E4%BD%BF%E7%94%A8">第3节 ARouter使用</a><ul>
+<li><a href="#31-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE">3.1 初始化配置</a></li>
+<li><a href="#32-%E9%AB%98%E9%98%B6%E4%BD%BF%E7%94%A8">3.2 高阶使用</a><ul>
+<li><a href="#1-%E6%A8%A1%E5%9D%97%E9%97%B4%E8%B0%83%E7%94%A8">1. 模块间调用</a></li>
+<li><a href="#2-%E5%85%A8%E5%B1%80%E5%88%86%E7%BB%84%E6%8B%A6%E6%88%AA">2. 全局分组拦截</a></li>
+<li><a href="#3-%E9%99%8D%E7%BA%A7%E5%A4%84%E7%90%86">3. 降级处理</a></li>
+<li><a href="#4-%E8%B7%AF%E5%BE%84%E6%9B%BF%E6%8D%A2">4. 路径替换</a></li>
+<li><a href="#5-%E9%BB%98%E8%AE%A4javabean%E5%BA%8F%E5%88%97%E5%8C%96%E6%8E%A7%E5%88%B6%E7%B1%BB">5. 默认JavaBean序列化控制类</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC4%E8%8A%82-arouter%E9%87%87%E5%9D%91%E8%AE%B0%E5%BD%95">第4节 Arouter采坑记录</a><ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#41-autowrite">4.1 AutoWrite</a></li>
+<li><a href="#42-navigation">4.2 navigation</a></li>
+<li><a href="#43--finish-%E6%97%B6%E6%9C%BA%E4%B8%8D%E5%AF%B9%E4%BA%A7%E7%94%9F%E7%99%BD%E5%B1%8F">4.3 finish 时机不对产生白屏</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC5%E8%8A%82-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93-arouter%E5%B0%81%E8%A3%85%E7%B1%BB">第5节 实战总结 ARouter封装类</a><ul>
+<li><a href="#postcard-%E7%9A%84%E5%8C%85%E8%A3%85%E7%B1%BB">Postcard 的包装类</a></li>
+<li><a href="#arouterhelper-%E5%B8%AE%E5%8A%A9%E7%B1%BB">ArouterHelper 帮助类</a></li>
+</ul>
+</li>
+<li><a href="#%E9%99%84%E5%BD%95">附录</a></li>
+</ul>
+<h1 id="第1节-组件化原因"><a href="#第1节-组件化原因" class="headerlink" title="第1节 组件化原因"></a>第1节 组件化原因</h1><ol>
 <li><strong>抽离出常用的公共模块</strong>，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性：<ol>
 <li>抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。</li>
 <li>抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。</li>
@@ -17402,133 +17588,6 @@ select t.id, t.type,msg.msg, t.imei,t.time from t_alert_record t, t_code_msg msg
       </tags>
   </entry>
   <entry>
-    <title>网页WEB笔记汇总</title>
-    <url>/2019/04/13/2019-3-7-web-note/</url>
-    <content><![CDATA[<p>[TOC]</p>
-<h1 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h1><h2 id="在线编辑（IDE）"><a href="#在线编辑（IDE）" class="headerlink" title="在线编辑（IDE）"></a>在线编辑（IDE）</h2><ul>
-<li><a href="http://jsfiddle.net/" target="_blank" rel="noopener">http://jsfiddle.net/</a></li>
-<li><a href="http://plnkr.co/edit/?p=preview" target="_blank" rel="noopener">http://plnkr.co/edit/?p=preview</a></li>
-</ul>
-<h2 id="在线资料"><a href="#在线资料" class="headerlink" title="在线资料"></a>在线资料</h2><ul>
-<li><a href="http://tool.oschina.net/commons" target="_blank" rel="noopener">常用对照表</a></li>
-<li><a href="https://developer.mozilla.org/en-US/" target="_blank" rel="noopener">mozilla 提供的 CSS，HTML，Javascript api</a> 【重点应用】</li>
-</ul>
-<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
-<li><p><a href="https://github.com/google/tamperchrome" target="_blank" rel="noopener">tamperchrome</a> </p>
-<blockquote>
-<p>谷歌推出一个网站开发利器，可以拦截并修改HTTP请求。也就是说，网页跟服务器的通信，你可以轻松监控，随手改掉，HTTPS 请求也可以喔！</p>
-</blockquote>
-</li>
-<li><p><a href="https://blog.csdn.net/gyy823/article/details/51655151" target="_blank" rel="noopener">数据可视化分析工具大集合汇总</a></p>
-</li>
-</ul>
-<h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><ul>
-<li><p><a href="http://blog.csdn.net/gyming/article/details/36060843" target="_blank" rel="noopener">Tomcat在Linux上的安装与配置</a> </p>
-</li>
-<li><p><a href="http://my.oschina.net/u/1170781/blog/192731" target="_blank" rel="noopener">IntelliJ IDEA (idea)引入eclipse web项目</a></p>
-</li>
-</ul>
-<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="Element"><a href="#Element" class="headerlink" title="Element"></a>Element</h2><p><strong><label></label></strong>  和input标签配合</p>
-<ul>
-<li>点击label标签，input标签可以获取焦点</li>
-<li>具有代码关联性，如在无障碍模式下会读取label作为input的描述</li>
-</ul>
-<h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h2 id="关键字记录"><a href="#关键字记录" class="headerlink" title="关键字记录"></a>关键字记录</h2><ol>
-<li><p>overflow 自己太大的时候该怎么显示</p>
-</li>
-<li><p>::after</p>
-<pre class="line-numbers language-css"><code class="language-css"><span class="token selector"><span class="token class">.ribbon</span><span class="token pseudo-element">::after</span> </span><span class="token punctuation">{</span>
-  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">"This is a fancy orange box."</span><span class="token punctuation">;</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token hexcode">#FFBA10</span><span class="token punctuation">;</span>
-  <span class="token property">border-color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
-  <span class="token property">border-style</span><span class="token punctuation">:</span> dotted<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>box-shadow</p>
-<pre class="line-numbers language-css"><code class="language-css">    <span class="token comment" spellcheck="true">/* offset-x | offset-y | blur-radius | color */</span>
-    <span class="token property">box-shadow</span><span class="token punctuation">:</span> <span class="token number">10</span>px <span class="token number">5</span>px <span class="token number">5</span>px black<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>position</p>
-<pre class="line-numbers language-css"><code class="language-css"> <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span> // 参照浏览器会跳出父控件的内容范围
- <span class="token property">position</span><span class="token punctuation">:</span>fixed<span class="token punctuation">;</span> // 屏幕滑动时固定<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>list-style</p>
-<pre class="line-numbers language-css"><code class="language-css"><span class="token comment" spellcheck="true">/* type | image | position */</span>
-<span class="token property">list-style</span><span class="token punctuation">:</span> lower-roman <span class="token url">url('../img/shape.png')</span> outside<span class="token punctuation">;</span>
-list-style-type/list-style-image/list-style-position<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>background</p>
-<pre class="line-numbers language-css"><code class="language-css"><span class="token comment" spellcheck="true">/* A single image, centered and scaled */</span>
-<span class="token property">background</span><span class="token punctuation">:</span> no-repeat center/<span class="token number">80%</span> <span class="token url">url("../img/image.png")</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>z-index：0 重叠优先级数组越高越在上面</p>
-</li>
-<li><p>margin</p>
-<pre class="line-numbers language-css"><code class="language-css"> <span class="token comment" spellcheck="true">/* vertical | horizontal */</span>
-<span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">5%</span> auto<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* top | right | bottom | left */</span>
-<span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">2</span>px <span class="token number">1</span>em <span class="token number">0</span> auto<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>border</p>
-<pre class="line-numbers language-css"><code class="language-css"><span class="token comment" spellcheck="true">/* width | style | color */</span>
-<span class="token property">border</span><span class="token punctuation">:</span> medium dashed green<span class="token punctuation">;</span>
-<span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid black <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<p><strong>动画</strong></p>
-<ul>
-<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions" target="_blank" rel="noopener">transition</a></p>
-<pre class="line-numbers language-css"><code class="language-css"><span class="token comment" spellcheck="true">/* property name | duration | timing function | delay */</span>
-<span class="token property">transition</span><span class="token punctuation">:</span> margin-right <span class="token number">4</span>s ease-in-out <span class="token number">1</span>s<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/* Global values */</span>
-<span class="token property">transition</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
-<span class="token property">transition</span><span class="token punctuation">:</span> initial<span class="token punctuation">;</span>
-<span class="token property">transition</span><span class="token punctuation">:</span> unset<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-<h1 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h1><ul>
-<li><a href="https://www.freecodecamp.org/" target="_blank" rel="noopener">https://www.freecodecamp.org/</a> </li>
-<li><a href="http://www.zhihu.com/question/19713563" target="_blank" rel="noopener">何循序渐进有效学习 JavaScript</a></li>
-<li><a href="http://www.jianshu.com/p/e3965d3636e7" target="_blank" rel="noopener">谈谈WebView的使用【从零开始搭建android框架系列（5）】</a></li>
-<li><a href="https://github.com/ruanyf/jstraining" target="_blank" rel="noopener">全栈工程师培训材料</a><blockquote>
-<p>全栈工程师培训材料，帮助学习者掌握全栈开发的基本知识，承担简单 Web 应用的前后端开发。<br>一共四讲，适合两天的训练营，请先阅读《培训准备》</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h2><ul>
-<li><p><a href="http://bugly.qq.com/bbs/forum.php?mod=viewthread&tid=267#rd" target="_blank" rel="noopener">H5 缓存机制浅析 移动端 Web 加载性能优化</a> </p>
-</li>
-<li><p><a href="http://www.jianshu.com/p/3160a0297345" target="_blank" rel="noopener">Weex Android SDK源码分析</a></p>
-</li>
-<li><p><a href="http://www.zhangxinxu.com/wordpress/2011/03/displayinline-blocktext-alignjustify%E4%B8%8B%E5%88%97%E8%A1%A8%E7%9A%84%E4%B8%A4%E7%AB%AF%E5%AF%B9%E9%BD%90%E5%B8%83%E5%B1%80/" target="_blank" rel="noopener">张鑫旭老师的博客</a></p>
-</li>
-</ul>
-<h1 id="开源库收集"><a href="#开源库收集" class="headerlink" title="开源库收集"></a>开源库收集</h1><h2 id="相关开源库"><a href="#相关开源库" class="headerlink" title="相关开源库"></a>相关开源库</h2><ul>
-<li><a href="http://github.com/h5bp/html5-boilerplate" target="_blank" rel="noopener">html5-boilerplate</a></li>
-<li><strong><a href="https://github.com/ImangazalievM/Scripto" target="_blank" rel="noopener">Scripto</a></strong> Js 和 Java互调用的库</li>
-</ul>
-<h2 id="UI-开源库"><a href="#UI-开源库" class="headerlink" title="UI 开源库"></a>UI 开源库</h2><ul>
-<li><a href="https://github.com/ripjar/material-datetime-picker" target="_blank" rel="noopener">material-datetime-picker 时间选择/日期选择</a></li>
-<li><a href="http://unicorn-ui.com/buttons/" target="_blank" rel="noopener">buttons</a>各式各样的Button</li>
-<li><a href="https://github.com/antvis/g2" target="_blank" rel="noopener">可视化语法库 G2</a></li>
-</ul>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><ul>
-<li><a href="http://gitbook.cn/books/58e48c22c59d53926e611996/index.html" target="_blank" rel="noopener">我的实操经验分享：如何通过Adsense赚3万美金</a>  SEO 推广</li>
-</ul>
-<h2 id="比较喜欢的网站风格"><a href="#比较喜欢的网站风格" class="headerlink" title="比较喜欢的网站风格"></a>比较喜欢的网站风格</h2><p><a href="https://javalin.io/" target="_blank" rel="noopener">https://javalin.io/</a> </p>
-<p><a href="https://www.prisma.io/docs/" target="_blank" rel="noopener">https://www.prisma.io/docs/</a></p>
-<h1 id="附录一"><a href="#附录一" class="headerlink" title="附录一"></a>附录一</h1><h2 id="常用网站"><a href="#常用网站" class="headerlink" title="常用网站"></a>常用网站</h2><ul>
-<li><a href="https://www.w3schools.com/graphics/svg_reference.asp" target="_blank" rel="noopener">SVG 案例及属性查询</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>web</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>网络编程学习笔记</title>
     <url>/2019/04/13/2019-3-21-network-coding-note/</url>
     <content><![CDATA[<p>[TOC]</p>
@@ -17673,6 +17732,133 @@ Accept: */*  </code></pre><h4 id="属性详解"><a href="#属性详解" class="h
       <tags>
         <tag>network</tag>
         <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网页WEB笔记汇总</title>
+    <url>/2019/04/13/2019-3-7-web-note/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h1><h2 id="在线编辑（IDE）"><a href="#在线编辑（IDE）" class="headerlink" title="在线编辑（IDE）"></a>在线编辑（IDE）</h2><ul>
+<li><a href="http://jsfiddle.net/" target="_blank" rel="noopener">http://jsfiddle.net/</a></li>
+<li><a href="http://plnkr.co/edit/?p=preview" target="_blank" rel="noopener">http://plnkr.co/edit/?p=preview</a></li>
+</ul>
+<h2 id="在线资料"><a href="#在线资料" class="headerlink" title="在线资料"></a>在线资料</h2><ul>
+<li><a href="http://tool.oschina.net/commons" target="_blank" rel="noopener">常用对照表</a></li>
+<li><a href="https://developer.mozilla.org/en-US/" target="_blank" rel="noopener">mozilla 提供的 CSS，HTML，Javascript api</a> 【重点应用】</li>
+</ul>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
+<li><p><a href="https://github.com/google/tamperchrome" target="_blank" rel="noopener">tamperchrome</a> </p>
+<blockquote>
+<p>谷歌推出一个网站开发利器，可以拦截并修改HTTP请求。也就是说，网页跟服务器的通信，你可以轻松监控，随手改掉，HTTPS 请求也可以喔！</p>
+</blockquote>
+</li>
+<li><p><a href="https://blog.csdn.net/gyy823/article/details/51655151" target="_blank" rel="noopener">数据可视化分析工具大集合汇总</a></p>
+</li>
+</ul>
+<h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><ul>
+<li><p><a href="http://blog.csdn.net/gyming/article/details/36060843" target="_blank" rel="noopener">Tomcat在Linux上的安装与配置</a> </p>
+</li>
+<li><p><a href="http://my.oschina.net/u/1170781/blog/192731" target="_blank" rel="noopener">IntelliJ IDEA (idea)引入eclipse web项目</a></p>
+</li>
+</ul>
+<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="Element"><a href="#Element" class="headerlink" title="Element"></a>Element</h2><p><strong><label></label></strong>  和input标签配合</p>
+<ul>
+<li>点击label标签，input标签可以获取焦点</li>
+<li>具有代码关联性，如在无障碍模式下会读取label作为input的描述</li>
+</ul>
+<h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h2 id="关键字记录"><a href="#关键字记录" class="headerlink" title="关键字记录"></a>关键字记录</h2><ol>
+<li><p>overflow 自己太大的时候该怎么显示</p>
+</li>
+<li><p>::after</p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token selector"><span class="token class">.ribbon</span><span class="token pseudo-element">::after</span> </span><span class="token punctuation">{</span>
+  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">"This is a fancy orange box."</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token hexcode">#FFBA10</span><span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> dotted<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>box-shadow</p>
+<pre class="line-numbers language-css"><code class="language-css">    <span class="token comment" spellcheck="true">/* offset-x | offset-y | blur-radius | color */</span>
+    <span class="token property">box-shadow</span><span class="token punctuation">:</span> <span class="token number">10</span>px <span class="token number">5</span>px <span class="token number">5</span>px black<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>position</p>
+<pre class="line-numbers language-css"><code class="language-css"> <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span> // 参照浏览器会跳出父控件的内容范围
+ <span class="token property">position</span><span class="token punctuation">:</span>fixed<span class="token punctuation">;</span> // 屏幕滑动时固定<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>list-style</p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token comment" spellcheck="true">/* type | image | position */</span>
+<span class="token property">list-style</span><span class="token punctuation">:</span> lower-roman <span class="token url">url('../img/shape.png')</span> outside<span class="token punctuation">;</span>
+list-style-type/list-style-image/list-style-position<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>background</p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token comment" spellcheck="true">/* A single image, centered and scaled */</span>
+<span class="token property">background</span><span class="token punctuation">:</span> no-repeat center/<span class="token number">80%</span> <span class="token url">url("../img/image.png")</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>z-index：0 重叠优先级数组越高越在上面</p>
+</li>
+<li><p>margin</p>
+<pre class="line-numbers language-css"><code class="language-css"> <span class="token comment" spellcheck="true">/* vertical | horizontal */</span>
+<span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">5%</span> auto<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/* top | right | bottom | left */</span>
+<span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">2</span>px <span class="token number">1</span>em <span class="token number">0</span> auto<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>border</p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token comment" spellcheck="true">/* width | style | color */</span>
+<span class="token property">border</span><span class="token punctuation">:</span> medium dashed green<span class="token punctuation">;</span>
+<span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid black <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p><strong>动画</strong></p>
+<ul>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions" target="_blank" rel="noopener">transition</a></p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token comment" spellcheck="true">/* property name | duration | timing function | delay */</span>
+<span class="token property">transition</span><span class="token punctuation">:</span> margin-right <span class="token number">4</span>s ease-in-out <span class="token number">1</span>s<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/* Global values */</span>
+<span class="token property">transition</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
+<span class="token property">transition</span><span class="token punctuation">:</span> initial<span class="token punctuation">;</span>
+<span class="token property">transition</span><span class="token punctuation">:</span> unset<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h1 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h1><ul>
+<li><a href="https://www.freecodecamp.org/" target="_blank" rel="noopener">https://www.freecodecamp.org/</a> </li>
+<li><a href="http://www.zhihu.com/question/19713563" target="_blank" rel="noopener">何循序渐进有效学习 JavaScript</a></li>
+<li><a href="http://www.jianshu.com/p/e3965d3636e7" target="_blank" rel="noopener">谈谈WebView的使用【从零开始搭建android框架系列（5）】</a></li>
+<li><a href="https://github.com/ruanyf/jstraining" target="_blank" rel="noopener">全栈工程师培训材料</a><blockquote>
+<p>全栈工程师培训材料，帮助学习者掌握全栈开发的基本知识，承担简单 Web 应用的前后端开发。<br>一共四讲，适合两天的训练营，请先阅读《培训准备》</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h2><ul>
+<li><p><a href="http://bugly.qq.com/bbs/forum.php?mod=viewthread&tid=267#rd" target="_blank" rel="noopener">H5 缓存机制浅析 移动端 Web 加载性能优化</a> </p>
+</li>
+<li><p><a href="http://www.jianshu.com/p/3160a0297345" target="_blank" rel="noopener">Weex Android SDK源码分析</a></p>
+</li>
+<li><p><a href="http://www.zhangxinxu.com/wordpress/2011/03/displayinline-blocktext-alignjustify%E4%B8%8B%E5%88%97%E8%A1%A8%E7%9A%84%E4%B8%A4%E7%AB%AF%E5%AF%B9%E9%BD%90%E5%B8%83%E5%B1%80/" target="_blank" rel="noopener">张鑫旭老师的博客</a></p>
+</li>
+</ul>
+<h1 id="开源库收集"><a href="#开源库收集" class="headerlink" title="开源库收集"></a>开源库收集</h1><h2 id="相关开源库"><a href="#相关开源库" class="headerlink" title="相关开源库"></a>相关开源库</h2><ul>
+<li><a href="http://github.com/h5bp/html5-boilerplate" target="_blank" rel="noopener">html5-boilerplate</a></li>
+<li><strong><a href="https://github.com/ImangazalievM/Scripto" target="_blank" rel="noopener">Scripto</a></strong> Js 和 Java互调用的库</li>
+</ul>
+<h2 id="UI-开源库"><a href="#UI-开源库" class="headerlink" title="UI 开源库"></a>UI 开源库</h2><ul>
+<li><a href="https://github.com/ripjar/material-datetime-picker" target="_blank" rel="noopener">material-datetime-picker 时间选择/日期选择</a></li>
+<li><a href="http://unicorn-ui.com/buttons/" target="_blank" rel="noopener">buttons</a>各式各样的Button</li>
+<li><a href="https://github.com/antvis/g2" target="_blank" rel="noopener">可视化语法库 G2</a></li>
+</ul>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><ul>
+<li><a href="http://gitbook.cn/books/58e48c22c59d53926e611996/index.html" target="_blank" rel="noopener">我的实操经验分享：如何通过Adsense赚3万美金</a>  SEO 推广</li>
+</ul>
+<h2 id="比较喜欢的网站风格"><a href="#比较喜欢的网站风格" class="headerlink" title="比较喜欢的网站风格"></a>比较喜欢的网站风格</h2><p><a href="https://javalin.io/" target="_blank" rel="noopener">https://javalin.io/</a> </p>
+<p><a href="https://www.prisma.io/docs/" target="_blank" rel="noopener">https://www.prisma.io/docs/</a></p>
+<h1 id="附录一"><a href="#附录一" class="headerlink" title="附录一"></a>附录一</h1><h2 id="常用网站"><a href="#常用网站" class="headerlink" title="常用网站"></a>常用网站</h2><ul>
+<li><a href="https://www.w3schools.com/graphics/svg_reference.asp" target="_blank" rel="noopener">SVG 案例及属性查询</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -19294,92 +19480,6 @@ MethodSpec welcomeOverlords <span class="token operator">=</span> MethodSpec<spa
       </tags>
   </entry>
   <entry>
-    <title>程序员怎么高效做笔记</title>
-    <url>/2018/09/20/2018-9-20-method-for-note/</url>
-    <content><![CDATA[<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#25分搞定-markdown">25分搞定 Markdown</a><ul>
-<li><a href="#怎么快速入门markdown">怎么快速入门Markdown</a></li>
-<li><a href="#markdown的进阶玩法">Markdown的进阶玩法</a></li>
-<li><a href="#markdown-管理api或者项目说明文档">Markdown 管理API或者项目说明文档</a></li>
-</ul>
-</li>
-<li><a href="#巧用evernote，做网页笔记">巧用EverNote，做网页笔记</a></li>
-<li><a href="#用gist-记录经典和常用的代码块">用Gist 记录经典和常用的代码块</a></li>
-<li><a href="#用编程常用studio做笔记工具">用编程常用Studio做笔记工具</a><ul>
-<li><a href="#模仿android-studio的todo的样式">模仿Android studio的todo的样式</a></li>
-</ul>
-</li>
-<li><a href="#参考">参考</a></li>
-</ul>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p align="center"><img src="http://cdn.linz.tech/android_note.jpg" alt="logo"></p>
-<p align="center">告诉你一个秘密<br>我刚知道程序员怎么高效做笔记</p>
-# 25分搞定 Markdown
-![](http://cdn.linz.tech/2018-09-19-22-33-07-Markdown.png)
-
-<p>作为程序员不知道Markdown那你真的是Out了，用Markdow语法写博客笔记几个<code>##</code>就能把你的文章，用清晰的分级标题理清楚，不再是没有重点一团乱麻，轻松的解决代码块插入无格式的老大难问题，加上各种插件，轻松打造美观的文章。Markdown支持转换为常见的文件格式如：HTML,doc,PDF等；</p>
-<h2 id="怎么快速入门Markdown"><a href="#怎么快速入门Markdown" class="headerlink" title="怎么快速入门Markdown"></a>怎么快速入门Markdown</h2><p>其实Markdown常用的语法就几个，最快速的方法是用支持Markdown语法的编辑器试一次UI中提供各种语法，15分基本能搞定，1分钟回顾一下，任何用到的时候忘记了在看一下案例。<br>推荐资源有：</p>
-<ul>
-<li><a href="https://pandao.github.io/editor.md/examples/simple.html" target="_blank" rel="noopener">pandao 提供的在线案例如上图</a></li>
-<li>使用有道笔记本，新建Markdown笔记；</li>
-</ul>
-<h2 id="Markdown的进阶玩法"><a href="#Markdown的进阶玩法" class="headerlink" title="Markdown的进阶玩法"></a>Markdown的进阶玩法</h2><ul>
-<li>目前大部分的博客网站都支持Markdown语法，如CSDN，掘金，简书等可以注册，尝试一下进入Markdown的世界；</li>
-<li>Gitbook 把你的Markdown弄成书<ul>
-<li><a href="https://blog.csdn.net/feosun/article/details/72806825" target="_blank" rel="noopener">Gitbook安装与使用教程</a></li>
-<li>国外最流行的相关网站<a href="https://www.gitbook.com/" target="_blank" rel="noopener">www.gitbook.com</a>，能找到用gitbook写的各种书籍；</li>
-</ul>
-</li>
-<li><a href="https://github.com/geekcompany/DeerResume" target="_blank" rel="noopener">MarkDown在线简历工具，可在线预览、编辑和生成PDF</a></li>
-<li><a href="http://xianbai.me/learn-md/article/convert/html.html" target="_blank" rel="noopener">Markdown 转换成Work，HTML，PDF格式</a></li>
-<li><a href="https://hexo.io/" target="_blank" rel="noopener">使用Hexo搭建自己的博客</a> 如果一切顺利半天就能搭好博客，遇到一些问题已天就能搞定；</li>
-</ul>
-<blockquote>
-<p>注意：</p>
-<ol>
-<li>虽然很多网站都支持Markdown，但是很多网站对Markdown做了深度定制，这会导致不同编辑器之间出现显示偏差，如包有道的Markdown文件拷贝到Hexo博客上经常出现格式混乱的问题；<font color="red">注意，不同编辑器检查一下文章格式</font></li>
-<li>图片尽量放在自己的云服务器上，以便以后迁移不会丢失，这里推荐七牛云为个人提供10G的免费储存；</li>
-</ol>
-</blockquote>
-<h2 id="Markdown-管理API或者项目说明文档"><a href="#Markdown-管理API或者项目说明文档" class="headerlink" title="Markdown 管理API或者项目说明文档"></a>Markdown 管理API或者项目说明文档</h2><p>下面的工具都是使用Markdown语法，看自己喜欢什么样式直接安装</p>
-<ul>
-<li><a href="https://www.mkdocs.org/" target="_blank" rel="noopener">MkDocs</a></li>
-<li><a href="https://docusaurus.io/docs/en/installation" target="_blank" rel="noopener">Docusaurus</a></li>
-<li><a href="https://docsify.js.org/#/?id=docsify" target="_blank" rel="noopener">Docsify</a></li>
-<li><a href="http://docpress.github.io/#support" target="_blank" rel="noopener">docpress</a></li>
-</ul>
-<h1 id="巧用EverNote，做网页笔记"><a href="#巧用EverNote，做网页笔记" class="headerlink" title="巧用EverNote，做网页笔记"></a>巧用EverNote，做网页笔记</h1><p>相信现在很多人经常上网浏览网页，但是遇到一些一下子无法消化的内容，<font color="red">需要重复浏览和做笔记怎么办?</font></p>
-<p><strong>Chrome 的Evernote插件很好的解决了这个痛点</strong>，如下：<br><img src="http://cdn.linz.tech/2018-09-19_23-38-26-evernote.gif" alt></p>
-<p>做好的网页笔记，不仅能在电脑端的客户端打开，而且还能进一步编辑，上传音视频文件：<br><img src="http://cdn.linz.tech/2018-09-19_23-41-18-evernote2.png" alt></p>
-<h1 id="用Gist-记录经典和常用的代码块"><a href="#用Gist-记录经典和常用的代码块" class="headerlink" title="用Gist 记录经典和常用的代码块"></a>用Gist 记录经典和常用的代码块</h1><ul>
-<li>场景1：看源码的时候，我靠这段代码太经典/常用了我怎么保存他呢？</li>
-<li>场景2：这个功能的代码我看过，在哪个项目来着？</li>
-<li>场景3：关于文件操作的代码我看了好多，怎么集合在一起？</li>
-</ul>
-<p>上面的场景都是代码片段的保存需求，github上早就提供了代码片段管理Gist功能，只是国内需要翻墙使用比较麻烦，而没有普及开来；</p>
-<p>其他软件没用过，推荐我一直用很好用的Lepton软件：<br><a href="https://github.com/hackjutsu/Lepton" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/large/6561feeejw1fcd2cvfzhtj21ts1d4tn1.jpg" alt="Lepton"></a><br>推荐原因：</p>
-<ul>
-<li>跨平台Window，Mac，Linux都支持；</li>
-<li>UI设计简洁，操作简单；</li>
-<li>基本能解决翻墙问题，<font color="red">注意：但是有时候还是会登录不上</font></li>
-</ul>
-<h1 id="用编程常用Studio做笔记工具"><a href="#用编程常用Studio做笔记工具" class="headerlink" title="用编程常用Studio做笔记工具"></a>用编程常用Studio做笔记工具</h1><p>程序员每天都跟Studio打交道，对自己语言的Studio自然比其他软件更熟悉，各种快捷键手到擒来，当然用Studio最笔记自然无形中提高了效率，我自己就用Android studio 中的markdown插件写hexo博客</p>
-<h2 id="模仿Android-studio的todo的样式"><a href="#模仿Android-studio的todo的样式" class="headerlink" title="模仿Android studio的todo的样式"></a>模仿Android studio的todo的样式</h2><p><strong>想要达到的效果</strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-db3f15a742247290.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="颜色，背景样式可设置"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1321512-f4ecb57aeac96862.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="TODO中可以随意查看"></p>
-<p><strong>设置步骤</strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-660f78de94789a47.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="复制todo的Live Template"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1321512-3be0a23a88160091.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置喜欢的样式"></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.zhihu.com/question/21438053" target="_blank" rel="noopener">知乎：学习编程用什么做笔记比较好？</a> 基本都试过，只有<a href="https://www.notion.so" target="_blank" rel="noopener">notion</a>惊艳到我了</li>
-</ul>
-]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQlite数据库查缺补漏</title>
     <url>/2018/09/17/2018-9-17-note-sqlite/</url>
     <content><![CDATA[<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
@@ -20612,56 +20712,6 @@ message(STATUS &quot;execute CMakeLists&quot;)
       <tags>
         <tag>笔记</tag>
         <tag>娱乐</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计相关</title>
-    <url>/2018/04/15/2018-4-15-designer/</url>
-    <content><![CDATA[<h1 id="相关开源库"><a href="#相关开源库" class="headerlink" title="相关开源库"></a>相关开源库</h1><h2 id="Lottie"><a href="#Lottie" class="headerlink" title="Lottie"></a>Lottie</h2><blockquote>
-<p>官方全平台使用说明： <a href="https://airbnb.io/lottie/" target="_blank" rel="noopener">https://airbnb.io/lottie/</a></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/airbnb/lottie-android" target="_blank" rel="noopener">AE动画设计 + lottie-android</a> 【简易的惊艳动画.必看】</li>
-<li><a href="https://github.com/airbnb/lottie-web" target="_blank" rel="noopener">lottie-web</a><br><img src="https://raw.githubusercontent.com/airbnb/lottie-android/master/gifs/Example1.gif" alt></li>
-</ul>
-<p><em>效果预览</em></p>
-<ul>
-<li><a href="https://www.lottiefiles.com/" target="_blank" rel="noopener">lottiefiles</a> 在线data.json 预览效果</li>
-<li><a href="https://codepen.io/collection/nVYWZR/" target="_blank" rel="noopener">bodymovin</a> web 效果预览</li>
-</ul>
-<p><em>环境配置</em></p>
-<ul>
-<li><p><a href="https://github.com/bigxixi/bodymovin_cn" target="_blank" rel="noopener">bodymovie插件下载地址</a> 汉化版本地址</p>
-</li>
-<li><p><a href="https://bodymovin-editor.firebaseapp.com/" target="_blank" rel="noopener">在线编辑工具</a></p>
-</li>
-</ul>
-<p><em>参考博文</em></p>
-<ul>
-<li><a href="https://www.jianshu.com/p/a37b3e4d9ccd" target="_blank" rel="noopener">Android开发之Lottie动画解析库</a>  AE的简单实用和Lottie的简单实用</li>
-</ul>
-<p><em>附录</em></p>
-<ul>
-<li><a href="https://codepen.io/airnan/project/editor/ZeNONO" target="_blank" rel="noopener">web 最简单Demo</a></li>
-<li><a href="https://cdnjs.com/libraries/bodymovin" target="_blank" rel="noopener">bodymovin web javaScript libs</a>  <code>lottie.js</code> <code>lottie_light.js</code></li>
-</ul>
-<h2 id="fack-rebound-弹性动画-有网页Demo"><a href="#fack-rebound-弹性动画-有网页Demo" class="headerlink" title="fack-rebound 弹性动画 有网页Demo"></a><a href="http://facebook.github.io/rebound/" target="_blank" rel="noopener">fack-rebound 弹性动画</a> 有网页Demo</h2><blockquote>
-<p>能大大的提高用户体验</p>
-</blockquote>
-<h1 id="代码开源库"><a href="#代码开源库" class="headerlink" title="代码开源库"></a>代码开源库</h1><h2 id="控件"><a href="#控件" class="headerlink" title="控件"></a>控件</h2><ul>
-<li><a href="https://github.com/qiujuer/Genius-Android" target="_blank" rel="noopener">Genius-Android</a><br><img src="https://raw.githubusercontent.com/qiujuer/Genius-Android/master/caprice/release/pic_ui.png" alt></li>
-</ul>
-<h1 id="Sketch"><a href="#Sketch" class="headerlink" title="Sketch"></a>Sketch</h1><h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><ul>
-<li><a href="https://design.webkul.com/renamer/?utm_source=androidweekly.io&utm_medium=website" target="_blank" rel="noopener">Renamer</a> 多图层重命名工具</li>
-<li><a href="https://github.com/mascardoso/sketch-export" target="_blank" rel="noopener">sketch-export</a> Export Artboards in sketch to markdown or json</li>
-</ul>
-]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>UI</tag>
-        <tag>设计</tag>
       </tags>
   </entry>
   <entry>
@@ -23526,8 +23576,8 @@ public abstract class Story implements Parcelable{
         <category>note</category>
       </categories>
       <tags>
-        <tag>Android</tag>
         <tag>数据库</tag>
+        <tag>Android</tag>
         <tag>database</tag>
       </tags>
   </entry>
@@ -23640,8 +23690,8 @@ public abstract class Story implements Parcelable{
         <category>note</category>
       </categories>
       <tags>
-        <tag>New Trench</tag>
         <tag>Android</tag>
+        <tag>New Trench</tag>
         <tag>新技术</tag>
       </tags>
   </entry>

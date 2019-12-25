@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="第1节 组件化原因 抽离出常用的公共模块，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性： 抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。 抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。 把功能模块放入内部版本仓库，使代码更简洁，各版本修改bug追踪">
+<meta name="description" content="第1节 组件化原因 第2节 组件化须考虑的问题 第3节 ARouter使用 3.1 初始化配置 3.2 高阶使用 1. 模块间调用 2. 全局分组拦截 3. 降级处理 4. 路径替换 5. 默认JavaBean序列化控制类     第4节 Arouter采坑记录 前言 4.1 AutoWrite 4.2 navigation 4.3 finish 时机不对产生白屏   第5节 实战总结 ARou">
 <meta name="keywords" content="经验,Arouter">
 <meta property="og:type" content="article">
 <meta property="og:title" content="阿里巴巴arouter组件化总结">
 <meta property="og:url" content="http://linz.tech/2019/12/25/2019-12-25-阿里巴巴arouter组件化总结/index.html">
 <meta property="og:site_name" content="北疆的博客">
-<meta property="og:description" content="第1节 组件化原因 抽离出常用的公共模块，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性： 抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。 抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。 把功能模块放入内部版本仓库，使代码更简洁，各版本修改bug追踪">
+<meta property="og:description" content="第1节 组件化原因 第2节 组件化须考虑的问题 第3节 ARouter使用 3.1 初始化配置 3.2 高阶使用 1. 模块间调用 2. 全局分组拦截 3. 降级处理 4. 路径替换 5. 默认JavaBean序列化控制类     第4节 Arouter采坑记录 前言 4.1 AutoWrite 4.2 navigation 4.3 finish 时机不对产生白屏   第5节 实战总结 ARou">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-25T06:47:53.498Z">
+<meta property="og:updated_time" content="2019-12-25T07:53:34.769Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阿里巴巴arouter组件化总结">
-<meta name="twitter:description" content="第1节 组件化原因 抽离出常用的公共模块，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性： 抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。 抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。 把功能模块放入内部版本仓库，使代码更简洁，各版本修改bug追踪">
+<meta name="twitter:description" content="第1节 组件化原因 第2节 组件化须考虑的问题 第3节 ARouter使用 3.1 初始化配置 3.2 高阶使用 1. 模块间调用 2. 全局分组拦截 3. 降级处理 4. 路径替换 5. 默认JavaBean序列化控制类     第4节 Arouter采坑记录 前言 4.1 AutoWrite 4.2 navigation 4.3 finish 时机不对产生白屏   第5节 实战总结 ARou">
 
 
 
@@ -410,7 +410,36 @@
       
 
       
-        <h1 id="第1节-组件化原因"><a href="#第1节-组件化原因" class="headerlink" title="第1节 组件化原因"></a>第1节 组件化原因</h1><ol>
+        <ul>
+<li><a href="#%E7%AC%AC1%E8%8A%82-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%8E%9F%E5%9B%A0">第1节 组件化原因</a></li>
+<li><a href="#%E7%AC%AC2%E8%8A%82-%E7%BB%84%E4%BB%B6%E5%8C%96%E9%A1%BB%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98">第2节 组件化须考虑的问题</a></li>
+<li><a href="#%E7%AC%AC3%E8%8A%82-arouter%E4%BD%BF%E7%94%A8">第3节 ARouter使用</a><ul>
+<li><a href="#31-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE">3.1 初始化配置</a></li>
+<li><a href="#32-%E9%AB%98%E9%98%B6%E4%BD%BF%E7%94%A8">3.2 高阶使用</a><ul>
+<li><a href="#1-%E6%A8%A1%E5%9D%97%E9%97%B4%E8%B0%83%E7%94%A8">1. 模块间调用</a></li>
+<li><a href="#2-%E5%85%A8%E5%B1%80%E5%88%86%E7%BB%84%E6%8B%A6%E6%88%AA">2. 全局分组拦截</a></li>
+<li><a href="#3-%E9%99%8D%E7%BA%A7%E5%A4%84%E7%90%86">3. 降级处理</a></li>
+<li><a href="#4-%E8%B7%AF%E5%BE%84%E6%9B%BF%E6%8D%A2">4. 路径替换</a></li>
+<li><a href="#5-%E9%BB%98%E8%AE%A4javabean%E5%BA%8F%E5%88%97%E5%8C%96%E6%8E%A7%E5%88%B6%E7%B1%BB">5. 默认JavaBean序列化控制类</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC4%E8%8A%82-arouter%E9%87%87%E5%9D%91%E8%AE%B0%E5%BD%95">第4节 Arouter采坑记录</a><ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#41-autowrite">4.1 AutoWrite</a></li>
+<li><a href="#42-navigation">4.2 navigation</a></li>
+<li><a href="#43--finish-%E6%97%B6%E6%9C%BA%E4%B8%8D%E5%AF%B9%E4%BA%A7%E7%94%9F%E7%99%BD%E5%B1%8F">4.3 finish 时机不对产生白屏</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC5%E8%8A%82-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93-arouter%E5%B0%81%E8%A3%85%E7%B1%BB">第5节 实战总结 ARouter封装类</a><ul>
+<li><a href="#postcard-%E7%9A%84%E5%8C%85%E8%A3%85%E7%B1%BB">Postcard 的包装类</a></li>
+<li><a href="#arouterhelper-%E5%B8%AE%E5%8A%A9%E7%B1%BB">ArouterHelper 帮助类</a></li>
+</ul>
+</li>
+<li><a href="#%E9%99%84%E5%BD%95">附录</a></li>
+</ul>
+<h1 id="第1节-组件化原因"><a href="#第1节-组件化原因" class="headerlink" title="第1节 组件化原因"></a>第1节 组件化原因</h1><ol>
 <li><strong>抽离出常用的公共模块</strong>，如公司内部封装的工具库，网络访问库，公共资源等。各公共模块单独维护，逐渐完善。工作多年深刻感觉到公共模块代码对一个公司的重要性：<ol>
 <li>抽离出公共模块，通过共同维护和使用能明显提高公司内部项目开发效率，减少内部消耗。</li>
 <li>抽离出公共模块，能达到强调的效果，通过逐步的版本迭代，达到公司内部技术积累的目的。</li>
@@ -1109,6 +1138,10 @@ dependencies<span class="token punctuation">{</span>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/25/2018-4-15-designer/" rel="prev" title="设计相关">
+                设计相关 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
