@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/starsliao/Prometheus/master/screenshot.jpg">
 <meta property="og:image" content="http://cdn.linz.tech/threads-gateway-2019-6-13.png">
 <meta property="og:image" content="http://cdn.linz.tech/1555683876672.png">
-<meta property="og:updated_time" content="2019-12-22T05:12:29.494Z">
+<meta property="og:updated_time" content="2019-12-31T08:24:59.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习笔记">
 <meta name="twitter:description" content="Containerdocker build --tag=friendlyhello . #or add version   docker build -tag= friendlyhello:v0.0.1 .  docker image ls docker run -p 4000:80 friendlyhello  Docker for Linux network set  Set proxy se">
@@ -518,7 +518,10 @@ docker container rm wildfly<span aria-hidden="true" class="line-numbers-rows"><s
   docker container stop $(docker container ps -q)
   #删除所有container
   docker container rm $(docker container ps -aq)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h1><h2 id="镜像信息查看命令"><a href="#镜像信息查看命令" class="headerlink" title="镜像信息查看命令"></a>镜像信息查看命令</h2><p><code>docker info</code> 能查看docker镜像存储位置 一般为<code>/var/lib/docker</code><br><code>docker system df</code>  查看镜像、容器、数据卷所占用的空间<br><code>docker image history jboss/wildfly</code>  查看镜像更详细的信息</p>
+<h1 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h1><blockquote>
+<p>镜像相关</p>
+</blockquote>
+<h2 id="镜像信息查看命令"><a href="#镜像信息查看命令" class="headerlink" title="镜像信息查看命令"></a>镜像信息查看命令</h2><p><code>docker info</code> 能查看docker镜像存储位置 一般为<code>/var/lib/docker</code><br><code>docker system df</code>  查看镜像、容器、数据卷所占用的空间<br><code>docker image history jboss/wildfly</code>  查看镜像更详细的信息</p>
 <h2 id="镜像的查看于删除"><a href="#镜像的查看于删除" class="headerlink" title="镜像的查看于删除"></a>镜像的查看于删除</h2><pre class="line-numbers language-shell"><code class="language-shell">docker images 
     -a  #all
     -f  #filter
@@ -552,9 +555,15 @@ docker image ls -a                             # List all images on this machine
 docker image rm <image id>            # Remove specified image from this machine
 docker image rm $(docker image ls -a -q)   # Remove all images from this machine
 docker login             # Log in this CLI session using your Docker credentials
+#docker image ls 列出所有image，docker tag 给image打标签
 docker tag <image> username/repository:tag  # Tag <image> for upload to registry
+#例如：把本地名为`android_sdk_27:v0.0.1`的镜像重命名为分享格式
+docker tag android_sdk_27:v0.0.1  dockerlinz/android-sdk:27
+#分享image到dockerlinz
+docker push dockerlinz/android-sdk:27
+
 docker push username/repository:tag            # Upload tagged image to registry
-docker run username/repository:tag                   # Run image from a registry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></image></image></image></hash></hash></hash></code></pre>
+docker run username/repository:tag                   # Run image from a registry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></image></image></image></hash></hash></hash></code></pre>
 <h2 id="镜像的获取和推送"><a href="#镜像的获取和推送" class="headerlink" title="镜像的获取和推送"></a>镜像的获取和推送</h2><p><strong>Ubuntu 14.04、Debian 7 Wheezy</strong></p>
 <pre class="line-numbers language-shell"><code class="language-shell">docker search 
 
@@ -2475,7 +2484,7 @@ sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><sp
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2497,7 +2506,7 @@ sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><sp
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2590,7 +2599,7 @@ sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><sp
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

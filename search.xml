@@ -1,6 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Docker flutter镜像自动部署实践，踩坑记录</title>
+    <url>/2020/01/06/2020-01-06-Docker-flutter-%E9%95%9C%E5%83%8F%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%9C%80%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5%E6%A1%88%E4%BE%8B">最简单实践案例</a><ul>
+<li><a href="#%E6%8C%87%E5%AE%9Asdk%E7%89%88%E6%9C%AC">指定SDK版本</a></li>
+<li><a href="#%E6%8C%87%E5%AE%9Aflutter%E7%89%88%E6%9C%AC">指定flutter版本</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95">测试</a></li>
+</ul>
+</li>
+<li><a href="#%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98">出现的问题</a><ul>
+<li><a href="#%E9%97%AE%E9%A2%98%E4%B8%80%E6%9C%AC%E5%9C%B0%E6%AD%A3%E5%B8%B8%E8%B7%91%E4%BD%86%E6%98%AF%E9%95%9C%E5%83%8F%E4%B8%AD%E5%BE%88%E5%A4%9A%E4%BE%9D%E8%B5%96%E4%B8%8B%E8%BD%BD%E4%B8%8D%E4%B8%8B%E6%9D%A5">问题一：本地正常跑，但是镜像中很多依赖下载不下来</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E4%BA%8C-flutter-build-apk-%E7%BC%93%E6%85%A2">问题二： flutter build apk 缓慢</a><ul>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B8%80">解决方案一</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  本项目主要参考<a href="https://github.com/cirruslabs" target="_blank" rel="noopener">cirruslabs</a>的两个Docker脚本</p>
+<ul>
+<li><p><strong><a href="https://github.com/cirruslabs/docker-images-flutter" target="_blank" rel="noopener">docker-images-flutter</a></strong></p>
+</li>
+<li><p><strong><a href="https://github.com/cirruslabs/docker-images-android" target="_blank" rel="noopener">docker-images-android</a></strong></p>
+<p>本笔记主要是简化和增加一些实际过程中一些经验总结</p>
+</li>
+</ul>
+<h1 id="最简单实践案例"><a href="#最简单实践案例" class="headerlink" title="最简单实践案例"></a>最简单实践案例</h1><h2 id="指定SDK版本"><a href="#指定SDK版本" class="headerlink" title="指定SDK版本"></a>指定SDK版本</h2><p>  Dockerfile</p>
+<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">  FROM cirrusci/android-sdk:tools
+
+  ENV ANDROID_PLATFORM_VERSION 29
+  ENV ANDROID_BUILD_TOOLS_VERSION 29.0.2
+
+  RUN yes | sdkmanager \
+      "platforms;android-$ANDROID_PLATFORM_VERSION" \
+      "build-tools;$ANDROID_BUILD_TOOLS_VERSION"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  编译镜像，和上面Dockerfile同级目录执行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">  docker build -t "image_name" . <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>-t 指定镜像名称；</li>
+<li><code>.</code> 当前目录找Dockerfile 编译文件</li>
+</ul>
+<p>  如果需要多个SDK的话，可以在上次编译镜像的基础上叠一层，修改Dockfile</p>
+<p>  <font color="red">建议不要叠太多SDK，否则最终的镜像会很大，而且正式环境是不需要多个SDK的</font></p>
+<p>  Dockerfile</p>
+<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">  FROM <上次编译的镜像名称或者ID>
+
+  ENV ANDROID_PLATFORM_VERSION 29
+  ENV ANDROID_BUILD_TOOLS_VERSION 29.0.2
+
+  RUN yes | sdkmanager \
+      "platforms;android-$ANDROID_PLATFORM_VERSION" \
+      "build-tools;$ANDROID_BUILD_TOOLS_VERSION"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p> 备注： 这里提供自己编译好的SDK版本，本人比较懒提供常用编译好的SDK</p>
+<p><code>dockerlinz/android-sdk:29</code></p>
+<p><code>dockerlinz/android-sdk:28</code></p>
+<p> <code>dockerlinz/android-sdk:27</code></p>
+</blockquote>
+<h2 id="指定flutter版本"><a href="#指定flutter版本" class="headerlink" title="指定flutter版本"></a>指定flutter版本</h2><p>  Dockerfile</p>
+<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">  FROM dockerlinz/android-sdk:27
+
+  ARG flutter_version
+
+  ENV FLUTTER_HOME=${HOME}/sdks/flutter \
+      FLUTTER_ROOT=$FLUTTER_HOME \
+      FLUTTER_VERSION=$flutter_version \
+      PUB_HOSTED_URL=https://pub.flutter-io.cn \
+      FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+
+  RUN mkdir -p ${FLUTTER_HOME}
+
+  ENV PATH ${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin
+
+  RUN git clone --branch ${FLUTTER_VERSION} https://github.com/flutter/flutter.git ${FLUTTER_HOME} && \
+      flutter doctor<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  这里我们使用<code>v1.9.1-hotfixes</code>分支</p>
+<pre class="line-numbers language-shell"><code class="language-shell">  docker build --tag --build-arg flutter_version=v1.9.1-hotfixes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>  进入flutter工程所在目录</p>
+<pre class="line-numbers language-shell"><code class="language-shell">  docker run --rm -it -v ${PWD}:/build --workdir /build dockerlinz/flutter:stable flutter build apk <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>可以加入 -v ~/.gradle:/home/cirrus/.gradle –env GRADLE_USER_HOME=/home/cirrus/.gradle，挂在本地缓存到镜像中</p>
+</blockquote>
+<p>  <font color="red"> 注意：过来人经验，此处没有把握的话还是进入容器里面测试会更省事</font></p>
+<pre class="line-numbers language-shell"><code class="language-shell">  docker run --rm -it -v ${PWD}:/build --workdir /build dockerlinz/flutter:stable<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>  进入后需要重新生成<code>.packages</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">  fluter clean 
+  flutter packages get <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>  最好进入android或mac目录执行以下原生编译脚本，查看编译环境</p>
+<pre class="line-numbers language-shell"><code class="language-shell">  ./gradlew build -d <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>  最后才是flutter编译</p>
+<pre class="line-numbers language-shell"><code class="language-shell">  flutter build apk <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h1><h2 id="问题一：本地正常跑，但是镜像中很多依赖下载不下来"><a href="#问题一：本地正常跑，但是镜像中很多依赖下载不下来" class="headerlink" title="问题一：本地正常跑，但是镜像中很多依赖下载不下来"></a>问题一：本地正常跑，但是镜像中很多依赖下载不下来</h2><ul>
+<li><p><font color="red"> android studio Could not download guava.jar</font></p>
+</li>
+<li><p><font color="red"> Could not download kotlin-gradle-plugin.jar</font></p>
+</li>
+<li><p><font color="red">flutter Build file ‘/build/android/app/build.gradle’ line: 25</font></p>
+</li>
+<li><p><font color="red">Could not download kotlin-reflect.jar org.jetbrains.kotlin:kotlin-reflect:1.2.0</font></p>
+<p>解决：方案</p>
+</li>
+</ul>
+<ol>
+<li><p>在gradle中增加阿里云国内镜像</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">buildscript <span class="token punctuation">{</span>
+    repositories <span class="token punctuation">{</span>
+        maven <span class="token punctuation">{</span> url <span class="token string">'http://maven.aliyun.com/nexus/content/groups/public/'</span> <span class="token punctuation">}</span>
+        <span class="token function">google</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">jcenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    dependencies <span class="token punctuation">{</span>
+        classpath <span class="token string">'com.android.tools.build:gradle:3.3.1'</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+allprojects <span class="token punctuation">{</span>
+    repositories <span class="token punctuation">{</span>
+        maven <span class="token punctuation">{</span> url <span class="token string">'http://maven.aliyun.com/nexus/content/groups/public/'</span> <span class="token punctuation">}</span>
+        <span class="token function">google</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">jcenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>挂载本地gradle 缓存到镜像中</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run --rm -it -v ${PWD}:/build --workdir /build  -v ~/.gradle:/home/cirrus/.gradle --env GRADLE_USER_HOME=/home/cirrus/.gradle  dockerlinz/flutter:stable<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="问题二：-flutter-build-apk-缓慢"><a href="#问题二：-flutter-build-apk-缓慢" class="headerlink" title="问题二： flutter build apk 缓慢"></a>问题二： flutter build apk 缓慢</h2><blockquote>
+<p>每次都下载gradle版本，导致每次重新下载gradle版本</p>
+</blockquote>
+<h3 id="解决方案一"><a href="#解决方案一" class="headerlink" title="解决方案一"></a>解决方案一</h3><p>  挂在本地缓存到镜像中</p>
+<pre class="line-numbers language-shell"><code class="language-shell">   -v ~/.gradle:/home/cirrus/.gradle --env GRADLE_USER_HOME=/home/cirrus/.gradle<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="解决方案二"><a href="#解决方案二" class="headerlink" title="解决方案二"></a>解决方案二</h3><ol>
+<li><p>挂在.gradle 缓存目录，不用每次编译的时候重新下载依赖</p>
+<pre class="line-numbers language-shell"><code class="language-shell">-v ~/.gradle2:/home/cirrus/.gradle<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>在叠一层gradle环境</p>
+<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">#https://github.com/frekele/docker-gradle/blob/master/Dockerfile
+FROM dockerlinz/flutter:1.9.1-hotfixes
+
+# Change to tmp folder
+ENV GRADLE_VERSION=4.10.2
+ENV GRADLE_HOME=/opt/gradle
+ENV GRADLE_FOLDER=/root/.gradle
+
+# Change to tmp folder
+WORKDIR /tmp
+
+# Download and extract gradle to opt folder
+RUN wget --no-check-certificate --no-cookies https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+    && sudo unzip gradle-${GRADLE_VERSION}-bin.zip -d /opt \
+    && sudo ln -s /opt/gradle-${GRADLE_VERSION} /opt/gradle \
+    && sudo rm -f gradle-${GRADLE_VERSION}-bin.zip
+
+# Add executables to path
+RUN sudo update-alternatives --install "/usr/bin/gradle" "gradle" "/opt/gradle/bin/gradle" 1 && \
+    sudo update-alternatives --set "gradle" "/opt/gradle/bin/gradle"
+
+# Create .gradle folder
+RUN sudo mkdir -p $GRADLE_FOLDER
+
+# Mark as volume
+VOLUME  $GRADLE_FOLDER
+
+# Add the files
+#ADD rootfs /
+
+# Change to root folder
+WORKDIR /home/cirrus/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Flutter 中Android工程指定本地gradle编译，不是取下载，文件目录<code>&lt;android_project&gt;</code>/.idea/gradle.xml</p>
+<pre class="line-numbers language-shell"><code class="language-shell"><?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT" />
+        </compositeConfiguration>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-all/9br9xq1tocpiv8o6njlyu5op1/gradle-4.4/bin" />
+        <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>distributionType 改为<code>LOCAL</code></li>
+<li>gradleHome 指向<code>gradle_home/bin</code></li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>flutter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>完美简单解决git和svn共用混用，或用git维护svn的问题</title>
+    <url>/2019/12/28/2019-12-28-git%E5%92%8Csvn%E5%85%B1%E7%94%A8%E6%B7%B7%E7%94%A8/</url>
+    <content><![CDATA[<ul>
+<li><a href="#%E5%89%8D%E8%A8%80%E5%BA%9F%E8%AF%9D%E8%AF%B4%E5%9C%A8%E5%89%8D">前言（废话说在前）</a></li>
+<li><a href="#%E4%B8%A4%E4%B8%AA%E5%91%BD%E4%BB%A4%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98">两个命令解决问题</a><ul>
+<li><a href="#svn-%E5%AE%8C%E7%BE%8E%E8%BD%AC-git">SVN 完美转 GIT</a></li>
+<li><a href="#git-%E5%90%8C%E6%AD%A5%E5%88%B0svn">GIT 同步到SVN</a></li>
+<li><a href="#%E8%BF%9B%E4%BB%B7">进价</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="前言（废话说在前）"><a href="#前言（废话说在前）" class="headerlink" title="前言（废话说在前）"></a>前言（废话说在前）</h1><p>记得第一份编程工作公司用的就是SVN，无法本地提交，文件多的情况下载奇慢，切分支各种繁琐操作，多个版本协同更是进入版本控制的地狱模式，特别是团队多人同时开发，解决冲突的时候。现在，在我看来SVN就是过时的工具，但偏偏在Git的洪流下还有一些公司出于各种原因不用Git，还坚持着那份低效看似稳妥的方案。<br><img src="http://cdn.linz.tech/git-vs-svn.png" alt="在这里插入图片描述"><br>你叫我们这习惯本地提交，各种切分支删分支的与时俱进的程序员情何以堪。从此饭也不香，敲代码提不起精神，看老板都有点尴尬O(∩_∩)O哈哈~…..<br><img src="http://cdn.linz.tech/%E6%88%91%E7%9A%84%E5%A4%A9%E9%82%A3.gif" alt="在这里插入图片描述"></p>
+<h1 id="两个命令解决问题"><a href="#两个命令解决问题" class="headerlink" title="两个命令解决问题"></a>两个命令解决问题</h1><h2 id="SVN-完美转-GIT"><a href="#SVN-完美转-GIT" class="headerlink" title="SVN 完美转 GIT"></a>SVN 完美转 GIT</h2><p>首先解决Svn转Git进行版本控制，<b><font color="red">提交日志也会同步</font></b></p>
+<blockquote>
+<p>当初尝试搜索svn和git混用网上的解决方式</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">git svn clone [svn_url] <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="GIT-同步到SVN"><a href="#GIT-同步到SVN" class="headerlink" title="GIT 同步到SVN"></a>GIT 同步到SVN</h2><p><b><font color="red">提交日志也会同步</font></b></p>
+<pre class="line-numbers language-shell"><code class="language-shell">git svn dcommit<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果是Android Studio 会看到，如下一个同步的图标<br><img src="http://cdn.linz.tech/git2svn_android_studio.png" alt="在这里插入图片描述"></p>
+<h2 id="进价"><a href="#进价" class="headerlink" title="进价"></a>进价</h2><blockquote>
+<p>哈哈，你以为我还会进价，上面的两个命令解决了90%的问题，还是洗洗，多出去嗨吧！！</p>
+</blockquote>
+<p><img src="http://cdn.linz.tech/hahaxixi.gif" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>svn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>程序员怎么高效做笔记</title>
     <url>/2019/12/25/2018-9-20-method-for-note/</url>
     <content><![CDATA[<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
@@ -90,7 +330,8 @@
 </ol>
 <p>安装</p>
 <pre class="line-numbers language-js"><code class="language-js">npm install <span class="token operator">--</span>save markdown<span class="token operator">-</span>toc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>假设你需要为README.md生成目录,使用</p>
+<p>全局安装</p>
+<pre><code>npm install -g --save markdown-toc</code></pre><p>假设你需要为README.md生成目录,使用</p>
 <pre class="line-numbers language-js"><code class="language-js">npx markdown<span class="token operator">-</span>toc README<span class="token punctuation">.</span>md<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>把输出的内容拷贝到md文件即可</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
@@ -834,7 +1075,7 @@ dependencies<span class="token punctuation">{</span>
 <p>implementation   不分享自己的依赖，只有在runtime是其他模块的依赖才可见<br>api 分享自己的依赖，但是在其变化时，其他依赖需重新编译</p>
 <p> <a href="https://www.cnblogs.com/bluestorm/p/8747860.html" target="_blank" rel="noopener">Android Studio添加文件注释头模板？</a></p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
- *    @Author  ex-linzhi002
+ *    @Author  linz
  *    @Date    $date$ $time$
  *    @Description   
  *    @Version: 1.0
@@ -11518,7 +11759,10 @@ docker container rm wildfly<span aria-hidden="true" class="line-numbers-rows"><s
   docker container stop $(docker container ps -q)
   #删除所有container
   docker container rm $(docker container ps -aq)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h1><h2 id="镜像信息查看命令"><a href="#镜像信息查看命令" class="headerlink" title="镜像信息查看命令"></a>镜像信息查看命令</h2><p><code>docker info</code> 能查看docker镜像存储位置 一般为<code>/var/lib/docker</code><br><code>docker system df</code>  查看镜像、容器、数据卷所占用的空间<br><code>docker image history jboss/wildfly</code>  查看镜像更详细的信息</p>
+<h1 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h1><blockquote>
+<p>镜像相关</p>
+</blockquote>
+<h2 id="镜像信息查看命令"><a href="#镜像信息查看命令" class="headerlink" title="镜像信息查看命令"></a>镜像信息查看命令</h2><p><code>docker info</code> 能查看docker镜像存储位置 一般为<code>/var/lib/docker</code><br><code>docker system df</code>  查看镜像、容器、数据卷所占用的空间<br><code>docker image history jboss/wildfly</code>  查看镜像更详细的信息</p>
 <h2 id="镜像的查看于删除"><a href="#镜像的查看于删除" class="headerlink" title="镜像的查看于删除"></a>镜像的查看于删除</h2><pre class="line-numbers language-shell"><code class="language-shell">docker images 
     -a  #all
     -f  #filter
@@ -11552,9 +11796,15 @@ docker image ls -a                             # List all images on this machine
 docker image rm <image id>            # Remove specified image from this machine
 docker image rm $(docker image ls -a -q)   # Remove all images from this machine
 docker login             # Log in this CLI session using your Docker credentials
+#docker image ls 列出所有image，docker tag 给image打标签
 docker tag <image> username/repository:tag  # Tag <image> for upload to registry
+#例如：把本地名为`android_sdk_27:v0.0.1`的镜像重命名为分享格式
+docker tag android_sdk_27:v0.0.1  dockerlinz/android-sdk:27
+#分享image到dockerlinz
+docker push dockerlinz/android-sdk:27
+
 docker push username/repository:tag            # Upload tagged image to registry
-docker run username/repository:tag                   # Run image from a registry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+docker run username/repository:tag                   # Run image from a registry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="镜像的获取和推送"><a href="#镜像的获取和推送" class="headerlink" title="镜像的获取和推送"></a>镜像的获取和推送</h2><p><strong>Ubuntu 14.04、Debian 7 Wheezy</strong></p>
 <pre class="line-numbers language-shell"><code class="language-shell">docker search 
 
@@ -23576,8 +23826,8 @@ public abstract class Story implements Parcelable{
         <category>note</category>
       </categories>
       <tags>
-        <tag>数据库</tag>
         <tag>Android</tag>
+        <tag>数据库</tag>
         <tag>database</tag>
       </tags>
   </entry>
@@ -23690,8 +23940,8 @@ public abstract class Story implements Parcelable{
         <category>note</category>
       </categories>
       <tags>
-        <tag>Android</tag>
         <tag>New Trench</tag>
+        <tag>Android</tag>
         <tag>新技术</tag>
       </tags>
   </entry>
