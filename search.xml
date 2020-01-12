@@ -252,11 +252,11 @@ dependencies <span class="token punctuation">{</span>
 </ul>
 ]]></content>
       <categories>
-        <category>coder</category>
+        <category>note</category>
       </categories>
       <tags>
         <tag>Android</tag>
-        <tag>‘UI’</tag>
+        <tag>UI</tag>
       </tags>
   </entry>
   <entry>
@@ -22410,8 +22410,8 @@ popWnd<span class="token punctuation">.</span><span class="token function">setHe
         <category>note</category>
       </categories>
       <tags>
-        <tag>Design</tag>
         <tag>Android</tag>
+        <tag>Design</tag>
         <tag>support</tag>
         <tag>UI</tag>
       </tags>
