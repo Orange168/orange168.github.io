@@ -224,9 +224,18 @@ touchHelper<span class="token punctuation">.</span><span class="token function">
 
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="Recylcerview-常用功能实现"><a href="#Recylcerview-常用功能实现" class="headerlink" title="Recylcerview 常用功能实现"></a>Recylcerview 常用功能实现</h2><ol>
-<li>水平滑动时不是最后一个Item, 都显示居中</li>
-<li>左右联动 <a href="https://github.com/cnwutianhao/RecyclerView/tree/master/app/src/main/java/com/haocent/android/recyclerview/link" target="_blank" rel="noopener">LinkActivity.java</a><br><img src="https://upload-images.jianshu.io/upload_images/1942828-20138c435cdfbe5c.gif" alt></li>
+<li><p>水平滑动时不是最后一个Item, 都显示居中</p>
+</li>
+<li><p>左右联动 <a href="https://github.com/cnwutianhao/RecyclerView/tree/master/app/src/main/java/com/haocent/android/recyclerview/link" target="_blank" rel="noopener">LinkActivity.java</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1942828-20138c435cdfbe5c.gif" alt></p>
+</li>
 </ol>
+<h1 id="RecyclerView-源码解析"><a href="#RecyclerView-源码解析" class="headerlink" title="RecyclerView 源码解析"></a>RecyclerView 源码解析</h1><ul>
+<li><a href="https://blog.csdn.net/sdfdzx/article/details/79594518" target="_blank" rel="noopener">RecyclerView源码解析(一)——绘制流程</a></li>
+</ul>
+<h1 id="RecyclerView-优化"><a href="#RecyclerView-优化" class="headerlink" title="RecyclerView 优化"></a>RecyclerView 优化</h1><ul>
+<li><a href="https://blog.csdn.net/smileiam/article/details/88396546" target="_blank" rel="noopener">RecyclerView性能优化及高级使用</a></li>
+</ul>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="参考博文"><a href="#参考博文" class="headerlink" title="参考博文"></a>参考博文</h2><ul>
 <li><a href="https://www.jianshu.com/p/1d323775e2f5" target="_blank" rel="noopener">开发笔记-GridLayoutManager实现Item均匀分布</a></li>
 <li><a href="https://stackoverflow.com/questions/40587168/simple-android-grid-example-using-recyclerview-with-gridlayoutmanager-like-the" target="_blank" rel="noopener">Simple Android grid example using RecyclerView with GridLayoutManager (like the old GridView)</a></li>
@@ -22410,8 +22419,8 @@ popWnd<span class="token punctuation">.</span><span class="token function">setHe
         <category>note</category>
       </categories>
       <tags>
-        <tag>Android</tag>
         <tag>Design</tag>
+        <tag>Android</tag>
         <tag>support</tag>
         <tag>UI</tag>
       </tags>
