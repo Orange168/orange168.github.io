@@ -88,7 +88,7 @@
 <meta property="og:description" content="第1节 最常用案例 注意： 应用包名默认为 com.example.app  1.1 启动应用主界面adb shell am start -n &quot;com.example.app/com.example.app.ui.basic.activity.LoginActivity&quot; -a android.intent.action.MAIN -c android.intent.category.LAUNC">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://cdn.linz.tech/android_adb_logcat.GIF">
-<meta property="og:updated_time" content="2019-12-22T05:12:29.488Z">
+<meta property="og:updated_time" content="2020-01-14T14:25:13.133Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Debug Bridge (ADB) 使用总结">
 <meta name="twitter:description" content="第1节 最常用案例 注意： 应用包名默认为 com.example.app  1.1 启动应用主界面adb shell am start -n &quot;com.example.app/com.example.app.ui.basic.activity.LoginActivity&quot; -a android.intent.action.MAIN -c android.intent.category.LAUNC">
@@ -556,6 +556,8 @@ Total PSS by process:
 <p>举例：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">举例：adb shell am startservice -a com.lt.test.action.ONESERVICE
 举例：adb shell am startservice -n com.example.app.android.emop/.MyService<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>实战笔记</p>
+<pre class="line-numbers language-java"><code class="language-java">adb shell am startservice <span class="token operator">-</span>a com<span class="token punctuation">.</span>exmaple<span class="token punctuation">.</span>test <span class="token operator">-</span>n com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>app<span class="token operator">/</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span>MyService<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="4-2-broadcast"><a href="#4-2-broadcast" class="headerlink" title="4.2 broadcast"></a>4.2 broadcast</h3><pre class="line-numbers language-shell"><code class="language-shell">adb shell am broadcast [options]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>举例：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">举例：adb shell am broadcast -a EMOP_OFF_LINE_ASSIGN_TASK  //when the permission 
@@ -779,7 +781,7 @@ ime set  com.baidu.input_huawei/.ImeService<span aria-hidden="true" class="line-
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -801,7 +803,7 @@ ime set  com.baidu.input_huawei/.ImeService<span aria-hidden="true" class="line-
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
