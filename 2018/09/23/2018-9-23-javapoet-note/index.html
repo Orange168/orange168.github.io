@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="javapoet,tools,">
+  <meta name="keywords" content="总结,实践,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="基础总结JavaPoet简介JavaPoet 是一个生成.Java源文件的Java API。源文件生成在annotation processing 或者和一些元数据，例如文件，数据库设计，协议格式等，进行交互时会很有用。通过代码生成，你能够减少冗余的代码模板，同时保证唯一正确的源文件为元数据。 目录 基础总结 JavaPoet简介 使用总结 最小案例 类说明 公共 方法相关 其他     Java">
-<meta name="keywords" content="javapoet,tools">
+<meta name="keywords" content="总结,实践">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Javapoet API 简介使用思路-Java代码生成">
 <meta property="og:url" content="http://linz.tech/2018/09/23/2018-9-23-javapoet-note/index.html">
 <meta property="og:site_name" content="北疆的博客">
 <meta property="og:description" content="基础总结JavaPoet简介JavaPoet 是一个生成.Java源文件的Java API。源文件生成在annotation processing 或者和一些元数据，例如文件，数据库设计，协议格式等，进行交互时会很有用。通过代码生成，你能够减少冗余的代码模板，同时保证唯一正确的源文件为元数据。 目录 基础总结 JavaPoet简介 使用总结 最小案例 类说明 公共 方法相关 其他     Java">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-22T05:12:29.487Z">
+<meta property="og:updated_time" content="2020-01-15T11:10:27.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javapoet API 简介使用思路-Java代码生成">
 <meta name="twitter:description" content="基础总结JavaPoet简介JavaPoet 是一个生成.Java源文件的Java API。源文件生成在annotation processing 或者和一些元数据，例如文件，数据库设计，协议格式等，进行交互时会很有用。通过代码生成，你能够减少冗余的代码模板，同时保证唯一正确的源文件为元数据。 目录 基础总结 JavaPoet简介 使用总结 最小案例 类说明 公共 方法相关 其他     Java">
@@ -475,14 +475,19 @@ javaFile<span class="token punctuation">.</span><span class="token function">wri
 <li>文档：MethodSpec.addJavadoc</li>
 </ul>
 <h3 id="公共"><a href="#公共" class="headerlink" title="公共"></a>公共</h3><ul>
-<li>String.format() 字符串格式化<ul>
-<li>$L for Literals <code>.addStatement(&quot;result = result $L i&quot;, op)</code></li>
-<li>$S for Strings <code>.addStatement(&quot;return $S&quot;, name)</code></li>
-<li>$T for Types  <code>.addStatement(&quot;return new $T()&quot;, Date.class)</code> 会自动<code>import java.util.Date;</code>包名<ul>
+<li><p>String.format() 字符串格式化</p>
+<ul>
+<li><p>$L for Literals <code>.addStatement(&quot;result = result $L i&quot;, op)</code></p>
+</li>
+<li><p>$S for Strings <code>.addStatement(&quot;return $S&quot;, name)</code></p>
+</li>
+<li><p>$T for Types  <code>.addStatement(&quot;return new $T()&quot;, Date.class)</code> 会自动<code>import java.util.Date;</code>包名</p>
+<ul>
 <li>手动指定包名：<code>ClassName hoverboard = ClassName.get(&quot;com.mattel&quot;, &quot;Hoverboard&quot;);</code></li>
 </ul>
 </li>
-<li>Code block 代码块<ul>
+<li><p>Code block 代码块</p>
+<ul>
 <li><code>CodeBlock.builder().add(&quot;I ate $2L $1L&quot;, &quot;tacos&quot;, 3)</code></li>
 <li>map<pre class="line-numbers language-java"><code class="language-java">Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedHashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"food"</span><span class="token punctuation">,</span> <span class="token string">"tacos"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -493,7 +498,8 @@ CodeBlock<span class="token punctuation">.</span><span class="token function">bu
 </li>
 </ul>
 </li>
-<li>Import static 静态导入<pre class="line-numbers language-java"><code class="language-java">JavaFile<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token string">"com.example.helloworld"</span><span class="token punctuation">,</span> hello<span class="token punctuation">)</span>
+<li><p>Import static 静态导入</p>
+<pre class="line-numbers language-java"><code class="language-java">JavaFile<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token string">"com.example.helloworld"</span><span class="token punctuation">,</span> hello<span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">addStaticImport</span><span class="token punctuation">(</span>hoverboard<span class="token punctuation">,</span> <span class="token string">"createNimbus"</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
@@ -615,9 +621,9 @@ MethodSpec welcomeOverlords <span class="token operator">=</span> MethodSpec<spa
       
         <div class="post-tags">
           
-            <a href="/tags/javapoet/" rel="tag"># javapoet</a>
+            <a href="/tags/总结/" rel="tag"># 总结</a>
           
-            <a href="/tags/tools/" rel="tag"># tools</a>
+            <a href="/tags/实践/" rel="tag"># 实践</a>
           
         </div>
       
@@ -640,8 +646,8 @@ MethodSpec welcomeOverlords <span class="token operator">=</span> MethodSpec<spa
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/31/2018-10-31-android-p-api-28/" rel="prev" title="Android P 电量管理">
-                Android P 电量管理 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/13/2019-4-13-git-basic-note/" rel="prev" title="git 基础比较">
+                git 基础比较 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -724,7 +730,7 @@ MethodSpec welcomeOverlords <span class="token operator">=</span> MethodSpec<spa
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -735,7 +741,7 @@ MethodSpec welcomeOverlords <span class="token operator">=</span> MethodSpec<spa
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -746,7 +752,7 @@ MethodSpec welcomeOverlords <span class="token operator">=</span> MethodSpec<spa
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
