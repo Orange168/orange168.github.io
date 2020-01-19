@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="北疆的博客">
 <meta property="og:description" content="前言 最简单实践案例 指定SDK版本 指定flutter版本 测试   出现的问题 问题一：本地正常跑，但是镜像中很多依赖下载不下来 问题二： flutter build apk 缓慢 解决方案一      前言  本项目主要参考cirruslabs的两个Docker脚本  docker-images-flutter  docker-images-android 本笔记主要是简化和增加一些实际过">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-15T11:26:38.228Z">
+<meta property="og:updated_time" content="2020-01-15T16:26:37.735Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker flutter镜像自动部署实践，踩坑记录">
 <meta name="twitter:description" content="前言 最简单实践案例 指定SDK版本 指定flutter版本 测试   出现的问题 问题一：本地正常跑，但是镜像中很多依赖下载不下来 问题二： flutter build apk 缓慢 解决方案一      前言  本项目主要参考cirruslabs的两个Docker脚本  docker-images-flutter  docker-images-android 本笔记主要是简化和增加一些实际过">
@@ -581,23 +581,23 @@ VOLUME  $GRADLE_FOLDER
 WORKDIR /home/cirrus/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Flutter 中Android工程指定本地gradle编译，不是取下载，文件目录<code>&lt;android_project&gt;</code>/.idea/gradle.xml</p>
-<pre class="line-numbers language-shell"><code class="language-shell"><?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="GradleSettings">
-    <option name="linkedExternalProjectsSettings">
-      <gradleprojectsettings>
-        <compositeconfiguration>
-          <compositebuild compositedefinitionsource="SCRIPT">
-        </compositebuild></compositeconfiguration>
-        <option name="distributionType" value="LOCAL">
-        </option><option name="externalProjectPath" value="$PROJECT_DIR$">
-        </option><option name="gradleHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-all/9br9xq1tocpiv8o6njlyu5op1/gradle-4.4/bin">
-        </option><option name="resolveModulePerSourceSet" value="false">
-        </option><option name="testRunner" value="PLATFORM">
-      </option></gradleprojectsettings>
-    </option>
-  </component>
-</project><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>component</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>GradleSettings<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>linkedExternalProjectsSettings<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>GradleProjectSettings</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compositeConfiguration</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compositeBuild</span> <span class="token attr-name">compositeDefinitionSource</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>SCRIPT<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compositeConfiguration</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>distributionType<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>LOCAL<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>externalProjectPath<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>$PROJECT_DIR$<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gradleHome<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-all/9br9xq1tocpiv8o6njlyu5op1/gradle-4.4/bin<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>resolveModulePerSourceSet<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>testRunner<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>PLATFORM<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>GradleProjectSettings</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>component</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>distributionType 改为<code>LOCAL</code></li>
 <li>gradleHome 指向<code>gradle_home/bin</code></li>
@@ -728,7 +728,7 @@ WORKDIR /home/cirrus/<span aria-hidden="true" class="line-numbers-rows"><span></
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -750,7 +750,7 @@ WORKDIR /home/cirrus/<span aria-hidden="true" class="line-numbers-rows"><span></
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

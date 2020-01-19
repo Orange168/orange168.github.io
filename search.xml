@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>开发一个软件需要考虑的事及解决方案</title>
+    <url>/2020/01/16/2020-01-16-%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%BD%AF%E4%BB%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E7%9A%84%E4%BA%8B%E6%83%85%E6%94%B6%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="第一节-配置"><a href="#第一节-配置" class="headerlink" title="第一节 配置"></a>第一节 配置</h1><h2 id="1-1-应用首次进入都要询问后台自己需要做啥-？"><a href="#1-1-应用首次进入都要询问后台自己需要做啥-？" class="headerlink" title="1.1 应用首次进入都要询问后台自己需要做啥 ？"></a>1.1 应用首次进入都要询问后台自己需要做啥 ？</h2><p>那软件一般进入首页要干嘛呢？ 当然不只是我们看到的页面加载和显示。因为这是软件的入口，不经过仔细架构设计的软件，往往会多快好省的把大部份<font color="red"> 初始化，配置展示，信息同步</font>等一些比较重的逻辑放在这个入口。</p>
+<p>当然这个会带来一些问题：</p>
+<ol>
+<li>随着软件维护升级，首页的逻辑会越来越复杂，极难维护。</li>
+<li>过重的网络访问会在网络不稳定的情况出现各种异常，显示和交互极不友好，在没有建立强依赖的情况下，一次素养邋遢的状态，就会结束软件和用户缘分。</li>
+<li>频繁的CPU操作，往往会出现软件加载慢，响应迟钝，白屏的问题。</li>
+</ol>
+<p>案例分析一：内涵段子，被下架</p>
+<p>内涵段子被下架从软件设计角度来说，没有进行版本升级，在被下架后直接弹框提示用户，禁止用户进入软件使用。可以说产品经理也是牛这种极其特殊的场景都考虑到了。</p>
+<p><strong>解决方案：</strong></p>
+<p>软件设计上可以通过<font color="red">动态路由表 + 网页跳转</font>来轻松解决这些比较变态的需求。通过路由表设置一个网页为首页，禁止后续跳转逻辑。如果没有这种的架构设计，你会被各种需求和问题磨去那原本刚毅的体格变成一个木讷的程序员小哥。</p>
+<p>案例分析二：首页弹框地狱</p>
+<p>首页有啥弹框呢？ 升级提示，新手任务，签到，优惠活动，新手指引，消息通知….随着业务的增多这种首页弹框应该能把我们搞晕。看着是几个弹框而已，但是每个弹框都是一个请求，弹框和弹框之间的显示优先级该怎么处理，我们不小心把软件升级的优先级降低，甚至不出现，这会是直接炒鱿鱼的节奏。</p>
+<p><strong>解决方案：</strong></p>
+<p>软件设计上可以通过，<font color="red">统一配置定时更新,后台无更新使用本地缓存逻辑</font>来处理首页弹框配置类的逻辑。 我们可以叫它 <font color="red">配置中心接口</font> 后台使用 阿里开源的<font color="red">nacos</font>进行动态配置，前端软件通过定时的同步，无更新就不处理的逻辑，能解决软件设计中很多傻瓜式的更新和访问。</p>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>收集</tag>
+        <tag>软件开发经验</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Android原生常用配置总结</title>
     <url>/2020/01/14/2020-01-14-Android%E5%8E%9F%E7%94%9F%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="第1节-Dialog-对话框"><a href="#第1节-Dialog-对话框" class="headerlink" title="第1节 Dialog 对话框"></a>第1节 Dialog 对话框</h1><h2 id="1-1-Dialog布局设置"><a href="#1-1-Dialog布局设置" class="headerlink" title="1.1 Dialog布局设置"></a>1.1 Dialog布局设置</h2><p>Dialog 常用Style设置</p>
@@ -394,8 +421,8 @@ dependencies <span class="token punctuation">{</span>
       <tags>
         <tag>Android</tag>
         <tag>总结</tag>
-        <tag>UI</tag>
         <tag>实践</tag>
+        <tag>UI</tag>
       </tags>
   </entry>
   <entry>
@@ -572,23 +599,23 @@ VOLUME  $GRADLE_FOLDER
 WORKDIR /home/cirrus/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Flutter 中Android工程指定本地gradle编译，不是取下载，文件目录<code>&lt;android_project&gt;</code>/.idea/gradle.xml</p>
-<pre class="line-numbers language-shell"><code class="language-shell"><?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="GradleSettings">
-    <option name="linkedExternalProjectsSettings">
-      <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT" />
-        </compositeConfiguration>
-        <option name="distributionType" value="LOCAL" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-all/9br9xq1tocpiv8o6njlyu5op1/gradle-4.4/bin" />
-        <option name="resolveModulePerSourceSet" value="false" />
-        <option name="testRunner" value="PLATFORM" />
-      </GradleProjectSettings>
-    </option>
-  </component>
-</project><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>component</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>GradleSettings<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>linkedExternalProjectsSettings<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>GradleProjectSettings</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compositeConfiguration</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>compositeBuild</span> <span class="token attr-name">compositeDefinitionSource</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>SCRIPT<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>compositeConfiguration</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>distributionType<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>LOCAL<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>externalProjectPath<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>$PROJECT_DIR$<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>gradleHome<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>$USER_HOME$/.gradle/wrapper/dists/gradle-4.4-all/9br9xq1tocpiv8o6njlyu5op1/gradle-4.4/bin<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>resolveModulePerSourceSet<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>testRunner<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>PLATFORM<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>GradleProjectSettings</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>component</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>distributionType 改为<code>LOCAL</code></li>
 <li>gradleHome 指向<code>gradle_home/bin</code></li>
@@ -1605,8 +1632,8 @@ npm update # 更新插件</code></pre><h2 id="高级玩法"><a href="#高级玩�
         <category>coder</category>
       </categories>
       <tags>
-        <tag>经验</tag>
         <tag>实践</tag>
+        <tag>经验</tag>
       </tags>
   </entry>
   <entry>
@@ -7213,8 +7240,8 @@ exc <span class="token operator">=</span> <span class="token punctuation">(</spa
       </categories>
       <tags>
         <tag>Android</tag>
-        <tag>经验</tag>
         <tag>实践</tag>
+        <tag>经验</tag>
       </tags>
   </entry>
   <entry>
@@ -17197,8 +17224,8 @@ sysctl -p<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
         <category>note</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>实践</tag>
+        <tag>Java</tag>
         <tag>后台</tag>
       </tags>
   </entry>
@@ -18362,8 +18389,8 @@ ta<span class="token punctuation">.</span><span class="token function">addEventL
         <category>note</category>
       </categories>
       <tags>
-        <tag>UI</tag>
         <tag>实践</tag>
+        <tag>UI</tag>
       </tags>
   </entry>
   <entry>
@@ -19298,6 +19325,7 @@ list_connections [<ConnectionInfoItem> ...]<span aria-hidden="true" class="line-
 <h3 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h3><p>1、<a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/" target="_blank" rel="noopener">mybatis-spring-boot-starter 配置项手册</a></p>
 <p>2、<a href="https://github.com/mybatis/spring-boot-starter" target="_blank" rel="noopener">GitHub仓库地址，包含代码示例</a></p>
 <p>3、<a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">中文官方文档</a></p>
+<p><a href="mailto:zhengyu@chinapay.com" target="_blank" rel="noopener">zhengyu@chinapay.com</a>; <a href="mailto:11770820@qq.com" target="_blank" rel="noopener">11770820@qq.com</a>; <a href="mailto:huang.haisong@chinapay.con" target="_blank" rel="noopener">huang.haisong@chinapay.con</a></p>
 <h2 id="dubbo"><a href="#dubbo" class="headerlink" title="dubbo"></a>dubbo</h2><ul>
 <li><a href="https://blog.csdn.net/noaman_wgs/article/details/70214612" target="_blank" rel="noopener">Dubbo入门—搭建一个最简单的Demo框架</a></li>
 <li><a href="https://github.com/apache/incubator-dubbo" target="_blank" rel="noopener">incubator-dubbo</a> Apache Dubbo (incubating) is a high-performance, java based, open source RPC framework.</li>
@@ -23632,7 +23660,7 @@ JPushInterface.setAliasAndTags(getApplicationContext(), null, (Set&lt;String&gt;
       </categories>
       <tags>
         <tag>Android</tag>
-        <tag>实践经验</tag>
+        <tag>实践</tag>
       </tags>
   </entry>
   <entry>
@@ -24531,8 +24559,8 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
         <category>note</category>
       </categories>
       <tags>
-        <tag>Material</tag>
         <tag>Android</tag>
+        <tag>Material</tag>
       </tags>
   </entry>
   <entry>
