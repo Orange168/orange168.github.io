@@ -1,6 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>基于java-design-patterns白话图解设计模式（个人理解）</title>
+    <url>/2020/02/15/2020-02-15-Java-design-patterns-%E7%99%BD%E8%AF%9D%EF%BC%88%E5%8F%AF%E8%83%BD%E9%85%8D%E5%9B%BE%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="Abstract-Document-（抽象文档模式）"><a href="#Abstract-Document-（抽象文档模式）" class="headerlink" title="Abstract Document （抽象文档模式）"></a>Abstract Document （抽象文档模式）</h2><h3 id="白话：总分总分"><a href="#白话：总分总分" class="headerlink" title="白话：总分总分"></a>白话：总分总分</h3><h3 id="故事：买车"><a href="#故事：买车" class="headerlink" title="故事：买车"></a>故事：买车</h3><p><img src="http://cdn.linz.tech/abstract_doc_car_show.jpeg" alt></p>
+<p>我想买一辆车，首先要知道它的品牌型号如：300SL，价格 16W<font color="red">起</font></p>
+<p>但是我最近狗屎运特别好，厕所捡到了10W块，当然买高配版，轮胎型号15C，价格100¥，车门型号 Lambo 价格300¥，最终用<font color="red">抽象文档模式</font>代码表示，我买到的车：</p>
+<p><a href="https://github.com/iluwatar/java-design-patterns/blob/master/abstract-document/src/main/java/com/iluwatar/abstractdocument/App.java" target="_blank" rel="noopener">App.java</a></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Constructing parts and car"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var wheelProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>TYPE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"wheel"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"15C"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 100L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var doorProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>TYPE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"door"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"Lambo"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 300L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var carProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"300SL"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 160400L<span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PARTS<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> List<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>wheelProperties<span class="token punctuation">,</span> doorProperties<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var car <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span>carProperties<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Here is our car:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> model: {}"</span><span class="token punctuation">,</span> car<span class="token punctuation">.</span><span class="token function">getModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> price: {}"</span><span class="token punctuation">,</span> car<span class="token punctuation">.</span><span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> parts: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    car<span class="token punctuation">.</span><span class="token function">getParts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>p <span class="token operator">-</span><span class="token operator">></span> LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"\t{}/{}/{}"</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配一个网上找的类图</p>
+<p><img src="http://cdn.linz.tech/abstract_doc_class_diagram.png" alt></p>
+<h3 id="点评"><a href="#点评" class="headerlink" title="点评"></a>点评</h3><p>主要的优点是找到总体和局部共有的属性，通过简单的几个属性能详细描绘复杂的总体和部分。</p>
+<h2 id="Abstract-Factory-（抽象工厂模式）"><a href="#Abstract-Factory-（抽象工厂模式）" class="headerlink" title="Abstract Factory （抽象工厂模式）"></a>Abstract Factory （抽象工厂模式）</h2><h3 id="白话：-switch-一个抽象类"><a href="#白话：-switch-一个抽象类" class="headerlink" title="白话： switch 一个抽象类"></a>白话： switch 一个抽象类</h3><h3 id="故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"><a href="#故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记" class="headerlink" title="故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"></a>故事：“从0到100万”——中国鞋都<em>莆田口罩</em>生产攻坚记</h3><p><img src="http://cdn.linz.tech/%E4%B8%80%E6%AC%A1%E6%80%A7%E5%8F%A3%E7%BD%A9.jpg" alt></p>
+<p>说实话我听到这个故事还是震惊的，:dizzy_face: 我印象中的“莆田”不是这个样子的呀？应该是莆田系博爱男科，或者是莆田系博士男科啥的。想不到竟然是鞋都，虽然是“Costplay”正版。</p>
+<p>好进入正题，莆田通过<font color="red">抽象工厂模式</font> <font color="blue">从鞋子-&gt;(转换)口罩工厂</font> 就是典型的抽象工厂模式，代码上就是</p>
+<pre class="line-numbers language-java"><code class="language-java">莆田 <span class="token keyword">class</span><span class="token punctuation">{</span>
+
+  <span class="token keyword">public</span> FactoryImp <span class="token function">factory</span><span class="token punctuation">(</span>String type<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">switch</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">case</span> 鞋子<span class="token operator">:</span>
+            <span class="token keyword">return</span> 鞋子_factory<span class="token punctuation">;</span>
+      <span class="token keyword">case</span> 口罩<span class="token operator">:</span>
+            <span class="token keyword">return</span> 口罩_factory<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实本质是由于生产鞋子和生产口罩的原料和工艺大体是类似的，通过相对简单的整合原料，机器和生产工艺就能得到生产不同产品的工厂。这种做法好处在于充分利用现有资源的情况下，最高效快速的生产出口罩，解决由于疫情爆发导致的口罩稀缺的情况；java-design-patterns 给的例子是一个城堡的例子不太喜欢，感兴趣的可以去看一下，地址如下：<br><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929dcd874d63bb327f2339d5c07170565/abstract-factory/src/main/java/com/iluwatar/abstractfactory/App.java" target="_blank" rel="noopener">abstract factory github App.java</a></p>
+<h3 id="点评-1"><a href="#点评-1" class="headerlink" title="点评"></a>点评</h3><p>抽象工厂模式，通过的输入简单鞋子、口罩命令，并抽象规定这个工厂的产出，而具体复杂的资源整合及类的初始化调用的复杂逻辑流程等等都不需要使用者关心。</p>
+<h2 id="非循环访问者模式-Acyclic-Visitor"><a href="#非循环访问者模式-Acyclic-Visitor" class="headerlink" title="非循环访问者模式( Acyclic Visitor)"></a>非循环访问者模式( Acyclic Visitor)</h2><h3 id="白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环"><a href="#白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环" class="headerlink" title="白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环"></a>白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环</h3><p><img src="http://cdn.linz.tech/key_door.jpeg" alt></p>
+<h3 id="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"><a href="#故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；" class="headerlink" title="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"></a>故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；</h3><p><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929/acyclic-visitor/src/main/java/com/iluwatar/acyclicvisitor/App.java" target="_blank" rel="noopener">App.java</a></p>
+<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/*分配到的玩项目的权限或钥匙集合*/</span>
+    var conUnix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigureForUnixVisitor</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    var conDos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigureForDosVisitor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//各种各样的游乐设施</span>
+    var zoom <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Zoom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    var hayes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Hayes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 开玩</span>
+    hayes<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conDos<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Hayes modem with Dos configurator</span>
+    zoom<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conDos<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Zoom modem with Dos configurator</span>
+    hayes<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conUnix<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Hayes modem with Unix configurator</span>
+    zoom<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conUnix<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Zoom modem with Unix configurator   </span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上一波项目类图</p>
+<p><img src="http://cdn.linz.tech/acyclic-visitor.png" alt></p>
+<h3 id="点评-2"><a href="#点评-2" class="headerlink" title="点评"></a>点评</h3><p>非循环访问者模式，很近似于我们用不同的钥匙打开不同的门，而打开不同的门，里面会有不同的资源提供给我们使用。</p>
+<ol>
+<li>钥匙和门的关系比较单一，具有固定属性。</li>
+<li>子门子钥匙可以继承父钥匙和门，实现层级结构的划分。</li>
+</ol>
+<p>使用场景</p>
+<ol>
+<li>当你想动态的向现有层次结构添加功能（资源）时，不想做修改或影响整体的层次结构，即增加一个门和钥匙无需对整体修改；</li>
+<li>当存在不同层级结构的资源（类比：门）访问操作时，不用修改层级结构，通过ConfigureXXX类进行管理控制；</li>
+</ol>
+<p>参考：<a href="https://java-design-patterns.com/patterns/acyclic-visitor/" target="_blank" rel="noopener">非循环访问者模式（ Acyclic Visitor）</a></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">java-design-patterns</a></p>
+<p><a href="https://www.cnblogs.com/WindSun/p/10223126.html" target="_blank" rel="noopener">设计模式的分类</a></p>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>开发一个软件需要考虑的事及解决方案</title>
     <url>/2020/01/16/2020-01-16-%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%BD%AF%E4%BB%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E7%9A%84%E4%BA%8B%E6%83%85%E6%94%B6%E9%9B%86/</url>
     <content><![CDATA[<h1 id="第一节-配置"><a href="#第一节-配置" class="headerlink" title="第一节 配置"></a>第一节 配置</h1><h2 id="1-1-应用首次进入都要询问后台自己需要做啥-？"><a href="#1-1-应用首次进入都要询问后台自己需要做啥-？" class="headerlink" title="1.1 应用首次进入都要询问后台自己需要做啥 ？"></a>1.1 应用首次进入都要询问后台自己需要做啥 ？</h2><p>那软件一般进入首页要干嘛呢？ 当然不只是我们看到的页面加载和显示。因为这是软件的入口，不经过仔细架构设计的软件，往往会多快好省的把大部份<font color="red"> 初始化，配置展示，信息同步</font>等一些比较重的逻辑放在这个入口。</p>
@@ -17527,6 +17624,8 @@ fill-opacity:0.1;stroke-opacity:0.9<span class="token punctuation">"</span></spa
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>svg</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>polygon.svg</p>
+<p>&lt;11770820@qq.com</p>
+<p> &lt;<a href="mailto:tech_support@chinapay.com" target="_blank" rel="noopener">tech_support@chinapay.com</a>&gt;, “<a href="mailto:huang.haisong@chinapay.com" target="_blank" rel="noopener">huang.haisong@chinapay.com</a>“ &lt;<a href="mailto:huang.haisong@chinapay.com" target="_blank" rel="noopener">huang.haisong@chinapay.com</a>&gt;</p>
 <pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" standalone="no"?></span>
 <span class="token doctype">&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"></span>
@@ -18144,7 +18243,16 @@ ta<span class="token punctuation">.</span><span class="token function">addEventL
              <span class="token attr-name">dur</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>6s<span class="token punctuation">"</span></span>
              <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>freeze<span class="token punctuation">"</span></span>
     <span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a><a href="https://developer.mozilla.org/en-US/docs/Web/SVG" target="_blank" rel="noopener">官方文档</a></h2><h2 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h2><ul>
+<h1 id="SVG-工具"><a href="#SVG-工具" class="headerlink" title="SVG 工具"></a>SVG 工具</h1><h2 id="svgo"><a href="#svgo" class="headerlink" title="svgo"></a><a href="https://github.com/svg/svgo" target="_blank" rel="noopener">svgo</a></h2><blockquote>
+<p>SVG 优化工具，删减多余的内容，减少SVG大小</p>
+</blockquote>
+<p>网页工具<a href="https://jakearchibald.github.io/svgomg/" target="_blank" rel="noopener">svgomg</a></p>
+<h2 id="SVG动画编辑工具"><a href="#SVG动画编辑工具" class="headerlink" title="SVG动画编辑工具"></a><a href="https://shapeshifter.design/" target="_blank" rel="noopener">SVG动画编辑工具</a></h2><p><img src="http://cdn.linz.tech/svg_editor.png" alt></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="安卓相关文章"><a href="#安卓相关文章" class="headerlink" title="安卓相关文章"></a>安卓相关文章</h2><ul>
+<li><a href="http://www.androiddesignpatterns.com/2016/11/introduction-to-icon-animation-techniques.html" target="_blank" rel="noopener">An Introduction to Icon Animation Techniques</a> 非常详尽的介绍并附有代码例子讲解 【重点】</li>
+<li><a href="https://medium.com/google-developers/animation-jump-through-861f4f5b3de4#.92v66z9ip" target="_blank" rel="noopener">Animation: Jump-through</a>【待研究】【重点】</li>
+</ul>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a><a href="https://developer.mozilla.org/en-US/docs/Web/SVG" target="_blank" rel="noopener">官方文档</a></h2><h2 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h2><ul>
 <li><a href="https://www.imooc.com/video/4656" target="_blank" rel="noopener">走进SVG</a></li>
 </ul>
 <h2 id="经典案例"><a href="#经典案例" class="headerlink" title="经典案例"></a>经典案例</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/metadata" target="_blank" rel="noopener">metadata.svg</a></p>
@@ -19376,7 +19484,8 @@ frpc status -c ./frpc.ini<span aria-hidden="true" class="line-numbers-rows"><spa
 <pre class="line-numbers language-shell"><code class="language-shell">[common]
 bind_port = 7000
 token=1234567890
-vhost_http_port = 6081<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+#客户端配置的端口
+vhost_http_port = 6081<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>启动</p>
 <pre class="line-numbers language-shell"><code class="language-shell">#启动服务
 ./frps -c ./frps.ini
@@ -19747,10 +19856,10 @@ http://element-cn.eleme.io/
 </ul>
 <h1 id="阿里云学习"><a href="#阿里云学习" class="headerlink" title="阿里云学习"></a>阿里云学习</h1><ul>
 <li>远程连接密码 934698</li>
-<li>实例密码：林茂权16899199 （Lin）</li>
+<li>实例密码：老爸168 （Lin）</li>
 <li>阿里云后台 47.107.130.109</li>
 </ul>
-<p>容器镜像服务登录密码：<br>Lmq16899199</p>
+<p>容器镜像服务登录密码：<br>老爸168</p>
 <ul>
 <li>阿里云手机终端通过SSH连接后台<pre class="line-numbers language-shell"><code class="language-shell"># 网页端后台操作步骤
 # 1. 找到管理页面
@@ -19766,6 +19875,12 @@ iP：47.107.130.109
 别名: 随意<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
+<p>通过ssh远程登录服务器</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#获取root权限
+shh -i 
+#用IP或者域名登录，需要输入元服务器ECS登录密码 
+ssh root@47.107.130.109 
+ssh root@example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="安全组配置"><a href="#安全组配置" class="headerlink" title="安全组配置"></a>安全组配置</h2><ul>
 <li>Redis 有专门的选择专门的Redis协议 6379 自定义TCP协议无效</li>
 </ul>
@@ -19995,6 +20110,171 @@ netstat -tunlp |grep 8000<span aria-hidden="true" class="line-numbers-rows"><spa
 <li><a href="https://github.com/nvie/gitflow" target="_blank" rel="noopener">git-flow</a></li>
 <li><a href="https://github.com/tj/git-extras" target="_blank" rel="noopener">git-extras</a></li>
 </ul>
+<h1 id="Git常用"><a href="#Git常用" class="headerlink" title="Git常用"></a>Git常用</h1><h2 id="Git-表情"><a href="#Git-表情" class="headerlink" title="Git 表情"></a>Git 表情</h2><ul>
+<li><a href="https://blog.csdn.net/Michael_HM/article/details/82753163" target="_blank" rel="noopener">git commit 时 emoji表情使用指南</a></li>
+<li><a href="https://github.com/carloscuesta/gitmoji" target="_blank" rel="noopener">gitmoji</a> github 版本仓库</li>
+<li><a href="https://gitmoji.carloscuesta.me/" target="_blank" rel="noopener">表情提交时使用规范</a></li>
+<li><a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener">交全的表情列表</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">emoji</th>
+<th align="left">emoji 代码</th>
+<th align="left">commit 说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">:art: (调色板)</td>
+<td align="left"><code>:art:</code></td>
+<td align="left">改进代码结构/代码格式</td>
+</tr>
+<tr>
+<td align="left">:zap: (闪电):racehorse: (赛马)</td>
+<td align="left"><code>:zap:“:racehorse:</code></td>
+<td align="left">提升性能</td>
+</tr>
+<tr>
+<td align="left">:fire: (火焰)</td>
+<td align="left"><code>:fire:</code></td>
+<td align="left">移除代码或文件</td>
+</tr>
+<tr>
+<td align="left">:bug: (bug)</td>
+<td align="left"><code>:bug:</code></td>
+<td align="left">修复 bug</td>
+</tr>
+<tr>
+<td align="left">:ambulance: (急救车)</td>
+<td align="left"><code>:ambulance:</code></td>
+<td align="left">重要补丁</td>
+</tr>
+<tr>
+<td align="left">:sparkles: (火花)</td>
+<td align="left"><code>:sparkles:</code></td>
+<td align="left">引入新功能</td>
+</tr>
+<tr>
+<td align="left">:memo: (备忘录)</td>
+<td align="left"><code>:memo:</code></td>
+<td align="left">撰写文档</td>
+</tr>
+<tr>
+<td align="left">:rocket: (火箭)</td>
+<td align="left"><code>:rocket:</code></td>
+<td align="left">部署功能</td>
+</tr>
+<tr>
+<td align="left">:lipstick: (口红)</td>
+<td align="left"><code>:lipstick:</code></td>
+<td align="left">更新 UI 和样式文件</td>
+</tr>
+<tr>
+<td align="left">:tada: (庆祝)</td>
+<td align="left"><code>:tada:</code></td>
+<td align="left">初次提交</td>
+</tr>
+<tr>
+<td align="left">:white_check_mark: (白色复选框)</td>
+<td align="left"><code>:white_check_mark:</code></td>
+<td align="left">增加测试</td>
+</tr>
+<tr>
+<td align="left">:lock: (锁)</td>
+<td align="left"><code>:lock:</code></td>
+<td align="left">修复安全问题</td>
+</tr>
+<tr>
+<td align="left">:apple: (苹果)</td>
+<td align="left"><code>:apple:</code></td>
+<td align="left">修复 macOS 下的问题</td>
+</tr>
+<tr>
+<td align="left">:penguin: (企鹅)</td>
+<td align="left"><code>:penguin:</code></td>
+<td align="left">修复 Linux 下的问题</td>
+</tr>
+<tr>
+<td align="left">:checkered_flag: (旗帜)</td>
+<td align="left"><code>:checked_flag:</code></td>
+<td align="left">修复 Windows 下的问题</td>
+</tr>
+<tr>
+<td align="left">:bookmark: (书签)</td>
+<td align="left"><code>:bookmark:</code></td>
+<td align="left">发行/版本标签</td>
+</tr>
+<tr>
+<td align="left">:rotating_light: (警车灯)</td>
+<td align="left"><code>:rotating_light:</code></td>
+<td align="left">移除 linter 警告</td>
+</tr>
+<tr>
+<td align="left">:construction: (施工)</td>
+<td align="left"><code>:construction:</code></td>
+<td align="left">工作进行中</td>
+</tr>
+<tr>
+<td align="left">:green_heart: (绿心)</td>
+<td align="left"><code>:green_heart:</code></td>
+<td align="left">修复 CI 构建问题</td>
+</tr>
+<tr>
+<td align="left">:arrow_down: (下降箭头)</td>
+<td align="left"><code>:arrow_down:</code></td>
+<td align="left">降级依赖</td>
+</tr>
+<tr>
+<td align="left">:arrow_up: (上升箭头)</td>
+<td align="left"><code>:arrow_up:</code></td>
+<td align="left">升级依赖</td>
+</tr>
+<tr>
+<td align="left">:construction_worker: (工人)</td>
+<td align="left"><code>:construction_worker:</code></td>
+<td align="left">添加 CI 构建系统</td>
+</tr>
+<tr>
+<td align="left">:chart_with_upwards_trend: (上升趋势图)</td>
+<td align="left"><code>:chart_with_upwards_trend:</code></td>
+<td align="left">添加分析或跟踪代码</td>
+</tr>
+<tr>
+<td align="left">:hammer: (锤子)</td>
+<td align="left"><code>:hammer:</code></td>
+<td align="left">重大重构</td>
+</tr>
+<tr>
+<td align="left">:heavy_minus_sign: (减号)</td>
+<td align="left"><code>:heavy_minus_sign:</code></td>
+<td align="left">减少一个依赖</td>
+</tr>
+<tr>
+<td align="left">:whale: (鲸鱼)</td>
+<td align="left"><code>:whale:</code></td>
+<td align="left">Docker 相关工作</td>
+</tr>
+<tr>
+<td align="left">:heavy_plus_sign: (加号)</td>
+<td align="left"><code>:heavy_plug_sign:</code></td>
+<td align="left">增加一个依赖</td>
+</tr>
+<tr>
+<td align="left">:wrench: (扳手)</td>
+<td align="left"><code>:wrench:</code></td>
+<td align="left">修改配置文件</td>
+</tr>
+<tr>
+<td align="left">:globe_with_meridians: (地球)</td>
+<td align="left"><code>:globe_with_meridians:</code></td>
+<td align="left">国际化与本地化</td>
+</tr>
+<tr>
+<td align="left">:pencil2: (铅笔)</td>
+<td align="left"><code>:pencil2:</code></td>
+<td align="left">修复 typo</td>
+</tr>
+</tbody></table>
 <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h2><ul>
 <li>list all  git config  git config -l   </li>
 <li>/etc/gitconfig  &lt; ~/.gitconfig  &lt;  .git/config 逐级覆盖</li>
@@ -20187,6 +20467,9 @@ git branch -d fixbug-0.1<span aria-hidden="true" class="line-numbers-rows"><span
 <ul>
 <li><a href="https://segmentfault.com/a/1190000002443283" target="_blank" rel="noopener">git 文件打包命令</a></li>
 </ul>
+<h2 id="SourceTree"><a href="#SourceTree" class="headerlink" title="SourceTree"></a>SourceTree</h2><ul>
+<li><a href="https://www.jianshu.com/p/d46da933c180" target="_blank" rel="noopener">GitFlow+Gitlab工作流及Git规范</a></li>
+</ul>
 <h1 id="Git-提交规范"><a href="#Git-提交规范" class="headerlink" title="Git 提交规范"></a>Git 提交规范</h1><ul>
 <li>feat：新功能（feature）</li>
 <li>fix：修补bug</li>
@@ -20198,6 +20481,16 @@ git branch -d fixbug-0.1<span aria-hidden="true" class="line-numbers-rows"><span
 </ul>
 <p><code>type</code>（必需）、<code>scope</code>（可选）和<code>subject</code>（必需）</p>
 <pre class="line-numbers language-xml"><code class="language-xml">`<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>(<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>): <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>subject</span><span class="token punctuation">></span></span>`<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="Git子模块"><a href="#Git子模块" class="headerlink" title="Git子模块"></a>Git子模块</h1><p>常用命令</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#添加子模块
+git submodule add https://github.com/maonx/vimwiki-assets.git assets
+
+#查看子模块
+git submodule
+
+#更新子模块
+git submodule update
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="博客教程"><a href="#博客教程" class="headerlink" title="博客教程"></a>博客教程</h2><ul>
 <li><a href="https://www.cnblogs.com/ludashi/p/8052739.html" target="_blank" rel="noopener">Git知识总览(一) 从 git clone 和 git status 谈起</a></li>
 </ul>
@@ -21367,7 +21660,8 @@ $ node-debug example.js</code></pre><p><a href="https://developers.google.com/we
   <entry>
     <title>IntelliJ IDEA 使用总结</title>
     <url>/2018/04/15/2018-4-15-android-studio-usage/</url>
-    <content><![CDATA[<h2 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h2><h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><ul>
+    <content><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://zhile.io/2018/08/17/jetbrains-license-server-crack.html" target="_blank" rel="noopener">intellj idea 破解安装</a></p>
+<h2 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h2><h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><ul>
 <li><a href="https://github.com/avast/android-butterknife-zelezny" target="_blank" rel="noopener">ButterKnifeZelezny 5 星</a><br><img src="https://raw.githubusercontent.com/avast/android-butterknife-zelezny/master/img/zelezny_animated.gif" alt></li>
 <li><a href="https://github.com/pbreault/adb-idea" target="_blank" rel="noopener">ADB Comand 3星</a><br><img src="https://raw.githubusercontent.com/pbreault/adb-idea/master/website/find_actions.png" alt></li>
 <li><a href="https://github.com/zzz40500/GsonFormat" target="_blank" rel="noopener">GsonFormatString 解析成实体</a> <code>Default Option + s(Mac), Alt + s (win)</code><br><img src="https://camo.githubusercontent.com/0d45c79c54ab57f6efe31e9019b11d93974fa039/687474703a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f3136363836362d666639646333333661663732643764372e6769663f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970" alt></li>
@@ -21427,7 +21721,8 @@ $ node-debug example.js</code></pre><p><a href="https://developers.google.com/we
   <entry>
     <title>Android 常用开源库</title>
     <url>/2018/04/14/2018-4-14-android-open-source-tools/</url>
-    <content><![CDATA[<h2 id="正在研究"><a href="#正在研究" class="headerlink" title="正在研究"></a>正在研究</h2><ul>
+    <content><![CDATA[<h2 id="正在研究"><a href="#正在研究" class="headerlink" title="正在研究"></a>正在研究</h2><hr>
+<ul>
 <li><strong><a href="https://github.com/albert-lii/SUtils" target="_blank" rel="noopener">SUtils</a></strong> 封装有许多实用的开发工具类</li>
 <li><strong><a href="https://github.com/jaredrummler/APKParser" target="_blank" rel="noopener">APKParser</a></strong></li>
 <li><strong><a href="https://github.com/johncarl81/parceler" target="_blank" rel="noopener">parceler</a></strong>通过注解的方式序列化对象<br><a href="http://androidtransfuse.org/" target="_blank" rel="noopener">more: Transfuse</a> Transfuse is a Java Dependency Injection (DI) and integration library geared specifically for the Google Android API.</li>
@@ -21436,6 +21731,10 @@ $ node-debug example.js</code></pre><p><a href="https://developers.google.com/we
 <ul>
 <li><a href="https://github.com/skydoves/Awesome-Android-Persistence" target="_blank" rel="noopener">Awesome-Android-Persistence</a> 数据持久化优秀的开源库列表 【重点】</li>
 <li><strong><a href="https://github.com/jgilfelt/android-sqlite-asset-helper" target="_blank" rel="noopener">android-sqlite-asset-helper</a></strong></li>
+</ul>
+<h2 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h2><hr>
+<ul>
+<li><a href="https://github.com/promeG/TinyPinyin" target="_blank" rel="noopener">汉字转拼音库</a>  用于对人名进行排序</li>
 </ul>
 <h2 id="构建工具"><a href="#构建工具" class="headerlink" title="构建工具"></a>构建工具</h2><hr>
 <p><strong><a href="https://github.com/seven456/MultiChannelPackageTool" target="_blank" rel="noopener">MultiChannelPackageTool</a></strong> 快速多渠道打包工具。</p>
@@ -21457,11 +21756,15 @@ $ node-debug example.js</code></pre><p><a href="https://developers.google.com/we
 </ul>
 <h3 id="显示效果"><a href="#显示效果" class="headerlink" title="显示效果"></a>显示效果</h3><ul>
 <li>闪光 Shimmer<ul>
-<li><a href="https://github.com/mike14u/shimmer-recyclerview-x" target="_blank" rel="noopener">shimmer-recyclerview-x</a> 闪光list<br><img src="https://raw.githubusercontent.com/mike14u/shimmer-recyclerview-x/master/screenshots/second_list_demo.gif" alt><h2 id="检测优化工具"><a href="#检测优化工具" class="headerlink" title="检测优化工具"></a>检测优化工具</h2></li>
+<li><a href="https://github.com/mike14u/shimmer-recyclerview-x" target="_blank" rel="noopener">shimmer-recyclerview-x</a> 闪光list<br><img src="https://raw.githubusercontent.com/mike14u/shimmer-recyclerview-x/master/screenshots/second_list_demo.gif" alt></li>
 </ul>
 </li>
 </ul>
-<hr>
+<h4 id="未读消息"><a href="#未读消息" class="headerlink" title="未读消息"></a>未读消息</h4><pre class="line-numbers language-gradle"><code class="language-gradle"> implementation 'q.rorbin:badgeview:1.1.3'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>使用</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">new</span> <span class="token class-name">QBadgeView</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bindTarget</span><span class="token punctuation">(</span>textview<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setBadgeNumber</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><a href="https://github.com/qstumn/BadgeView" target="_blank" rel="noopener">https://github.com/qstumn/BadgeView</a></p>
+<h2 id="检测优化工具"><a href="#检测优化工具" class="headerlink" title="检测优化工具"></a>检测优化工具</h2><hr>
 <ul>
 <li><a href="http://github.com/square/leakcanary" target="_blank" rel="noopener">LeakCanary</a> Android 和 Java 内存泄露检测<br>Tutorial <a href="http://www.liaohuqiu.net/cn/posts/leak-canary-read-me/" target="_blank" rel="noopener">Chinese</a><a href="http://https//corner.squareup.com/2015/05/leak-canary.html" target="_blank" rel="noopener">English</a><br>phrof file path: /storage/sdcard0/Download/leakcanary/<br>hprof-conv leakCanary</li>
 <li><a href="http://inloop.github.io/apk-method-count/" target="_blank" rel="noopener">apk-method-count</a> 上传Apk，可以根据包名统计方法数量的网站，UI很友好。</li>

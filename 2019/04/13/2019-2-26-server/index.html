@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="北疆的博客">
 <meta property="og:description" content="重点研究开源库 zheng 比较热门的后台开源库 Guns 权限管理 公开课 https://www.bilibili.com/video/av32112009   vue-element-admin 非常惊艳的前端UI  README.zh-CN.md 中文文档有教程   Cloud-Admin RabbitMQ配置 Consul1.2.2配置 Docker  Get started with">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-19T08:10:11.150Z">
+<meta property="og:updated_time" content="2020-03-01T11:23:21.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java后台基础学习笔记">
 <meta name="twitter:description" content="重点研究开源库 zheng 比较热门的后台开源库 Guns 权限管理 公开课 https://www.bilibili.com/video/av32112009   vue-element-admin 非常惊艳的前端UI  README.zh-CN.md 中文文档有教程   Cloud-Admin RabbitMQ配置 Consul1.2.2配置 Docker  Get started with">
@@ -707,7 +707,8 @@ frpc status -c ./frpc.ini<span aria-hidden="true" class="line-numbers-rows"><spa
 <pre class="line-numbers language-shell"><code class="language-shell">[common]
 bind_port = 7000
 token=1234567890
-vhost_http_port = 6081<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+#客户端配置的端口
+vhost_http_port = 6081<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>启动</p>
 <pre class="line-numbers language-shell"><code class="language-shell">#启动服务
 ./frps -c ./frps.ini
@@ -1078,10 +1079,10 @@ http://element-cn.eleme.io/
 </ul>
 <h1 id="阿里云学习"><a href="#阿里云学习" class="headerlink" title="阿里云学习"></a>阿里云学习</h1><ul>
 <li>远程连接密码 934698</li>
-<li>实例密码：林茂权16899199 （Lin）</li>
+<li>实例密码：老爸168 （Lin）</li>
 <li>阿里云后台 47.107.130.109</li>
 </ul>
-<p>容器镜像服务登录密码：<br>Lmq16899199</p>
+<p>容器镜像服务登录密码：<br>老爸168</p>
 <ul>
 <li>阿里云手机终端通过SSH连接后台<pre class="line-numbers language-shell"><code class="language-shell"># 网页端后台操作步骤
 # 1. 找到管理页面
@@ -1097,6 +1098,12 @@ iP：47.107.130.109
 别名: 随意<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
+<p>通过ssh远程登录服务器</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#获取root权限
+shh -i 
+#用IP或者域名登录，需要输入元服务器ECS登录密码 
+ssh root@47.107.130.109 
+ssh root@example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="安全组配置"><a href="#安全组配置" class="headerlink" title="安全组配置"></a>安全组配置</h2><ul>
 <li>Redis 有专门的选择专门的Redis协议 6379 自定义TCP协议无效</li>
 </ul>
@@ -1434,7 +1441,7 @@ netstat -tunlp |grep 8000<span aria-hidden="true" class="line-numbers-rows"><spa
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

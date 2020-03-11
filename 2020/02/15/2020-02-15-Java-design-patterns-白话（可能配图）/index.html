@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android,总结,">
+  <meta name="keywords" content="实践,Java,">
 
 
 
@@ -79,20 +79,24 @@
 
 
 
-<meta name="description" content="数据格式 gson Gson Json Annotations Example   stag-java Speedy Type Adapter Generation fastjson  序列化 Parcelable Parcelable AutoValue使用 Google AutoValue 自动生成代码 Dependencies dependencies {   provided &amp;#39;c">
-<meta name="keywords" content="Android,总结">
+<meta name="description" content="Abstract Document （抽象文档模式）白话：总分总分故事：买车 我想买一辆车，首先要知道它的品牌型号如：300SL，价格 16W起 但是我最近狗屎运特别好，厕所捡到了10W块，当然买高配版，轮胎型号15C，价格100¥，车门型号 Lambo 价格300¥，最终用抽象文档模式代码表示，我买到的车： App.java public App() {     LOGGER.info(&quot;Con">
+<meta name="keywords" content="实践,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android 数据处理资源总汇">
-<meta property="og:url" content="http://linz.tech/2016/09/08/2016-09-08-Android-database-note/index.html">
+<meta property="og:title" content="基于java-design-patterns白话图解设计模式（个人理解）">
+<meta property="og:url" content="http://linz.tech/2020/02/15/2020-02-15-Java-design-patterns-白话（可能配图）/index.html">
 <meta property="og:site_name" content="北疆的博客">
-<meta property="og:description" content="数据格式 gson Gson Json Annotations Example   stag-java Speedy Type Adapter Generation fastjson  序列化 Parcelable Parcelable AutoValue使用 Google AutoValue 自动生成代码 Dependencies dependencies {   provided &amp;#39;c">
+<meta property="og:description" content="Abstract Document （抽象文档模式）白话：总分总分故事：买车 我想买一辆车，首先要知道它的品牌型号如：300SL，价格 16W起 但是我最近狗屎运特别好，厕所捡到了10W块，当然买高配版，轮胎型号15C，价格100¥，车门型号 Lambo 价格300¥，最终用抽象文档模式代码表示，我买到的车： App.java public App() {     LOGGER.info(&quot;Con">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://camo.githubusercontent.com/5a2f9fe0725a29ff92f941daa814a65f2bdc193c/68747470733a2f2f7261772e6769746875622e636f6d2f696e66696e756d2f616e64726f69645f6462696e73706563746f722f6d61737465722f73637265656e73686f74732e706e67">
-<meta property="og:updated_time" content="2020-01-15T02:33:26.172Z">
+<meta property="og:image" content="http://cdn.linz.tech/abstract_doc_car_show.jpeg">
+<meta property="og:image" content="http://cdn.linz.tech/abstract_doc_class_diagram.png">
+<meta property="og:image" content="http://cdn.linz.tech/%E4%B8%80%E6%AC%A1%E6%80%A7%E5%8F%A3%E7%BD%A9.jpg">
+<meta property="og:image" content="http://cdn.linz.tech/key_door.jpeg">
+<meta property="og:image" content="http://cdn.linz.tech/acyclic-visitor.png">
+<meta property="og:updated_time" content="2020-02-16T10:17:21.230Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android 数据处理资源总汇">
-<meta name="twitter:description" content="数据格式 gson Gson Json Annotations Example   stag-java Speedy Type Adapter Generation fastjson  序列化 Parcelable Parcelable AutoValue使用 Google AutoValue 自动生成代码 Dependencies dependencies {   provided &amp;#39;c">
-<meta name="twitter:image" content="https://camo.githubusercontent.com/5a2f9fe0725a29ff92f941daa814a65f2bdc193c/68747470733a2f2f7261772e6769746875622e636f6d2f696e66696e756d2f616e64726f69645f6462696e73706563746f722f6d61737465722f73637265656e73686f74732e706e67">
+<meta name="twitter:title" content="基于java-design-patterns白话图解设计模式（个人理解）">
+<meta name="twitter:description" content="Abstract Document （抽象文档模式）白话：总分总分故事：买车 我想买一辆车，首先要知道它的品牌型号如：300SL，价格 16W起 但是我最近狗屎运特别好，厕所捡到了10W块，当然买高配版，轮胎型号15C，价格100¥，车门型号 Lambo 价格300¥，最终用抽象文档模式代码表示，我买到的车： App.java public App() {     LOGGER.info(&quot;Con">
+<meta name="twitter:image" content="http://cdn.linz.tech/abstract_doc_car_show.jpeg">
 
 
 
@@ -122,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://linz.tech/2016/09/08/2016-09-08-Android-database-note/">
+  <link rel="canonical" href="http://linz.tech/2020/02/15/2020-02-15-Java-design-patterns-白话（可能配图）/">
 
 
 
 
 
-  <title>Android 数据处理资源总汇 | 北疆的博客</title>
+  <title>基于java-design-patterns白话图解设计模式（个人理解） | 北疆的博客</title>
   
 
 
@@ -308,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://linz.tech/2016/09/08/2016-09-08-Android-database-note/">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2020/02/15/2020-02-15-Java-design-patterns-白话（可能配图）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="北疆">
@@ -325,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android 数据处理资源总汇</h1>
+          <h1 class="post-title" itemprop="name headline">基于java-design-patterns白话图解设计模式（个人理解）</h1>
         
 
         <div class="post-meta">
@@ -337,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-08T00:00:00+08:00">
-                2016-09-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-15T23:07:00+08:00">
+                2020-02-15
               </time>
             
 
@@ -378,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/09/08/2016-09-08-Android-database-note/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/2016-09-08-Android-database-note/" itemprop="commentCount"></span>
+                <a href="/2020/02/15/2020-02-15-Java-design-patterns-白话（可能配图）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/02/15/2020-02-15-Java-design-patterns-白话（可能配图）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -412,284 +416,91 @@
       
 
       
-        <h2 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h2><ul>
-<li><strong><a href="https://github.com/google/gson" target="_blank" rel="noopener">gson</a></strong><ul>
-<li><a href="http://websystique.com/java/json/gson-json-annotations-example/" target="_blank" rel="noopener">Gson Json Annotations Example</a></li>
-</ul>
-</li>
-<li><strong><a href="https://github.com/vimeo/stag-java" target="_blank" rel="noopener">stag-java</a></strong> Speedy Type Adapter Generation</li>
-<li><strong><a href="https://github.com/alibaba/fastjson" target="_blank" rel="noopener">fastjson</a></strong></li>
-</ul>
-<h2 id="序列化-Parcelable"><a href="#序列化-Parcelable" class="headerlink" title="序列化 Parcelable"></a>序列化 Parcelable</h2><hr>
-<h3 id="Parcelable-AutoValue"><a href="#Parcelable-AutoValue" class="headerlink" title="Parcelable AutoValue"></a>Parcelable AutoValue</h3><p><a href="http://tedyin.me/2016/04/11/auto-value/?utm_source=tuicool&utm_medium=referral" target="_blank" rel="noopener">使用 Google AutoValue 自动生成代码</a></p>
-<p><strong>Dependencies</strong></p>
-<pre><code>dependencies {
-  provided &#39;com.google.auto.value:auto-value:1.2&#39;
-  apt &#39;com.google.auto.value:auto-value:1.2&#39;
-  apt &#39;com.ryanharter.auto.value:auto-value-parcel:0.2.1&#39;
-}</code></pre><p><strong>Sample</strong></p>
-<pre><code>@AutoValue
-public abstract class Story implements Parcelable{
-  public abstract int id();
-  public abstract String title();
-  public static Story create(int id, String title){
-    new AutoValue_Story(id,title);
-  }
-}</code></pre><h3 id="Android-状态保存"><a href="#Android-状态保存" class="headerlink" title="Android 状态保存"></a>Android 状态保存</h3><ul>
-<li><p><a href="https://github.com/evernote/android-state" target="_blank" rel="noopener">android-state</a></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">Activity</span> <span class="token punctuation">{</span>
+        <h2 id="Abstract-Document-（抽象文档模式）"><a href="#Abstract-Document-（抽象文档模式）" class="headerlink" title="Abstract Document （抽象文档模式）"></a>Abstract Document （抽象文档模式）</h2><h3 id="白话：总分总分"><a href="#白话：总分总分" class="headerlink" title="白话：总分总分"></a>白话：总分总分</h3><h3 id="故事：买车"><a href="#故事：买车" class="headerlink" title="故事：买车"></a>故事：买车</h3><p><img src="http://cdn.linz.tech/abstract_doc_car_show.jpeg" alt></p>
+<p>我想买一辆车，首先要知道它的品牌型号如：300SL，价格 16W<font color="red">起</font></p>
+<p>但是我最近狗屎运特别好，厕所捡到了10W块，当然买高配版，轮胎型号15C，价格100¥，车门型号 Lambo 价格300¥，最终用<font color="red">抽象文档模式</font>代码表示，我买到的车：</p>
+<p><a href="https://github.com/iluwatar/java-design-patterns/blob/master/abstract-document/src/main/java/com/iluwatar/abstractdocument/App.java" target="_blank" rel="noopener">App.java</a></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Constructing parts and car"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token annotation punctuation">@State</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> mValue<span class="token punctuation">;</span>
+    var wheelProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>TYPE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"wheel"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"15C"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 100L<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span>Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        StateSaver<span class="token punctuation">.</span><span class="token function">restoreInstanceState</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    var doorProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>TYPE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"door"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"Lambo"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 300L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var carProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"300SL"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 160400L<span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PARTS<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> List<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>wheelProperties<span class="token punctuation">,</span> doorProperties<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var car <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span>carProperties<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Here is our car:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> model: {}"</span><span class="token punctuation">,</span> car<span class="token punctuation">.</span><span class="token function">getModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> price: {}"</span><span class="token punctuation">,</span> car<span class="token punctuation">.</span><span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> parts: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    car<span class="token punctuation">.</span><span class="token function">getParts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>p <span class="token operator">-</span><span class="token operator">></span> LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"\t{}/{}/{}"</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配一个网上找的类图</p>
+<p><img src="http://cdn.linz.tech/abstract_doc_class_diagram.png" alt></p>
+<h3 id="点评"><a href="#点评" class="headerlink" title="点评"></a>点评</h3><p>主要的优点是找到总体和局部共有的属性，通过简单的几个属性能详细描绘复杂的总体和部分。</p>
+<h2 id="Abstract-Factory-（抽象工厂模式）"><a href="#Abstract-Factory-（抽象工厂模式）" class="headerlink" title="Abstract Factory （抽象工厂模式）"></a>Abstract Factory （抽象工厂模式）</h2><h3 id="白话：-switch-一个抽象类"><a href="#白话：-switch-一个抽象类" class="headerlink" title="白话： switch 一个抽象类"></a>白话： switch 一个抽象类</h3><h3 id="故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"><a href="#故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记" class="headerlink" title="故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"></a>故事：“从0到100万”——中国鞋都<em>莆田口罩</em>生产攻坚记</h3><p><img src="http://cdn.linz.tech/%E4%B8%80%E6%AC%A1%E6%80%A7%E5%8F%A3%E7%BD%A9.jpg" alt></p>
+<p>说实话我听到这个故事还是震惊的，:dizzy_face: 我印象中的“莆田”不是这个样子的呀？应该是莆田系博爱男科，或者是莆田系博士男科啥的。想不到竟然是鞋都，虽然是“Costplay”正版。</p>
+<p>好进入正题，莆田通过<font color="red">抽象工厂模式</font> <font color="blue">从鞋子-&gt;(转换)口罩工厂</font> 就是典型的抽象工厂模式，代码上就是</p>
+<pre class="line-numbers language-java"><code class="language-java">莆田 <span class="token keyword">class</span><span class="token punctuation">{</span>
+
+  <span class="token keyword">public</span> FactoryImp <span class="token function">factory</span><span class="token punctuation">(</span>String type<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">switch</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">case</span> 鞋子<span class="token operator">:</span>
+            <span class="token keyword">return</span> 鞋子_factory<span class="token punctuation">;</span>
+      <span class="token keyword">case</span> 口罩<span class="token operator">:</span>
+            <span class="token keyword">return</span> 口罩_factory<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实本质是由于生产鞋子和生产口罩的原料和工艺大体是类似的，通过相对简单的整合原料，机器和生产工艺就能得到生产不同产品的工厂。这种做法好处在于充分利用现有资源的情况下，最高效快速的生产出口罩，解决由于疫情爆发导致的口罩稀缺的情况；java-design-patterns 给的例子是一个城堡的例子不太喜欢，感兴趣的可以去看一下，地址如下：<br><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929dcd874d63bb327f2339d5c07170565/abstract-factory/src/main/java/com/iluwatar/abstractfactory/App.java" target="_blank" rel="noopener">abstract factory github App.java</a></p>
+<h3 id="点评-1"><a href="#点评-1" class="headerlink" title="点评"></a>点评</h3><p>抽象工厂模式，通过的输入简单鞋子、口罩命令，并抽象规定这个工厂的产出，而具体复杂的资源整合及类的初始化调用的复杂逻辑流程等等都不需要使用者关心。</p>
+<h2 id="非循环访问者模式-Acyclic-Visitor"><a href="#非循环访问者模式-Acyclic-Visitor" class="headerlink" title="非循环访问者模式( Acyclic Visitor)"></a>非循环访问者模式( Acyclic Visitor)</h2><h3 id="白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环"><a href="#白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环" class="headerlink" title="白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环"></a>白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环</h3><p><img src="http://cdn.linz.tech/key_door.jpeg" alt></p>
+<h3 id="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"><a href="#故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；" class="headerlink" title="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"></a>故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；</h3><p><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929/acyclic-visitor/src/main/java/com/iluwatar/acyclicvisitor/App.java" target="_blank" rel="noopener">App.java</a></p>
+<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/*分配到的玩项目的权限或钥匙集合*/</span>
+    var conUnix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigureForUnixVisitor</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    var conDos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigureForDosVisitor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onSaveInstanceState</span><span class="token punctuation">(</span>Bundle outState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onSaveInstanceState</span><span class="token punctuation">(</span>outState<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        StateSaver<span class="token punctuation">.</span><span class="token function">saveInstanceState</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> outState<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><hr>
-<p><em>Sqlite 批量处理</em></p>
-<ul>
-<li><a href="http://blog.sina.com.cn/s/blog_48d4cf2d0102v5ip.html" target="_blank" rel="noopener">SQLite批量插入和其他一些使用心得</a> </li>
-<li><a href="http://www.tuicool.com/articles/2AfaEbE" target="_blank" rel="noopener">android SQLite 批量插入数据慢的解决方案</a></li>
-</ul>
-<p><em>Tutorial</em></p>
-<ul>
-<li><a href="http://www.runoob.com/sqlite/sqlite-tutorial.html" target="_blank" rel="noopener">sqlite-tutorial</a></li>
-<li><a href="http://zhangfan822.iteye.com/blog/1883118" target="_blank" rel="noopener">Android 保存图片到SQLite,读出SQLite中的图片</a></li>
-<li><a href="https://www.sqlite.org/lang_createtrigger.html" target="_blank" rel="noopener">sqlite 官方教程 CREATE TRIGGER</a></li>
-<li><a href="http://www.runoob.com/sqlite/sqlite-index.html" target="_blank" rel="noopener">Sqlite learnning Course</a></li>
-<li><a href="http://www.runoob.com/sql/sql-union.html" target="_blank" rel="noopener">SQL语句 Inner join/ union 的学习</a><pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">f</span><span class="token punctuation">.</span>name <span class="token punctuation">,</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">as</span> sum<span class="token punctuation">,</span> <span class="token number">d</span><span class="token punctuation">.</span><span class="token keyword">value</span> <span class="token keyword">as</span> url <span class="token keyword">from</span> Favorite <span class="token number">f</span> <span class="token keyword">inner</span> <span class="token keyword">join</span> <span class="token keyword">data</span> <span class="token number">d</span>  <span class="token keyword">on</span> <span class="token number">d</span><span class="token punctuation">.</span><span class="token keyword">key</span><span class="token operator">=</span><span class="token operator">=</span><span class="token number">f</span><span class="token punctuation">.</span>name  <span class="token keyword">group</span> <span class="token keyword">by</span> <span class="token number">f</span><span class="token punctuation">.</span>name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-</ul>
-<p><em>笔记好滴博文</em></p>
-<ul>
-<li><a href="http://blog.csdn.net/iefreer/article/details/39188231" target="_blank" rel="noopener">5个Android ORM框架</a>  Android 主流ORM（对象关系数据映射）简介</li>
-</ul>
-<p><em>常用的SQL语句</em></p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token keyword">EXISTS</span> t_student
-<span class="token keyword">CREATE</span> TALBE <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> t_student <span class="token punctuation">(</span>id iteger <span class="token keyword">primary</span> <span class="token keyword">key</span> autoincrement<span class="token punctuation">,</span> name <span class="token keyword">text</span><span class="token punctuation">,</span> age <span class="token keyword">integer</span><span class="token punctuation">,</span> score <span class="token keyword">real</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> t_student <span class="token punctuation">(</span>name<span class="token punctuation">,</span>age<span class="token punctuation">)</span> <span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token string">'jack'</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">)</span>
-<span class="token keyword">update</span> t_student <span class="token keyword">set</span> name<span class="token operator">=</span><span class="token string">'jack'</span> <span class="token punctuation">,</span>id <span class="token operator">=</span><span class="token number">1</span> 
-<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> t_student <span class="token keyword">where</span> score <span class="token operator">>=</span> <span class="token number">60</span> <span class="token keyword">order</span> <span class="token keyword">by</span> score <span class="token keyword">asc</span><span class="token punctuation">,</span> age <span class="token keyword">asc</span><span class="token punctuation">;</span>
-<span class="token keyword">limit</span> 分页查询
-<span class="token keyword">limit</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">5</span>
-<span class="token keyword">limit</span> <span class="token number">5</span><span class="token punctuation">,</span><span class="token number">5</span>
-约束
-<span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span> <span class="token keyword">unique</span><span class="token punctuation">,</span> <span class="token keyword">default</span>
-外键—— 
-<span class="token keyword">create</span> <span class="token keyword">table</span> t_student <span class="token punctuation">(</span>id <span class="token keyword">integer</span> <span class="token keyword">primary</span> <span class="token keyword">key</span> autoincrement<span class="token punctuation">,</span>name <span class="token keyword">text</span><span class="token punctuation">,</span> class_id <span class="token keyword">integer</span><span class="token punctuation">,</span>
-<span class="token keyword">constraint</span> fk_t_student_class_id_t_class_id <span class="token keyword">foreign</span> <span class="token keyword">key</span> <span class="token punctuation">(</span>class_id<span class="token punctuation">)</span> <span class="token keyword">references</span> t_class<span class="token punctuation">(</span>id<span class="token punctuation">)</span>
-<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Awesome-Repositories"><a href="#Awesome-Repositories" class="headerlink" title="Awesome Repositories"></a>Awesome Repositories</h2><table>
-<thead>
-<tr>
-<th>Repository</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><a href="https://github.com/pardom-zz/ActiveAndroid" target="_blank" rel="noopener">ActiveAndroid</a></td>
-<td>Active record style SQLite persistence for Android.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/jgilfelt/android-sqlite-asset-helper" target="_blank" rel="noopener">Android-sqlite-asset-helper</a></td>
-<td>An Android helper class to manage database creation and version management using an application’s raw asset files.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/litesuits/android-lite-orm" target="_blank" rel="noopener">Android-lite-orm</a></td>
-<td>A fast, small, powerful ORM framework for Android.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/sqlcipher/android-database-sqlcipher" target="_blank" rel="noopener">Android-database-sqlcipher</a></td>
-<td>Android SQLite API based on SQLCipher.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/sromku/android-storage" target="_blank" rel="noopener">Android Storage</a></td>
-<td>Create, read, delete, append, encrypt files and more, on internal or external disk spaces with a really simple API.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/facebook/conceal" target="_blank" rel="noopener">Conceal</a></td>
-<td>Conceal provides easy Android APIs for performing fast encryption and authentication of data.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/couchbase/couchbase-lite-android" target="_blank" rel="noopener">Couchbase-lite-android</a></td>
-<td>Lightweight, embedded, syncable NoSQL database engine for Android.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/ConserveORM/main" target="_blank" rel="noopener">ConserveORM</a></td>
-<td>A library for storing your Java/Scala/Kotlin objects in a database.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/Raizlabs/DBFlow" target="_blank" rel="noopener">DBFlow</a></td>
-<td>A blazing fast, powerful, and very simple ORM android database library that writes database code for you.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/PDDStudio/EncryptedPreferences" target="_blank" rel="noopener">EncryptedPreferences</a></td>
-<td>AES-256 encrypted SharedPreferences for Android.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/greenrobot/greenDAO" target="_blank" rel="noopener">GreenDao</a></td>
-<td>greenDAO is a light &amp; fast ORM solution for Android that maps objects to SQLite databases.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/orhanobut/hawk" target="_blank" rel="noopener">Hawk</a></td>
-<td>Secure, simple key-value storage for Android.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/chibatching/Kotpref" target="_blank" rel="noopener">Kotpref</a></td>
-<td>Android SharedPreferences delegation library for Kotlin.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/LitePalFramework/LitePal" target="_blank" rel="noopener">LitePal</a></td>
-<td>An Android library that makes developers use SQLite database extremely easy.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/objectbox/objectbox-java" target="_blank" rel="noopener">ObjectBox</a></td>
-<td>ObjectBox is a superfast mobile database for objects.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/j256/ormlite-android" target="_blank" rel="noopener">Ormlite-android</a></td>
-<td>ORMLite Android functionality used in conjunction with ormlite-core.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/pilgr/Paper" target="_blank" rel="noopener">Paper</a></td>
-<td>Paper is a fast NoSQL-like storage for Java/Kotlin objects on Android with automatic schema migration support.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/skydoves/PreferenceRoom" target="_blank" rel="noopener">PreferenceRoom</a></td>
-<td>Manage your android project’s SharedPreferences more efficiently.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/franmontiel/PersistentCookieJar" target="_blank" rel="noopener">PersistentCookieJar</a></td>
-<td>A persistent CookieJar implementation for OkHttp 3 based on SharedPreferences.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/realm/realm-java" target="_blank" rel="noopener">Realm</a></td>
-<td>Realm is a mobile database: a replacement for SQLite &amp; ORMs.</td>
-</tr>
-<tr>
-<td><a href="https://developer.android.com/topic/libraries/architecture/room" target="_blank" rel="noopener">Room Persistence</a></td>
-<td>The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/requery/requery" target="_blank" rel="noopener">Requery</a></td>
-<td>Modern SQL based query &amp; persistence for Java / Kotlin / Android.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/f2prateek/rx-preferences" target="_blank" rel="noopener">Rx-preferences</a></td>
-<td>Reactive SharedPreferences for Android.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/afollestad/rxkprefs" target="_blank" rel="noopener">Rxkprefs</a></td>
-<td>A small, Rx-powered shared preferences library for Kotlin.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/NYTimes/Store" target="_blank" rel="noopener">Store</a></td>
-<td>Android Library for Async Data Loading and Caching.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/pushtorefresh/storio" target="_blank" rel="noopener">Storio</a></td>
-<td>Reactive API for SQLiteDatabase and ContentResolver.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/chennaione/sugar" target="_blank" rel="noopener">Sugar</a></td>
-<td>Insanely easy way to work with Android Database.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/yahoo/squidb" target="_blank" rel="noopener">Squidb</a></td>
-<td>SquiDB is a SQLite database library for Android and iOS.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/requery/sqlite-android" target="_blank" rel="noopener">Sqlite-android</a></td>
-<td>Android SQLite support library.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/iamMehedi/Secured-Preference-Store" target="_blank" rel="noopener">Secured-Preference-Store</a></td>
-<td>A cryptography library and a SharedPreferences wrapper for Android that encrypts the content with 256 bit AES encryption. The Encryption key is securely stored in device’s KeyStore.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/grandcentrix/tray" target="_blank" rel="noopener">Tray</a></td>
-<td>A SharedPreferences replacement for Android with multiprocess support.</td>
-</tr>
-<tr>
-<td>## <strong>No Sql</strong></td>
-<td></td>
-</tr>
-<tr>
-<td>—</td>
-<td></td>
-</tr>
-<tr>
-<td>- **<a href="http://github.com/cesarferreira/RxPaper#handle-data-structure-changes" target="_blank" rel="noopener">RxPaper</a>   Like  below Paper **</td>
-<td></td>
-</tr>
-<tr>
-<td>- <a href="http://github.com/f2prateek/rx-preferences" target="_blank" rel="noopener">Rx-preferences</a>   <strong>Reactive SharedPreferences for Android <a href="http://f2prateek.com/2015/10/05/rx-preferences/" target="_blank" rel="noopener">http://f2prateek.com/2015/10/05/rx-preferences/</a></strong></td>
-<td></td>
-</tr>
-<tr>
-<td>- **<a href="http://github.com/google/leveldb" target="_blank" rel="noopener">Leveldb</a>  **<a href="http://github.com/google/leveldb" target="_blank" rel="noopener"></a>is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.</td>
-<td></td>
-</tr>
-<tr>
-<td>- <a href="http://github.com/pilgr/Paper#benchmark-results" target="_blank" rel="noopener">Paper</a>   save/restore Java objects by using efficient Kryo serialization and handling data structure changes automatically.</td>
-<td></td>
-</tr>
-<tr>
-<td>- <a href="https://github.com/FabianTerhorst/Iron" target="_blank" rel="noopener">Iron</a>  Fast and easy to use NoSQL data storage</td>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="轻量"><a href="#轻量" class="headerlink" title="轻量"></a>轻量</h2><blockquote>
-<p>轻量对原生方法的封装（Origin API Extension）</p>
-</blockquote>
-<hr>
-<ul>
-<li><a href="http://github.com/soarcn/Favor" target="_blank" rel="noopener">Favor </a> A easy way to use android sharepreference</li>
-<li>SQLite ORM</li>
-<li><a href="http://https//github.com/LitePalFramework/LitePal" target="_blank" rel="noopener">LitePal</a>    <a href="http://blog.csdn.net/guolin_blog/article/details/38083103" target="_blank" rel="noopener">Android数据库高手秘籍</a> </li>
-<li><a href="http://github.com/greenrobot/greenDAO" target="_blank" rel="noopener">greendao </a>  <strong>Home page, documentation, and support links: <a href="http://greenrobot.org/greendao/" target="_blank" rel="noopener">http://greenrobot.org/greendao/</a></strong>   Chinese <a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0727/3223.html" target="_blank" rel="noopener">tutorial</a>   </li>
-<li><a href="https://github.com/requery/requery" target="_blank" rel="noopener">requery</a> 又一轻量ORM库</li>
-<li><a href="http://stackoverflow.com/questions/6645665/what-is-a-good-tutorial-for-using-ormlite-with-sqlite-and-android" target="_blank" rel="noopener">What is a good tutorial for using ORMLite with SQLite and Android</a></li>
-</ul>
-<h3 id="Improve-SQLiteOpenHelper-and-ContentResolver"><a href="#Improve-SQLiteOpenHelper-and-ContentResolver" class="headerlink" title="Improve SQLiteOpenHelper and ContentResolver"></a>Improve SQLiteOpenHelper and ContentResolver</h3><p><a href="https://github.com/square" target="_blank" rel="noopener">Square</a> 出品</p>
-<ul>
-<li><a href="http://github.com/square/sqlbrite" target="_blank" rel="noopener">Sqlbrite</a>  A lightweight wrapper around SQLiteOpenHelper which introduces reactive stream semantics to SQL operations.**<a href="http://square.github.io/sqlbrite/" target="_blank" rel="noopener">http://square.github.io/sqlbrite/</a><br>** </li>
-<li><strong><a href="https://github.com/square/sqldelight" target="_blank" rel="noopener">sqldelight</a></strong> Generates Java models from CREATE TABLE statements.（从sql语句生成Java模式 ）能把sql统一管理</li>
-<li><strong><a href="https://github.com/geralt-encore/Delightful-SQLBrite" target="_blank" rel="noopener">Delightful-SQLBrite</a></strong> sqldelight 和 SQLBrite 例子</li>
-</ul>
-<p>Qit</p>
-<ul>
-<li><a href="http://github.com/pushtorefresh/storio" target="_blank" rel="noopener">Storio</a>  Beautiful API for SQLiteDatabase and ContentResolver </li>
-<li>Android Instance<a href="http://github.com/frankiesardo/icepick" target="_blank" rel="noopener">Icepick</a>  Android Instance State made easy It works for Activities, Fragments or any object that needs to serialize its state on a Bundle</li>
-</ul>
-<h2 id="Tools-工具"><a href="#Tools-工具" class="headerlink" title="Tools(工具)"></a>Tools(工具)</h2><ul>
-<li><strong><a href="https://github.com/infinum/android_dbinspector" target="_blank" rel="noopener">android_dbinspector</a></strong><br><img src="https://camo.githubusercontent.com/5a2f9fe0725a29ff92f941daa814a65f2bdc193c/68747470733a2f2f7261772e6769746875622e636f6d2f696e66696e756d2f616e64726f69645f6462696e73706563746f722f6d61737465722f73637265656e73686f74732e706e67" alt></li>
-</ul>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><hr>
-<ul>
-<li>WeChat Sqliste  <a href="http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&mid=207548094&idx=1&sn=1a277620bc28349368b68ed98fbefebe" target="_blank" rel="noopener">微信ANDROID客户端-会话速度提升70%的背后</a></li>
-<li><a href="http://code.google.com/p/protobuf/" target="_blank" rel="noopener">protocol buffer (protobuf)</a>  </li>
-</ul>
-<h2 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h2><p>Sqlite3</p>
-<ul>
-<li>sqlite3 not found<br>blog:<ul>
-<li><a href="http://ramosli.iteye.com/blog/1966202" target="_blank" rel="noopener">sqlite3 not found的解决办法</a></li>
-<li><a href="http://android.stackexchange.com/questions/60446/cant-remount-system-in-rw" target="_blank" rel="noopener">cant-remount-system-in-rw</a> Nexus5使用有效果的命令：<code>mount -o remount,rw /system chmod 4755 /system/xbin/sqlite3</code></li>
-<li><code>sqlite3 robot.db</code> ==&gt; error: only position independent executables (PIE) are supported.</li>
-</ul>
-</li>
-</ul>
+    <span class="token comment" spellcheck="true">//各种各样的游乐设施</span>
+    var zoom <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Zoom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    var hayes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Hayes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 开玩</span>
+    hayes<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conDos<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Hayes modem with Dos configurator</span>
+    zoom<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conDos<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Zoom modem with Dos configurator</span>
+    hayes<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conUnix<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Hayes modem with Unix configurator</span>
+    zoom<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conUnix<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Zoom modem with Unix configurator   </span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上一波项目类图</p>
+<p><img src="http://cdn.linz.tech/acyclic-visitor.png" alt></p>
+<h3 id="点评-2"><a href="#点评-2" class="headerlink" title="点评"></a>点评</h3><p>非循环访问者模式，很近似于我们用不同的钥匙打开不同的门，而打开不同的门，里面会有不同的资源提供给我们使用。</p>
+<ol>
+<li>钥匙和门的关系比较单一，具有固定属性。</li>
+<li>子门子钥匙可以继承父钥匙和门，实现层级结构的划分。</li>
+</ol>
+<p>使用场景</p>
+<ol>
+<li>当你想动态的向现有层次结构添加功能（资源）时，不想做修改或影响整体的层次结构，即增加一个门和钥匙无需对整体修改；</li>
+<li>当存在不同层级结构的资源（类比：门）访问操作时，不用修改层级结构，通过ConfigureXXX类进行管理控制；</li>
+</ol>
+<p>参考：<a href="https://java-design-patterns.com/patterns/acyclic-visitor/" target="_blank" rel="noopener">非循环访问者模式（ Acyclic Visitor）</a></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">java-design-patterns</a></p>
+<p><a href="https://www.cnblogs.com/WindSun/p/10223126.html" target="_blank" rel="noopener">设计模式的分类</a></p>
 
       
     </div>
@@ -707,9 +518,9 @@ public abstract class Story implements Parcelable{
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># Android</a>
+            <a href="/tags/实践/" rel="tag"># 实践</a>
           
-            <a href="/tags/总结/" rel="tag"># 总结</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
       
@@ -722,8 +533,8 @@ public abstract class Story implements Parcelable{
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/04/2016-08-04-New-trend-for-Android/" rel="next" title="Android 相关的新技术">
-                <i class="fa fa-chevron-left"></i> Android 相关的新技术
+              <a href="/2020/01/16/2020-01-16-开发一个软件需要考虑的的事情收集/" rel="next" title="开发一个软件需要考虑的事及解决方案">
+                <i class="fa fa-chevron-left"></i> 开发一个软件需要考虑的事及解决方案
               </a>
             
           </div>
@@ -731,10 +542,6 @@ public abstract class Story implements Parcelable{
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/20/2016-11-20-React-Native-for-Android/" rel="prev" title="React Native for Android">
-                React Native for Android <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -764,7 +571,7 @@ public abstract class Story implements Parcelable{
           
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2016/09/08/2016-09-08-Android-database-note/" data-title="Android 数据处理资源总汇" data-url="http://linz.tech/2016/09/08/2016-09-08-Android-database-note/">
+      <div class="ds-thread" data-thread-key="2020/02/15/2020-02-15-Java-design-patterns-白话（可能配图）/" data-title="基于java-design-patterns白话图解设计模式（个人理解）" data-url="http://linz.tech/2020/02/15/2020-02-15-Java-design-patterns-白话（可能配图）/">
       </div>
     </div>
   
@@ -911,7 +718,7 @@ public abstract class Story implements Parcelable{
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据格式"><span class="nav-number">1.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化-Parcelable"><span class="nav-number">2.</span> <span class="nav-text">序列化 Parcelable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Parcelable-AutoValue"><span class="nav-number">2.1.</span> <span class="nav-text">Parcelable AutoValue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-状态保存"><span class="nav-number">2.2.</span> <span class="nav-text">Android 状态保存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-number">3.</span> <span class="nav-text">笔记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Awesome-Repositories"><span class="nav-number">4.</span> <span class="nav-text">Awesome Repositories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#轻量"><span class="nav-number">5.</span> <span class="nav-text">轻量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Improve-SQLiteOpenHelper-and-ContentResolver"><span class="nav-number">5.1.</span> <span class="nav-text">Improve SQLiteOpenHelper and ContentResolver</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools-工具"><span class="nav-number">6.</span> <span class="nav-text">Tools(工具)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-number">7.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题处理"><span class="nav-number">8.</span> <span class="nav-text">问题处理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract-Document-（抽象文档模式）"><span class="nav-number">1.</span> <span class="nav-text">Abstract Document （抽象文档模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#白话：总分总分"><span class="nav-number">1.1.</span> <span class="nav-text">白话：总分总分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#故事：买车"><span class="nav-number">1.2.</span> <span class="nav-text">故事：买车</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点评"><span class="nav-number">1.3.</span> <span class="nav-text">点评</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract-Factory-（抽象工厂模式）"><span class="nav-number">2.</span> <span class="nav-text">Abstract Factory （抽象工厂模式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#白话：-switch-一个抽象类"><span class="nav-number">2.1.</span> <span class="nav-text">白话： switch 一个抽象类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"><span class="nav-number">2.2.</span> <span class="nav-text">故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点评-1"><span class="nav-number">2.3.</span> <span class="nav-text">点评</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非循环访问者模式-Acyclic-Visitor"><span class="nav-number">3.</span> <span class="nav-text">非循环访问者模式( Acyclic Visitor)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环"><span class="nav-number">3.1.</span> <span class="nav-text">白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"><span class="nav-number">3.2.</span> <span class="nav-text">故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点评-2"><span class="nav-number">3.3.</span> <span class="nav-text">点评</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number"></span> <span class="nav-text">附录</span></a></li></div>
             
 
           </div>
