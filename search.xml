@@ -3,7 +3,26 @@
   <entry>
     <title>基于java-design-patterns白话图解设计模式（个人理解）</title>
     <url>/2020/02/15/2020-02-15-Java-design-patterns-%E7%99%BD%E8%AF%9D%EF%BC%88%E5%8F%AF%E8%83%BD%E9%85%8D%E5%9B%BE%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="Abstract-Document-（抽象文档模式）"><a href="#Abstract-Document-（抽象文档模式）" class="headerlink" title="Abstract Document （抽象文档模式）"></a>Abstract Document （抽象文档模式）</h2><h3 id="白话：总分总分"><a href="#白话：总分总分" class="headerlink" title="白话：总分总分"></a>白话：总分总分</h3><h3 id="故事：买车"><a href="#故事：买车" class="headerlink" title="故事：买车"></a>故事：买车</h3><p><img src="http://cdn.linz.tech/abstract_doc_car_show.jpeg" alt></p>
+    <content><![CDATA[<h1 id="Principle-设计原则"><a href="#Principle-设计原则" class="headerlink" title="Principle  设计原则"></a>Principle  设计原则</h1><h2 id="Generic"><a href="#Generic" class="headerlink" title="Generic"></a>Generic</h2><h3 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h3><p><a href="https://java-design-patterns.com/principles/#kiss" target="_blank" rel="noopener">KISS (Keep It Simple Stupid)</a></p>
+<h3 id="YAGNI"><a href="#YAGNI" class="headerlink" title="YAGNI"></a>YAGNI</h3><p> You Ain’t Gonna Need It (翻译：你可能不需要他，即不要过度设计，为了迎合某些产生概率极低的需求而设计的成本是非常高的软件)</p>
+<blockquote>
+<p>YAGNI stands for “you aren’t gonna need it”: don’t implement something until it is necessary.</p>
+</blockquote>
+<h3 id="DRY-Don’t-Repeat-Yourself"><a href="#DRY-Don’t-Repeat-Yourself" class="headerlink" title="DRY - Don’t Repeat Yourself"></a>DRY - Don’t Repeat Yourself</h3><p>使其每一个部件都是职责明确的并且可重用的</p>
+<h3 id="Do-The-Simplest-Thing-That-Could-Possibly-Work"><a href="#Do-The-Simplest-Thing-That-Could-Possibly-Work" class="headerlink" title="Do The Simplest Thing That Could Possibly Work"></a>Do The Simplest Thing That Could Possibly Work</h3><blockquote>
+<p>Ask yourself: “What is the simplest thing that could possibly work?”</p>
+</blockquote>
+<h3 id="SoC"><a href="#SoC" class="headerlink" title="SoC"></a>SoC</h3><p>Separation of concerns</p>
+<p>Break program functionality into separate modules that overlap as little as possible.</p>
+<p><a href="https://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Separation_of_concerns</a></p>
+<blockquote>
+<p><strong>separation of concerns</strong> (<strong>SoC</strong>) is a design principle for separating a <a href="https://en.wikipedia.org/wiki/Computer_program" target="_blank" rel="noopener">computer program</a> into distinct sections such that each section addresses a separate <a href="https://en.wikipedia.org/wiki/Concern_(computer_science)" target="_blank" rel="noopener">concern</a>. A concern is a set of information that affects the code of a computer program. </p>
+</blockquote>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ul>
+<li><a href="https://java-design-patterns.com/principles/" target="_blank" rel="noopener">https://java-design-patterns.com/principles/</a></li>
+<li><a href="https://www.cnblogs.com/cainiao-chuanqi/p/10959800.html" target="_blank" rel="noopener">https://www.cnblogs.com/cainiao-chuanqi/p/10959800.html</a></li>
+</ul>
+<h1 id="Patterns-设计模式"><a href="#Patterns-设计模式" class="headerlink" title="Patterns 设计模式"></a>Patterns 设计模式</h1><h2 id="Abstract-Document-（抽象文档模式）"><a href="#Abstract-Document-（抽象文档模式）" class="headerlink" title="Abstract Document （抽象文档模式）"></a>Abstract Document （抽象文档模式）</h2><h3 id="白话：总分总分"><a href="#白话：总分总分" class="headerlink" title="白话：总分总分"></a>白话：总分总分</h3><h3 id="故事：买车"><a href="#故事：买车" class="headerlink" title="故事：买车"></a>故事：买车</h3><p><img src="http://cdn.linz.tech/abstract_doc_car_show.jpeg" alt></p>
 <p>我想买一辆车，首先要知道它的品牌型号如：300SL，价格 16W<font color="red">起</font></p>
 <p>但是我最近狗屎运特别好，厕所捡到了10W块，当然买高配版，轮胎型号15C，价格100¥，车门型号 Lambo 价格300¥，最终用<font color="red">抽象文档模式</font>代码表示，我买到的车：</p>
 <p><a href="https://github.com/iluwatar/java-design-patterns/blob/master/abstract-document/src/main/java/com/iluwatar/abstractdocument/App.java" target="_blank" rel="noopener">App.java</a></p>
@@ -56,7 +75,10 @@
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其实本质是由于生产鞋子和生产口罩的原料和工艺大体是类似的，通过相对简单的整合原料，机器和生产工艺就能得到生产不同产品的工厂。这种做法好处在于充分利用现有资源的情况下，最高效快速的生产出口罩，解决由于疫情爆发导致的口罩稀缺的情况；java-design-patterns 给的例子是一个城堡的例子不太喜欢，感兴趣的可以去看一下，地址如下：<br><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929dcd874d63bb327f2339d5c07170565/abstract-factory/src/main/java/com/iluwatar/abstractfactory/App.java" target="_blank" rel="noopener">abstract factory github App.java</a></p>
 <h3 id="点评-1"><a href="#点评-1" class="headerlink" title="点评"></a>点评</h3><p>抽象工厂模式，通过的输入简单鞋子、口罩命令，并抽象规定这个工厂的产出，而具体复杂的资源整合及类的初始化调用的复杂逻辑流程等等都不需要使用者关心。</p>
-<h2 id="非循环访问者模式-Acyclic-Visitor"><a href="#非循环访问者模式-Acyclic-Visitor" class="headerlink" title="非循环访问者模式( Acyclic Visitor)"></a>非循环访问者模式( Acyclic Visitor)</h2><h3 id="白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环"><a href="#白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环" class="headerlink" title="白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环"></a>白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环</h3><p><img src="http://cdn.linz.tech/key_door.jpeg" alt></p>
+<h3 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h3><ul>
+<li><a href="https://raw.githubusercontent.com/Blankj/AndroidUtilCode/b01e17e36f022c21d8bd032ecb25384dd32e578b/lib/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java" target="_blank" rel="noopener">ToastUtils.java</a></li>
+</ul>
+<h2 id="Acyclic-Visitor-（非循环访问者模式）"><a href="#Acyclic-Visitor-（非循环访问者模式）" class="headerlink" title="Acyclic Visitor （非循环访问者模式）"></a>Acyclic Visitor （非循环访问者模式）</h2><h3 id="白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环"><a href="#白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环" class="headerlink" title="白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环"></a>白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环</h3><p><img src="http://cdn.linz.tech/key_door.jpeg" alt></p>
 <h3 id="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"><a href="#故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；" class="headerlink" title="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"></a>故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；</h3><p><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929/acyclic-visitor/src/main/java/com/iluwatar/acyclicvisitor/App.java" target="_blank" rel="noopener">App.java</a></p>
 <pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">/*分配到的玩项目的权限或钥匙集合*/</span>
@@ -86,7 +108,32 @@
 <li>当存在不同层级结构的资源（类比：门）访问操作时，不用修改层级结构，通过ConfigureXXX类进行管理控制；</li>
 </ol>
 <p>参考：<a href="https://java-design-patterns.com/patterns/acyclic-visitor/" target="_blank" rel="noopener">非循环访问者模式（ Acyclic Visitor）</a></p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">java-design-patterns</a></p>
+<h2 id="Adapter-（适配器模式）"><a href="#Adapter-（适配器模式）" class="headerlink" title="Adapter （适配器模式）"></a>Adapter （适配器模式）</h2><p><img src="http://cdn.linz.tech/java_pattern_adapter_1.png" alt></p>
+<p><img src="http://cdn.linz.tech/java_pattern_adapter_2.jpeg" alt></p>
+<h3 id="白话-USB转视频接口-USB转高清视频接口"><a href="#白话-USB转视频接口-USB转高清视频接口" class="headerlink" title="白话 USB转视频接口/USB转高清视频接口"></a>白话 USB转视频接口/USB转高清视频接口</h3><h3 id="点评-3"><a href="#点评-3" class="headerlink" title="点评"></a>点评</h3><ul>
+<li>安卓原生最常用类，常用于数据处理类，处理完数据定义好格式，返回给调用类使用，往往数据（事件）处理类格式一定，而返回的数据需要处理展示千变万化，定义一个adapter抽象类，给数据处理类调用，满足数据处理类最小功能和最少改动的设计原则。</li>
+</ul>
+<h2 id="Ambassador（大使模式）"><a href="#Ambassador（大使模式）" class="headerlink" title="Ambassador（大使模式）"></a>Ambassador（大使模式）</h2><p><img src="http://cdn.linz.tech/java_pattern_ambassador.jpeg" alt></p>
+<p>为什么叫大使模式，无非二点</p>
+<ul>
+<li>大使是自己人</li>
+<li>大使负责处理非本国（远端）事务</li>
+</ul>
+<h3 id="白话"><a href="#白话" class="headerlink" title="白话"></a>白话</h3><p>大使为我们（Client）处理外国（Service）的关系，记录交往信息，分析外国局势，使我们更好的应对外围环境的变化。</p>
+<p><img src="http://cdn.linz.tech/ambassador.urm.png" alt></p>
+<blockquote>
+<p>本地和远端共同实现一个接口，client调用本地大使，大使调用远端服务</p>
+</blockquote>
+<h3 id="点评-4"><a href="#点评-4" class="headerlink" title="点评"></a>点评</h3><p>把维护service链接的功能放到大使类中处理，如</p>
+<ol>
+<li>访问控制，维护…</li>
+<li>访问日志记录</li>
+<li>链接维护，短路重连，掉包测试…</li>
+<li>卸载服务</li>
+<li>安全管理</li>
+</ol>
+<h2 id="API-Gateway-API-网关"><a href="#API-Gateway-API-网关" class="headerlink" title="API-Gateway API 网关"></a>API-Gateway API 网关</h2><p>  <img src="http://cdn.linz.tech/java-pattern-gateway.png" alt></p>
+<h3 id="白话-本地API统一交给API网关管理，对API进行整合及代理管理"><a href="#白话-本地API统一交给API网关管理，对API进行整合及代理管理" class="headerlink" title="白话 本地API统一交给API网关管理，对API进行整合及代理管理"></a>白话 本地API统一交给API网关管理，对API进行整合及代理管理</h3><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">java-design-patterns</a></p>
 <p><a href="https://www.cnblogs.com/WindSun/p/10223126.html" target="_blank" rel="noopener">设计模式的分类</a></p>
 ]]></content>
       <categories>
@@ -20323,8 +20370,11 @@ $ git rm \\*~<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <p><em>移动文件</em><br>Git 中对文件改名  <code>$ git mv file_from file_to</code></p>
 <h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>查看日志的内容差异，并指定次数： <code>$ git log -p -2 commit ca82a6dff817ec66f44342007202690a93763949</code><br><code>--stat</code> 只显示统计的修改行数 如： | 31 ++++++++++++++—————–<br><code>$ git log --pretty=format:&quot;%h - %an, %ar : %s&quot;</code> 另外还有 oneline, short，full 和fuller 可以用</p>
 <ul>
-<li>结合 –graph<br><code>$ git log --pretty=format:&quot;%h %s&quot; --graph</code></li>
-<li>Filter<br><code>$ git log --since=2.weeks</code><br><code>git log --pretty=&quot;%h - %s&quot; --author=gitster --since=&quot;2008-10-01&quot; \ --before=&quot;2008-11-01&quot; --no-merges</code><br>  选项 说明 -(n)    仅显示最近的 n 条提交 –since, –after 仅显示指定时间之后的提交。 –until, –before 仅显示指定时间之</li>
+<li><p>结合 –graph<br><code>$ git log --pretty=format:&quot;%h %s&quot; --graph</code></p>
+</li>
+<li><p>Filter<br><code>$ git log --since=2.weeks</code><br><code>git log --pretty=&quot;%h - %s&quot; --author=gitster --since=&quot;2008-10-01&quot; \ --before=&quot;2008-11-01&quot; --no-merges</code> </p>
+<p>  选项 说明 -(n)    仅显示最近的 n 条提交 –since, –after 仅显示指定时间之后的提交。 –until, –before 仅显示指定时间之</p>
+</li>
 </ul>
 <h3 id="Log-命令的使用"><a href="#Log-命令的使用" class="headerlink" title="Log 命令的使用"></a>Log 命令的使用</h3><pre class="line-numbers language-shell"><code class="language-shell">git log    q //exit from the log status   like man 
 git log  --oneline
@@ -20483,14 +20533,17 @@ git branch -d fixbug-0.1<span aria-hidden="true" class="line-numbers-rows"><span
 <pre class="line-numbers language-xml"><code class="language-xml">`<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>(<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>): <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>subject</span><span class="token punctuation">></span></span>`<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h1 id="Git子模块"><a href="#Git子模块" class="headerlink" title="Git子模块"></a>Git子模块</h1><p>常用命令</p>
 <pre class="line-numbers language-shell"><code class="language-shell">#添加子模块
-git submodule add https://github.com/maonx/vimwiki-assets.git assets
+git submodule add https://github.com/maonx/vimwiki-assets.git assets/submodule
 
 #查看子模块
 git submodule
 
 #更新子模块
 git submodule update
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+#子模块更新
+cd assets/submodule
+git pull<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="博客教程"><a href="#博客教程" class="headerlink" title="博客教程"></a>博客教程</h2><ul>
 <li><a href="https://www.cnblogs.com/ludashi/p/8052739.html" target="_blank" rel="noopener">Git知识总览(一) 从 git clone 和 git status 谈起</a></li>
 </ul>
@@ -21736,6 +21789,135 @@ $ node-debug example.js</code></pre><p><a href="https://developers.google.com/we
 <ul>
 <li><a href="https://github.com/promeG/TinyPinyin" target="_blank" rel="noopener">汉字转拼音库</a>  用于对人名进行排序</li>
 </ul>
+<h3 id="Gson"><a href="#Gson" class="headerlink" title="Gson"></a><a href="https://github.com/google/gson" target="_blank" rel="noopener">Gson</a></h3><p>导入</p>
+<pre class="line-numbers language-gradle"><code class="language-gradle">dependencies {
+    implementation 'com.google.code.gson:gson:2.8.4'
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="序列化-反序列化"><a href="#序列化-反序列化" class="headerlink" title="序列化/反序列化"></a>序列化/反序列化</h4><p>Array&lt;=&gt; json</p>
+<pre class="line-numbers language-java"><code class="language-java">String namesJson <span class="token operator">=</span> <span class="token string">"['xiaoqiang','chenrenxiang','hahaha']"</span><span class="token punctuation">;</span>
+Gson gson <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+String<span class="token punctuation">[</span><span class="token punctuation">]</span> nameArray <span class="token operator">=</span> gson<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>namesJson<span class="token punctuation">,</span> String<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>json =&gt; list</p>
+<pre class="line-numbers language-java"><code class="language-java">String userJson <span class="token operator">=</span> <span class="token string">"[{'isDeveloper':false,'name':'xiaoqiang','age':26,'email':'578570174@qq.com'},{'isDeveloper':true,'name':'xiaoqiang123','age':27,'email':'578570174@gmail.com'}]"</span><span class="token punctuation">;</span>
+
+Gson gson <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Type userListType <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TypeToken</span><span class="token operator">&lt;</span>ArrayList<span class="token operator">&lt;</span>User<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+List<span class="token operator">&lt;</span>User<span class="token operator">></span> userList <span class="token operator">=</span> gson<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>userJson<span class="token punctuation">,</span> userListType<span class="token punctuation">)</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="控制序列化-反序列化的变量名称"><a href="#控制序列化-反序列化的变量名称" class="headerlink" title="控制序列化/反序列化的变量名称"></a>控制序列化/反序列化的变量名称</h5><pre class="line-numbers language-java"><code class="language-java">
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>  
+    <span class="token annotation punctuation">@Expose</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    String name<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 参与序列化/反序列化</span>
+
+    <span class="token annotation punctuation">@Expose</span><span class="token punctuation">(</span>serialize <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">,</span> deserialize <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+    String email<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 不参与序列化，也不参与反序列化</span>
+
+    <span class="token annotation punctuation">@Expose</span><span class="token punctuation">(</span>serialize <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 只参与反序列化</span>
+
+    <span class="token annotation punctuation">@Expose</span><span class="token punctuation">(</span>deserialize <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+    <span class="token keyword">boolean</span> isDeveloper<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 只参与序列化</span>
+      <span class="token annotation punctuation">@SerializedName</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"name"</span><span class="token punctuation">,</span> alternate <span class="token operator">=</span> <span class="token string">"fullName"</span><span class="token punctuation">)</span>
+      String userName <span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><font color="red"> 注意：使用以上必须使用如下</font></p>
+<pre class="line-numbers language-java"><code class="language-java">GsonBuilder builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+builder<span class="token punctuation">.</span><span class="token function">excludeFieldsWithoutExposeAnnotation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+Gson gson <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h5 id="字段值为-null-时是否序列化"><a href="#字段值为-null-时是否序列化" class="headerlink" title="字段值为 null 时是否序列化"></a>字段值为 null 时是否序列化</h5><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Person 实体一共4个字段：Integer pId、String pName、Date birthday、Boolean isMarry
+ * 现在它的属性全部不进行赋值
+ */</span>
+Person person <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/** 不对属性值为 null 的字段进行序列化，转换结果会为空*/</span>
+String personStr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toJson</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/** 对属性值为 null 的字段进行序列化*/</span>
+String personStrFinal <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">serializeNulls</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toJson</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>personStr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//输出：{}</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>personStrFinal<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="TypeAdapter"><a href="#TypeAdapter" class="headerlink" title="TypeAdapter"></a>TypeAdapter</h5><p><a href="https://www.jianshu.com/p/8cc857583ff4" target="_blank" rel="noopener">Gson全解析（中）-TypeAdapter的使用</a></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">final</span> GsonBuilder gsonBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+gsonBuilder<span class="token punctuation">.</span><span class="token function">registerTypeAdapter</span><span class="token punctuation">(</span>Book<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">BookTypeAdapter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> Gson gson <span class="token operator">=</span> gsonBuilder<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Integer 转换 防止 后台返回null 转换异常
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerDefaultAdapter</span> <span class="token keyword">extends</span> <span class="token class-name">TypeAdapter</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">write</span><span class="token punctuation">(</span>JsonWriter jsonWriter<span class="token punctuation">,</span> Integer integer<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        jsonWriter<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>integer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Integer <span class="token function">read</span><span class="token punctuation">(</span>JsonReader jsonReader<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>jsonReader<span class="token punctuation">.</span><span class="token function">nextString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NumberFormatException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/**
+ * String 转换 防止 后台返回null 转换异常
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StringDefaultAdapter</span> <span class="token keyword">extends</span> <span class="token class-name">TypeAdapter</span><span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">write</span><span class="token punctuation">(</span>JsonWriter jsonWriter<span class="token punctuation">,</span> String s<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        jsonWriter<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">read</span><span class="token punctuation">(</span>JsonReader jsonReader<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>jsonReader<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> JsonToken<span class="token punctuation">.</span>NULL<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            jsonReader<span class="token punctuation">.</span><span class="token function">nextNull</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> jsonReader<span class="token punctuation">.</span><span class="token function">nextString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="直接操作JSON"><a href="#直接操作JSON" class="headerlink" title="直接操作JSON"></a>直接操作JSON</h4><p><font color="red">【重点】</font>方法根据不同Json类型进行解析</p>
+<pre class="line-numbers language-java"><code class="language-java"> parse<span class="token punctuation">.</span><span class="token function">isJsonArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ parse<span class="token punctuation">.</span><span class="token function">isJsonNull</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ parse<span class="token punctuation">.</span><span class="token function">isJsonObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ parse<span class="token punctuation">.</span><span class="token function">isJsonPrimitive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>常用操作JsonObject</p>
+<pre class="line-numbers language-java"><code class="language-java">  String jsonStr <span class="token operator">=</span> <span class="token string">"{\"pId\":9527,\"pName\":\"华安\",\"birthday\":\"Nov 23, 2018 1:50:56 PM\",\"isMarry\":true}"</span><span class="token punctuation">;</span>
+
+JsonParser jsonParser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonParser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
+* JsonElement parse(String json)
+* 如果被解析的字符串不符合 json 格式，则抛出异常
+* */</span>
+JsonObject jsonObject <span class="token operator">=</span> jsonParser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>jsonStr<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAsJsonObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+* JsonElement get(String memberName)
+* 注意：如果 get 的 key 不存在，则返回 null，如果不加判断而进行取值的话，会抛：java.lang.NullPointerException
+* */</span>
+Integer pId <span class="token operator">=</span> jsonObject<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"pId"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAsInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>JsonArray</p>
+<pre class="line-numbers language-java"><code class="language-java">String jsonArrayStr <span class="token operator">=</span> <span class="token string">"[{\"pId\":9527,\"pName\":\"华安\",\"isMarry\":true},{\"pId\":8866,\"pName\":\"宁王\",\"isMarry\":false}]"</span><span class="token punctuation">;</span>
+JsonParser jsonParser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonParser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+JsonArray jsonArray <span class="token operator">=</span> jsonParser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>jsonArrayStr<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAsJsonArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>构建JSON</p>
+<pre class="line-numbers language-java"><code class="language-java">JsonObject jsonObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JsonObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+jsonObject<span class="token punctuation">.</span><span class="token function">addProperty</span><span class="token punctuation">(</span><span class="token string">"pId"</span><span class="token punctuation">,</span> <span class="token number">9527</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+jsonObject<span class="token punctuation">.</span><span class="token function">addProperty</span><span class="token punctuation">(</span><span class="token string">"pName"</span><span class="token punctuation">,</span> <span class="token string">"华安"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+jsonObject<span class="token punctuation">.</span><span class="token function">addProperty</span><span class="token punctuation">(</span><span class="token string">"isMarry"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//JsonObject 添加复杂类型属性使用 </span>
+<span class="token comment" spellcheck="true">//add(String property, JsonElement value)</span>
+<span class="token comment" spellcheck="true">//JsonObject 与 JsonArray 都是 JsonElement 类的子类</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="构建工具"><a href="#构建工具" class="headerlink" title="构建工具"></a>构建工具</h2><hr>
 <p><strong><a href="https://github.com/seven456/MultiChannelPackageTool" target="_blank" rel="noopener">MultiChannelPackageTool</a></strong> 快速多渠道打包工具。</p>
 <h2 id="开发中实用的工具"><a href="#开发中实用的工具" class="headerlink" title="开发中实用的工具"></a>开发中实用的工具</h2><hr>
@@ -24777,6 +24959,107 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
 <h2 id="CardView"><a href="#CardView" class="headerlink" title="CardView"></a><em>CardView</em></h2><ul>
 <li>android.support.v7.widget.CardView</li>
 </ul>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><pre class="line-numbers language-gradle"><code class="language-gradle">implementation 'com.android.support:cardview-v7:27.1.1'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="属性详解"><a href="#属性详解" class="headerlink" title="属性详解"></a>属性详解</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>解析</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>app:cardBackgroundColor</td>
+<td>置背景颜色</td>
+</tr>
+<tr>
+<td>app:cardCornerRadius</td>
+<td>设置圆角大小</td>
+</tr>
+<tr>
+<td>app:cardElevation</td>
+<td>设置z轴阴影高度</td>
+</tr>
+<tr>
+<td>app:cardMaxElevation</td>
+<td>设置z轴最大高度值</td>
+</tr>
+<tr>
+<td>app:contentPadding</td>
+<td>内容与边距的间隔</td>
+</tr>
+<tr>
+<td>app:contentPaddingLeft</td>
+<td>内容与左边的间隔</td>
+</tr>
+<tr>
+<td>app:contentPaddingTop</td>
+<td>内容与顶部的间隔</td>
+</tr>
+<tr>
+<td>app:contentPaddingRight</td>
+<td>内容与右边的间隔</td>
+</tr>
+<tr>
+<td>app:contentPaddingBottom</td>
+<td>内容与底部的间隔</td>
+</tr>
+<tr>
+<td>app:paddingStart</td>
+<td>内容与边距的间隔起始</td>
+</tr>
+<tr>
+<td>app:paddingEnd</td>
+<td>内容与边距的间隔终止</td>
+</tr>
+<tr>
+<td>app:cardUseCompatPadding</td>
+<td>设置内边距，在API21及以上版本和之前的版本仍旧具有一样的计算方式</td>
+</tr>
+<tr>
+<td>app:cardPreventConrerOverlap</td>
+<td>在API20及以下版本中添加内边距，这个属性为了防止内容和边角的重叠</td>
+</tr>
+</tbody></table>
+<p><font color="red">注意：</font>CardView中使用android:background设置背景颜色无效。</p>
+<h3 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h3><p><strong>Ripple</strong> 效果</p>
+<pre class="line-numbers language-xml"><code class="language-xml">android:foreground=”?android:attr/selectableItemBackground”<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="cardUseCompatPadding"><a href="#cardUseCompatPadding" class="headerlink" title="cardUseCompatPadding"></a>cardUseCompatPadding</h3><p><img src="https://simg.open-open.com/show/bad78408db2cd78e7ce36308e992ae42.png" alt></p>
+<p><strong>pre-Lollipop平台中，不同cardPreventCornerOverlap值的效果对比图（左false，右true）</strong></p>
+<p>设置在Lollipop及以上版本的系统中没有任何影响，除非cardUseCompatPadding的值为true。</p>
+<h3 id="lift-on-touch-效果"><a href="#lift-on-touch-效果" class="headerlink" title="lift-on-touch 效果"></a><strong>lift-on-touch</strong> 效果</h3><p><img src="https://simg.open-open.com/show/48cf6ec1a740fe95695805f636d69a0a.gif" alt></p>
+<p>lift_on_touch.xml</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token comment" spellcheck="true">&lt;!-- animate the translationZ property of a view when pressed --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selector</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span>
+ <span class="token attr-name"><span class="token namespace">android:</span>state_enabled</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>state_pressed</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>objectAnimator</span>
+ <span class="token attr-name"><span class="token namespace">android:</span>duration</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@android:integer/config_shortAnimTime<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>propertyName</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>translationZ<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>valueTo</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>6dp<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>valueType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>floatType<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>objectAnimator</span>
+ <span class="token attr-name"><span class="token namespace">android:</span>duration</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@android:integer/config_shortAnimTime<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>propertyName</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>translationZ<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>valueTo</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>valueType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>floatType<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selector</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>小结：</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>AppCardView<span class="token punctuation">"</span></span> <span class="token attr-name">parent</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@style/CardView.Light<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token style language-css">
+ &lt;item name=<span class="token string">"cardPreventCornerOverlap"</span>>false&lt;/item>
+ &lt;item name=<span class="token string">"cardUseCompatPadding"</span>>true&lt;/item>
+ &lt;item name=<span class="token string">"android:foreground"</span>>?attr/selectableItemBackground&lt;/item>
+ &lt;item name=<span class="token string">"android:stateListAnimator"</span> <span class="token property">tools</span><span class="token punctuation">:</span>targetApi=<span class="token string">"lollipop"</span>>@anim/lift_up&lt;/item>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考：<a href="https://www.open-open.com/lib/view/open1476847497671.html" target="_blank" rel="noopener">Android CardView的使用细节</a></p>
 <h2 id="NestedScrollView"><a href="#NestedScrollView" class="headerlink" title="NestedScrollView"></a>NestedScrollView</h2><h1 id="图片文字资源"><a href="#图片文字资源" class="headerlink" title="图片文字资源"></a>图片文字资源</h1><h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
 <li><strong><a href="https://github.com/chrisbanes/cheesesquare" target="_blank" rel="noopener">Demos the new Android Design library</a></strong> github star 6300+</li>
 <li><strong><a href="https://github.com/mikepenz/MaterialDrawer" target="_blank" rel="noopener">MaterialDrawer</a></strong> The flexible, easy to use, all in one drawer library for your Android project<br><img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg" alt></li>

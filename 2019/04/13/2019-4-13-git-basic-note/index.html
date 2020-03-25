@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-c6f141e8343b590e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-3a5d7629205a8ff2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-87d9eef790f21405.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2020-03-08T04:02:35.595Z">
+<meta property="og:updated_time" content="2020-03-19T03:06:18.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 基础比较">
 <meta name="twitter:description" content="[TOC] Open source git-flow git-extras  Git常用Git 表情 git commit 时 emoji表情使用指南 gitmoji github 版本仓库 表情提交时使用规范 交全的表情列表     emoji emoji 代码 commit 说明    :art: (调色板) :art: 改进代码结构/代码格式   :zap: (闪电):racehorse:">
@@ -633,8 +633,11 @@ $ git rm \\*~<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <p><em>移动文件</em><br>Git 中对文件改名  <code>$ git mv file_from file_to</code></p>
 <h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>查看日志的内容差异，并指定次数： <code>$ git log -p -2 commit ca82a6dff817ec66f44342007202690a93763949</code><br><code>--stat</code> 只显示统计的修改行数 如： | 31 ++++++++++++++—————–<br><code>$ git log --pretty=format:&quot;%h - %an, %ar : %s&quot;</code> 另外还有 oneline, short，full 和fuller 可以用</p>
 <ul>
-<li>结合 –graph<br><code>$ git log --pretty=format:&quot;%h %s&quot; --graph</code></li>
-<li>Filter<br><code>$ git log --since=2.weeks</code><br><code>git log --pretty=&quot;%h - %s&quot; --author=gitster --since=&quot;2008-10-01&quot; \ --before=&quot;2008-11-01&quot; --no-merges</code><br>  选项 说明 -(n)    仅显示最近的 n 条提交 –since, –after 仅显示指定时间之后的提交。 –until, –before 仅显示指定时间之</li>
+<li><p>结合 –graph<br><code>$ git log --pretty=format:&quot;%h %s&quot; --graph</code></p>
+</li>
+<li><p>Filter<br><code>$ git log --since=2.weeks</code><br><code>git log --pretty=&quot;%h - %s&quot; --author=gitster --since=&quot;2008-10-01&quot; \ --before=&quot;2008-11-01&quot; --no-merges</code> </p>
+<p>  选项 说明 -(n)    仅显示最近的 n 条提交 –since, –after 仅显示指定时间之后的提交。 –until, –before 仅显示指定时间之</p>
+</li>
 </ul>
 <h3 id="Log-命令的使用"><a href="#Log-命令的使用" class="headerlink" title="Log 命令的使用"></a>Log 命令的使用</h3><pre class="line-numbers language-shell"><code class="language-shell">git log    q //exit from the log status   like man 
 git log  --oneline
@@ -793,14 +796,17 @@ git branch -d fixbug-0.1<span aria-hidden="true" class="line-numbers-rows"><span
 <pre class="line-numbers language-xml"><code class="language-xml">`<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>(<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>): <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>subject</span><span class="token punctuation">></span></span>`<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h1 id="Git子模块"><a href="#Git子模块" class="headerlink" title="Git子模块"></a>Git子模块</h1><p>常用命令</p>
 <pre class="line-numbers language-shell"><code class="language-shell">#添加子模块
-git submodule add https://github.com/maonx/vimwiki-assets.git assets
+git submodule add https://github.com/maonx/vimwiki-assets.git assets/submodule
 
 #查看子模块
 git submodule
 
 #更新子模块
 git submodule update
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+#子模块更新
+cd assets/submodule
+git pull<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="博客教程"><a href="#博客教程" class="headerlink" title="博客教程"></a>博客教程</h2><ul>
 <li><a href="https://www.cnblogs.com/ludashi/p/8052739.html" target="_blank" rel="noopener">Git知识总览(一) 从 git clone 和 git status 谈起</a></li>
 </ul>

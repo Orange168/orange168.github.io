@@ -91,6 +91,8 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-58619ce3666e1c30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-e6e4136518502264.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-bddcf5a56fa4f69d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://simg.open-open.com/show/bad78408db2cd78e7ce36308e992ae42.png">
+<meta property="og:image" content="https://simg.open-open.com/show/48cf6ec1a740fe95695805f636d69a0a.gif">
 <meta property="og:image" content="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg">
 <meta property="og:image" content="https://camo.githubusercontent.com/895f0065aa1d9c993569619853c81180c5d2658e/68747470733a2f2f6431337961637572716a676172612e636c6f756466726f6e742e6e65742f75736572732f36323331392f73637265656e73686f74732f313934353539332f73686f742e676966">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-983413370be2cf9d.gif?imageMogr2/auto-orient/strip">
@@ -105,7 +107,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-8efaa73f1003543b.gif?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-db769a9b6fa9face.gif?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-822426affad1682d.gif?imageMogr2/auto-orient/strip">
-<meta property="og:updated_time" content="2020-01-15T02:32:43.113Z">
+<meta property="og:updated_time" content="2020-03-25T03:32:51.212Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Material Design">
 <meta name="twitter:description" content="前言一、设计阶段Material Design 提供了跨设备和 Web 的一致性用户体验。它的四项原则：  有型的外观(Tangible surface)：应用像现实中的实物一样。 仿印刷品的设计(Print-like design)：内容醒目、形象生动、意图明确。 有意义的运动效果(Meaningful motion)：吸引用户的兴趣，在应用状态切换时保持连续性。 自适应设计(Adaptive">
@@ -548,6 +550,107 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
 <h2 id="CardView"><a href="#CardView" class="headerlink" title="CardView"></a><em>CardView</em></h2><ul>
 <li>android.support.v7.widget.CardView</li>
 </ul>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><pre class="line-numbers language-gradle"><code class="language-gradle">implementation 'com.android.support:cardview-v7:27.1.1'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="属性详解"><a href="#属性详解" class="headerlink" title="属性详解"></a>属性详解</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>解析</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>app:cardBackgroundColor</td>
+<td>置背景颜色</td>
+</tr>
+<tr>
+<td>app:cardCornerRadius</td>
+<td>设置圆角大小</td>
+</tr>
+<tr>
+<td>app:cardElevation</td>
+<td>设置z轴阴影高度</td>
+</tr>
+<tr>
+<td>app:cardMaxElevation</td>
+<td>设置z轴最大高度值</td>
+</tr>
+<tr>
+<td>app:contentPadding</td>
+<td>内容与边距的间隔</td>
+</tr>
+<tr>
+<td>app:contentPaddingLeft</td>
+<td>内容与左边的间隔</td>
+</tr>
+<tr>
+<td>app:contentPaddingTop</td>
+<td>内容与顶部的间隔</td>
+</tr>
+<tr>
+<td>app:contentPaddingRight</td>
+<td>内容与右边的间隔</td>
+</tr>
+<tr>
+<td>app:contentPaddingBottom</td>
+<td>内容与底部的间隔</td>
+</tr>
+<tr>
+<td>app:paddingStart</td>
+<td>内容与边距的间隔起始</td>
+</tr>
+<tr>
+<td>app:paddingEnd</td>
+<td>内容与边距的间隔终止</td>
+</tr>
+<tr>
+<td>app:cardUseCompatPadding</td>
+<td>设置内边距，在API21及以上版本和之前的版本仍旧具有一样的计算方式</td>
+</tr>
+<tr>
+<td>app:cardPreventConrerOverlap</td>
+<td>在API20及以下版本中添加内边距，这个属性为了防止内容和边角的重叠</td>
+</tr>
+</tbody></table>
+<p><font color="red">注意：</font>CardView中使用android:background设置背景颜色无效。</p>
+<h3 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h3><p><strong>Ripple</strong> 效果</p>
+<pre class="line-numbers language-xml"><code class="language-xml">android:foreground=”?android:attr/selectableItemBackground”<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="cardUseCompatPadding"><a href="#cardUseCompatPadding" class="headerlink" title="cardUseCompatPadding"></a>cardUseCompatPadding</h3><p><img src="https://simg.open-open.com/show/bad78408db2cd78e7ce36308e992ae42.png" alt></p>
+<p><strong>pre-Lollipop平台中，不同cardPreventCornerOverlap值的效果对比图（左false，右true）</strong></p>
+<p>设置在Lollipop及以上版本的系统中没有任何影响，除非cardUseCompatPadding的值为true。</p>
+<h3 id="lift-on-touch-效果"><a href="#lift-on-touch-效果" class="headerlink" title="lift-on-touch 效果"></a><strong>lift-on-touch</strong> 效果</h3><p><img src="https://simg.open-open.com/show/48cf6ec1a740fe95695805f636d69a0a.gif" alt></p>
+<p>lift_on_touch.xml</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token comment" spellcheck="true">&lt;!-- animate the translationZ property of a view when pressed --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selector</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span>
+ <span class="token attr-name"><span class="token namespace">android:</span>state_enabled</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>state_pressed</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>objectAnimator</span>
+ <span class="token attr-name"><span class="token namespace">android:</span>duration</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@android:integer/config_shortAnimTime<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>propertyName</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>translationZ<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>valueTo</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>6dp<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>valueType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>floatType<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>objectAnimator</span>
+ <span class="token attr-name"><span class="token namespace">android:</span>duration</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@android:integer/config_shortAnimTime<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>propertyName</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>translationZ<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>valueTo</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span>
+ <span class="token attr-name"><span class="token namespace">android:</span>valueType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>floatType<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selector</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>小结：</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>AppCardView<span class="token punctuation">"</span></span> <span class="token attr-name">parent</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@style/CardView.Light<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token style language-css">
+ &lt;item name=<span class="token string">"cardPreventCornerOverlap"</span>>false&lt;/item>
+ &lt;item name=<span class="token string">"cardUseCompatPadding"</span>>true&lt;/item>
+ &lt;item name=<span class="token string">"android:foreground"</span>>?attr/selectableItemBackground&lt;/item>
+ &lt;item name=<span class="token string">"android:stateListAnimator"</span> <span class="token property">tools</span><span class="token punctuation">:</span>targetApi=<span class="token string">"lollipop"</span>>@anim/lift_up&lt;/item>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考：<a href="https://www.open-open.com/lib/view/open1476847497671.html" target="_blank" rel="noopener">Android CardView的使用细节</a></p>
 <h2 id="NestedScrollView"><a href="#NestedScrollView" class="headerlink" title="NestedScrollView"></a>NestedScrollView</h2><h1 id="图片文字资源"><a href="#图片文字资源" class="headerlink" title="图片文字资源"></a>图片文字资源</h1><h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
 <li><strong><a href="https://github.com/chrisbanes/cheesesquare" target="_blank" rel="noopener">Demos the new Android Design library</a></strong> github star 6300+</li>
 <li><strong><a href="https://github.com/mikepenz/MaterialDrawer" target="_blank" rel="noopener">MaterialDrawer</a></strong> The flexible, easy to use, all in one drawer library for your Android project<br><img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg" alt></li>
@@ -849,7 +952,7 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文档"><span class="nav-number">2.</span> <span class="nav-text">文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#官方API"><span class="nav-number">2.1.</span> <span class="nav-text">官方API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方博客"><span class="nav-number">2.2.</span> <span class="nav-text">官方博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用须知"><span class="nav-number">2.3.</span> <span class="nav-text">使用须知</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开源库"><span class="nav-number">3.</span> <span class="nav-text">开源库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#App-Bar-layout"><span class="nav-number">3.1.</span> <span class="nav-text">App Bar layout</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Material-Design-新特性"><span class="nav-number">4.</span> <span class="nav-text">Material Design 新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">4.1.</span> <span class="nav-text">SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">4.1.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关博文"><span class="nav-number">4.1.2.</span> <span class="nav-text">相关博文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TV"><span class="nav-number">4.2.</span> <span class="nav-text">TV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Toolbar"><span class="nav-number">4.3.</span> <span class="nav-text">Toolbar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TabLayout"><span class="nav-number">4.4.</span> <span class="nav-text">TabLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bottom-Navigation"><span class="nav-number">4.5.</span> <span class="nav-text">Bottom Navigation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TextInputLayout"><span class="nav-number">4.6.</span> <span class="nav-text">TextInputLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConstraintLayout"><span class="nav-number">4.7.</span> <span class="nav-text">ConstraintLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CardView"><span class="nav-number">4.8.</span> <span class="nav-text">CardView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NestedScrollView"><span class="nav-number">4.9.</span> <span class="nav-text">NestedScrollView</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片文字资源"><span class="nav-number">5.</span> <span class="nav-text">图片文字资源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">5.1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体和图片相关"><span class="nav-number">5.2.</span> <span class="nav-text">字体和图片相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Material-Animation-动画"><span class="nav-number">5.3.</span> <span class="nav-text">Material Animation 动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#New-Feature-新的特性"><span class="nav-number">5.4.</span> <span class="nav-text">New Feature  新的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Theme-主题"><span class="nav-number">5.5.</span> <span class="nav-text">Theme 主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置相关"><span class="nav-number">5.6.</span> <span class="nav-text">设置相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生控件的包装"><span class="nav-number">5.7.</span> <span class="nav-text">原生控件的包装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#兼容开源库"><span class="nav-number">6.</span> <span class="nav-text">兼容开源库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Material-Design-参考资料"><span class="nav-number">7.</span> <span class="nav-text">Material Design 参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文档"><span class="nav-number">2.</span> <span class="nav-text">文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#官方API"><span class="nav-number">2.1.</span> <span class="nav-text">官方API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方博客"><span class="nav-number">2.2.</span> <span class="nav-text">官方博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用须知"><span class="nav-number">2.3.</span> <span class="nav-text">使用须知</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开源库"><span class="nav-number">3.</span> <span class="nav-text">开源库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#App-Bar-layout"><span class="nav-number">3.1.</span> <span class="nav-text">App Bar layout</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Material-Design-新特性"><span class="nav-number">4.</span> <span class="nav-text">Material Design 新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">4.1.</span> <span class="nav-text">SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">4.1.1.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关博文"><span class="nav-number">4.1.2.</span> <span class="nav-text">相关博文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TV"><span class="nav-number">4.2.</span> <span class="nav-text">TV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Toolbar"><span class="nav-number">4.3.</span> <span class="nav-text">Toolbar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TabLayout"><span class="nav-number">4.4.</span> <span class="nav-text">TabLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bottom-Navigation"><span class="nav-number">4.5.</span> <span class="nav-text">Bottom Navigation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TextInputLayout"><span class="nav-number">4.6.</span> <span class="nav-text">TextInputLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConstraintLayout"><span class="nav-number">4.7.</span> <span class="nav-text">ConstraintLayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CardView"><span class="nav-number">4.8.</span> <span class="nav-text">CardView</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用"><span class="nav-number">4.8.1.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性详解"><span class="nav-number">4.8.2.</span> <span class="nav-text">属性详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用技巧"><span class="nav-number">4.8.3.</span> <span class="nav-text">使用技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cardUseCompatPadding"><span class="nav-number">4.8.4.</span> <span class="nav-text">cardUseCompatPadding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lift-on-touch-效果"><span class="nav-number">4.8.5.</span> <span class="nav-text">lift-on-touch 效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NestedScrollView"><span class="nav-number">4.9.</span> <span class="nav-text">NestedScrollView</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片文字资源"><span class="nav-number">5.</span> <span class="nav-text">图片文字资源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">5.1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体和图片相关"><span class="nav-number">5.2.</span> <span class="nav-text">字体和图片相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Material-Animation-动画"><span class="nav-number">5.3.</span> <span class="nav-text">Material Animation 动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#New-Feature-新的特性"><span class="nav-number">5.4.</span> <span class="nav-text">New Feature  新的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Theme-主题"><span class="nav-number">5.5.</span> <span class="nav-text">Theme 主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置相关"><span class="nav-number">5.6.</span> <span class="nav-text">设置相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生控件的包装"><span class="nav-number">5.7.</span> <span class="nav-text">原生控件的包装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#兼容开源库"><span class="nav-number">6.</span> <span class="nav-text">兼容开源库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Material-Design-参考资料"><span class="nav-number">7.</span> <span class="nav-text">Material Design 参考资料</span></a></li></ol></div>
             
 
           </div>
