@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-8efaa73f1003543b.gif?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-db769a9b6fa9face.gif?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-822426affad1682d.gif?imageMogr2/auto-orient/strip">
-<meta property="og:updated_time" content="2020-03-25T03:32:51.212Z">
+<meta property="og:updated_time" content="2020-03-25T07:13:12.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Material Design">
 <meta name="twitter:description" content="前言一、设计阶段Material Design 提供了跨设备和 Web 的一致性用户体验。它的四项原则：  有型的外观(Tangible surface)：应用像现实中的实物一样。 仿印刷品的设计(Print-like design)：内容醒目、形象生动、意图明确。 有意义的运动效果(Meaningful motion)：吸引用户的兴趣，在应用状态切换时保持连续性。 自适应设计(Adaptive">
@@ -618,7 +618,8 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
 <p><strong>pre-Lollipop平台中，不同cardPreventCornerOverlap值的效果对比图（左false，右true）</strong></p>
 <p>设置在Lollipop及以上版本的系统中没有任何影响，除非cardUseCompatPadding的值为true。</p>
 <h3 id="lift-on-touch-效果"><a href="#lift-on-touch-效果" class="headerlink" title="lift-on-touch 效果"></a><strong>lift-on-touch</strong> 效果</h3><p><img src="https://simg.open-open.com/show/48cf6ec1a740fe95695805f636d69a0a.gif" alt></p>
-<p>lift_on_touch.xml</p>
+<p>drawable/lift_on_touch.xml</p>
+<p><font color="red"> 注意：</font> 设置click效果才会出现</p>
 <pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
 <span class="token comment" spellcheck="true">&lt;!-- animate the translationZ property of a view when pressed --></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selector</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -647,8 +648,8 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
 <pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>AppCardView<span class="token punctuation">"</span></span> <span class="token attr-name">parent</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@style/CardView.Light<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token style language-css">
  &lt;item name=<span class="token string">"cardPreventCornerOverlap"</span>>false&lt;/item>
  &lt;item name=<span class="token string">"cardUseCompatPadding"</span>>true&lt;/item>
- &lt;item name=<span class="token string">"android:foreground"</span>>?attr/selectableItemBackground&lt;/item>
- &lt;item name=<span class="token string">"android:stateListAnimator"</span> <span class="token property">tools</span><span class="token punctuation">:</span>targetApi=<span class="token string">"lollipop"</span>>@anim/lift_up&lt;/item>
+ &lt;item name=<span class="token string">"android:foreground"</span>>?<span class="token property">android</span><span class="token punctuation">:</span>attr/selectableItemBackground&lt;/item>
+ &lt;item name=<span class="token string">"android:stateListAnimator"</span> <span class="token property">tools</span><span class="token punctuation">:</span>targetApi=<span class="token string">"lollipop"</span>>@drawable/lift_up&lt;/item>
 </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参考：<a href="https://www.open-open.com/lib/view/open1476847497671.html" target="_blank" rel="noopener">Android CardView的使用细节</a></p>
 <h2 id="NestedScrollView"><a href="#NestedScrollView" class="headerlink" title="NestedScrollView"></a>NestedScrollView</h2><h1 id="图片文字资源"><a href="#图片文字资源" class="headerlink" title="图片文字资源"></a>图片文字资源</h1><h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
@@ -857,7 +858,7 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -868,7 +869,7 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
