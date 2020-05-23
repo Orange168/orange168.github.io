@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://cdn.linz.tech/basic-demo-build-scan.png">
 <meta property="og:image" content="http://cdn.linz.tech/logger_level-2019-6-13.webp">
-<meta property="og:updated_time" content="2020-01-15T02:35:40.928Z">
+<meta property="og:updated_time" content="2020-03-29T04:03:38.006Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gradle 学习积累">
 <meta name="twitter:description" content="基础 Gradle Guides Creating New Gradle Builds  命令 # 多任务顺序执行 gradlew clean jar Groovy 基本D:\workspace\project\gradle\basic-demo\build.gradle Gradle Task 语法 D:\workspace\project\gradle\basic-demo\build.gra">
@@ -468,6 +468,22 @@ dependencies <span class="token punctuation">{</span>
    <span class="token function">androidTestCompile</span><span class="token punctuation">(</span><span class="token string">'com.android.support.test:rules:0.2'</span><span class="token punctuation">)</span>
    <span class="token function">androidTestCompile</span><span class="token punctuation">(</span><span class="token string">'com.android.support.test.espresso:espresso-core:2.1'</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-gradle"><code class="language-gradle">Android dependency 'androidx.exifinterface:exifinterface' has different version for the compile (1.0.0-rc01) and runtime (1.1.0-beta01) classpath. You should manually set the same version via DependencyResolution<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>解决</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">allprojects <span class="token punctuation">{</span>
+    repositories <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+    subprojects<span class="token punctuation">{</span>
+        project<span class="token operator">.</span>configurations<span class="token operator">.</span>all<span class="token punctuation">{</span>
+            resolutionStrategy<span class="token operator">.</span>eachDependency <span class="token punctuation">{</span> details <span class="token operator">-></span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>details<span class="token operator">.</span>requested<span class="token operator">.</span>group <span class="token operator">==</span> <span class="token string">'androidx.exifinterface'</span>
+                    <span class="token operator">&amp;&amp;</span> details<span class="token operator">.</span>requested<span class="token operator">.</span>name<span class="token operator">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">'exifinterface'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    details<span class="token operator">.</span>useVersion <span class="token string">"1.0.0-rc01"</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="配置相关"><a href="#配置相关" class="headerlink" title="配置相关"></a>配置相关</h3><p>强制刷新依赖</p>
 <pre class="line-numbers language-shell"><code class="language-shell">gradlew --refresh-dependencies assemble<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><h3 id="查看属性-ext"><a href="#查看属性-ext" class="headerlink" title="查看属性(ext)"></a>查看属性(ext)</h3><p>设置属性 <code>gradle.properties</code></p>

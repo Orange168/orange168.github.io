@@ -4600,6 +4600,21 @@ You want to get hired in this century, right?</code></pre><ul>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>mVerticalList <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="1-3-滑动相关"><a href="#1-3-滑动相关" class="headerlink" title="1.3 滑动相关"></a>1.3 滑动相关</h3><ul>
+<li>smoothScrollToPosition(int) 大量数据不理想，查看下文TopSmoothScroller案例，实践过程中TopSmoothScroller在下滑数据量很大的情况下置顶时间过长，滑动时间久会导致使用不舒适</li>
+<li>scrollToPosition(int) 滑动到指定位置</li>
+<li>scrollBy(int x,int y) 滑动指定像素</li>
+</ul>
+<p>最终的置顶方案</p>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token keyword">int</span> firstVisibleItemPosition <span class="token operator">=</span> layoutManager<span class="token punctuation">.</span><span class="token function">findFirstVisibleItemPosition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//当可显示的item大于30时，直接置顶，否则丝滑滚动置顶</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>firstVisibleItemPosition <span class="token operator">></span> <span class="token number">30</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mRecyclerView<span class="token punctuation">.</span><span class="token function">scrollToPosition</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+        LinearSmoothScroller lss <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TopSmoothScroller</span><span class="token punctuation">(</span><span class="token function">getActivity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lss<span class="token punctuation">.</span><span class="token function">setTargetPosition</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        layoutManager<span class="token punctuation">.</span><span class="token function">startSmoothScroll</span><span class="token punctuation">(</span>lss<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="第2节-OnScrollListener"><a href="#第2节-OnScrollListener" class="headerlink" title="第2节 OnScrollListener"></a>第2节 OnScrollListener</h2><h3 id="2-1-三种滑动状态-newState"><a href="#2-1-三种滑动状态-newState" class="headerlink" title="2.1 三种滑动状态 newState"></a>2.1 三种滑动状态 newState</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * The RecyclerView is not currently scrolling.（静止没有滚动）
  */</span>
@@ -4662,6 +4677,11 @@ layoutManager<span class="token punctuation">.</span><span class="token function
         outRect<span class="token punctuation">.</span>right <span class="token operator">=</span> spaces<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参考：<a href="https://www.jianshu.com/p/6a093bcc6b83" target="_blank" rel="noopener">ItemDecoration解析(二) onDraw onDrawOver</a> 画出Item之间的分割线</p>
+<ul>
+<li><a href="jianshu.com/p/41ae13016243">RecyclerView系列二：RecyclerView.ItemDecoration的详解使用</a> 【重点】图文结合讲得比较仔细</li>
+</ul>
+<h3 id="使用案例-RecyclerView分割线"><a href="#使用案例-RecyclerView分割线" class="headerlink" title="使用案例 RecyclerView分割线"></a>使用案例 RecyclerView分割线</h3><script src="https://gist.github.com/Orange168/244c3763887a0cb7584c9de9bbfc72b4.js"></script>
+
 <h2 id="第5-节-ItemTouchHelper"><a href="#第5-节-ItemTouchHelper" class="headerlink" title="第5 节 ItemTouchHelper"></a>第5 节 ItemTouchHelper</h2><pre class="line-numbers language-java"><code class="language-java">ItemTouchHelper<span class="token punctuation">.</span>Callback callback <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DragItemTouchHelper</span><span class="token punctuation">(</span>adapter<span class="token punctuation">)</span><span class="token punctuation">;</span>
 ItemTouchHelper touchHelper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ItemTouchHelper</span><span class="token punctuation">(</span>callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
 touchHelper<span class="token punctuation">.</span><span class="token function">attachToRecyclerView</span><span class="token punctuation">(</span>recyclerView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -4779,6 +4799,15 @@ touchHelper<span class="token punctuation">.</span><span class="token function">
 <p><img src="https://upload-images.jianshu.io/upload_images/1942828-20138c435cdfbe5c.gif" alt></p>
 </li>
 </ol>
+<h1 id="滑动事件冲突"><a href="#滑动事件冲突" class="headerlink" title="滑动事件冲突"></a>滑动事件冲突</h1><p><a href="https://www.jianshu.com/p/d82f426ba8f7" target="_blank" rel="noopener">Android事件分发机制及滑动冲突解决方案</a>【讲解比较详细】,提供两种方式</p>
+<ol>
+<li>外部拦截法</li>
+<li>内部拦截法</li>
+</ol>
+<p><a href="https://blog.csdn.net/wjj1996825/article/details/99700345" target="_blank" rel="noopener">浅谈RecycleView嵌套RecycleView竖向滑动冲突解决</a></p>
+<pre class="line-numbers language-java"><code class="language-java">onInterceptTouchEvent <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 不向下分发，自己消费这次事件</span>
+onTouchEvent <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 不向上分发，自己消费这次事件</span>
+parent<span class="token punctuation">.</span><span class="token function">requestDisallowInterceptTouchEvent</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 请求父类true不拦截，false 请求父控件拦截</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h1 id="RecyclerView-源码解析"><a href="#RecyclerView-源码解析" class="headerlink" title="RecyclerView 源码解析"></a>RecyclerView 源码解析</h1><ul>
 <li><a href="https://blog.csdn.net/sdfdzx/article/details/79594518" target="_blank" rel="noopener">RecyclerView源码解析(一)——绘制流程</a></li>
 </ul>
@@ -6357,6 +6386,26 @@ Complete<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 </li>
 </ol>
 <pre class="line-numbers language-shell"><code class="language-shell">adb logcat -v time | grep ActivityManager<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="1-7-模拟器无法关闭（用命令行关闭）"><a href="#1-7-模拟器无法关闭（用命令行关闭）" class="headerlink" title="1.7 模拟器无法关闭（用命令行关闭）"></a>1.7 模拟器无法关闭（用命令行关闭）</h3><p>原理</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#adb 模拟器内置命令关闭模拟器
+adb -s emulator-5554 emu kill
+#杀掉模拟器线程
+kill -9 PID<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>具体操作</p>
+<ol>
+<li><p>emu kill</p>
+<pre class="line-numbers language-shell"><code class="language-shell">adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>Kill -9 PID </p>
+<pre class="line-numbers language-shell"><code class="language-shell">ps -ax | grep emulator 
+#-----output ----
+ 6617 ??         9:05.54 /Users/nav/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-x86_64 -netdelay none -netspeed full -avd Nexus_One_API_29
+ 6619 ??         0:06.10 /Users/nav/Library/Android/sdk/emulator/emulator64-crash-service -pipe com.google.AndroidEmulator.CrashService.6617 -ppid 6617 -data-dir /tmp/android-nav/
+ 6658 ??         0:07.93 
+ #-----then -----
+ kill -9 6617<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
 <h2 id="第2节-应用安装"><a href="#第2节-应用安装" class="headerlink" title="第2节 应用安装"></a>第2节 应用安装</h2><h3 id="2-1-基本的安装与卸载"><a href="#2-1-基本的安装与卸载" class="headerlink" title="2.1 基本的安装与卸载"></a>2.1 基本的安装与卸载</h3><pre class="line-numbers language-shell"><code class="language-shell">adb install [options]  sample.apk
 [-r] replace existing application
 [-s] install application on sdcard
@@ -8934,6 +8983,17 @@ canvas<span class="token punctuation">.</span><span class="token function">drawB
 <ul>
 <li><a href="http://www.cnblogs.com/ai-developers/p/4413585.html" target="_blank" rel="noopener">getGlobalVisibleRect和getLocalVisibleRect</a></li>
 <li><a href="https://blog.csdn.net/lvxiangan/article/details/19971509" target="_blank" rel="noopener">android坐标</a></li>
+</ul>
+<h3 id="获取View位置"><a href="#获取View位置" class="headerlink" title="获取View位置"></a>获取View位置</h3><p><img src="http://cdn.linz.tech/android_view_location.png" alt></p>
+<p>屏幕分辨率为1080x2160</p>
+<pre class="line-numbers language-kotlin"><code class="language-kotlin"><span class="token keyword">var</span> rect <span class="token operator">=</span> <span class="token function">Rect</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+view<span class="token punctuation">.</span><span class="token function">getGlobalVisibleRect</span><span class="token punctuation">(</span>rect<span class="token punctuation">)</span>
+rect<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>getHitRect/getGlobalVisibleRect -&gt; Rect(882, 1764 - 1036, 1918)</p>
+</li>
+<li><p>getDrawingRect/getLocalVisibleRect -&gt; Rect(0, 0 - 154, 154)</p>
+</li>
 </ul>
 <h1 id="附录一"><a href="#附录一" class="headerlink" title="附录一"></a>附录一</h1><h2 id="参考博文"><a href="#参考博文" class="headerlink" title="参考博文"></a>参考博文</h2><p><a href="https://blog.csdn.net/unicorn97/article/details/80796234#ConstraintLayoutConstraintSet_329" target="_blank" rel="noopener">Android动画大合集</a></p>
 <p><a href="https://blog.csdn.net/aigestudio/article/list/2?t=1&" target="_blank" rel="noopener">定义View 其实很简单</a></p>
@@ -12629,7 +12689,7 @@ Context: http,server,location<span aria-hidden="true" class="line-numbers-rows">
 </ul>
 <p>参考：<a href="https://www.cnblogs.com/chenpingzhao/p/5803772.html" target="_blank" rel="noopener">Nginx 切片模块、断点续传</a></p>
 <h2 id="Nginx动静分离"><a href="#Nginx动静分离" class="headerlink" title="Nginx动静分离"></a>Nginx动静分离</h2><p>nginx分离JSP给Tomcat， jpg,png直接用静态资源</p>
-<h1 id="第四章-深度学习篇"><a href="#第四章-深度学习篇" class="headerlink" title="第四章 深度学习篇"></a>第四章 深度学习篇</h1><h2 id="Nginx简单的语法"><a href="#Nginx简单的语法" class="headerlink" title="Nginx简单的语法"></a>Nginx简单的语法</h2><h3 id="Nginx-变量-1"><a href="#Nginx-变量-1" class="headerlink" title="Nginx 变量"></a>Nginx 变量</h3><blockquote>
+<h2 id="Nginx-搭建文件服务器"><a href="#Nginx-搭建文件服务器" class="headerlink" title="Nginx 搭建文件服务器"></a>Nginx 搭建文件服务器</h2><h1 id="第四章-深度学习篇"><a href="#第四章-深度学习篇" class="headerlink" title="第四章 深度学习篇"></a>第四章 深度学习篇</h1><h2 id="Nginx简单的语法"><a href="#Nginx简单的语法" class="headerlink" title="Nginx简单的语法"></a>Nginx简单的语法</h2><h3 id="Nginx-变量-1"><a href="#Nginx-变量-1" class="headerlink" title="Nginx 变量"></a>Nginx 变量</h3><blockquote>
 <ol>
 <li>Nginx 变量名的可见范围虽然是整个配置，但每个请求都有所有变量的独立副本，或者说都有各变量用来存放值的容器的独立副本，彼此互不干扰;</li>
 <li>一个请求在其处理过程中，即使经历多个不同的 <code>location</code> 配置块，它使用的还是同一套 Nginx 变量的副本,Nginx 变量值容器的生命期是与当前正在处理的请求绑定的，而与 <code>location</code>无关。</li>
@@ -12724,7 +12784,8 @@ location ~/abc/(.*)/(.*) {
 <p>==:等值比较;</p>
 <p>~：与指定正则表达式模式匹配时返回“真”，判断匹配与否时区分字符大小写；</p>
 <p>~*：与指定正则表达式模式匹配时返回“真”，判断匹配与否时不区分字符大小写；</p>
-<p>!~：与指定正则表达式模式不匹配时返回“真”，判断匹配与否时区分字符大小写；</p>
+<p>!~：与指定正则表达式模式</p>
+<p>不匹配时返回“真”，判断匹配与否时区分字符大小写；</p>
 <p>!~*：与指定正则表达式模式不匹配时返回“真”，判断匹配与否时不区分字符大小写；</p>
 <h3 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h3><p><strong>浏览器实现分离</strong></p>
 <pre class="line-numbers language-shell"><code class="language-shell"># 禁止使用curl命令下载文件
@@ -12994,7 +13055,7 @@ echo "http://${servername}${download_file}?md5=${res}&expires=${time_num}"<span 
 <li>区别国内国外作HTTP访问规则</li>
 <li>区别国内城市地域HTTP访问规则</li>
 </ol>
-<h3 id="ngx-fancyindex-实现索引目录"><a href="#ngx-fancyindex-实现索引目录" class="headerlink" title="ngx-fancyindex 实现索引目录"></a>ngx-fancyindex 实现索引目录</h3><blockquote>
+<h3 id="ngx-fancyindex-实现文件索引目录"><a href="#ngx-fancyindex-实现文件索引目录" class="headerlink" title="ngx-fancyindex 实现文件索引目录"></a>ngx-fancyindex 实现文件索引目录</h3><blockquote>
 <p>实现索引目录（适用于下载站）tengine</p>
 </blockquote>
 <ol>
@@ -23541,6 +23602,16 @@ npm install node-sass -D<span aria-hidden="true" class="line-numbers-rows"><span
 </ul>
 <p>下载解压后window 使用</p>
 <pre class="line-numbers language-shell"><code class="language-shell">consul agent -dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="远程连接-SecureCRT"><a href="#远程连接-SecureCRT" class="headerlink" title="远程连接  SecureCRT"></a>远程连接  SecureCRT</h3><h4 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h4><p>MAC</p>
+<ul>
+<li>本地完整安装教程及相关文档 <code>/Users/apple/Documents/env/tools</code></li>
+<li><a href="https://blog.csdn.net/u011692780/article/details/89707017" target="_blank" rel="noopener">MAC版SecureCRT+SecureFX破解，版本8.5.1-【CSDN 外网】</a></li>
+</ul>
+<h4 id="常用设置"><a href="#常用设置" class="headerlink" title="常用设置"></a>常用设置</h4><p>超时从连（<code>Options-－&gt;Session Options－－&gt;Terminal</code>）</p>
+<ol>
+<li>第一步<br><img src="http://cdn.linz.tech/SecureCRT_1.png" alt></li>
+<li><img src="http://cdn.linz.tech/SecureCRT_2.png" alt></li>
+</ol>
 <h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><ul>
 <li><p><a href="https://www.cnblogs.com/jiangwangxiang/p/8481661.html" target="_blank" rel="noopener">windows下nginx的安装及使用</a> </p>
 <pre class="line-numbers language-shell"><code class="language-shell">start nginx
@@ -23805,7 +23876,7 @@ custom_domains = frps.linz.tech<span aria-hidden="true" class="line-numbers-rows
 <li>local_ip 不一定是本机IP，即内网能访问的IP地址都能映射</li>
 </ul>
 <h4 id="4-2-自定义子域名使其转发到内网服务中"><a href="#4-2-自定义子域名使其转发到内网服务中" class="headerlink" title="4.2 自定义子域名使其转发到内网服务中"></a>4.2 自定义子域名使其转发到内网服务中</h4><ol>
-<li><p>阿里云配置所以*.linz.tech 转发到阿里云服务器</p>
+<li><p>阿里云配置所以*frp.linz.tech 转发到阿里云服务器</p>
 </li>
 <li><p>服务端配置</p>
 <pre class="line-numbers language-shell"><code class="language-shell">[common]
@@ -26253,7 +26324,13 @@ jsonObject<span class="token punctuation">.</span><span class="token function">a
 <ul>
 <li><a href="https://github.com/yangchong211/YCStateLayout" target="_blank" rel="noopener">YCStateLayout</a></li>
 </ul>
-<h2 id="BufferKnife"><a href="#BufferKnife" class="headerlink" title="BufferKnife"></a><a href="http://jakewharton.github.io/butterknife/" target="_blank" rel="noopener">BufferKnife</a></h2><h3 id="VIEW-LISTS"><a href="#VIEW-LISTS" class="headerlink" title="VIEW LISTS"></a>VIEW LISTS</h3><p>@OnClick({ R.id.door1, R.id.door2, R.id.door3 })</p>
+<h2 id="BufferKnife"><a href="#BufferKnife" class="headerlink" title="BufferKnife"></a><a href="http://jakewharton.github.io/butterknife/" target="_blank" rel="noopener">BufferKnife</a></h2><h3 id="布局绑定"><a href="#布局绑定" class="headerlink" title="布局绑定"></a>布局绑定</h3><pre class="line-numbers language-java"><code class="language-java"> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">ViewHolder</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@BindView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>form_start_date_tv<span class="token punctuation">)</span> TextView formStartDateTv<span class="token punctuation">;</span>
+    <span class="token function">ViewHolder</span><span class="token punctuation">(</span>View view<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ButterKnife<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> view<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="VIEW-LISTS"><a href="#VIEW-LISTS" class="headerlink" title="VIEW LISTS"></a>VIEW LISTS</h3><p>@OnClick({ R.id.door1, R.id.door2, R.id.door3 })</p>
 <pre><code>@BindViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
 List&lt;EditText&gt; nameViews;
 
@@ -27888,6 +27965,22 @@ dependencies <span class="token punctuation">{</span>
    <span class="token function">androidTestCompile</span><span class="token punctuation">(</span><span class="token string">'com.android.support.test:rules:0.2'</span><span class="token punctuation">)</span>
    <span class="token function">androidTestCompile</span><span class="token punctuation">(</span><span class="token string">'com.android.support.test.espresso:espresso-core:2.1'</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-gradle"><code class="language-gradle">Android dependency 'androidx.exifinterface:exifinterface' has different version for the compile (1.0.0-rc01) and runtime (1.1.0-beta01) classpath. You should manually set the same version via DependencyResolution<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>解决</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">allprojects <span class="token punctuation">{</span>
+    repositories <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+    subprojects<span class="token punctuation">{</span>
+        project<span class="token operator">.</span>configurations<span class="token operator">.</span>all<span class="token punctuation">{</span>
+            resolutionStrategy<span class="token operator">.</span>eachDependency <span class="token punctuation">{</span> details <span class="token operator">-></span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>details<span class="token operator">.</span>requested<span class="token operator">.</span>group <span class="token operator">==</span> <span class="token string">'androidx.exifinterface'</span>
+                    <span class="token operator">&amp;&amp;</span> details<span class="token operator">.</span>requested<span class="token operator">.</span>name<span class="token operator">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">'exifinterface'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    details<span class="token operator">.</span>useVersion <span class="token string">"1.0.0-rc01"</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="配置相关"><a href="#配置相关" class="headerlink" title="配置相关"></a>配置相关</h3><p>强制刷新依赖</p>
 <pre class="line-numbers language-shell"><code class="language-shell">gradlew --refresh-dependencies assemble<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><h3 id="查看属性-ext"><a href="#查看属性-ext" class="headerlink" title="查看属性(ext)"></a>查看属性(ext)</h3><p>设置属性 <code>gradle.properties</code></p>
@@ -29135,6 +29228,27 @@ public abstract class Story implements Parcelable{
 <h1 id="Material-Design-新特性"><a href="#Material-Design-新特性" class="headerlink" title="Material Design 新特性"></a>Material Design 新特性</h1><ul>
 <li><a href="http://inthecheesefactory.com/blog/android-design-support-library-codelab/en" target="_blank" rel="noopener">Codelab for Android Design Support Library used in I/O Rewind Bangkok session</a> 介绍Material Design 新特性很详细的文章 对应的代码<br><a href="http://https//github.com/nuuneoi/Lab-Android-DesignLibrary" target="_blank" rel="noopener">Github</a></li>
 </ul>
+<h2 id="Ripple-api-gt-21"><a href="#Ripple-api-gt-21" class="headerlink" title="Ripple api &gt; = 21"></a>Ripple api &gt; = 21</h2><h3 id="实践应用"><a href="#实践应用" class="headerlink" title="实践应用"></a>实践应用</h3><p>自定义Ripple背景颜色</p>
+<p>drawable-v21/selectable_item_background.xml</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layer-list</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>drawable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@android:color/white<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>drawable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>?attr/selectableItemBackground<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layer-list</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>自定义Ripple的颜色，在主题style中</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>AppTheme<span class="token punctuation">"</span></span> <span class="token attr-name">parent</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android:Theme.Material.Light.DarkActionBar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token style language-css">
+    &lt;item name=<span class="token string">"android:colorControlHighlight"</span>>@color/your_custom_color&lt;/item>
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resources</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="兼容库"><a href="#兼容库" class="headerlink" title="兼容库"></a>兼容库</h3><p><a href="https://github.com/traex/RippleEffect" target="_blank" rel="noopener">RippleEffect</a> api &gt; 9 缺点是引入比较麻烦，需要包一层Layout，布局起来不是很方便</p>
+<h3 id="相关博文"><a href="#相关博文" class="headerlink" title="相关博文"></a>相关博文</h3><ul>
+<li><p><a href="https://blog.csdn.net/AwayEagle/article/details/52583913" target="_blank" rel="noopener">Android Ripple的详解</a></p>
+</li>
+<li><p><a href="https://guides.codepath.com/android/ripple-animation#clickable-views" target="_blank" rel="noopener">Ripple Animation</a></p>
+</li>
+</ul>
 <h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h2><ul>
 <li><a href="https://www.androiddesignpatterns.com/2016/11/introduction-to-icon-animation-techniques.html" target="_blank" rel="noopener">An Introduction to Icon Animation Techniques</a> 【超级经典·必读】</li>
 <li><a href="http://www.w3.org/TR/SVG11/paths.html#PathData" target="_blank" rel="noopener">SVG Path reference</a>.</li>
@@ -29152,7 +29266,7 @@ public abstract class Story implements Parcelable{
 <li><a href="http://a-student.github.io/SvgToVectorDrawableConverter.Web/" target="_blank" rel="noopener">SvgToVectorDrawableConverter</a></li>
 <li><a href="http://inloop.github.io/svg2android/" target="_blank" rel="noopener">svg2android</a></li>
 </ul>
-<h3 id="相关博文"><a href="#相关博文" class="headerlink" title="相关博文"></a>相关博文</h3><ul>
+<h3 id="相关博文-1"><a href="#相关博文-1" class="headerlink" title="相关博文"></a>相关博文</h3><ul>
 <li><a href="https://www.jianshu.com/p/e3614e7abc03" target="_blank" rel="noopener">Android Vector曲折的兼容之路</a></li>
 </ul>
 <h2 id="TV"><a href="#TV" class="headerlink" title="TV"></a>TV</h2><ul>
