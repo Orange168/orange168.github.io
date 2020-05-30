@@ -26078,7 +26078,7 @@ $ node-debug example.js</code></pre><p><a href="https://developers.google.com/we
  * @since ${DATE} ${TIME}
  */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>新建类的时候进行说明</p>
-<h1 id="快速开发"><a href="#快速开发" class="headerlink" title="快速开发"></a>快速开发</h1><h2 id="Lombok-自动生成-get、set-toString"><a href="#Lombok-自动生成-get、set-toString" class="headerlink" title="Lombok 自动生成 get、set toString"></a><a href="https://projectlombok.org/" target="_blank" rel="noopener">Lombok</a> 自动生成 get、set toString</h2><blockquote>
+<h1 id="提高开发效率"><a href="#提高开发效率" class="headerlink" title="提高开发效率"></a>提高开发效率</h1><h2 id="Lombok-自动生成-get、set-toString"><a href="#Lombok-自动生成-get、set-toString" class="headerlink" title="Lombok 自动生成 get、set toString"></a><a href="https://projectlombok.org/" target="_blank" rel="noopener">Lombok</a> 自动生成 get、set toString</h2><blockquote>
 <p>自动生成 get、set、toString、equals和hashCode方法</p>
 </blockquote>
 <ul>
@@ -26092,6 +26092,11 @@ $ node-debug example.js</code></pre><p><a href="https://developers.google.com/we
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
+<h2 id="GoogleLibraryVersionQuerier"><a href="#GoogleLibraryVersionQuerier" class="headerlink" title="GoogleLibraryVersionQuerier"></a><a href="https://github.com/wuyr/GoogleLibraryVersionQuerier" target="_blank" rel="noopener">GoogleLibraryVersionQuerier</a></h2><blockquote>
+<p>帮助你快速添加依赖库和查询历史版本</p>
+</blockquote>
+<h3 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h3><p><img src="http://cdn.linz.tech/android_sutdio_lib2.gif" alt></p>
+<p><img src="http://cdn.linz.tech/android_sutdio_lib.gif" alt></p>
 ]]></content>
       <categories>
         <category>tool</category>
@@ -29519,8 +29524,8 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
         <category>note</category>
       </categories>
       <tags>
-        <tag>Android</tag>
         <tag>Material</tag>
+        <tag>Android</tag>
       </tags>
   </entry>
   <entry>
