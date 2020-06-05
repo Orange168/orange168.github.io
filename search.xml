@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Mac苹果电脑使用</title>
+    <url>/2020/06/04/2020-06-04-Mac_pro_usage/</url>
+    <content><![CDATA[<h1 id="常用软件安装"><a href="#常用软件安装" class="headerlink" title="常用软件安装"></a>常用软件安装</h1><h2 id="第一节-开发软件安装"><a href="#第一节-开发软件安装" class="headerlink" title="第一节 开发软件安装"></a>第一节 开发软件安装</h2><ul>
+<li><a href="https://www.jianshu.com/p/4e93b48f9f63" target="_blank" rel="noopener">navicat</a> 数据库</li>
+</ul>
+<h2 id="第二节-日常使用"><a href="#第二节-日常使用" class="headerlink" title="第二节 日常使用"></a>第二节 日常使用</h2>]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Coding Interview University</title>
     <url>/2020/03/27/2020-03-27-Coding%20Interview%20University-Readme-cn/</url>
     <content><![CDATA[<h1 id="译-Coding-Interview-University-一套完整的学习手册帮助自己准备-Google-的面试"><a href="#译-Coding-Interview-University-一套完整的学习手册帮助自己准备-Google-的面试" class="headerlink" title="[译] Coding Interview University 一套完整的学习手册帮助自己准备 Google 的面试"></a>[译] Coding Interview University 一套完整的学习手册帮助自己准备 Google 的面试</h1><blockquote>
@@ -29216,6 +29230,7 @@ public abstract class Story implements Parcelable{
 <li><a href="https://mp.weixin.qq.com/s/6xViWef8Po0N-x8BQiGw2Q?utm_source=androidweekly.io&utm_medium=website" target="_blank" rel="noopener">剥茧抽丝做 UI 动效，其实很简单</a></li>
 </ul>
 <h1 id="开源库"><a href="#开源库" class="headerlink" title="开源库"></a>开源库</h1><ul>
+<li><a href="https://github.com/material-components/material-components-android" target="_blank" rel="noopener">material-components-android</a> 【重点】</li>
 <li><strong><a href="https://github.com/lightSky/Awesome-MaterialDesign" target="_blank" rel="noopener">Awesome-MaterialDesign</a></strong> 【重点】</li>
 <li><a href="https://github.com/google/material-design-icons" target="_blank" rel="noopener">Material design icons by Google</a></li>
 <li><a href="https://medium.com/google-developers/animation-jump-through-861f4f5b3de4#.92v66z9ip" target="_blank" rel="noopener">Animation: Jump-through</a>【待研究】【重点】<br><img src="https://cdn-images-1.medium.com/max/800/1*fFC0LdzpExlP3VG93coZDA.gif" alt="很喜欢"></li>
@@ -29318,6 +29333,8 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
 </li>
 <li><p><strong><a href="https://github.com/rengwuxian/MaterialEditText" target="_blank" rel="noopener">MaterialEditText</a></strong> 抛物线【RxJava经典入门教程的博主】</p>
 <h2 id="ConstraintLayout"><a href="#ConstraintLayout" class="headerlink" title="ConstraintLayout"></a><strong>ConstraintLayout</strong></h2></li>
+<li><p><a href="https://developer.android.com/training/constraint-layout" target="_blank" rel="noopener">官网超详细的图文手册</a></p>
+</li>
 <li><p><a href="https://www.jianshu.com/p/a95daeaa02d7" target="_blank" rel="noopener">ConstraintLayout学起来！【郭霖博客】</a></p>
 </li>
 <li><p><a href="https://codelabs.developers.google.com/codelabs/constraint-layout/index.html#0" target="_blank" rel="noopener">Using ConstraintLayout to design your views</a></p>
@@ -29518,6 +29535,9 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
 </li>
 <li><p>Udacity 免费设计课程：<a href="https://www.udacity.com/course/material-design-for-android-developers--ud862" target="_blank" rel="noopener">Material Design for Android Developers</a></p>
 </li>
+</ul>
+<h1 id="特别想实现的效果"><a href="#特别想实现的效果" class="headerlink" title="特别想实现的效果"></a>特别想实现的效果</h1><ul>
+<li><img src="http://cdn.linz.tech/motion_awsome_animation" alt></li>
 </ul>
 ]]></content>
       <categories>
