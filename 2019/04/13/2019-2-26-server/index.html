@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="后台,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="重点研究开源库 zheng 比较热门的后台开源库 Guns 权限管理 公开课 https://www.bilibili.com/video/av32112009   vue-element-admin 非常惊艳的前端UI  README.zh-CN.md 中文文档有教程   Cloud-Admin RabbitMQ配置 Consul1.2.2配置 Docker  Get started with">
+<meta name="keywords" content="后台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java后台基础学习笔记">
+<meta property="og:url" content="http://linz.tech/2019/04/13/2019-2-26-server/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="重点研究开源库 zheng 比较热门的后台开源库 Guns 权限管理 公开课 https://www.bilibili.com/video/av32112009   vue-element-admin 非常惊艳的前端UI  README.zh-CN.md 中文文档有教程   Cloud-Admin RabbitMQ配置 Consul1.2.2配置 Docker  Get started with">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://cdn.linz.tech/SecureCRT_1.png">
+<meta property="og:image" content="http://cdn.linz.tech/SecureCRT_2.png">
+<meta property="og:updated_time" content="2020-07-11T00:40:53.695Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java后台基础学习笔记">
+<meta name="twitter:description" content="重点研究开源库 zheng 比较热门的后台开源库 Guns 权限管理 公开课 https://www.bilibili.com/video/av32112009   vue-element-admin 非常惊艳的前端UI  README.zh-CN.md 中文文档有教程   Cloud-Admin RabbitMQ配置 Consul1.2.2配置 Docker  Get started with">
+<meta name="twitter:image" content="http://cdn.linz.tech/SecureCRT_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2019/04/13/2019-2-26-server/">
+
+
+
+
+
+  <title>Java后台基础学习笔记 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2019/04/13/2019-2-26-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java后台基础学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-13T01:20:21+08:00">
+                2019-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/13/2019-2-26-server/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/13/2019-2-26-server/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="重点研究开源库"><a href="#重点研究开源库" class="headerlink" title="重点研究开源库"></a>重点研究开源库</h1><ul>
+<li><a href="https://gitee.com/shuzheng/zheng" target="_blank" rel="noopener">zheng</a> 比较热门的后台开源库</li>
+<li><a href="https://gitee.com/naan1993/guns" target="_blank" rel="noopener">Guns</a> 权限管理<ul>
+<li>公开课 <a href="https://www.bilibili.com/video/av32112009" target="_blank" rel="noopener">https://www.bilibili.com/video/av32112009</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/PanJiaChen/vue-element-admin" target="_blank" rel="noopener">vue-element-admin</a> 非常惊艳的前端UI <ul>
+<li><a href="https://github.com/PanJiaChen/vue-element-admin/blob/master/README.zh-CN.md" target="_blank" rel="noopener"><strong>README.zh-CN.md</strong></a> 中文文档有教程</li>
+</ul>
+</li>
+<li><a href="https://gitee.com/minull/ace-security" target="_blank" rel="noopener">Cloud-Admin</a><ul>
+<li><a href="http://www.evernote.com/l/AtsRl53hvoVG8qlWUWtuLddM0iS5QtylRo4/" target="_blank" rel="noopener">RabbitMQ配置</a></li>
+<li><a href="http://www.evernote.com/l/Att5XxYhqY9Gsr0jDsng-4APU7pn9MwK-SY/" target="_blank" rel="noopener">Consul1.2.2配置</a></li>
+<li>Docker <ul>
+<li><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Get started with Docker</a></li>
+<li><a href="https://docs.docker.com/compose/" target="_blank" rel="noopener">Docker Compose</a></li>
+<li><a href="https://blog.csdn.net/pushiqiang/article/details/78682323" target="_blank" rel="noopener">docker-compose教程（安装，使用, 快速入门）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="AG-Admin-v2-0"><a href="#AG-Admin-v2-0" class="headerlink" title="AG-Admin-v2.0"></a><a href="https://gitee.com/minull/AG-Admin-v2.0" target="_blank" rel="noopener">AG-Admin-v2.0</a></h2><ul>
+<li>安装问题解决 <a href="https://www.jianshu.com/p/fd3b19cacd99" target="_blank" rel="noopener">https://www.jianshu.com/p/fd3b19cacd99</a><pre class="line-numbers language-shell"><code class="language-shell">Error: Can't find Python executable "D:\workspace\env\common\Python\phyton_3.7.0\python.EXE", you can set the PYTHON env variable
+## 解决，管理员身份
+npm install --global --production windows-build-tools
+npm install --global node-gyp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+Module build failed: Error: Node Sass does not yet support your current environment: Windows 64-bit with Unsupported runtime (64) </li>
+</ul>
+<p>原因：Node Sass 版本低</p>
+<p>解决：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">npm uninstall node-sass -D
+npm install node-sass -D<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="Mall"><a href="#Mall" class="headerlink" title="Mall"></a>Mall</h2><p><a href="https://github.com/macrozheng/mall" target="_blank" rel="noopener">https://github.com/macrozheng/mall</a></p>
+<h2 id="Pay"><a href="#Pay" class="headerlink" title="Pay"></a>Pay</h2><p><a href="https://gitee.com/52itstyle/spring-boot-pay" target="_blank" rel="noopener">https://gitee.com/52itstyle/spring-boot-pay</a></p>
+<h2 id="秒杀系统"><a href="#秒杀系统" class="headerlink" title="秒杀系统"></a>秒杀系统</h2><p><a href="https://gitee.com/52itstyle/spring-boot-seckill" target="_blank" rel="noopener">https://gitee.com/52itstyle/spring-boot-seckill</a></p>
+<p><a href="https://gitee.com/xiandafu/springboot-plus" target="_blank" rel="noopener">https://gitee.com/xiandafu/springboot-plus</a></p>
+<h1 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h1><ul>
+<li><p><strong><a href="https://github.com/scouter-project/scouter" target="_blank" rel="noopener">scouter</a></strong>  is an open source APM and an open source profiler for java application like web applications on a tomcat .</p>
+</li>
+<li><p>tomcat挂掉解决方案</p>
+<ul>
+<li>Tomcat集群  </li>
+<li>tomcat线程监控并自启</li>
+</ul>
+</li>
+</ul>
+<h2 id="管理工具"><a href="#管理工具" class="headerlink" title="管理工具"></a>管理工具</h2><ul>
+<li><a href="https://github.com/thx/RAP" target="_blank" rel="noopener">RAP</a> Web接口管理工具，开源免费，接口自动化，MOCK数据自动生成，自动化测试，企业级管理。阿里妈妈MUX团队出品！阿里巴巴都在用！1000+公司的选择！API 接口管理</li>
+</ul>
+<h3 id="Consul"><a href="#Consul" class="headerlink" title="Consul"></a>Consul</h3><p>官网下载地址： <a href="https://www.consul.io/downloads.html" target="_blank" rel="noopener">https://www.consul.io/downloads.html</a></p>
+<ul>
+<li><a href="https://blog.csdn.net/lc1010078424/article/details/82467399" target="_blank" rel="noopener">CentOS7.5.1804 Minimal安装配置单机Consul1.2.2</a></li>
+<li><a href="https://blog.csdn.net/achenyuan/article/details/80389410" target="_blank" rel="noopener">consul安装配置，生产环境部署高可用环境</a></li>
+</ul>
+<p>下载解压后window 使用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">consul agent -dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="远程连接-SecureCRT"><a href="#远程连接-SecureCRT" class="headerlink" title="远程连接  SecureCRT"></a>远程连接  SecureCRT</h3><h4 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h4><p>MAC</p>
+<ul>
+<li>本地完整安装教程及相关文档 <code>/Users/apple/Documents/env/tools</code></li>
+<li><a href="https://blog.csdn.net/u011692780/article/details/89707017" target="_blank" rel="noopener">MAC版SecureCRT+SecureFX破解，版本8.5.1-【CSDN 外网】</a></li>
+</ul>
+<h4 id="常用设置"><a href="#常用设置" class="headerlink" title="常用设置"></a>常用设置</h4><p>超时从连（<code>Options-－&gt;Session Options－－&gt;Terminal</code>）</p>
+<ol>
+<li>第一步<br><img src="http://cdn.linz.tech/SecureCRT_1.png" alt></li>
+<li><img src="http://cdn.linz.tech/SecureCRT_2.png" alt></li>
+</ol>
+<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><ul>
+<li><p><a href="https://www.cnblogs.com/jiangwangxiang/p/8481661.html" target="_blank" rel="noopener">windows下nginx的安装及使用</a> </p>
+<pre class="line-numbers language-shell"><code class="language-shell">start nginx
+nginx -s stop(快速停止nginx)  或  nginx -s quit(完整有序的停止nginx)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<ul>
+<li><p>Nginx 常用命令</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo nginx #打开 nginx
+nginx -s reload|reopen|stop|quit  #重新加载配置|重启|停止|退出 nginx
+nginx -t   #测试配置是否有语法错误
+
+nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]
+
+-?,-h           : 打开帮助信息
+-v              : 显示版本信息并退出
+-V              : 显示版本和配置选项信息，然后退出
+-t              : 检测配置文件是否有语法错误，然后退出
+-q              : 在检测配置文件期间屏蔽非错误信息
+-s signal       : 给一个 nginx 主进程发送信号：stop（停止）, quit（退出）, reopen（重启）, reload（重新加载配置文件）
+-p prefix       : 设置前缀路径（默认是：/usr/local/Cellar/nginx/1.2.6/）
+-c filename     : 设置配置文件（默认是：/usr/local/etc/nginx/nginx.conf）
+-g directives   : 设置配置文件外的全局指令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>nginx -t  能查看配置文件所在目录</p>
+<pre class="line-numbers language-shell"><code class="language-shell">nginx: the configuration file /usr/local/tengine/conf/nginx.conf syntax is ok
+nginx: configuration file /usr/local/tengine/conf/nginx.conf test is successful<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>阿里云后台配置文件路径：<code>/usr/local/tengine/conf/nginx.conf</code></p>
+<h3 id="开源库"><a href="#开源库" class="headerlink" title="开源库"></a>开源库</h3><ul>
+<li><a href="https://github.com/trimstray/nginx-quick-reference" target="_blank" rel="noopener">nginx-quick-reference 网上教程</a></li>
+</ul>
+<h2 id="转化工具"><a href="#转化工具" class="headerlink" title="转化工具"></a>转化工具</h2><p><a href="https://www.bejson.com/devtools/properties2yaml/" target="_blank" rel="noopener">properties2yml</a></p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li><a href="https://www.fageka.com/Store/item/s/id/zWS3GuW4356" target="_blank" rel="noopener">数据库从入门到进阶必读18本技术书籍网盘吐血整理</a></li>
+<li><a href="https://github.com/cinience/RedisStudio/releases" target="_blank" rel="noopener">RedisStudio</a> redis图形界面管理工具 </li>
+</ul>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><ul>
+<li><a href="http://redisdoc.com/" target="_blank" rel="noopener">Redis 命令参考</a></li>
+<li><a href="https://github.com/redisson/redisson" target="_blank" rel="noopener"><strong>redisson</strong></a></li>
+</ul>
+<h3 id="Hibernate"><a href="#Hibernate" class="headerlink" title="Hibernate"></a>Hibernate</h3><ul>
+<li><a href="https://www.jianshu.com/p/50e0a7a28b53" target="_blank" rel="noopener">IntelliJ IDEA Hibernate</a>  hibernate生成数据库实体类</li>
+</ul>
+<h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3><p>配置文档：  <a href="https://docs.mongodb.com/manual/" target="_blank" rel="noopener">MongoDB manual</a></p>
+<p><a href="https://www.runoob.com/mongodb/mongodb-tutorial.html" target="_blank" rel="noopener">MongoDB 入门教程</a></p>
+<ul>
+<li><p><a href="https://blog.csdn.net/weixin_39308542/article/details/88377915" target="_blank" rel="noopener">studio 3t破解</a>, <code>studio3t.bat</code></p>
+<pre class="line-numbers language-bat"><code class="language-bat">@echo off
+ECHO 重置Studio 3T的使用日期......
+FOR /f "tokens=1,2,* " %%i IN ('reg query "HKEY_CURRENT_USER\Software\JavaSoft\Prefs\3t\mongochef\enterprise" ^| find /V "installation" ^| find /V "HKEY"') DO ECHO yes | reg add "HKEY_CURRENT_USER\Software\JavaSoft\Prefs\3t\mongochef\enterprise" /v %%i /t REG_SZ /d ""
+ECHO 重置完成, 按任意键退出......
+pause>nul
+exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>复制到：<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp</code>, 双击运行</p>
+</li>
+<li><p><a href="https://hub.docker.com/_/mongo" target="_blank" rel="noopener">Docker hub</a> </p>
+</li>
+<li><p><a href="https://docs.mongodb.com/manual/reference/program/mongod/" target="_blank" rel="noopener">mongod</a> 命令解析</p>
+</li>
+</ul>
+<h4 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h4><p>​    Built-In Roles（内置角色）：<br>​    \1. 数据库用户角色：read、readWrite;<br>​    \2. 数据库管理角色：dbAdmin、dbOwner、userAdmin；<br>​    \3. 集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManager；<br>​    \4. 备份恢复角色：backup、restore；<br>​    \5. 所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、dbAdminAnyDatabase<br>​    \6. 超级用户角色：root<br>​    // 这里还有几个角色间接或直接提供了系统超级用户的访问（dbOwner 、userAdmin、userAdminAnyDatabase）<br>​    \7. 内部角色：__system</p>
+<p>具体角色：<br>Read：允许用户读取指定数据库<br>readWrite：允许用户读写指定数据库<br>dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile<br>userAdmin：允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户<br>clusterAdmin：只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。<br>readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限<br>readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限<br>userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限<br>dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。<br>root：只在admin数据库中可用。超级账号，超级权限  </p>
+<p>授权操作</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker exec -it mongodb_mongo_1 mongo admin
+db.auth("mongo-admin","admin-initial-password")
+use octblog
+
+# Step2: create a user
+db.createUser(
+  {
+    user: "gevin",
+    pwd: "gevin",
+    roles: [ { role: "readWrite", db: "octblog" },
+             { role: "readWrite", db: "octblog-log" } ],
+    mechanisms : ["SCRAM-SHA-1"]         
+  }
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>授权验证</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker exec -it {containerId} mongo localhost:27017/db_name -u user -p password<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p>实体类使用流程</p>
+<p>第一步：导入<code>pom.xml</code>依赖，配置数据库</p>
+<pre class="line-numbers language-yml"><code class="language-yml">  <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons -->
+    <dependency>
+      <groupid>org.springframework.data</groupid>
+      <artifactid>spring-data-commons</artifactid>
+      <version>1.13.9.RELEASE</version>
+    </dependency><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>mongoDB 数据库设置</p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring:
+  data:
+    mongodb:
+      uri:  mongodb://root:123@localhost:27017
+      database: xc_cms
+spring:
+  data:
+    mongodb:
+      database: xc_cms
+      host: <ip>
+      port: 27017
+      password: 
+      username: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></ip></code></pre>
+<p>第二步：定义实体类</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Id<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>mongodb<span class="token punctuation">.</span>core<span class="token punctuation">.</span>mapping<span class="token punctuation">.</span>Document<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Data</span>
+<span class="token annotation punctuation">@ToString</span>
+<span class="token annotation punctuation">@Document</span><span class="token punctuation">(</span>collection <span class="token operator">=</span> <span class="token string">"cms_page"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CmsPage</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> String siteId<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//页面ID</span>
+  <span class="token annotation punctuation">@Id</span>
+  <span class="token keyword">private</span> String pageId<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：配置符合jpa规范的操作仓库</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CmsPageRepository</span> <span class="token keyword">extends</span> <span class="token class-name">MongoRepository</span><span class="token operator">&lt;</span>CmsPage<span class="token punctuation">,</span> String<span class="token operator">></span> <span class="token punctuation">{</span>
+     CmsPage <span class="token function">findByPageName</span><span class="token punctuation">(</span>String pageName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>第四步：实现分页</p>
+<p>导入<code>pom.xml</code>依赖</p>
+<pre class="line-numbers language-xml"><code class="language-xml">    <span class="token comment" spellcheck="true">&lt;!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.data<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-data-commons<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.13.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>PageService.java</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//查询条件匹配</span>
+ExampleMatcher matcher <span class="token operator">=</span> ExampleMatcher<span class="token punctuation">.</span><span class="token function">matching</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Example example <span class="token operator">=</span> Example<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>cmsPage<span class="token punctuation">,</span> matcher<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//分页设置</span>
+Pageable pageable <span class="token operator">=</span> PageRequest<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>page <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> page<span class="token punctuation">,</span> size <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">10</span> <span class="token operator">:</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Page<span class="token operator">&lt;</span>CmsPage<span class="token operator">></span> all <span class="token operator">=</span> cmsPageRepository<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span>example<span class="token punctuation">,</span> pageable<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><ul>
+<li><a href="https://www.cnblogs.com/ityouknow/p/6120544.html" target="_blank" rel="noopener">springboot(八)：RabbitMQ详解</a> </li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre class="line-numbers language-shell"><code class="language-shell">  #启动
+  rabbitmq-server -detached
+  #查看的服务状态
+  rabbitmqctl status
+  #关闭
+  rabbitmqctl stop
+  # 配置网页插件， 1. 创建目录； 2. 启用插件
+  mkdir /etc/rabbitmq 
+  rabbitmq-plugins enable rabbitmq_management 
+  # 配置linux网页管理端口： 15672 AMQP端口：5672
+  # 然后访问http://localhost:15672即可， 阿里云：http://47.107.130.109:15672
+  #默认用户guest 密码guest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><pre class="line-numbers language-shell"><code class="language-shell">#添加用户:
+rabbitmqctl add_user <user_name> <password>
+#添加权限:
+rabbitmqctl set_permissions -p "/" <user_name> ".*" ".*" ".*"
+#修改用户角色:
+rabbitmqctl set_user_tags <user_name> administrator
+
+# 常用命令
+add_user        <username> <password>
+delete_user     <username>
+change_password <username> <newpassword>
+list_users
+add_vhost    <vhostpath>
+delete_vhost <vhostpath>
+list_vhostsset_permissions   [-p <vhostpath>] <username> <regexp> <regexp> <regexp>
+clear_permissions [-p <vhostpath>] <username>
+list_permissions  [-p <vhostpath>]
+list_user_permissions <username>
+list_queues    [-p <vhostpath>] [<queueinfoitem> ...]
+list_exchanges [-p <vhostpath>] [<exchangeinfoitem> ...]
+list_bindings  [-p <vhostpath>]
+list_connections [<connectioninfoitem> ...]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></connectioninfoitem></vhostpath></exchangeinfoitem></vhostpath></queueinfoitem></vhostpath></username></vhostpath></username></vhostpath></regexp></regexp></regexp></username></vhostpath></vhostpath></vhostpath></newpassword></username></username></password></username></user_name></user_name></password></user_name></code></pre>
+<h3 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h3><h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><ol>
+<li>mybatis 逆向工程 <a href="https://github.com/zouzg/mybatis-generator-gui" target="_blank" rel="noopener">mybatis-generator-gui</a><ol>
+<li>使用教程 <a href="https://blog.csdn.net/bei_FengBoby/article/details/88546804" target="_blank" rel="noopener">推荐一款好用的mybatis逆向生成工具(真的很好用)</a></li>
+</ol>
+</li>
+<li><a href="https://www.toutiao.com/a6677391666476745230/" target="_blank" rel="noopener">MyBatis Generator 使用教程</a></li>
+<li><a href="https://mybatis.plus/" target="_blank" rel="noopener">MyBatis-Plus 官网</a><ol>
+<li><a href="https://blog.csdn.net/qq_32258777/article/details/83382855" target="_blank" rel="noopener">MyBatis-Plus + mysql 网络访问入门demo</a></li>
+<li><a href="https://github.com/baomidou/mybatis-plus-samples" target="_blank" rel="noopener"><strong>mybatis-plus-samples</strong></a></li>
+</ol>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://blog.csdn.net/qq_32953079/article/category/7493682" target="_blank" rel="noopener">Spring Data Jpa系列教程</a></li>
+</ul>
+<h3 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h3><p>1、<a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/" target="_blank" rel="noopener">mybatis-spring-boot-starter 配置项手册</a></p>
+<p>2、<a href="https://github.com/mybatis/spring-boot-starter" target="_blank" rel="noopener">GitHub仓库地址，包含代码示例</a></p>
+<p>3、<a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">中文官方文档</a></p>
+<p><a href="mailto:zhengyu@chinapay.com" target="_blank" rel="noopener">zhengyu@chinapay.com</a>; <a href="mailto:11770820@qq.com" target="_blank" rel="noopener">11770820@qq.com</a>; <a href="mailto:huang.haisong@chinapay.con" target="_blank" rel="noopener">huang.haisong@chinapay.con</a></p>
+<h2 id="dubbo"><a href="#dubbo" class="headerlink" title="dubbo"></a>dubbo</h2><ul>
+<li><a href="https://blog.csdn.net/noaman_wgs/article/details/70214612" target="_blank" rel="noopener">Dubbo入门—搭建一个最简单的Demo框架</a></li>
+<li><a href="https://github.com/apache/incubator-dubbo" target="_blank" rel="noopener">incubator-dubbo</a> Apache Dubbo (incubating) is a high-performance, java based, open source RPC framework.</li>
+</ul>
+<h2 id="zipkin"><a href="#zipkin" class="headerlink" title="zipkin"></a><strong>zipkin</strong></h2><ul>
+<li><a href="https://blog.csdn.net/qq_21387171/article/details/53787019" target="_blank" rel="noopener">微服务之分布式跟踪系统（springboot+zipkin）</a></li>
+<li><a href="https://blog.csdn.net/xiaoluo033/article/details/80961807" target="_blank" rel="noopener">spring cloud 2.0 入门系列一 （10）分布式链路追踪-Zipkin</a></li>
+</ul>
+<h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>阿里云Tomcat地址 <code>/root/document/backup/apache-tomcat-7.0.63</code></p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><ol>
+<li><p><a href="https://blog.csdn.net/qq_22638399/article/details/81506448" target="_blank" rel="noopener">Spring Boot 两种部署到服务器的方式</a></p>
+<pre class="line-numbers language-java"><code class="language-java">jps 
+kill <span class="token punctuation">[</span>ip<span class="token punctuation">]</span>
+nohup java <span class="token operator">-</span>jar test<span class="token punctuation">.</span>jar <span class="token operator">></span>temp<span class="token punctuation">.</span>txt <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="FastDFS"><a href="#FastDFS" class="headerlink" title="FastDFS"></a>FastDFS</h2><p>   [<a href="https://www.cnblogs.com/chiangchou/p/fastdfs.html" target="_blank" rel="noopener">用FastDFS一步步搭建文件管理系统</a>]</p>
+<p>   官网： <a href="https://github.com/happyfish100/fastdfs" target="_blank" rel="noopener"><strong>fastdfs</strong></a></p>
+<ol>
+<li><a href="https://github.com/qbanxiaoli/fastdfs" target="_blank" rel="noopener">docker-compose  和Dockerfile  生成fastdfs 学习案例</a><ol start="2">
+<li><a href="https://github.com/Guu-mc/fastdfs" target="_blank" rel="noopener">moocu/fastdfs source </a></li>
+<li>成功使用的案例 <a href="https://www.jianshu.com/p/206b342cc689" target="_blank" rel="noopener">Docker安装fastdfs</a></li>
+</ol>
+</li>
+</ol>
+<h2 id="Frp-内网穿透"><a href="#Frp-内网穿透" class="headerlink" title="Frp 内网穿透"></a>Frp 内网穿透</h2><h3 id="1-参考资料"><a href="#1-参考资料" class="headerlink" title="1. 参考资料"></a>1. 参考资料</h3><ul>
+<li><a href="https://blog.csdn.net/u013144287/article/details/78589643/" target="_blank" rel="noopener">十分钟教你配置frp实现内网穿透</a></li>
+<li><a href="https://www.cnblogs.com/sanduzxcvbnm/category/1171545.html" target="_blank" rel="noopener">frp 教程</a></li>
+<li><a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">github官网</a></li>
+</ul>
+<h3 id="2-实战经验记录"><a href="#2-实战经验记录" class="headerlink" title="2. 实战经验记录"></a>2. 实战经验记录</h3><ol>
+<li>【重点-备份】0.27版本全平台版本储存在 <code>E:\software\2.coder\debug</code> </li>
+<li>【47公网服务器路径】 <code>/usr/local/frp/frp_0.27.0_linux_amd64</code></li>
+<li>【版本问题】 服务器端和客户端版本必须一致，否则会出现各种无法排查的问题</li>
+</ol>
+<h3 id="3-常用命令"><a href="#3-常用命令" class="headerlink" title="3. 常用命令"></a>3. 常用命令</h3><pre class="line-numbers language-shell"><code class="language-shell">#启动服务
+./frps -c ./frps.ini
+#启动后台服务
+nohup ./frps -c ./frps.ini &
+
+#启动客户端
+./frpc -c ./frpc.ini
+#配置热更新
+frpc reload -c ./frpc.ini
+#得到代理任务
+frpc status -c ./frpc.ini<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-案例"><a href="#4-案例" class="headerlink" title="4. 案例"></a>4. 案例</h3><h4 id="4-1-经典内网穿透案例"><a href="#4-1-经典内网穿透案例" class="headerlink" title="4.1 经典内网穿透案例"></a>4.1 经典内网穿透案例</h4><p>第一步：配置公网服务配置文件，frps.ini</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[common]
+bind_port = 7000
+token=1234567890
+#客户端配置的端口
+vhost_http_port = 6081<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#启动服务
+./frps -c ./frps.ini
+#启动后台服务
+nohup ./frps -c ./frps.ini &<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：配置内网服务配置文件，frpc.ini</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[common]
+server_addr = 47.107.130.109
+server_port = 7000
+token=1234567890
+
+[web]
+type = http
+local_ip = 192.168.1.2
+local_port = 50102
+custom_domains = frps.linz.tech<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>【注意】</p>
+<ul>
+<li>custom_domains 配置的域名必须指向公网IP</li>
+<li>local_ip 不一定是本机IP，即内网能访问的IP地址都能映射</li>
+</ul>
+<h4 id="4-2-自定义子域名使其转发到内网服务中"><a href="#4-2-自定义子域名使其转发到内网服务中" class="headerlink" title="4.2 自定义子域名使其转发到内网服务中"></a>4.2 自定义子域名使其转发到内网服务中</h4><ol>
+<li><p>阿里云配置所以*frp.linz.tech 转发到阿里云服务器</p>
+</li>
+<li><p>服务端配置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[common]
+bind_port = 7000
+subdomain_host = linz.tech
+vhost_http_port = 6081
+
+#log
+log_file = ./frps.log
+log_level = debug
+log_max_days =3
+
+dashboard_port = 7500
+# dashboard 用户名密码，默认都为 admin
+dashboard_user = admin
+dashboard_pwd = admin
+#connection pool setting
+max_pool_count = 3
+
+#token 和客户端配置的 accesstoken保持一致，不一致无法保持连接
+token=1234567890
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>客户端设置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[common]
+server_addr = 47.107.130.109
+server_port = 7000
+user = jobs
+token=1234567890
+pool_count = 2
+
+[portainer]
+type = http
+local_port = 9000
+subdomain = portainer
+#below 2 param default is false
+use_encryption = true
+use_compression = true
+
+[eureka]
+type = http
+local_port = 50101
+subdomain = eureka<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h4 id="4-3-ssh-登录"><a href="#4-3-ssh-登录" class="headerlink" title="4.3 ssh 登录"></a>4.3 ssh 登录</h4><pre class="line-numbers language-shell"><code class="language-shell"># frpc.ini
+[common]
+server_addr = x.x.x.x
+server_port = 7000
+
+[ssh]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 22
+remote_port = 6000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ssh 连接 <code>ssh -oPort=6000 test@x.x.x.x</code> 其中 test为服务器登录名称</p>
+<h2 id="zuul"><a href="#zuul" class="headerlink" title="zuul"></a>zuul</h2><ul>
+<li><a href="https://www.cnblogs.com/lexiaofei/p/7080257.html" target="_blank" rel="noopener">zuul入门（1）zuul 的概念和原理</a></li>
+<li><a href="https://blog.csdn.net/qq_21082615/article/details/91371252" target="_blank" rel="noopener">zuul 动态网关路由</a></li>
+<li><a href="https://blog.csdn.net/u013815546/article/details/69669165" target="_blank" rel="noopener">Zuul性能测试</a></li>
+</ul>
+<h1 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h1><h2 id="对密码加密"><a href="#对密码加密" class="headerlink" title="对密码加密"></a>对密码加密</h2><ul>
+<li><a href="https://blog.csdn.net/kecong532664/article/details/82257931" target="_blank" rel="noopener">springboot中对数据库密码加密</a></li>
+<li><a href="https://github.com/gooree/spring-boot-security/blob/master/README.md" target="_blank" rel="noopener"><strong>spring-boot-security</strong></a> 配置案例</li>
+<li>建议还是把配置文件放在配置中心，类似的有携程的阿波罗<a href="https://github.com/ctripcorp/apollo/wiki/Quick-Start" target="_blank" rel="noopener">https://github.com/ctripcorp/apollo/wiki/Quick-Start</a></li>
+<li>disconf <a href="https://github.com/knightliao/disconf" target="_blank" rel="noopener">https://github.com/knightliao/disconf</a></li>
+</ul>
+<h2 id="开源库-1"><a href="#开源库-1" class="headerlink" title="开源库"></a>开源库</h2><h3 id="nacos"><a href="#nacos" class="headerlink" title="nacos"></a>nacos</h3><ul>
+<li><a href="https://github.com/alibaba/nacos" target="_blank" rel="noopener"><strong>nacos</strong></a></li>
+</ul>
+<h4 id="服务提供者集成nacos"><a href="#服务提供者集成nacos" class="headerlink" title="服务提供者集成nacos"></a><strong>服务提供者集成nacos</strong></h4><p><strong>第一步</strong>：加入必要的依赖配置 <code>pom.xml</code></p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.0.5.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- lookup parent from repository --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>Finchley.SR1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-alibaba-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.2.2.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-web<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.18.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步： 应用入口App启用 <code>@EnableDiscoveryClient</code></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@EnableDiscoveryClient</span>
+<span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestApplication</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p> 第三步： 接入nacos服务,如<code>application.properties</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">server.port=8001
+spring.application.name=alibaba-nacos-discovery-server
+spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+#命名空间设置
+spring.cloud.nacos.discovery.namespace=f1e5a968-5ddb-479b-8e35-1f8c9ccea438<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="服务消费者"><a href="#服务消费者" class="headerlink" title="服务消费者"></a>服务消费者</h4><p><strong>第一，二，三步</strong>：同上</p>
+<p>第四: 请求</p>
+<p><strong>RestTemplate</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">      <span class="token annotation punctuation">@Bean</span>
+    <span class="token annotation punctuation">@LoadBalanced</span>
+    <span class="token keyword">public</span> RestTemplate <span class="token function">restTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+String result <span class="token operator">=</span> restTemplate<span class="token punctuation">.</span><span class="token function">getForObject</span><span class="token punctuation">(</span><span class="token string">"http://alibaba-nacos-discovery-server/hello?name=didi"</span><span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>WebClient</strong></p>
+<p>第一步：加入必要依赖配置</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-webflux<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：使用</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token annotation punctuation">@LoadBalanced</span>
+<span class="token keyword">public</span> WebClient<span class="token punctuation">.</span>Builder <span class="token function">loadBalancedWebClientBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> WebClient<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> Mono<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Mono<span class="token operator">&lt;</span>String<span class="token operator">></span> result <span class="token operator">=</span> webClientBuilder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">uri</span><span class="token punctuation">(</span><span class="token string">"http://alibaba-nacos-discovery-server/hello?name=didi"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">retrieve</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">bodyToMono</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>Feign使用</strong></p>
+<p>第一步： 增加openfeign依赖</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-openfeign<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：App 入口启用<code>@EnableFeignClients</code></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@EnableFeignClients</span>
+<span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestApplication</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：使用</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"XC-SERVICE-MANAGE-CMS"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//指定要远程调用的服务名</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CmsPageClient</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/**
+   * 根据页面id查询页面信息，远程调用cms请求数据
+   * @param id page id
+   * @return
+   */</span>
+  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/cms/page/get/{id}"</span><span class="token punctuation">)</span>
+  CmsPage <span class="token function">findCmsPageById</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> String id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">/**
+   * 保存页面
+   * @param cmsPage
+   * @return
+   */</span>
+  <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/cms/page/save"</span><span class="token punctuation">)</span>
+  CmsPageResult <span class="token function">saveCmsPage</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> CmsPage cmsPage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">/**
+   * 一键发布接口
+   * @param cmsPage
+   * @return
+   */</span>
+  <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/cms/page/postPageQuick"</span><span class="token punctuation">)</span>
+  CmsPostPageResult <span class="token function">postPageQuick</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> CmsPage cmsPage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="配置中心集成"><a href="#配置中心集成" class="headerlink" title="配置中心集成"></a>配置中心集成</h4><p>第一步：加入必要的依赖，</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.0.5.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- lookup parent from repository --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>Finchley.SR1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-alibaba-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.2.2.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-web<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.18.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果已经集成了服务提供或者消费，只需增加如下配置：</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：代码中使用</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestApplication</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>TestApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Slf4j</span>
+    <span class="token annotation punctuation">@RestController</span>
+    <span class="token annotation punctuation">@RefreshScope</span>
+    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">{</span>
+
+        <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${didispace.title:}"</span><span class="token punctuation">)</span>
+        <span class="token keyword">private</span> String title<span class="token punctuation">;</span>
+
+        <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+        <span class="token keyword">public</span> String <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> title<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配注：</p>
+<ol>
+<li><code>@Value(&quot;${didispace.title:}&quot;)</code> 读取配置信息</li>
+<li><code>@RefreshScope</code> 这个类配置内容支持动态更新</li>
+</ol>
+<p>第三步：创建配置文件<code>bootstrap.properties</code></p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring.application.name=alibaba-nacos-config-client
+server.port=8001
+spring.cloud.nacos.config.server-addr=127.0.0.1:8848<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>第四步：自定义配置</p>
+<pre class="line-numbers language-ynl"><code class="language-ynl"># blog: http://blog.didispace.com/spring-cloud-alibaba-nacos-config-1/
+#自定义配置文件选择
+A
+#spring.cloud.nacos.config.prefix=example
+#spring.cloud.nacos.config.file-extension=properties
+#spring.cloud.nacos.config.group=DEV_GROUP
+
+# 开发模式选择
+# blog: http://blog.didispace.com/spring-cloud-alibaba-nacos-config-2/
+#spring.profiles.active=DEV 
+#spring.cloud.nacos.config.group=DEV_GROUP
+
+# blog: http://blog.didispace.com/spring-cloud-alibaba-nacos-config-3/
+#多文件配置
+#1. B 数组形式
+#spring.cloud.nacos.config.ext-config[0].data-id=actuator.properties
+#spring.cloud.nacos.config.ext-config[0].group=DEFAULT_GROUP
+#spring.cloud.nacos.config.ext-config[0].refresh=true
+#spring.cloud.nacos.config.ext-config[1].data-id=log.properties
+#spring.cloud.nacos.config.ext-config[1].group=DEFAULT_GROUP
+#spring.cloud.nacos.config.ext-config[1].refresh=true
+#2. C 分割符形式
+#spring.cloud.nacos.config.shared-dataids=actuator.properties,log.properties
+#spring.cloud.nacos.config.refreshable-dataids=actuator.properties,log.properties
+
+#配置优先级： A > B > C<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="开源库-2"><a href="#开源库-2" class="headerlink" title="开源库"></a>开源库</h1><pre><code>1. 后台
+主要是在码云上找的，
+官网：https://gitee.com/explore
+几个分数很高的后台
+https://www.oschina.net/p/guns  【参考】
+https://gitee.com/shuzheng/zheng 【推荐】star个数最多
+https://gitee.com/jfinal/jfinal  【了解】
+
+2. 权限管理
+https://www.oschina.net/p/iBase4J 权限管理
+
+3. UI
+有很多的网页端的开源框架，具体的可以咨询藤来
+http://www.layui.com/admin/ 【推荐看】这个能直接看到案例，感觉直接套用就可以了
+http://element-cn.eleme.io/
+
+主要参考的资料：
+2016 年度开源中国新增开源软件排行榜 TOP 100 
+网址：https://www.oschina.net/news/80846/2016-osc-new-open-source-software-top-100
+2017 年度开源中国新增开源软件排行榜 TOP 100
+网址：https://www.jianshu.com/p/ea9f08267c83</code></pre><p>Tengine CSDN 正在使用</p>
+<blockquote>
+<p>Tengine是由淘宝网发起的Web服务器项目。它在Nginx的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。它的目的是打造一个高效、安全的Web平台。</p>
+</blockquote>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><h2 id="基础教程"><a href="#基础教程" class="headerlink" title="基础教程"></a>基础教程</h2><ul>
+<li><a href="https://gitee.com/didispace/SpringBoot-Learning" target="_blank" rel="noopener">Spring Boot基础教程</a></li>
+<li><a href="https://github.com/qibaoguang/Spring-Boot-Reference-Guide" target="_blank" rel="noopener">Spring-Boot-Reference-Guide</a></li>
+<li><a href="https://my.oschina.net/genghz/blog/1789240" target="_blank" rel="noopener">spring-boot集成graphql入门教程</a></li>
+</ul>
+<h2 id="前人总结"><a href="#前人总结" class="headerlink" title="前人总结"></a>前人总结</h2><ul>
+<li><a href="http://www.ityouknow.com/springcloud/2016/12/30/springcloud-collect.html" target="_blank" rel="noopener">springcloud学习资料汇总</a> 【重点】</li>
+<li><a href="https://github.com/crossoverJie/JCSprout" target="_blank" rel="noopener">JCSprout 处于萌芽阶段的 Java 核心知识库</a></li>
+<li><a href="https://github.com/Snailclimb/JavaGuide" target="_blank" rel="noopener">JavaGuide</a></li>
+</ul>
+<h2 id="学习视频汇总"><a href="#学习视频汇总" class="headerlink" title="学习视频汇总"></a>学习视频汇总</h2><ul>
+<li><a href="http://www.cnblogs.com/abc1168/p/9532326.html" target="_blank" rel="noopener">Java架构师分享自己的从业心得，从码农到架构师我用了八年，高级视频课程学习</a></li>
+</ul>
+<h2 id="开源库汇总"><a href="#开源库汇总" class="headerlink" title="开源库汇总"></a>开源库汇总</h2><ul>
+<li><a href="https://www.toutiao.com/i6634379937220411912/?iid=54285592648" target="_blank" rel="noopener">springboot快速开发框架推荐，接私活利器</a></li>
+</ul>
+<h2 id="博客资料"><a href="#博客资料" class="headerlink" title="博客资料"></a>博客资料</h2><ul>
+<li><p><a href="http://blog.didispace.com/" target="_blank" rel="noopener">http://blog.didispace.com/</a></p>
+</li>
+<li><p><a href="http://www.ityouknow.com/" target="_blank" rel="noopener">纯洁的微笑</a></p>
+</li>
+</ul>
+<h1 id="阿里云学习"><a href="#阿里云学习" class="headerlink" title="阿里云学习"></a>阿里云学习</h1><ul>
+<li>远程连接密码 934698</li>
+<li>实例密码：老爸168 （Lin）</li>
+<li>阿里云后台 47.107.130.109</li>
+</ul>
+<p>容器镜像服务登录密码：<br>老爸168</p>
+<ul>
+<li>阿里云手机终端通过SSH连接后台<pre class="line-numbers language-shell"><code class="language-shell"># 网页端后台操作步骤
+# 1. 找到管理页面
+云服务器ECS-->网络和安全--> 秘钥对-> 秘钥对管理
+# 2. 新建绑定下载
+创建秘钥->绑定指定后台-> 重启服务器
+# Android SSH工具使用
+iP：47.107.130.109 
+登录名：root
+密钥： 选择上面下载xxx.pem
+密钥口令：不用填
+端口：22（和后台ssh相同）
+别名: 随意<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>通过ssh远程登录服务器</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#获取root权限
+shh -i 
+#用IP或者域名登录，需要输入元服务器ECS登录密码 
+ssh root@47.107.130.109 
+ssh root@example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="安全组配置"><a href="#安全组配置" class="headerlink" title="安全组配置"></a>安全组配置</h2><ul>
+<li>Redis 有专门的选择专门的Redis协议 6379 自定义TCP协议无效</li>
+</ul>
+<h2 id="常用配置界面"><a href="#常用配置界面" class="headerlink" title="常用配置界面"></a>常用配置界面</h2><ul>
+<li><a href="https://dns.console.aliyun.com/#/dns/setting/linz.tech" target="_blank" rel="noopener">linz.tech 域名配置界面</a></li>
+<li><a href="https://ecs.console.aliyun.com/?spm=a2c1d.8251892.aliyun_sidebar.aliyun_sidebar_ecs.34f85b76YnLmUP#/securityGroupDetail/region/cn-shenzhen/groupId/sg-wz933l0ge76qamrg3ng3/rule/intranetIngress" target="_blank" rel="noopener">后台端口开发设置界面</a></li>
+<li><a href="https://cloudmonitor.console.aliyun.com/index.htm?spm=5176.2020520101.223.d101.627a4df5vTHaWk&custom_trace=ecs_console#/hostDetail/alarm/instanceId=i-wz933l0ge76qamri4req&system=Linux&region=cn-shenzhen&aliyunhost=true&category=ecs" target="_blank" rel="noopener">新建报警机制</a></li>
+</ul>
+<h1 id="亚马逊云学习"><a href="#亚马逊云学习" class="headerlink" title="亚马逊云学习"></a>亚马逊云学习</h1><p>Linux用r3.pem登录</p>
+<pre class="line-numbers language-shell"><code class="language-shell">/mnt/hgfs/ubuntu/workspace/tools/亚马逊服务器连接
+chmod 400 aws亚马逊_服务秘钥r3.pem
+ssh -i aws亚马逊_服务秘钥r3.pem ubuntu@ec2-18-191-169-66.us-east-2.compute.amazonaws.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="shadowsocket"><a href="#shadowsocket" class="headerlink" title="shadowsocket"></a>shadowsocket</h2><ul>
+<li><p><a href="http://www.ycnote.com/post-234.html" target="_blank" rel="noopener">详细教程：shadowsocket：比vpn更牛的科学上网方式，自己搭建shadowsocket的超详细教程</a></p>
+</li>
+<li><p><a href="https://github.com/shadowsocks" target="_blank" rel="noopener">https://github.com/shadowsocks</a> 开源库官网</p>
+</li>
+</ul>
+<p>总结命令</p>
+<ul>
+<li><p>install</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># root
+sudo -s
+# install 
+apt-get update
+apt-get install python-pip
+pip install shadowsocks
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>setting <code>vi /etc/shadowsocks.json</code></p>
+<ul>
+<li><p>单用户</p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+    "server":"0.0.0.0",
+    "server_port":8989,
+    "local_address":"127.0.0.1",
+    "local_port":1080,
+    "password":"yourpassword",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>多用户</p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+    "server":"0.0.0.0",
+    "local_address":"127.0.0.1",
+    "local_port":1080,
+    "port_password":{
+        "8989":"password0",
+        "9001":"password1",
+        "9002":"password2",
+        "9003":"password3",
+        "9004":"password4"
+    },
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>运行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ssserver -c /etc/shadowsocks.json -d start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>出现如下打印成功启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">INFO: loading config from /etc/shadowsocks.json
+2019-02-18 14:32:45 INFO     loading libcrypto from libcrypto.so.1.0.0
+started<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>设置开机启动 <code>vi /etc/rc.local</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+# By default this script does nothing.
+
+#增加
+ssserver -c /etc/shadowsocks.json -d start
+exit 0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h1 id="Node-js"><a href="#Node-js" class="headerlink" title="Node js"></a>Node js</h1><p>nodejs 在linux上后台运行</p>
+<pre><code>1.用forever  进行管理搜索
+　　　　npm install -g forever
+　　　　forever start index.js</code></pre><h1 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h1><h2 id="Centos-virtual-box-安装"><a href="#Centos-virtual-box-安装" class="headerlink" title="Centos virtual-box 安装"></a>Centos virtual-box 安装</h2><ul>
+<li><a href="https://www.virtualbox.org/wiki/Linux_Downloads" target="_blank" rel="noopener">Download VirtualBox for Linux Hosts</a></li>
+<li>配置版本仓库，在<code>/etc/yum.repos.d/</code>目录下新建<code>virtualbox.repo</code>并写入如下内容<pre class="line-numbers language-shell"><code class="language-shell">[virtualbox]
+name=Oracle Linux / RHEL / CentOS-$releasever / $basearch - VirtualBox
+baseurl=http://download.virtualbox.org/virtualbox/rpm/el/$releasever/$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://www.virtualbox.org/download/oracle_vbox.asc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>安装<pre class="line-numbers language-shell"><code class="language-shell"># 6.更新yum缓存
+yum clean all
+yum makecache
+# 7.安装virtualbox
+yum install VirtualBox-6.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="Mail"><a href="#Mail" class="headerlink" title="Mail"></a>Mail</h2><h2 id="126邮箱设置"><a href="#126邮箱设置" class="headerlink" title="126邮箱设置"></a>126邮箱设置</h2><table>
+<thead>
+<tr>
+<th>邮件服务器名称</th>
+<th>服务器地址</th>
+<th>端口号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>POP3服务器</td>
+<td>pop.126.com</td>
+<td>110</td>
+</tr>
+<tr>
+<td>SMTP服务器</td>
+<td>smtp.126.com</td>
+<td>25</td>
+</tr>
+<tr>
+<td>IMAP服务器</td>
+<td>imap.126.com</td>
+<td>143</td>
+</tr>
+</tbody></table>
+<p>Navicat 自动发送短信设置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">SMTP服务器： smtp.126.com:25
+用户名： zhilinchn@126.com
+密码(区分大小写)： !!16...99qQ
+安全连接: TLS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Maven-私服务搭建"><a href="#Maven-私服务搭建" class="headerlink" title="Maven 私服务搭建"></a>Maven 私服务搭建</h2><ul>
+<li><a href="https://blog.csdn.net/dhmpgt/article/details/9998321" target="_blank" rel="noopener">Nexus创建Maven私有仓库</a></li>
+</ul>
+<h2 id="Redis-1"><a href="#Redis-1" class="headerlink" title="Redis"></a>Redis</h2><p>Redis 外部访问设置</p>
+<pre><code>1&gt;注释掉bind
+#bind 127.0.0.1
+
+3&gt;禁用保护模式
+protected-mode no</code></pre><h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><ul>
+<li><a href="https://blog.csdn.net/qq_30886555/article/details/61920105" target="_blank" rel="noopener">Jenkins设置网易系邮件通知</a></li>
+</ul>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><h2 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h2><ul>
+<li>Tomcat 8080 端口配占用<ul>
+<li>Windows<pre class="line-numbers language-shell"><code class="language-shell"># 找到pid  代LISTENING的
+netstat -ano | findstr "8080"
+# 找到进程
+tasklist | findstr "pid"
+# 杀掉进程
+taskkill /f /t /im java.exe <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><ul>
+<li><p>[Windows10下Docker出现net/http:TLS handshake timeout](<a href="https://blog.csdn.net/pop0fa/article/details/80029739）" target="_blank" rel="noopener">https://blog.csdn.net/pop0fa/article/details/80029739）</a></p>
+<pre><code>http://69292621.m.daocloud.io
+settings-&gt; daemon-&gt; registry mirrors: 
+add 
+http://69292621.m.daocloud.io</code></pre></li>
+<li><p>VMware Workstation 与 Device/Credential Guard 不兼容。在禁用 Device/Credential Guard 后，可以运行 VMware Workstation。有关更多详细信息，请访问 </p>
+<p>关闭Hyper-v</p>
+</li>
+<li><pre class="line-numbers language-shell"><code class="language-shell">WARNING: The vboxdrv kernel module is not loaded. Either there is no module
+         available for the current kernel (3.10.0-862.14.4.el7.x86_64) or it failed to
+         load. Please recompile the kernel module and install it by
+           sudo /sbin/vboxconfig
+         You will not be able to start VMs until this problem is fixed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>/sbin/vboxconfig</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">vboxdrv.sh: Stopping VirtualBox services.
+vboxdrv.sh: Starting VirtualBox services.
+vboxdrv.sh: Building VirtualBox kernel modules.
+This system is currently not set up to build kernel modules.
+Please install the Linux kernel "header" files matching the current kernel
+for adding new hardware support to the system.
+The distribution packages containing the headers are probably:
+    kernel-devel kernel-devel-3.10.0-862.14.4.el7.x86_64
+This system is currently not set up to build kernel modules.
+Please install the Linux kernel "header" files matching the current kernel
+for adding new hardware support to the system.
+The distribution packages containing the headers are probably:
+    kernel-devel kernel-devel-3.10.0-862.14.4.el7.x86_64
+There were problems setting up VirtualBox.  To re-start the set-up process, run
+  /sbin/vboxconfig
+as root.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="七牛云测试域名过渡"><a href="#七牛云测试域名过渡" class="headerlink" title="七牛云测试域名过渡"></a>七牛云测试域名过渡</h2><ol>
+<li><p>操作界面：<a href="https://portal.qiniu.com/cdn/domain/create?bucket=image&fixBucket" target="_blank" rel="noopener"> 域名管理-&gt; 创建域名  </a><br>操作： 如域名为 linz.tech, 填写加速域名为 cdn.linz.tech 其他默认点击创建即可。<br>说明：cdn是可以随意取名的二级域名<br>操作结果：  <a href="https://portal.qiniu.com/cdn/domain?ref=developer.qiniu.com" target="_blank" rel="noopener"><strong>域名管理</strong></a> 界面新增一个域名列表，点击配置 获取如: <code>CNAME：cdn.linz.tech.qiniudns.com</code>的域名映射；</p>
+</li>
+<li><p>配置CNAME：<a href="https://dns.console.aliyun.com/?spm=5176.100251.111252.28.6dc04f157ZpxzS#/dns/setting/linz.tech" target="_blank" rel="noopener">到域名解析管理里面增加二级域名</a><br>操作步骤： </p>
+<ol>
+<li>添加记录</li>
+<li>记录类型，选择<code>CNAME</code>；</li>
+<li>主机记录： 填入<code>cdn</code>,上面自定义的二级域名</li>
+<li>记录值把上一步操作的值（<code>cdn.linz.tech.qiniudns.com</code>）填入，其他默认，确定即可；</li>
+</ol>
+</li>
+<li><p>测试： 到<a href="https://portal.qiniu.com/bucket/image/resource" target="_blank" rel="noopener">内容管理界面</a>随便复制一个文件测试访问，访问域名为<code>http://cdn.linz.tech</code>并访问成功，设置成功</p>
+<h3 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h3></li>
+</ol>
+<ul>
+<li><a href="https://developer.qiniu.com/kodo/kb/5158/how-to-transition-from-test-domain-name-to-a-custom-domain-name" target="_blank" rel="noopener">如何从测试域名过渡到自定义域名</a></li>
+<li><a href="https://developer.qiniu.com/fusion/manual/4939/the-domain-name-to-access。" target="_blank" rel="noopener">域名接入文档</a></li>
+</ul>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h2><p>状态监测</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#查看端口号是否被占用
+netstat -tunlp |grep 8000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后台/" rel="tag"># 后台</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/13/2019-4-13-git-basic-note/" rel="next" title="git 基础比较">
+                <i class="fa fa-chevron-left"></i> git 基础比较
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/13/2019-3-3-MarkDown-grammar-plugs/" rel="prev" title="MarkDown 语法补全">
+                MarkDown 语法补全 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/04/13/2019-2-26-server/" data-title="Java后台基础学习笔记" data-url="http://linz.tech/2019/04/13/2019-2-26-server/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#重点研究开源库"><span class="nav-number">1.</span> <span class="nav-text">重点研究开源库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AG-Admin-v2-0"><span class="nav-number">1.1.</span> <span class="nav-text">AG-Admin-v2.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mall"><span class="nav-number">1.2.</span> <span class="nav-text">Mall</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pay"><span class="nav-number">1.3.</span> <span class="nav-text">Pay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秒杀系统"><span class="nav-number">1.4.</span> <span class="nav-text">秒杀系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用工具"><span class="nav-number">2.</span> <span class="nav-text">常用工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#管理工具"><span class="nav-number">2.1.</span> <span class="nav-text">管理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Consul"><span class="nav-number">2.1.1.</span> <span class="nav-text">Consul</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程连接-SecureCRT"><span class="nav-number">2.1.2.</span> <span class="nav-text">远程连接  SecureCRT</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境配置"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用设置"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">常用设置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问控制"><span class="nav-number">2.2.</span> <span class="nav-text">访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">2.2.1.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开源库"><span class="nav-number">2.2.2.</span> <span class="nav-text">开源库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转化工具"><span class="nav-number">2.3.</span> <span class="nav-text">转化工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">2.4.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis"><span class="nav-number">2.4.1.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hibernate"><span class="nav-number">2.4.2.</span> <span class="nav-text">Hibernate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MongoDB"><span class="nav-number">2.4.3.</span> <span class="nav-text">MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#权限"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本使用"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">基本使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RabbitMQ"><span class="nav-number">2.4.4.</span> <span class="nav-text">RabbitMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.4.5.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">2.4.6.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis"><span class="nav-number">2.4.7.</span> <span class="nav-text">MyBatis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具"><span class="nav-number">2.4.7.1.</span> <span class="nav-text">工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">2.4.8.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件"><span class="nav-number">2.4.9.</span> <span class="nav-text">附件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dubbo"><span class="nav-number">2.5.</span> <span class="nav-text">dubbo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zipkin"><span class="nav-number">2.6.</span> <span class="nav-text">zipkin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat"><span class="nav-number">2.7.</span> <span class="nav-text">Tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#部署"><span class="nav-number">2.7.1.</span> <span class="nav-text">部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FastDFS"><span class="nav-number">2.8.</span> <span class="nav-text">FastDFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Frp-内网穿透"><span class="nav-number">2.9.</span> <span class="nav-text">Frp 内网穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-参考资料"><span class="nav-number">2.9.1.</span> <span class="nav-text">1. 参考资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-实战经验记录"><span class="nav-number">2.9.2.</span> <span class="nav-text">2. 实战经验记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-常用命令"><span class="nav-number">2.9.3.</span> <span class="nav-text">3. 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-案例"><span class="nav-number">2.9.4.</span> <span class="nav-text">4. 案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-经典内网穿透案例"><span class="nav-number">2.9.4.1.</span> <span class="nav-text">4.1 经典内网穿透案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-自定义子域名使其转发到内网服务中"><span class="nav-number">2.9.4.2.</span> <span class="nav-text">4.2 自定义子域名使其转发到内网服务中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-ssh-登录"><span class="nav-number">2.9.4.3.</span> <span class="nav-text">4.3 ssh 登录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zuul"><span class="nav-number">2.10.</span> <span class="nav-text">zuul</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置管理"><span class="nav-number">3.</span> <span class="nav-text">配置管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对密码加密"><span class="nav-number">3.1.</span> <span class="nav-text">对密码加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开源库-1"><span class="nav-number">3.2.</span> <span class="nav-text">开源库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nacos"><span class="nav-number">3.2.1.</span> <span class="nav-text">nacos</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务提供者集成nacos"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">服务提供者集成nacos</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务消费者"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">服务消费者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置中心集成"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">配置中心集成</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开源库-2"><span class="nav-number">4.</span> <span class="nav-text">开源库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资料"><span class="nav-number">5.</span> <span class="nav-text">学习资料</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础教程"><span class="nav-number">5.1.</span> <span class="nav-text">基础教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前人总结"><span class="nav-number">5.2.</span> <span class="nav-text">前人总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习视频汇总"><span class="nav-number">5.3.</span> <span class="nav-text">学习视频汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开源库汇总"><span class="nav-number">5.4.</span> <span class="nav-text">开源库汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#博客资料"><span class="nav-number">5.5.</span> <span class="nav-text">博客资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阿里云学习"><span class="nav-number">6.</span> <span class="nav-text">阿里云学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安全组配置"><span class="nav-number">6.1.</span> <span class="nav-text">安全组配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用配置界面"><span class="nav-number">6.2.</span> <span class="nav-text">常用配置界面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#亚马逊云学习"><span class="nav-number">7.</span> <span class="nav-text">亚马逊云学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#shadowsocket"><span class="nav-number">7.1.</span> <span class="nav-text">shadowsocket</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Node-js"><span class="nav-number">8.</span> <span class="nav-text">Node js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用配置"><span class="nav-number">9.</span> <span class="nav-text">常用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Centos-virtual-box-安装"><span class="nav-number">9.1.</span> <span class="nav-text">Centos virtual-box 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mail"><span class="nav-number">9.2.</span> <span class="nav-text">Mail</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#126邮箱设置"><span class="nav-number">9.3.</span> <span class="nav-text">126邮箱设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven-私服务搭建"><span class="nav-number">9.4.</span> <span class="nav-text">Maven 私服务搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-1"><span class="nav-number">9.5.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins"><span class="nav-number">9.6.</span> <span class="nav-text">Jenkins</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题解决"><span class="nav-number">10.</span> <span class="nav-text">问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot"><span class="nav-number">10.1.</span> <span class="nav-text">SpringBoot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker"><span class="nav-number">10.2.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七牛云测试域名过渡"><span class="nav-number">10.3.</span> <span class="nav-text">七牛云测试域名过渡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-1"><span class="nav-number">10.3.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">11.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令-1"><span class="nav-number">11.1.</span> <span class="nav-text">常用命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

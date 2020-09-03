@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/starsliao/Prometheus/master/screenshot.jpg">
 <meta property="og:image" content="http://cdn.linz.tech/threads-gateway-2019-6-13.png">
 <meta property="og:image" content="http://cdn.linz.tech/1555683876672.png">
-<meta property="og:updated_time" content="2020-01-15T11:27:35.230Z">
+<meta property="og:updated_time" content="2020-07-13T11:26:51.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习笔记">
 <meta name="twitter:description" content="Containerdocker build --tag=friendlyhello . #or add version   docker build -tag= friendlyhello:v0.0.1 .  docker image ls docker run -p 4000:80 friendlyhello  Docker for Linux network set  Set proxy se">
@@ -2027,8 +2027,8 @@ docker plugin remove vieux/sshfs<span aria-hidden="true" class="line-numbers-row
 <li><a href="https://blog.docker.com/" target="_blank" rel="noopener">Blog</a>: Covers what’s going on with Docker lately.</li>
 </ul>
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><p>最简单官网方案</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ curl -fsSL get.docker.com -o get-docker.sh
-$ sudo sh get-docker.sh --mirror Aliyun<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh --mirror Aliyun<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>官网安装教程</p>
 <p><a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce" target="_blank" rel="noopener">install-docker-ce</a></p>
 <p>从入门到实战</p>
@@ -2046,9 +2046,10 @@ $ sudo sh get-docker.sh --mirror Aliyun<span aria-hidden="true" class="line-numb
     "8.8.8.8"
   ]
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Docker-网络配置"><a href="#Docker-网络配置" class="headerlink" title="Docker 网络配置"></a>Docker 网络配置</h2></li>
+</li>
 </ul>
-<blockquote>
+<p>注意：vi /etc/docker/demo.json  <code>[Linux vi编辑后无法保存出现E212：Can&#39;t open file for writing](https://www.cnblogs.com/hujunwei/p/11335565.html)</code>  先创建路径</p>
+<h2 id="Docker-网络配置"><a href="#Docker-网络配置" class="headerlink" title="Docker 网络配置"></a>Docker 网络配置</h2><blockquote>
 <p>docker c/s 模式客户端和服务器通信的方式</p>
 <pre class="line-numbers language-shell"><code class="language-shell">unix:///var/run/docker.sock
 tcp://host:port
@@ -2484,7 +2485,7 @@ sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><sp
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

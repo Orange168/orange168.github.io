@@ -1,12 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>从零搭建禅道</title>
+    <url>/2020/07/13/2020-07-13-zentao/</url>
+    <content><![CDATA[<h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><pre class="line-numbers language-shell"><code class="language-shell">curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh --mirror Aliyun
+mkdir -p /etc/docker/
+vim /etc/docker/daemon.json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>向daemon.json写入国内docker镜像</p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+  "registry-mirrors": ["http://hub-mirror.c.163.com"]
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>启动docker</p>
+<pre class="line-numbers language-shell"><code class="language-shell">su root #切换到root用户
+systemctl enable docker #设置开机自动启用docker服务
+systemctl start docker #启动docker 服务<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>检查是否启动成功</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="禅道安装"><a href="#禅道安装" class="headerlink" title="禅道安装"></a>禅道安装</h2><p>下载最新的镜像，官方镜像地址  <a href="https://hub.docker.com/r/easysoft/zentao" target="_blank" rel="noopener">https://hub.docker.com/r/easysoft/zentao</a></p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker pull easysoft/zentao:latest
+##开源版本
+sudo docker pull easysoft/zentao:12.2.stable<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Quick start 案例</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run --name [容器名] -p [主机端口]:80 -v [主机禅道目录]:/app/zentaopms \
+       -v [主机mysql目录]:/var/lib/mysql \
+       -e MYSQL_ROOT_PASSWORD=[数据库密码] -d easysoft/zentao:[镜像标签]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>其中，容器名：启动的容器名字，可随意指定；<br>主机端口：主机端口为web访问端口；<br>主机禅道目录：必须指定，方便禅道代码、附件等数据的持久化，非升级情况需指定空目录；<br>主机mysql目录：必须指定，方便禅道数据持久化，非升级情况需指定空目录；<br>数据库密码： 容器内置mysql用户名为root,默认密码123456，如果不修改可以不指定该变量，<br>果想更改密码可以设置 MYSQL_ROOT_PASSWORD变量来更改密码；</p>
+</blockquote>
+<p>实践中使用的案例</p>
+<p>第一步： 新建持久化需要的目录</p>
+<pre class="line-numbers language-shell"><code class="language-shell">mkdir -p /root/app/zentao/zentaopms && mkdir -p /root/app/zentao/mysqldata<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第二步：直接跑起来</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run --name zentao_container -p 10371:80 -v /root/app/zentao/zentaopms:/app/zentaopms \
+       -v /root/app/zentao/mysqldata:/var/lib/mysql \
+       -e MYSQL_ROOT_PASSWORD=66688866 -d easysoft/zentao:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="参考文件"><a href="#参考文件" class="headerlink" title="参考文件"></a>参考文件</h2><ul>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/405.html#5" target="_blank" rel="noopener">禅道官方Docker安装文档</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Facebook rebound模仿现实生活中的阻力和弹力的库</title>
+    <url>/2020/07/12/2020-07-12-rebound/</url>
+    <content><![CDATA[<h1 id="Rebound库实战笔记"><a href="#Rebound库实战笔记" class="headerlink" title="Rebound库实战笔记"></a>Rebound库实战笔记</h1><h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><p> <strong><a href="https://github.com/facebookarchive/rebound" target="_blank" rel="noopener"> github rebound</a></strong> </p>
+<p>导入</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">implementation <span class="token string">'com.facebook.rebound:rebound:0.3.8'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><pre class="line-numbers language-java"><code class="language-java">Spring spring <span class="token operator">=</span> SpringSystem<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">createSpring</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//tension(拉力)值改成100(拉力值越小，晃动越慢)，friction(摩擦力)值改成1(摩擦力越小，弹动大小越明显)</span>
+spring<span class="token punctuation">.</span><span class="token function">setSpringConfig</span><span class="token punctuation">(</span>SpringConfig<span class="token punctuation">.</span><span class="token function">fromOrigamiTensionAndFriction</span><span class="token punctuation">(</span>tension<span class="token punctuation">,</span> friction<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+spring<span class="token punctuation">.</span><span class="token function">addListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SimpleSpringListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="SpringChain"><a href="#SpringChain" class="headerlink" title="SpringChain"></a>SpringChain</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//创建SpringChain对象</span>
+SpringChain springChain <span class="token operator">=</span> SpringChain<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ springChain<span class="token punctuation">.</span><span class="token function">addSpring</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SimpleSpringListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="弹簧效果"><a href="#弹簧效果" class="headerlink" title="弹簧效果"></a>弹簧效果</h3><p>Demo1 </p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">//Facebook-Rebound弹簧</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">Two</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//创建SpringSystem对象</span>
+        SpringSystem springSystem <span class="token operator">=</span> SpringSystem<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//添加到弹簧系统</span>
+        Spring spring <span class="token operator">=</span> springSystem<span class="token punctuation">.</span><span class="token function">createSpring</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        spring<span class="token punctuation">.</span><span class="token function">setCurrentValue</span><span class="token punctuation">(</span><span class="token number">1.0f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//tension(拉力)值改成100(拉力值越小，晃动越慢)，friction(摩擦力)值改成1(摩擦力越小，弹动大小越明显)</span>
+        spring<span class="token punctuation">.</span><span class="token function">setSpringConfig</span><span class="token punctuation">(</span>SpringConfig<span class="token punctuation">.</span><span class="token function">fromOrigamiTensionAndFriction</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//与上面一样，回弹效果更明显，但速度慢</span>
+<span class="token comment" spellcheck="true">//        spring.setSpringConfig(new SpringConfig(100, 1));</span>
+        spring<span class="token punctuation">.</span><span class="token function">addListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SimpleSpringListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onSpringUpdate</span><span class="token punctuation">(</span>Spring spring<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">float</span> value <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> spring<span class="token punctuation">.</span><span class="token function">getCurrentValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">float</span> scale <span class="token operator">=</span> <span class="token number">1f</span> <span class="token operator">-</span> <span class="token punctuation">(</span>value <span class="token operator">*</span> <span class="token number">0.5f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                imageView<span class="token punctuation">.</span><span class="token function">setScaleX</span><span class="token punctuation">(</span>scale<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                imageView<span class="token punctuation">.</span><span class="token function">setScaleY</span><span class="token punctuation">(</span>scale<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          spring<span class="token punctuation">.</span><span class="token function">setEndValue</span><span class="token punctuation">(</span><span class="token number">0.1f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Demo2 </p>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token comment" spellcheck="true">/**
+   * 弹簧动画
+   * @param v 动画View
+   * @param tension 拉力系数
+   * @param friction 摩擦力系数
+   */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">animateViewDirection</span><span class="token punctuation">(</span><span class="token keyword">final</span> View v<span class="token punctuation">,</span> <span class="token keyword">float</span> from<span class="token punctuation">,</span> <span class="token keyword">float</span> to<span class="token punctuation">,</span> <span class="token keyword">double</span> tension<span class="token punctuation">,</span>
+      <span class="token keyword">double</span> friction<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Spring spring <span class="token operator">=</span> SpringSystem<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">createSpring</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    spring<span class="token punctuation">.</span><span class="token function">setCurrentValue</span><span class="token punctuation">(</span>from<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">//tension(拉力)值改成100(拉力值越小，晃动越慢)，friction(摩擦力)值改成1(摩擦力越小，弹动大小越明显)</span>
+    spring<span class="token punctuation">.</span><span class="token function">setSpringConfig</span><span class="token punctuation">(</span>SpringConfig<span class="token punctuation">.</span><span class="token function">fromOrigamiTensionAndFriction</span><span class="token punctuation">(</span>tension<span class="token punctuation">,</span> friction<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    spring<span class="token punctuation">.</span><span class="token function">addListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SimpleSpringListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token annotation punctuation">@Override</span>
+      <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onSpringUpdate</span><span class="token punctuation">(</span>Spring spring<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//根据rebound返回的值进行更新</span>
+         <span class="token keyword">float</span> value <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> spring<span class="token punctuation">.</span><span class="token function">getCurrentValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">float</span> scale <span class="token operator">=</span> <span class="token number">1f</span> <span class="token operator">-</span> <span class="token punctuation">(</span>value <span class="token operator">*</span> <span class="token number">0.5f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        v<span class="token punctuation">.</span><span class="token function">setTranslationY</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> spring<span class="token punctuation">.</span><span class="token function">getCurrentValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    spring<span class="token punctuation">.</span><span class="token function">setEndValue</span><span class="token punctuation">(</span>to<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">//setControlSpringIndex：从第几个子view开始</span>
+  springChain<span class="token punctuation">.</span><span class="token function">setControlSpringIndex</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//设置结束的位置，</span>
+  springChain<span class="token punctuation">.</span><span class="token function">getControlSpring</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setEndValue</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="多个childView-“chain-“-进行控制"><a href="#多个childView-“chain-“-进行控制" class="headerlink" title="多个childView “chain “ 进行控制"></a>多个childView “chain “ 进行控制</h3><pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">//Facebook-Rebound</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">One</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ViewGroup viewGroup <span class="token operator">=</span> <span class="token punctuation">(</span>ViewGroup<span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>chain_layout<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        viewGroup<span class="token punctuation">.</span><span class="token function">setVisibility</span><span class="token punctuation">(</span>View<span class="token punctuation">.</span>VISIBLE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//创建SpringChain对象</span>
+        SpringChain springChain <span class="token operator">=</span> SpringChain<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//获取到子控件</span>
+        <span class="token keyword">int</span> childCount <span class="token operator">=</span> viewGroup<span class="token punctuation">.</span><span class="token function">getChildCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> childCount<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">final</span> View view <span class="token operator">=</span> viewGroup<span class="token punctuation">.</span><span class="token function">getChildAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            springChain<span class="token punctuation">.</span><span class="token function">addSpring</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SimpleSpringListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token annotation punctuation">@Override</span>
+                <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onSpringUpdate</span><span class="token punctuation">(</span>Spring spring<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">float</span> value <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> spring<span class="token punctuation">.</span><span class="token function">getCurrentValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//只设置沿X轴</span>
+                    view<span class="token punctuation">.</span><span class="token function">setTranslationX</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        List<span class="token operator">&lt;</span>Spring<span class="token operator">></span> springs <span class="token operator">=</span> springChain<span class="token punctuation">.</span><span class="token function">getAllSprings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> springs<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            springs<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setCurrentValue</span><span class="token punctuation">(</span><span class="token number">1080</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">//setControlSpringIndex：从第几个子view开始</span>
+        springChain<span class="token punctuation">.</span><span class="token function">setControlSpringIndex</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//设置结束的位置，</span>
+        springChain<span class="token punctuation">.</span><span class="token function">getControlSpring</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setEndValue</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/wuqingsen1/article/details/84635115" target="_blank" rel="noopener">Facebook-Rebound弹簧效果</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac苹果电脑使用</title>
     <url>/2020/06/04/2020-06-04-Mac_pro_usage/</url>
     <content><![CDATA[<h1 id="常用软件安装"><a href="#常用软件安装" class="headerlink" title="常用软件安装"></a>常用软件安装</h1><h2 id="第一节-开发软件安装"><a href="#第一节-开发软件安装" class="headerlink" title="第一节 开发软件安装"></a>第一节 开发软件安装</h2><ul>
 <li><a href="https://www.jianshu.com/p/4e93b48f9f63" target="_blank" rel="noopener">navicat</a> 数据库</li>
 </ul>
-<h2 id="第二节-日常使用"><a href="#第二节-日常使用" class="headerlink" title="第二节 日常使用"></a>第二节 日常使用</h2>]]></content>
+<h2 id="第二节-日常使用"><a href="#第二节-日常使用" class="headerlink" title="第二节 日常使用"></a>第二节 日常使用</h2><p>Mac键盘布局及图标对照</p>
+<p><img src="http://cdn.linz.tech/Mac%E9%94%AE%E7%9B%98%E5%B8%83%E5%B1%80%E5%AF%B9%E7%85%A7%E5%9B%BE.png" alt></p>
+<h2 id="Mac系统快捷键"><a href="#Mac系统快捷键" class="headerlink" title="Mac系统快捷键"></a>Mac系统快捷键</h2><p>Mac 快捷键</p>
+<h3 id="系统应用"><a href="#系统应用" class="headerlink" title="系统应用"></a>系统应用</h3><ol>
+<li>退出当前应用 cmd + Q</li>
+<li>关闭当前窗口 command+W</li>
+<li>⌘ + option + v 移动</li>
+<li>⌘+ delete 删除</li>
+<li>⌘ + T打开标签页</li>
+<li>⌘ + i  显示当前文件简介</li>
+<li>⌘ + H 隐藏窗口</li>
+<li>⌘ + H 最小化窗口 </li>
+<li>强制退出应用程序：option+command+esc</li>
+<li>Command + Shift + 4 截图区域 （鼠标悬停+ 加空格键截取软件软件单个窗口）</li>
+<li>Command + Shift + 5 截屏货录屏</li>
+<li>Command + Shift + 3 截取全屏屏幕</li>
+<li>⌘ + O 打开文件</li>
+<li>选择文件 + 空格键 快速预览</li>
+<li>选中多个文件 + ⌘ + ctrl + n 快速收纳</li>
+<li>⌘ + option + 关机键 进入休眠 </li>
+<li>⌘ + ctrl + 关机键  重启电脑 </li>
+<li>⌘ + option + ctrl + 关机键 快速关机</li>
+<li>F11 显示桌面</li>
+</ol>
+<h3 id="软件应用"><a href="#软件应用" class="headerlink" title="软件应用"></a>软件应用</h3><ol>
+<li>bof</li>
+<li>. ⌘⇧.(Command + Shift + .) 显示和隐藏文件</li>
+</ol>
+<p>Fasdf</p>
+<p>终端快捷键</p>
+<p>cmmand + D 终端分屏幕</p>
+<p>打开finder ： 在Terminal中输入命令: open .</p>
+<p>android studio Mac 快捷键</p>
+<p>new scratch file </p>
+<p>Command + shift + N </p>
+<p>Cmd + alt + control + r rebuild </p>
+<p>Control +cmc + F12 attach to process</p>
+<p>新建typora快捷键</p>
+<p>alias typora=”open -a typora”</p>
+<p>Typora . //打开本地文件</p>
+]]></content>
       <categories>
         <category>study</category>
       </categories>
@@ -6093,6 +6285,21 @@ npm update # 更新插件</code></pre><h2 id="高级玩法"><a href="#高级玩�
  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ff000000<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selector</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>设置属性<code>android:textColor=&quot;@drawable/selector&quot;</code></p>
+<ol start="2">
+<li><p>文字控制</p>
+<ul>
+<li><p>首行缩进2个字符（中午有效）</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token function">setText</span><span class="token punctuation">(</span><span class="token string">"\u3000\u3000"</span><span class="token operator">+</span>xxxxx<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>间距控制</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token number">1</span>、android<span class="token operator">:</span>lineSpacingExtra
+设置行间距，如”8dp”。
+<span class="token number">2</span>、android<span class="token operator">:</span>lineSpacingMultiplier
+设置行间距的倍数，如”<span class="token number">1.5</span>″。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
 </li>
 </ol>
 <h3 id="ImageView"><a href="#ImageView" class="headerlink" title="ImageView"></a>ImageView</h3><ul>
@@ -18210,8 +18417,8 @@ docker plugin remove vieux/sshfs<span aria-hidden="true" class="line-numbers-row
 <li><a href="https://blog.docker.com/" target="_blank" rel="noopener">Blog</a>: Covers what’s going on with Docker lately.</li>
 </ul>
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><p>最简单官网方案</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ curl -fsSL get.docker.com -o get-docker.sh
-$ sudo sh get-docker.sh --mirror Aliyun<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh --mirror Aliyun<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>官网安装教程</p>
 <p><a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce" target="_blank" rel="noopener">install-docker-ce</a></p>
 <p>从入门到实战</p>
@@ -18229,9 +18436,10 @@ $ sudo sh get-docker.sh --mirror Aliyun<span aria-hidden="true" class="line-numb
     "8.8.8.8"
   ]
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Docker-网络配置"><a href="#Docker-网络配置" class="headerlink" title="Docker 网络配置"></a>Docker 网络配置</h2></li>
+</li>
 </ul>
-<blockquote>
+<p>注意：vi /etc/docker/demo.json  <code>[Linux vi编辑后无法保存出现E212：Can&#39;t open file for writing](https://www.cnblogs.com/hujunwei/p/11335565.html)</code>  先创建路径</p>
+<h2 id="Docker-网络配置"><a href="#Docker-网络配置" class="headerlink" title="Docker 网络配置"></a>Docker 网络配置</h2><blockquote>
 <p>docker c/s 模式客户端和服务器通信的方式</p>
 <pre class="line-numbers language-shell"><code class="language-shell">unix:///var/run/docker.sock
 tcp://host:port
@@ -21038,6 +21246,27 @@ firewall-cmd --permanent --add-port=6379/tcp<span aria-hidden="true" class="line
 nc -v host port <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h3 id="1-3-4-CentOS-7-关闭防火墙"><a href="#1-3-4-CentOS-7-关闭防火墙" class="headerlink" title="1.3.4 CentOS 7 关闭防火墙"></a>1.3.4 CentOS 7 关闭防火墙</h3><pre class="line-numbers language-shell"><code class="language-shell">systemctl stop firewalld.service  关闭防火墙
 systemctl disable firewalld          永久关闭防火墙<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="1-5-docker-安装redis"><a href="#1-5-docker-安装redis" class="headerlink" title="1.5 docker 安装redis"></a>1.5 docker 安装redis</h2><p>第一步：直接安装redis镜像</p>
+<p>redis.conf</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#允许外网访问
+bind 0.0.0.0
+daemonize NO
+protected-mode no
+requirepass T1%z$1u3Q#zi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -p 10001:6379 --name redis -v /data/redis/redis.conf:/etc/redis/redis.conf -v /data/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>命令说明</p>
+<pre class="line-numbers language-shell"><code class="language-shell">-p 10001:6379 : 将容器的6379端口映射到主机的10001端口
+--name redis : 容器名字
+-v /data/redis/redis.conf:/etc/redis/redis.conf : 将主机中配置文件挂载到容器中
+-v /data/redis/data:/data : 将主机中data挂载到容器的/data
+redis-server --appendonly yes : 在容器执行redis-server启动命令，并打开redis持久化配置
+redis-server /etc/redis/redis.conf : 容器中以配置文件方式启动redis<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -p 9999:6379 --name redis -v /root/document/service/redis/redis.conf:/etc/redis/redis.conf -v /root/document/service/redis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第二步：设置密码, 登录安装的镜像terminal</p>
+<pre class="line-numbers language-shell"><code class="language-shell">>redis-cli -h 127.0.0.1 -p 6379<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第三步：设置密码</p>
+<pre class="line-numbers language-shell"><code class="language-shell">config set requirepass  “T1%z$1u3Q#zi”<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h1 id="第二章-软件使用"><a href="#第二章-软件使用" class="headerlink" title="第二章 软件使用"></a>第二章 软件使用</h1><h2 id="2-1-Redis"><a href="#2-1-Redis" class="headerlink" title="2.1  Redis"></a>2.1  Redis</h2><h3 id="2-1-1-基本应用"><a href="#2-1-1-基本应用" class="headerlink" title="2.1.1 基本应用"></a>2.1.1 基本应用</h3><p>四个方向应用</p>
 <ul>
 <li>redis各种数据结构和命令的使用，包括java api的使用</li>
@@ -21708,7 +21937,10 @@ SET Key2 Value2<span aria-hidden="true" class="line-numbers-rows"><span></span><
 <p>主从复制可能会超时严重，这个时候需要良好的监控和报警机制</p>
 <p>在info replication中，可以看到master和slave复制的offset，做一个差值就可以看到对应的延迟量</p>
 <p>如果延迟过多，那么就进行报警</p>
-<h1 id="附录-一"><a href="#附录-一" class="headerlink" title="附录 一"></a>附录 一</h1><ul>
+<h1 id="附录-一"><a href="#附录-一" class="headerlink" title="附录 一"></a>附录 一</h1><h2 id="工具下载"><a href="#工具下载" class="headerlink" title="工具下载"></a>工具下载</h2><ul>
+<li><strong><a href="https://github.com/qishibo/AnotherRedisDesktopManager" target="_blank" rel="noopener"> AnotherRedisDesktopManager</a></strong> redis 可可视化工具</li>
+</ul>
+<ul>
 <li><a href="https://redis.io/topics/benchmarks" target="_blank" rel="noopener">redis benchmarks 测试详情 </a></li>
 <li><a href="http://doc.redisfans.com/topic/sentinel.html" target="_blank" rel="noopener">sentinel</a></li>
 </ul>
@@ -22916,32 +23148,6 @@ ta<span class="token punctuation">.</span><span class="token function">addEventL
       </tags>
   </entry>
   <entry>
-    <title>webpack笔记</title>
-    <url>/2019/07/22/2019-7-22-webpack/</url>
-    <content><![CDATA[<h1 id="webpack基础"><a href="#webpack基础" class="headerlink" title="webpack基础"></a>webpack基础</h1><h2 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h2><ol>
-<li>代码转换</li>
-<li>文件优化</li>
-<li>代码分割</li>
-<li>模块合并</li>
-<li>debug模式自动刷新</li>
-<li>代码验证</li>
-<li>自动发布</li>
-</ol>
-<h2 id="webpack-基础"><a href="#webpack-基础" class="headerlink" title="webpack 基础"></a>webpack 基础</h2><p>安装到本地</p>
-<pre class="line-numbers language-shell"><code class="language-shell">yarn init -y 
-#-D 表示开发依赖
-yarn add webpack webpack-cli -D
-npx webpack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>实践</tag>
-        <tag>网页</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue笔记</title>
     <url>/2019/07/22/2019-7-22-vue/</url>
     <content><![CDATA[<h1 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h1><ul>
@@ -23033,6 +23239,32 @@ var Child = {
       </categories>
       <tags>
         <tag>实践</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>webpack笔记</title>
+    <url>/2019/07/22/2019-7-22-webpack/</url>
+    <content><![CDATA[<h1 id="webpack基础"><a href="#webpack基础" class="headerlink" title="webpack基础"></a>webpack基础</h1><h2 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h2><ol>
+<li>代码转换</li>
+<li>文件优化</li>
+<li>代码分割</li>
+<li>模块合并</li>
+<li>debug模式自动刷新</li>
+<li>代码验证</li>
+<li>自动发布</li>
+</ol>
+<h2 id="webpack-基础"><a href="#webpack-基础" class="headerlink" title="webpack 基础"></a>webpack 基础</h2><p>安装到本地</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yarn init -y 
+#-D 表示开发依赖
+yarn add webpack webpack-cli -D
+npx webpack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+        <tag>网页</tag>
       </tags>
   </entry>
   <entry>
@@ -23596,6 +23828,934 @@ ___</code></pre><h3 id="引用"><a href="#引用" class="headerlink" title="引�
       </categories>
       <tags>
         <tag>经验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java后台基础学习笔记</title>
+    <url>/2019/04/13/2019-2-26-server/</url>
+    <content><![CDATA[<h1 id="重点研究开源库"><a href="#重点研究开源库" class="headerlink" title="重点研究开源库"></a>重点研究开源库</h1><ul>
+<li><a href="https://gitee.com/shuzheng/zheng" target="_blank" rel="noopener">zheng</a> 比较热门的后台开源库</li>
+<li><a href="https://gitee.com/naan1993/guns" target="_blank" rel="noopener">Guns</a> 权限管理<ul>
+<li>公开课 <a href="https://www.bilibili.com/video/av32112009" target="_blank" rel="noopener">https://www.bilibili.com/video/av32112009</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/PanJiaChen/vue-element-admin" target="_blank" rel="noopener">vue-element-admin</a> 非常惊艳的前端UI <ul>
+<li><a href="https://github.com/PanJiaChen/vue-element-admin/blob/master/README.zh-CN.md" target="_blank" rel="noopener"><strong>README.zh-CN.md</strong></a> 中文文档有教程</li>
+</ul>
+</li>
+<li><a href="https://gitee.com/minull/ace-security" target="_blank" rel="noopener">Cloud-Admin</a><ul>
+<li><a href="http://www.evernote.com/l/AtsRl53hvoVG8qlWUWtuLddM0iS5QtylRo4/" target="_blank" rel="noopener">RabbitMQ配置</a></li>
+<li><a href="http://www.evernote.com/l/Att5XxYhqY9Gsr0jDsng-4APU7pn9MwK-SY/" target="_blank" rel="noopener">Consul1.2.2配置</a></li>
+<li>Docker <ul>
+<li><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Get started with Docker</a></li>
+<li><a href="https://docs.docker.com/compose/" target="_blank" rel="noopener">Docker Compose</a></li>
+<li><a href="https://blog.csdn.net/pushiqiang/article/details/78682323" target="_blank" rel="noopener">docker-compose教程（安装，使用, 快速入门）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="AG-Admin-v2-0"><a href="#AG-Admin-v2-0" class="headerlink" title="AG-Admin-v2.0"></a><a href="https://gitee.com/minull/AG-Admin-v2.0" target="_blank" rel="noopener">AG-Admin-v2.0</a></h2><ul>
+<li>安装问题解决 <a href="https://www.jianshu.com/p/fd3b19cacd99" target="_blank" rel="noopener">https://www.jianshu.com/p/fd3b19cacd99</a><pre class="line-numbers language-shell"><code class="language-shell">Error: Can't find Python executable "D:\workspace\env\common\Python\phyton_3.7.0\python.EXE", you can set the PYTHON env variable
+## 解决，管理员身份
+npm install --global --production windows-build-tools
+npm install --global node-gyp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+Module build failed: Error: Node Sass does not yet support your current environment: Windows 64-bit with Unsupported runtime (64) </li>
+</ul>
+<p>原因：Node Sass 版本低</p>
+<p>解决：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">npm uninstall node-sass -D
+npm install node-sass -D<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="Mall"><a href="#Mall" class="headerlink" title="Mall"></a>Mall</h2><p><a href="https://github.com/macrozheng/mall" target="_blank" rel="noopener">https://github.com/macrozheng/mall</a></p>
+<h2 id="Pay"><a href="#Pay" class="headerlink" title="Pay"></a>Pay</h2><p><a href="https://gitee.com/52itstyle/spring-boot-pay" target="_blank" rel="noopener">https://gitee.com/52itstyle/spring-boot-pay</a></p>
+<h2 id="秒杀系统"><a href="#秒杀系统" class="headerlink" title="秒杀系统"></a>秒杀系统</h2><p><a href="https://gitee.com/52itstyle/spring-boot-seckill" target="_blank" rel="noopener">https://gitee.com/52itstyle/spring-boot-seckill</a></p>
+<p><a href="https://gitee.com/xiandafu/springboot-plus" target="_blank" rel="noopener">https://gitee.com/xiandafu/springboot-plus</a></p>
+<h1 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h1><ul>
+<li><p><strong><a href="https://github.com/scouter-project/scouter" target="_blank" rel="noopener">scouter</a></strong>  is an open source APM and an open source profiler for java application like web applications on a tomcat .</p>
+</li>
+<li><p>tomcat挂掉解决方案</p>
+<ul>
+<li>Tomcat集群  </li>
+<li>tomcat线程监控并自启</li>
+</ul>
+</li>
+</ul>
+<h2 id="管理工具"><a href="#管理工具" class="headerlink" title="管理工具"></a>管理工具</h2><ul>
+<li><a href="https://github.com/thx/RAP" target="_blank" rel="noopener">RAP</a> Web接口管理工具，开源免费，接口自动化，MOCK数据自动生成，自动化测试，企业级管理。阿里妈妈MUX团队出品！阿里巴巴都在用！1000+公司的选择！API 接口管理</li>
+</ul>
+<h3 id="Consul"><a href="#Consul" class="headerlink" title="Consul"></a>Consul</h3><p>官网下载地址： <a href="https://www.consul.io/downloads.html" target="_blank" rel="noopener">https://www.consul.io/downloads.html</a></p>
+<ul>
+<li><a href="https://blog.csdn.net/lc1010078424/article/details/82467399" target="_blank" rel="noopener">CentOS7.5.1804 Minimal安装配置单机Consul1.2.2</a></li>
+<li><a href="https://blog.csdn.net/achenyuan/article/details/80389410" target="_blank" rel="noopener">consul安装配置，生产环境部署高可用环境</a></li>
+</ul>
+<p>下载解压后window 使用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">consul agent -dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="远程连接-SecureCRT"><a href="#远程连接-SecureCRT" class="headerlink" title="远程连接  SecureCRT"></a>远程连接  SecureCRT</h3><h4 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h4><p>MAC</p>
+<ul>
+<li>本地完整安装教程及相关文档 <code>/Users/apple/Documents/env/tools</code></li>
+<li><a href="https://blog.csdn.net/u011692780/article/details/89707017" target="_blank" rel="noopener">MAC版SecureCRT+SecureFX破解，版本8.5.1-【CSDN 外网】</a></li>
+</ul>
+<h4 id="常用设置"><a href="#常用设置" class="headerlink" title="常用设置"></a>常用设置</h4><p>超时从连（<code>Options-－&gt;Session Options－－&gt;Terminal</code>）</p>
+<ol>
+<li>第一步<br><img src="http://cdn.linz.tech/SecureCRT_1.png" alt></li>
+<li><img src="http://cdn.linz.tech/SecureCRT_2.png" alt></li>
+</ol>
+<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><ul>
+<li><p><a href="https://www.cnblogs.com/jiangwangxiang/p/8481661.html" target="_blank" rel="noopener">windows下nginx的安装及使用</a> </p>
+<pre class="line-numbers language-shell"><code class="language-shell">start nginx
+nginx -s stop(快速停止nginx)  或  nginx -s quit(完整有序的停止nginx)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<ul>
+<li><p>Nginx 常用命令</p>
+<pre class="line-numbers language-shell"><code class="language-shell">sudo nginx #打开 nginx
+nginx -s reload|reopen|stop|quit  #重新加载配置|重启|停止|退出 nginx
+nginx -t   #测试配置是否有语法错误
+
+nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]
+
+-?,-h           : 打开帮助信息
+-v              : 显示版本信息并退出
+-V              : 显示版本和配置选项信息，然后退出
+-t              : 检测配置文件是否有语法错误，然后退出
+-q              : 在检测配置文件期间屏蔽非错误信息
+-s signal       : 给一个 nginx 主进程发送信号：stop（停止）, quit（退出）, reopen（重启）, reload（重新加载配置文件）
+-p prefix       : 设置前缀路径（默认是：/usr/local/Cellar/nginx/1.2.6/）
+-c filename     : 设置配置文件（默认是：/usr/local/etc/nginx/nginx.conf）
+-g directives   : 设置配置文件外的全局指令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>nginx -t  能查看配置文件所在目录</p>
+<pre class="line-numbers language-shell"><code class="language-shell">nginx: the configuration file /usr/local/tengine/conf/nginx.conf syntax is ok
+nginx: configuration file /usr/local/tengine/conf/nginx.conf test is successful<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>阿里云后台配置文件路径：<code>/usr/local/tengine/conf/nginx.conf</code></p>
+<h3 id="开源库"><a href="#开源库" class="headerlink" title="开源库"></a>开源库</h3><ul>
+<li><a href="https://github.com/trimstray/nginx-quick-reference" target="_blank" rel="noopener">nginx-quick-reference 网上教程</a></li>
+</ul>
+<h2 id="转化工具"><a href="#转化工具" class="headerlink" title="转化工具"></a>转化工具</h2><p><a href="https://www.bejson.com/devtools/properties2yaml/" target="_blank" rel="noopener">properties2yml</a></p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li><a href="https://www.fageka.com/Store/item/s/id/zWS3GuW4356" target="_blank" rel="noopener">数据库从入门到进阶必读18本技术书籍网盘吐血整理</a></li>
+<li><a href="https://github.com/cinience/RedisStudio/releases" target="_blank" rel="noopener">RedisStudio</a> redis图形界面管理工具 </li>
+</ul>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><ul>
+<li><a href="http://redisdoc.com/" target="_blank" rel="noopener">Redis 命令参考</a></li>
+<li><a href="https://github.com/redisson/redisson" target="_blank" rel="noopener"><strong>redisson</strong></a></li>
+</ul>
+<h3 id="Hibernate"><a href="#Hibernate" class="headerlink" title="Hibernate"></a>Hibernate</h3><ul>
+<li><a href="https://www.jianshu.com/p/50e0a7a28b53" target="_blank" rel="noopener">IntelliJ IDEA Hibernate</a>  hibernate生成数据库实体类</li>
+</ul>
+<h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3><p>配置文档：  <a href="https://docs.mongodb.com/manual/" target="_blank" rel="noopener">MongoDB manual</a></p>
+<p><a href="https://www.runoob.com/mongodb/mongodb-tutorial.html" target="_blank" rel="noopener">MongoDB 入门教程</a></p>
+<ul>
+<li><p><a href="https://blog.csdn.net/weixin_39308542/article/details/88377915" target="_blank" rel="noopener">studio 3t破解</a>, <code>studio3t.bat</code></p>
+<pre class="line-numbers language-bat"><code class="language-bat">@echo off
+ECHO 重置Studio 3T的使用日期......
+FOR /f "tokens=1,2,* " %%i IN ('reg query "HKEY_CURRENT_USER\Software\JavaSoft\Prefs\3t\mongochef\enterprise" ^| find /V "installation" ^| find /V "HKEY"') DO ECHO yes | reg add "HKEY_CURRENT_USER\Software\JavaSoft\Prefs\3t\mongochef\enterprise" /v %%i /t REG_SZ /d ""
+ECHO 重置完成, 按任意键退出......
+pause>nul
+exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>复制到：<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp</code>, 双击运行</p>
+</li>
+<li><p><a href="https://hub.docker.com/_/mongo" target="_blank" rel="noopener">Docker hub</a> </p>
+</li>
+<li><p><a href="https://docs.mongodb.com/manual/reference/program/mongod/" target="_blank" rel="noopener">mongod</a> 命令解析</p>
+</li>
+</ul>
+<h4 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h4><p>​    Built-In Roles（内置角色）：<br>​    \1. 数据库用户角色：read、readWrite;<br>​    \2. 数据库管理角色：dbAdmin、dbOwner、userAdmin；<br>​    \3. 集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManager；<br>​    \4. 备份恢复角色：backup、restore；<br>​    \5. 所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、dbAdminAnyDatabase<br>​    \6. 超级用户角色：root<br>​    // 这里还有几个角色间接或直接提供了系统超级用户的访问（dbOwner 、userAdmin、userAdminAnyDatabase）<br>​    \7. 内部角色：__system</p>
+<p>具体角色：<br>Read：允许用户读取指定数据库<br>readWrite：允许用户读写指定数据库<br>dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile<br>userAdmin：允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户<br>clusterAdmin：只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。<br>readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限<br>readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限<br>userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限<br>dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。<br>root：只在admin数据库中可用。超级账号，超级权限  </p>
+<p>授权操作</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker exec -it mongodb_mongo_1 mongo admin
+db.auth("mongo-admin","admin-initial-password")
+use octblog
+
+# Step2: create a user
+db.createUser(
+  {
+    user: "gevin",
+    pwd: "gevin",
+    roles: [ { role: "readWrite", db: "octblog" },
+             { role: "readWrite", db: "octblog-log" } ],
+    mechanisms : ["SCRAM-SHA-1"]         
+  }
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>授权验证</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker exec -it {containerId} mongo localhost:27017/db_name -u user -p password<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p>实体类使用流程</p>
+<p>第一步：导入<code>pom.xml</code>依赖，配置数据库</p>
+<pre class="line-numbers language-yml"><code class="language-yml">  <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-commons</artifactId>
+      <version>1.13.9.RELEASE</version>
+    </dependency><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>mongoDB 数据库设置</p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring:
+  data:
+    mongodb:
+      uri:  mongodb://root:123@localhost:27017
+      database: xc_cms
+spring:
+  data:
+    mongodb:
+      database: xc_cms
+      host: <ip>
+      port: 27017
+      password: 
+      username: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：定义实体类</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Id<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>mongodb<span class="token punctuation">.</span>core<span class="token punctuation">.</span>mapping<span class="token punctuation">.</span>Document<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Data</span>
+<span class="token annotation punctuation">@ToString</span>
+<span class="token annotation punctuation">@Document</span><span class="token punctuation">(</span>collection <span class="token operator">=</span> <span class="token string">"cms_page"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CmsPage</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> String siteId<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//页面ID</span>
+  <span class="token annotation punctuation">@Id</span>
+  <span class="token keyword">private</span> String pageId<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：配置符合jpa规范的操作仓库</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CmsPageRepository</span> <span class="token keyword">extends</span> <span class="token class-name">MongoRepository</span><span class="token operator">&lt;</span>CmsPage<span class="token punctuation">,</span> String<span class="token operator">></span> <span class="token punctuation">{</span>
+     CmsPage <span class="token function">findByPageName</span><span class="token punctuation">(</span>String pageName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>第四步：实现分页</p>
+<p>导入<code>pom.xml</code>依赖</p>
+<pre class="line-numbers language-xml"><code class="language-xml">    <span class="token comment" spellcheck="true">&lt;!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.data<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-data-commons<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.13.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>PageService.java</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//查询条件匹配</span>
+ExampleMatcher matcher <span class="token operator">=</span> ExampleMatcher<span class="token punctuation">.</span><span class="token function">matching</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Example example <span class="token operator">=</span> Example<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>cmsPage<span class="token punctuation">,</span> matcher<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//分页设置</span>
+Pageable pageable <span class="token operator">=</span> PageRequest<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>page <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> page<span class="token punctuation">,</span> size <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">10</span> <span class="token operator">:</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Page<span class="token operator">&lt;</span>CmsPage<span class="token operator">></span> all <span class="token operator">=</span> cmsPageRepository<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span>example<span class="token punctuation">,</span> pageable<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><ul>
+<li><a href="https://www.cnblogs.com/ityouknow/p/6120544.html" target="_blank" rel="noopener">springboot(八)：RabbitMQ详解</a> </li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre class="line-numbers language-shell"><code class="language-shell">  #启动
+  rabbitmq-server -detached
+  #查看的服务状态
+  rabbitmqctl status
+  #关闭
+  rabbitmqctl stop
+  # 配置网页插件， 1. 创建目录； 2. 启用插件
+  mkdir /etc/rabbitmq 
+  rabbitmq-plugins enable rabbitmq_management 
+  # 配置linux网页管理端口： 15672 AMQP端口：5672
+  # 然后访问http://localhost:15672即可， 阿里云：http://47.107.130.109:15672
+  #默认用户guest 密码guest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><pre class="line-numbers language-shell"><code class="language-shell">#添加用户:
+rabbitmqctl add_user <user_name> <password>
+#添加权限:
+rabbitmqctl set_permissions -p "/" <user_name> ".*" ".*" ".*"
+#修改用户角色:
+rabbitmqctl set_user_tags <user_name> administrator
+
+# 常用命令
+add_user        <UserName> <Password>
+delete_user     <UserName>
+change_password <UserName> <NewPassword>
+list_users
+add_vhost    <VHostPath>
+delete_vhost <VHostPath>
+list_vhostsset_permissions   [-p <VHostPath>] <UserName> <Regexp> <Regexp> <Regexp>
+clear_permissions [-p <VHostPath>] <UserName>
+list_permissions  [-p <VHostPath>]
+list_user_permissions <UserName>
+list_queues    [-p <VHostPath>] [<QueueInfoItem> ...]
+list_exchanges [-p <VHostPath>] [<ExchangeInfoItem> ...]
+list_bindings  [-p <VHostPath>]
+list_connections [<ConnectionInfoItem> ...]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h3><h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><ol>
+<li>mybatis 逆向工程 <a href="https://github.com/zouzg/mybatis-generator-gui" target="_blank" rel="noopener">mybatis-generator-gui</a><ol>
+<li>使用教程 <a href="https://blog.csdn.net/bei_FengBoby/article/details/88546804" target="_blank" rel="noopener">推荐一款好用的mybatis逆向生成工具(真的很好用)</a></li>
+</ol>
+</li>
+<li><a href="https://www.toutiao.com/a6677391666476745230/" target="_blank" rel="noopener">MyBatis Generator 使用教程</a></li>
+<li><a href="https://mybatis.plus/" target="_blank" rel="noopener">MyBatis-Plus 官网</a><ol>
+<li><a href="https://blog.csdn.net/qq_32258777/article/details/83382855" target="_blank" rel="noopener">MyBatis-Plus + mysql 网络访问入门demo</a></li>
+<li><a href="https://github.com/baomidou/mybatis-plus-samples" target="_blank" rel="noopener"><strong>mybatis-plus-samples</strong></a></li>
+</ol>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://blog.csdn.net/qq_32953079/article/category/7493682" target="_blank" rel="noopener">Spring Data Jpa系列教程</a></li>
+</ul>
+<h3 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h3><p>1、<a href="http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/" target="_blank" rel="noopener">mybatis-spring-boot-starter 配置项手册</a></p>
+<p>2、<a href="https://github.com/mybatis/spring-boot-starter" target="_blank" rel="noopener">GitHub仓库地址，包含代码示例</a></p>
+<p>3、<a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">中文官方文档</a></p>
+<p><a href="mailto:zhengyu@chinapay.com" target="_blank" rel="noopener">zhengyu@chinapay.com</a>; <a href="mailto:11770820@qq.com" target="_blank" rel="noopener">11770820@qq.com</a>; <a href="mailto:huang.haisong@chinapay.con" target="_blank" rel="noopener">huang.haisong@chinapay.con</a></p>
+<h2 id="dubbo"><a href="#dubbo" class="headerlink" title="dubbo"></a>dubbo</h2><ul>
+<li><a href="https://blog.csdn.net/noaman_wgs/article/details/70214612" target="_blank" rel="noopener">Dubbo入门—搭建一个最简单的Demo框架</a></li>
+<li><a href="https://github.com/apache/incubator-dubbo" target="_blank" rel="noopener">incubator-dubbo</a> Apache Dubbo (incubating) is a high-performance, java based, open source RPC framework.</li>
+</ul>
+<h2 id="zipkin"><a href="#zipkin" class="headerlink" title="zipkin"></a><strong>zipkin</strong></h2><ul>
+<li><a href="https://blog.csdn.net/qq_21387171/article/details/53787019" target="_blank" rel="noopener">微服务之分布式跟踪系统（springboot+zipkin）</a></li>
+<li><a href="https://blog.csdn.net/xiaoluo033/article/details/80961807" target="_blank" rel="noopener">spring cloud 2.0 入门系列一 （10）分布式链路追踪-Zipkin</a></li>
+</ul>
+<h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>阿里云Tomcat地址 <code>/root/document/backup/apache-tomcat-7.0.63</code></p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><ol>
+<li><p><a href="https://blog.csdn.net/qq_22638399/article/details/81506448" target="_blank" rel="noopener">Spring Boot 两种部署到服务器的方式</a></p>
+<pre class="line-numbers language-java"><code class="language-java">jps 
+kill <span class="token punctuation">[</span>ip<span class="token punctuation">]</span>
+nohup java <span class="token operator">-</span>jar test<span class="token punctuation">.</span>jar <span class="token operator">></span>temp<span class="token punctuation">.</span>txt <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="FastDFS"><a href="#FastDFS" class="headerlink" title="FastDFS"></a>FastDFS</h2><p>   [<a href="https://www.cnblogs.com/chiangchou/p/fastdfs.html" target="_blank" rel="noopener">用FastDFS一步步搭建文件管理系统</a>]</p>
+<p>   官网： <a href="https://github.com/happyfish100/fastdfs" target="_blank" rel="noopener"><strong>fastdfs</strong></a></p>
+<ol>
+<li><a href="https://github.com/qbanxiaoli/fastdfs" target="_blank" rel="noopener">docker-compose  和Dockerfile  生成fastdfs 学习案例</a><ol start="2">
+<li><a href="https://github.com/Guu-mc/fastdfs" target="_blank" rel="noopener">moocu/fastdfs source </a></li>
+<li>成功使用的案例 <a href="https://www.jianshu.com/p/206b342cc689" target="_blank" rel="noopener">Docker安装fastdfs</a></li>
+</ol>
+</li>
+</ol>
+<h2 id="Frp-内网穿透"><a href="#Frp-内网穿透" class="headerlink" title="Frp 内网穿透"></a>Frp 内网穿透</h2><h3 id="1-参考资料"><a href="#1-参考资料" class="headerlink" title="1. 参考资料"></a>1. 参考资料</h3><ul>
+<li><a href="https://blog.csdn.net/u013144287/article/details/78589643/" target="_blank" rel="noopener">十分钟教你配置frp实现内网穿透</a></li>
+<li><a href="https://www.cnblogs.com/sanduzxcvbnm/category/1171545.html" target="_blank" rel="noopener">frp 教程</a></li>
+<li><a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">github官网</a></li>
+</ul>
+<h3 id="2-实战经验记录"><a href="#2-实战经验记录" class="headerlink" title="2. 实战经验记录"></a>2. 实战经验记录</h3><ol>
+<li>【重点-备份】0.27版本全平台版本储存在 <code>E:\software\2.coder\debug</code> </li>
+<li>【47公网服务器路径】 <code>/usr/local/frp/frp_0.27.0_linux_amd64</code></li>
+<li>【版本问题】 服务器端和客户端版本必须一致，否则会出现各种无法排查的问题</li>
+</ol>
+<h3 id="3-常用命令"><a href="#3-常用命令" class="headerlink" title="3. 常用命令"></a>3. 常用命令</h3><pre class="line-numbers language-shell"><code class="language-shell">#启动服务
+./frps -c ./frps.ini
+#启动后台服务
+nohup ./frps -c ./frps.ini &
+
+#启动客户端
+./frpc -c ./frpc.ini
+#配置热更新
+frpc reload -c ./frpc.ini
+#得到代理任务
+frpc status -c ./frpc.ini<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-案例"><a href="#4-案例" class="headerlink" title="4. 案例"></a>4. 案例</h3><h4 id="4-1-经典内网穿透案例"><a href="#4-1-经典内网穿透案例" class="headerlink" title="4.1 经典内网穿透案例"></a>4.1 经典内网穿透案例</h4><p>第一步：配置公网服务配置文件，frps.ini</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[common]
+bind_port = 7000
+token=1234567890
+#客户端配置的端口
+vhost_http_port = 6081<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#启动服务
+./frps -c ./frps.ini
+#启动后台服务
+nohup ./frps -c ./frps.ini &<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：配置内网服务配置文件，frpc.ini</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[common]
+server_addr = 47.107.130.109
+server_port = 7000
+token=1234567890
+
+[web]
+type = http
+local_ip = 192.168.1.2
+local_port = 50102
+custom_domains = frps.linz.tech<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>【注意】</p>
+<ul>
+<li>custom_domains 配置的域名必须指向公网IP</li>
+<li>local_ip 不一定是本机IP，即内网能访问的IP地址都能映射</li>
+</ul>
+<h4 id="4-2-自定义子域名使其转发到内网服务中"><a href="#4-2-自定义子域名使其转发到内网服务中" class="headerlink" title="4.2 自定义子域名使其转发到内网服务中"></a>4.2 自定义子域名使其转发到内网服务中</h4><ol>
+<li><p>阿里云配置所以*frp.linz.tech 转发到阿里云服务器</p>
+</li>
+<li><p>服务端配置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[common]
+bind_port = 7000
+subdomain_host = linz.tech
+vhost_http_port = 6081
+
+#log
+log_file = ./frps.log
+log_level = debug
+log_max_days =3
+
+dashboard_port = 7500
+# dashboard 用户名密码，默认都为 admin
+dashboard_user = admin
+dashboard_pwd = admin
+#connection pool setting
+max_pool_count = 3
+
+#token 和客户端配置的 accesstoken保持一致，不一致无法保持连接
+token=1234567890
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>客户端设置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[common]
+server_addr = 47.107.130.109
+server_port = 7000
+user = jobs
+token=1234567890
+pool_count = 2
+
+[portainer]
+type = http
+local_port = 9000
+subdomain = portainer
+#below 2 param default is false
+use_encryption = true
+use_compression = true
+
+[eureka]
+type = http
+local_port = 50101
+subdomain = eureka<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h4 id="4-3-ssh-登录"><a href="#4-3-ssh-登录" class="headerlink" title="4.3 ssh 登录"></a>4.3 ssh 登录</h4><pre class="line-numbers language-shell"><code class="language-shell"># frpc.ini
+[common]
+server_addr = x.x.x.x
+server_port = 7000
+
+[ssh]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 22
+remote_port = 6000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ssh 连接 <code>ssh -oPort=6000 test@x.x.x.x</code> 其中 test为服务器登录名称</p>
+<h2 id="zuul"><a href="#zuul" class="headerlink" title="zuul"></a>zuul</h2><ul>
+<li><a href="https://www.cnblogs.com/lexiaofei/p/7080257.html" target="_blank" rel="noopener">zuul入门（1）zuul 的概念和原理</a></li>
+<li><a href="https://blog.csdn.net/qq_21082615/article/details/91371252" target="_blank" rel="noopener">zuul 动态网关路由</a></li>
+<li><a href="https://blog.csdn.net/u013815546/article/details/69669165" target="_blank" rel="noopener">Zuul性能测试</a></li>
+</ul>
+<h1 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h1><h2 id="对密码加密"><a href="#对密码加密" class="headerlink" title="对密码加密"></a>对密码加密</h2><ul>
+<li><a href="https://blog.csdn.net/kecong532664/article/details/82257931" target="_blank" rel="noopener">springboot中对数据库密码加密</a></li>
+<li><a href="https://github.com/gooree/spring-boot-security/blob/master/README.md" target="_blank" rel="noopener"><strong>spring-boot-security</strong></a> 配置案例</li>
+<li>建议还是把配置文件放在配置中心，类似的有携程的阿波罗<a href="https://github.com/ctripcorp/apollo/wiki/Quick-Start" target="_blank" rel="noopener">https://github.com/ctripcorp/apollo/wiki/Quick-Start</a></li>
+<li>disconf <a href="https://github.com/knightliao/disconf" target="_blank" rel="noopener">https://github.com/knightliao/disconf</a></li>
+</ul>
+<h2 id="开源库-1"><a href="#开源库-1" class="headerlink" title="开源库"></a>开源库</h2><h3 id="nacos"><a href="#nacos" class="headerlink" title="nacos"></a>nacos</h3><ul>
+<li><a href="https://github.com/alibaba/nacos" target="_blank" rel="noopener"><strong>nacos</strong></a></li>
+</ul>
+<h4 id="服务提供者集成nacos"><a href="#服务提供者集成nacos" class="headerlink" title="服务提供者集成nacos"></a><strong>服务提供者集成nacos</strong></h4><p><strong>第一步</strong>：加入必要的依赖配置 <code>pom.xml</code></p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.0.5.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- lookup parent from repository --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>Finchley.SR1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-alibaba-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.2.2.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-web<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.18.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步： 应用入口App启用 <code>@EnableDiscoveryClient</code></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@EnableDiscoveryClient</span>
+<span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestApplication</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p> 第三步： 接入nacos服务,如<code>application.properties</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">server.port=8001
+spring.application.name=alibaba-nacos-discovery-server
+spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+#命名空间设置
+spring.cloud.nacos.discovery.namespace=f1e5a968-5ddb-479b-8e35-1f8c9ccea438<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="服务消费者"><a href="#服务消费者" class="headerlink" title="服务消费者"></a>服务消费者</h4><p><strong>第一，二，三步</strong>：同上</p>
+<p>第四: 请求</p>
+<p><strong>RestTemplate</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">      <span class="token annotation punctuation">@Bean</span>
+    <span class="token annotation punctuation">@LoadBalanced</span>
+    <span class="token keyword">public</span> RestTemplate <span class="token function">restTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+String result <span class="token operator">=</span> restTemplate<span class="token punctuation">.</span><span class="token function">getForObject</span><span class="token punctuation">(</span><span class="token string">"http://alibaba-nacos-discovery-server/hello?name=didi"</span><span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>WebClient</strong></p>
+<p>第一步：加入必要依赖配置</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-webflux<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：使用</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token annotation punctuation">@LoadBalanced</span>
+<span class="token keyword">public</span> WebClient<span class="token punctuation">.</span>Builder <span class="token function">loadBalancedWebClientBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> WebClient<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> Mono<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Mono<span class="token operator">&lt;</span>String<span class="token operator">></span> result <span class="token operator">=</span> webClientBuilder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">uri</span><span class="token punctuation">(</span><span class="token string">"http://alibaba-nacos-discovery-server/hello?name=didi"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">retrieve</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">bodyToMono</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>Feign使用</strong></p>
+<p>第一步： 增加openfeign依赖</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-openfeign<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：App 入口启用<code>@EnableFeignClients</code></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@EnableFeignClients</span>
+<span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestApplication</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：使用</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"XC-SERVICE-MANAGE-CMS"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//指定要远程调用的服务名</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CmsPageClient</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/**
+   * 根据页面id查询页面信息，远程调用cms请求数据
+   * @param id page id
+   * @return
+   */</span>
+  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/cms/page/get/{id}"</span><span class="token punctuation">)</span>
+  CmsPage <span class="token function">findCmsPageById</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> String id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">/**
+   * 保存页面
+   * @param cmsPage
+   * @return
+   */</span>
+  <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/cms/page/save"</span><span class="token punctuation">)</span>
+  CmsPageResult <span class="token function">saveCmsPage</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> CmsPage cmsPage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">/**
+   * 一键发布接口
+   * @param cmsPage
+   * @return
+   */</span>
+  <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/cms/page/postPageQuick"</span><span class="token punctuation">)</span>
+  CmsPostPageResult <span class="token function">postPageQuick</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> CmsPage cmsPage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="配置中心集成"><a href="#配置中心集成" class="headerlink" title="配置中心集成"></a>配置中心集成</h4><p>第一步：加入必要的依赖，</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.0.5.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- lookup parent from repository --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>Finchley.SR1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-alibaba-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.2.2.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-web<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.18.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果已经集成了服务提供或者消费，只需增加如下配置：</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：代码中使用</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestApplication</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>TestApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Slf4j</span>
+    <span class="token annotation punctuation">@RestController</span>
+    <span class="token annotation punctuation">@RefreshScope</span>
+    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">{</span>
+
+        <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${didispace.title:}"</span><span class="token punctuation">)</span>
+        <span class="token keyword">private</span> String title<span class="token punctuation">;</span>
+
+        <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+        <span class="token keyword">public</span> String <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> title<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配注：</p>
+<ol>
+<li><code>@Value(&quot;${didispace.title:}&quot;)</code> 读取配置信息</li>
+<li><code>@RefreshScope</code> 这个类配置内容支持动态更新</li>
+</ol>
+<p>第三步：创建配置文件<code>bootstrap.properties</code></p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring.application.name=alibaba-nacos-config-client
+server.port=8001
+spring.cloud.nacos.config.server-addr=127.0.0.1:8848<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>第四步：自定义配置</p>
+<pre class="line-numbers language-ynl"><code class="language-ynl"># blog: http://blog.didispace.com/spring-cloud-alibaba-nacos-config-1/
+#自定义配置文件选择
+A
+#spring.cloud.nacos.config.prefix=example
+#spring.cloud.nacos.config.file-extension=properties
+#spring.cloud.nacos.config.group=DEV_GROUP
+
+# 开发模式选择
+# blog: http://blog.didispace.com/spring-cloud-alibaba-nacos-config-2/
+#spring.profiles.active=DEV 
+#spring.cloud.nacos.config.group=DEV_GROUP
+
+# blog: http://blog.didispace.com/spring-cloud-alibaba-nacos-config-3/
+#多文件配置
+#1. B 数组形式
+#spring.cloud.nacos.config.ext-config[0].data-id=actuator.properties
+#spring.cloud.nacos.config.ext-config[0].group=DEFAULT_GROUP
+#spring.cloud.nacos.config.ext-config[0].refresh=true
+#spring.cloud.nacos.config.ext-config[1].data-id=log.properties
+#spring.cloud.nacos.config.ext-config[1].group=DEFAULT_GROUP
+#spring.cloud.nacos.config.ext-config[1].refresh=true
+#2. C 分割符形式
+#spring.cloud.nacos.config.shared-dataids=actuator.properties,log.properties
+#spring.cloud.nacos.config.refreshable-dataids=actuator.properties,log.properties
+
+#配置优先级： A > B > C<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="开源库-2"><a href="#开源库-2" class="headerlink" title="开源库"></a>开源库</h1><pre><code>1. 后台
+主要是在码云上找的，
+官网：https://gitee.com/explore
+几个分数很高的后台
+https://www.oschina.net/p/guns  【参考】
+https://gitee.com/shuzheng/zheng 【推荐】star个数最多
+https://gitee.com/jfinal/jfinal  【了解】
+
+2. 权限管理
+https://www.oschina.net/p/iBase4J 权限管理
+
+3. UI
+有很多的网页端的开源框架，具体的可以咨询藤来
+http://www.layui.com/admin/ 【推荐看】这个能直接看到案例，感觉直接套用就可以了
+http://element-cn.eleme.io/
+
+主要参考的资料：
+2016 年度开源中国新增开源软件排行榜 TOP 100 
+网址：https://www.oschina.net/news/80846/2016-osc-new-open-source-software-top-100
+2017 年度开源中国新增开源软件排行榜 TOP 100
+网址：https://www.jianshu.com/p/ea9f08267c83</code></pre><p>Tengine CSDN 正在使用</p>
+<blockquote>
+<p>Tengine是由淘宝网发起的Web服务器项目。它在Nginx的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。它的目的是打造一个高效、安全的Web平台。</p>
+</blockquote>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><h2 id="基础教程"><a href="#基础教程" class="headerlink" title="基础教程"></a>基础教程</h2><ul>
+<li><a href="https://gitee.com/didispace/SpringBoot-Learning" target="_blank" rel="noopener">Spring Boot基础教程</a></li>
+<li><a href="https://github.com/qibaoguang/Spring-Boot-Reference-Guide" target="_blank" rel="noopener">Spring-Boot-Reference-Guide</a></li>
+<li><a href="https://my.oschina.net/genghz/blog/1789240" target="_blank" rel="noopener">spring-boot集成graphql入门教程</a></li>
+</ul>
+<h2 id="前人总结"><a href="#前人总结" class="headerlink" title="前人总结"></a>前人总结</h2><ul>
+<li><a href="http://www.ityouknow.com/springcloud/2016/12/30/springcloud-collect.html" target="_blank" rel="noopener">springcloud学习资料汇总</a> 【重点】</li>
+<li><a href="https://github.com/crossoverJie/JCSprout" target="_blank" rel="noopener">JCSprout 处于萌芽阶段的 Java 核心知识库</a></li>
+<li><a href="https://github.com/Snailclimb/JavaGuide" target="_blank" rel="noopener">JavaGuide</a></li>
+</ul>
+<h2 id="学习视频汇总"><a href="#学习视频汇总" class="headerlink" title="学习视频汇总"></a>学习视频汇总</h2><ul>
+<li><a href="http://www.cnblogs.com/abc1168/p/9532326.html" target="_blank" rel="noopener">Java架构师分享自己的从业心得，从码农到架构师我用了八年，高级视频课程学习</a></li>
+</ul>
+<h2 id="开源库汇总"><a href="#开源库汇总" class="headerlink" title="开源库汇总"></a>开源库汇总</h2><ul>
+<li><a href="https://www.toutiao.com/i6634379937220411912/?iid=54285592648" target="_blank" rel="noopener">springboot快速开发框架推荐，接私活利器</a></li>
+</ul>
+<h2 id="博客资料"><a href="#博客资料" class="headerlink" title="博客资料"></a>博客资料</h2><ul>
+<li><p><a href="http://blog.didispace.com/" target="_blank" rel="noopener">http://blog.didispace.com/</a></p>
+</li>
+<li><p><a href="http://www.ityouknow.com/" target="_blank" rel="noopener">纯洁的微笑</a></p>
+</li>
+</ul>
+<h1 id="阿里云学习"><a href="#阿里云学习" class="headerlink" title="阿里云学习"></a>阿里云学习</h1><ul>
+<li>远程连接密码 934698</li>
+<li>实例密码：老爸168 （Lin）</li>
+<li>阿里云后台 47.107.130.109</li>
+</ul>
+<p>容器镜像服务登录密码：<br>老爸168</p>
+<ul>
+<li>阿里云手机终端通过SSH连接后台<pre class="line-numbers language-shell"><code class="language-shell"># 网页端后台操作步骤
+# 1. 找到管理页面
+云服务器ECS-->网络和安全--> 秘钥对-> 秘钥对管理
+# 2. 新建绑定下载
+创建秘钥->绑定指定后台-> 重启服务器
+# Android SSH工具使用
+iP：47.107.130.109 
+登录名：root
+密钥： 选择上面下载xxx.pem
+密钥口令：不用填
+端口：22（和后台ssh相同）
+别名: 随意<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>通过ssh远程登录服务器</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#获取root权限
+shh -i 
+#用IP或者域名登录，需要输入元服务器ECS登录密码 
+ssh root@47.107.130.109 
+ssh root@example.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="安全组配置"><a href="#安全组配置" class="headerlink" title="安全组配置"></a>安全组配置</h2><ul>
+<li>Redis 有专门的选择专门的Redis协议 6379 自定义TCP协议无效</li>
+</ul>
+<h2 id="常用配置界面"><a href="#常用配置界面" class="headerlink" title="常用配置界面"></a>常用配置界面</h2><ul>
+<li><a href="https://dns.console.aliyun.com/#/dns/setting/linz.tech" target="_blank" rel="noopener">linz.tech 域名配置界面</a></li>
+<li><a href="https://ecs.console.aliyun.com/?spm=a2c1d.8251892.aliyun_sidebar.aliyun_sidebar_ecs.34f85b76YnLmUP#/securityGroupDetail/region/cn-shenzhen/groupId/sg-wz933l0ge76qamrg3ng3/rule/intranetIngress" target="_blank" rel="noopener">后台端口开发设置界面</a></li>
+<li><a href="https://cloudmonitor.console.aliyun.com/index.htm?spm=5176.2020520101.223.d101.627a4df5vTHaWk&custom_trace=ecs_console#/hostDetail/alarm/instanceId=i-wz933l0ge76qamri4req&system=Linux&region=cn-shenzhen&aliyunhost=true&category=ecs" target="_blank" rel="noopener">新建报警机制</a></li>
+</ul>
+<h1 id="亚马逊云学习"><a href="#亚马逊云学习" class="headerlink" title="亚马逊云学习"></a>亚马逊云学习</h1><p>Linux用r3.pem登录</p>
+<pre class="line-numbers language-shell"><code class="language-shell">/mnt/hgfs/ubuntu/workspace/tools/亚马逊服务器连接
+chmod 400 aws亚马逊_服务秘钥r3.pem
+ssh -i aws亚马逊_服务秘钥r3.pem ubuntu@ec2-18-191-169-66.us-east-2.compute.amazonaws.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="shadowsocket"><a href="#shadowsocket" class="headerlink" title="shadowsocket"></a>shadowsocket</h2><ul>
+<li><p><a href="http://www.ycnote.com/post-234.html" target="_blank" rel="noopener">详细教程：shadowsocket：比vpn更牛的科学上网方式，自己搭建shadowsocket的超详细教程</a></p>
+</li>
+<li><p><a href="https://github.com/shadowsocks" target="_blank" rel="noopener">https://github.com/shadowsocks</a> 开源库官网</p>
+</li>
+</ul>
+<p>总结命令</p>
+<ul>
+<li><p>install</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># root
+sudo -s
+# install 
+apt-get update
+apt-get install python-pip
+pip install shadowsocks
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>setting <code>vi /etc/shadowsocks.json</code></p>
+<ul>
+<li><p>单用户</p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+    "server":"0.0.0.0",
+    "server_port":8989,
+    "local_address":"127.0.0.1",
+    "local_port":1080,
+    "password":"yourpassword",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>多用户</p>
+<pre class="line-numbers language-shell"><code class="language-shell">{
+    "server":"0.0.0.0",
+    "local_address":"127.0.0.1",
+    "local_port":1080,
+    "port_password":{
+        "8989":"password0",
+        "9001":"password1",
+        "9002":"password2",
+        "9003":"password3",
+        "9004":"password4"
+    },
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>运行</p>
+<pre class="line-numbers language-shell"><code class="language-shell">ssserver -c /etc/shadowsocks.json -d start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>出现如下打印成功启动</p>
+<pre class="line-numbers language-shell"><code class="language-shell">INFO: loading config from /etc/shadowsocks.json
+2019-02-18 14:32:45 INFO     loading libcrypto from libcrypto.so.1.0.0
+started<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>设置开机启动 <code>vi /etc/rc.local</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+# By default this script does nothing.
+
+#增加
+ssserver -c /etc/shadowsocks.json -d start
+exit 0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h1 id="Node-js"><a href="#Node-js" class="headerlink" title="Node js"></a>Node js</h1><p>nodejs 在linux上后台运行</p>
+<pre><code>1.用forever  进行管理搜索
+　　　　npm install -g forever
+　　　　forever start index.js</code></pre><h1 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h1><h2 id="Centos-virtual-box-安装"><a href="#Centos-virtual-box-安装" class="headerlink" title="Centos virtual-box 安装"></a>Centos virtual-box 安装</h2><ul>
+<li><a href="https://www.virtualbox.org/wiki/Linux_Downloads" target="_blank" rel="noopener">Download VirtualBox for Linux Hosts</a></li>
+<li>配置版本仓库，在<code>/etc/yum.repos.d/</code>目录下新建<code>virtualbox.repo</code>并写入如下内容<pre class="line-numbers language-shell"><code class="language-shell">[virtualbox]
+name=Oracle Linux / RHEL / CentOS-$releasever / $basearch - VirtualBox
+baseurl=http://download.virtualbox.org/virtualbox/rpm/el/$releasever/$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://www.virtualbox.org/download/oracle_vbox.asc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>安装<pre class="line-numbers language-shell"><code class="language-shell"># 6.更新yum缓存
+yum clean all
+yum makecache
+# 7.安装virtualbox
+yum install VirtualBox-6.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="Mail"><a href="#Mail" class="headerlink" title="Mail"></a>Mail</h2><h2 id="126邮箱设置"><a href="#126邮箱设置" class="headerlink" title="126邮箱设置"></a>126邮箱设置</h2><table>
+<thead>
+<tr>
+<th>邮件服务器名称</th>
+<th>服务器地址</th>
+<th>端口号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>POP3服务器</td>
+<td>pop.126.com</td>
+<td>110</td>
+</tr>
+<tr>
+<td>SMTP服务器</td>
+<td>smtp.126.com</td>
+<td>25</td>
+</tr>
+<tr>
+<td>IMAP服务器</td>
+<td>imap.126.com</td>
+<td>143</td>
+</tr>
+</tbody></table>
+<p>Navicat 自动发送短信设置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">SMTP服务器： smtp.126.com:25
+用户名： zhilinchn@126.com
+密码(区分大小写)： !!16...99qQ
+安全连接: TLS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Maven-私服务搭建"><a href="#Maven-私服务搭建" class="headerlink" title="Maven 私服务搭建"></a>Maven 私服务搭建</h2><ul>
+<li><a href="https://blog.csdn.net/dhmpgt/article/details/9998321" target="_blank" rel="noopener">Nexus创建Maven私有仓库</a></li>
+</ul>
+<h2 id="Redis-1"><a href="#Redis-1" class="headerlink" title="Redis"></a>Redis</h2><p>Redis 外部访问设置</p>
+<pre><code>1&gt;注释掉bind
+#bind 127.0.0.1
+
+3&gt;禁用保护模式
+protected-mode no</code></pre><h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><ul>
+<li><a href="https://blog.csdn.net/qq_30886555/article/details/61920105" target="_blank" rel="noopener">Jenkins设置网易系邮件通知</a></li>
+</ul>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><h2 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h2><ul>
+<li>Tomcat 8080 端口配占用<ul>
+<li>Windows<pre class="line-numbers language-shell"><code class="language-shell"># 找到pid  代LISTENING的
+netstat -ano | findstr "8080"
+# 找到进程
+tasklist | findstr "pid"
+# 杀掉进程
+taskkill /f /t /im java.exe <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><ul>
+<li><p>[Windows10下Docker出现net/http:TLS handshake timeout](<a href="https://blog.csdn.net/pop0fa/article/details/80029739）" target="_blank" rel="noopener">https://blog.csdn.net/pop0fa/article/details/80029739）</a></p>
+<pre><code>http://69292621.m.daocloud.io
+settings-&gt; daemon-&gt; registry mirrors: 
+add 
+http://69292621.m.daocloud.io</code></pre></li>
+<li><p>VMware Workstation 与 Device/Credential Guard 不兼容。在禁用 Device/Credential Guard 后，可以运行 VMware Workstation。有关更多详细信息，请访问 </p>
+<p>关闭Hyper-v</p>
+</li>
+<li><pre class="line-numbers language-shell"><code class="language-shell">WARNING: The vboxdrv kernel module is not loaded. Either there is no module
+         available for the current kernel (3.10.0-862.14.4.el7.x86_64) or it failed to
+         load. Please recompile the kernel module and install it by
+           sudo /sbin/vboxconfig
+         You will not be able to start VMs until this problem is fixed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>/sbin/vboxconfig</code></p>
+<pre class="line-numbers language-shell"><code class="language-shell">vboxdrv.sh: Stopping VirtualBox services.
+vboxdrv.sh: Starting VirtualBox services.
+vboxdrv.sh: Building VirtualBox kernel modules.
+This system is currently not set up to build kernel modules.
+Please install the Linux kernel "header" files matching the current kernel
+for adding new hardware support to the system.
+The distribution packages containing the headers are probably:
+    kernel-devel kernel-devel-3.10.0-862.14.4.el7.x86_64
+This system is currently not set up to build kernel modules.
+Please install the Linux kernel "header" files matching the current kernel
+for adding new hardware support to the system.
+The distribution packages containing the headers are probably:
+    kernel-devel kernel-devel-3.10.0-862.14.4.el7.x86_64
+There were problems setting up VirtualBox.  To re-start the set-up process, run
+  /sbin/vboxconfig
+as root.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h2 id="七牛云测试域名过渡"><a href="#七牛云测试域名过渡" class="headerlink" title="七牛云测试域名过渡"></a>七牛云测试域名过渡</h2><ol>
+<li><p>操作界面：<a href="https://portal.qiniu.com/cdn/domain/create?bucket=image&fixBucket" target="_blank" rel="noopener"> 域名管理-&gt; 创建域名  </a><br>操作： 如域名为 linz.tech, 填写加速域名为 cdn.linz.tech 其他默认点击创建即可。<br>说明：cdn是可以随意取名的二级域名<br>操作结果：  <a href="https://portal.qiniu.com/cdn/domain?ref=developer.qiniu.com" target="_blank" rel="noopener"><strong>域名管理</strong></a> 界面新增一个域名列表，点击配置 获取如: <code>CNAME：cdn.linz.tech.qiniudns.com</code>的域名映射；</p>
+</li>
+<li><p>配置CNAME：<a href="https://dns.console.aliyun.com/?spm=5176.100251.111252.28.6dc04f157ZpxzS#/dns/setting/linz.tech" target="_blank" rel="noopener">到域名解析管理里面增加二级域名</a><br>操作步骤： </p>
+<ol>
+<li>添加记录</li>
+<li>记录类型，选择<code>CNAME</code>；</li>
+<li>主机记录： 填入<code>cdn</code>,上面自定义的二级域名</li>
+<li>记录值把上一步操作的值（<code>cdn.linz.tech.qiniudns.com</code>）填入，其他默认，确定即可；</li>
+</ol>
+</li>
+<li><p>测试： 到<a href="https://portal.qiniu.com/bucket/image/resource" target="_blank" rel="noopener">内容管理界面</a>随便复制一个文件测试访问，访问域名为<code>http://cdn.linz.tech</code>并访问成功，设置成功</p>
+<h3 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h3></li>
+</ol>
+<ul>
+<li><a href="https://developer.qiniu.com/kodo/kb/5158/how-to-transition-from-test-domain-name-to-a-custom-domain-name" target="_blank" rel="noopener">如何从测试域名过渡到自定义域名</a></li>
+<li><a href="https://developer.qiniu.com/fusion/manual/4939/the-domain-name-to-access。" target="_blank" rel="noopener">域名接入文档</a></li>
+</ul>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h2><p>状态监测</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#查看端口号是否被占用
+netstat -tunlp |grep 8000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>后台</tag>
       </tags>
   </entry>
   <entry>
@@ -26484,6 +27644,7 @@ popWnd<span class="token punctuation">.</span><span class="token function">setHe
 <li><a href="http://blog.csdn.net/harvic880925/article/details/49272285" target="_blank" rel="noopener">PopupWindow才会对手机的返回按钮有响应</a></li>
 </ol>
 <h3 id="常用的UI方法"><a href="#常用的UI方法" class="headerlink" title="常用的UI方法"></a>常用的UI方法</h3><p>获取xml属性</p>
+<p>db转px  px转db 像素转换</p>
 <pre class="line-numbers language-java"><code class="language-java">  <span class="token comment" spellcheck="true">// Calculate ActionBar height</span>
   TypedValue tv <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TypedValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">getTheme</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">resolveAttribute</span><span class="token punctuation">(</span>
@@ -26491,6 +27652,29 @@ popWnd<span class="token punctuation">.</span><span class="token function">setHe
                 mActionBarHeight <span class="token operator">=</span> TypedValue<span class="token punctuation">.</span><span class="token function">complexToDimensionPixelSize</span><span class="token punctuation">(</span>
                         tv<span class="token punctuation">.</span>data<span class="token punctuation">,</span> context<span class="token punctuation">.</span><span class="token function">getResources</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDisplayMetrics</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>DensityUtil</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>lwj<span class="token punctuation">.</span>lib<span class="token punctuation">.</span>utils<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> android<span class="token punctuation">.</span>content<span class="token punctuation">.</span>Context<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DensityUtil</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/** 
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素) 
+     */</span>  
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">dip2px</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> <span class="token keyword">float</span> dpValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">final</span> <span class="token keyword">float</span> scale <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getResources</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDisplayMetrics</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>density<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>dpValue <span class="token operator">*</span> scale <span class="token operator">+</span> <span class="token number">0.5f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span>  
+
+    <span class="token comment" spellcheck="true">/** 
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp 
+     */</span>  
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">px2dip</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> <span class="token keyword">float</span> pxValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">final</span> <span class="token keyword">float</span> scale <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getResources</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDisplayMetrics</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>density<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>pxValue <span class="token operator">/</span> scale <span class="token operator">+</span> <span class="token number">0.5f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token punctuation">}</span>  
+<span class="token punctuation">}</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 ]]></content>
       <categories>
         <category>note</category>
@@ -28653,8 +29837,8 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
         <category>note</category>
       </categories>
       <tags>
-        <tag>Material</tag>
         <tag>Android</tag>
+        <tag>Material</tag>
       </tags>
   </entry>
   <entry>
