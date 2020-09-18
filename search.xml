@@ -328,7 +328,7 @@ Theme.MaterialComponents.Light.DarkActionBar.Bridge<span aria-hidden="true" clas
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>Android Jetpack Compose 上手笔记</title>
     <url>/2020/09/14/2020-09-14-hello-compose/</url>
     <content><![CDATA[<p>参考文章：<a href="https://juejin.im/post/6844903999347359751" target="_blank" rel="noopener">新技术又来了，Android Jetpack Compose 最全上手指南</a></p>
 <p>【注意】: preview 动态预览模式<a href="https://developer.android.com/studio/preview" target="_blank" rel="noopener">Android studio &gt;= 4.2 版本(点击下载)</a></p>
@@ -23494,32 +23494,6 @@ ta<span class="token punctuation">.</span><span class="token function">addEventL
       </tags>
   </entry>
   <entry>
-    <title>webpack笔记</title>
-    <url>/2019/07/22/2019-7-22-webpack/</url>
-    <content><![CDATA[<h1 id="webpack基础"><a href="#webpack基础" class="headerlink" title="webpack基础"></a>webpack基础</h1><h2 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h2><ol>
-<li>代码转换</li>
-<li>文件优化</li>
-<li>代码分割</li>
-<li>模块合并</li>
-<li>debug模式自动刷新</li>
-<li>代码验证</li>
-<li>自动发布</li>
-</ol>
-<h2 id="webpack-基础"><a href="#webpack-基础" class="headerlink" title="webpack 基础"></a>webpack 基础</h2><p>安装到本地</p>
-<pre class="line-numbers language-shell"><code class="language-shell">yarn init -y 
-#-D 表示开发依赖
-yarn add webpack webpack-cli -D
-npx webpack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>实践</tag>
-        <tag>网页</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue笔记</title>
     <url>/2019/07/22/2019-7-22-vue/</url>
     <content><![CDATA[<h1 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h1><ul>
@@ -23611,6 +23585,32 @@ var Child = {
       </categories>
       <tags>
         <tag>实践</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>webpack笔记</title>
+    <url>/2019/07/22/2019-7-22-webpack/</url>
+    <content><![CDATA[<h1 id="webpack基础"><a href="#webpack基础" class="headerlink" title="webpack基础"></a>webpack基础</h1><h2 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h2><ol>
+<li>代码转换</li>
+<li>文件优化</li>
+<li>代码分割</li>
+<li>模块合并</li>
+<li>debug模式自动刷新</li>
+<li>代码验证</li>
+<li>自动发布</li>
+</ol>
+<h2 id="webpack-基础"><a href="#webpack-基础" class="headerlink" title="webpack 基础"></a>webpack 基础</h2><p>安装到本地</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yarn init -y 
+#-D 表示开发依赖
+yarn add webpack webpack-cli -D
+npx webpack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+        <tag>网页</tag>
       </tags>
   </entry>
   <entry>
@@ -30164,8 +30164,8 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
         <category>note</category>
       </categories>
       <tags>
-        <tag>Android</tag>
         <tag>Material</tag>
+        <tag>Android</tag>
       </tags>
   </entry>
   <entry>
