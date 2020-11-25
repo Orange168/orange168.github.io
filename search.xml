@@ -1,6 +1,502 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Android 和网页端混合开发小计</title>
+    <url>/2020/11/25/2020-11-25-%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h2 id="WebView-详解"><a href="#WebView-详解" class="headerlink" title="WebView 详解"></a>WebView 详解</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
+<li><p>加载网页</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//加载网页链接</span>
+mWebView<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">"http://www.itheima.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//加载本地assets目录下的网页</span>
+mWebView<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">"file:///android_asset/demo.html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>加载控制</p>
+<pre class="line-numbers language-java"><code class="language-java">webView<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//刷新页面（当前页面的所有资源都会重新加载）</span>
+webView<span class="token punctuation">.</span><span class="token function">stopLoading</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//停止加载</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>控件高度距离</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取当前可见区域的顶端距整个页面顶端的距离，也就是当前内容滚动的距离。</span>
+webView<span class="token punctuation">.</span><span class="token function">getScrollY</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//获取WebView控件的高度。</span>
+webView<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>webView<span class="token punctuation">.</span><span class="token function">getBottom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//获取HTML的高度（原始高度，不包括缩放后的高度）</span>
+webView<span class="token punctuation">.</span><span class="token function">getContentHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>WebView加载上一页和下一页</p>
+</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">  mWebView<span class="token punctuation">.</span><span class="token function">goBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到上个页面</span>
+  mWebView<span class="token punctuation">.</span><span class="token function">goForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到下个页面</span>
+  mWebView<span class="token punctuation">.</span><span class="token function">canGoBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到上一页(如果返回false,说明已经是第一页)</span>
+  mWebView<span class="token punctuation">.</span><span class="token function">canGoForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到下一页(如果返回false,说明已经是最后一页)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>WebView基本设置<pre class="line-numbers language-java"><code class="language-java">WebSettings settings <span class="token operator">=</span> mWebView<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+settings<span class="token punctuation">.</span><span class="token function">setBuiltInZoomControls</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 显示缩放按钮(wap网页不支持)</span>
+settings<span class="token punctuation">.</span><span class="token function">setUseWideViewPort</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 支持双击缩放(wap网页不支持)</span>
+settings<span class="token punctuation">.</span><span class="token function">setJavaScriptEnabled</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 支持js功能</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//恢复webview的状态（不靠谱）</span>
+    webView<span class="token punctuation">.</span><span class="token function">resumeTimers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//激活webView的状态，能正常加载网页</span>
+    webView<span class="token punctuation">.</span><span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//当页面被失去焦点被切换到后台不可见状态，需要执行onPause</span>
+    <span class="token comment" spellcheck="true">//通过onPause动作通知内核暂停所有的动作，比如DOM的解析、plugin的执行、JavaScript执行。</span>
+    webView<span class="token punctuation">.</span><span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//当应用程序(存在webview)被切换到后台时，这个方法不仅仅针对当前的webview而是全局的全应用程序的webview</span>
+    <span class="token comment" spellcheck="true">//它会暂停所有webview的layout，parsing，javascripttimer。降低CPU功耗。（不靠谱）</span>
+    webView<span class="token punctuation">.</span><span class="token function">pauseTimers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//在关闭了Activity时，如果Webview的音乐或视频，还在播放。就必须销毁Webview</span>
+<span class="token comment" spellcheck="true">//但是注意：webview调用destory时,webview仍绑定在Activity上</span>
+<span class="token comment" spellcheck="true">//这是由于自定义webview构建时传入了该Activity的context对象</span>
+<span class="token comment" spellcheck="true">//因此需要先从父容器中移除webview,然后再销毁webview:</span>
+ViewGroup parent <span class="token operator">=</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+parent<span class="token punctuation">.</span><span class="token function">removeView</span><span class="token punctuation">(</span>webView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+webView<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="WebViewClient-与-WebChromeClient"><a href="#WebViewClient-与-WebChromeClient" class="headerlink" title="WebViewClient 与 WebChromeClient"></a>WebViewClient 与 WebChromeClient</h3><ul>
+<li><p>WebViewClient </p>
+<pre class="line-numbers language-java"><code class="language-java">mWebView<span class="token punctuation">.</span><span class="token function">setWebViewClient</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebViewClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 开始加载网页</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onPageStarted</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">,</span> Bitmap favicon<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPageStarted</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> url<span class="token punctuation">,</span> favicon<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"开始加载网页了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 网页加载结束</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onPageFinished</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPageFinished</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"网页加载结束"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 所有链接跳转会走此方法</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">shouldOverrideUrlLoading</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"跳转链接:"</span> <span class="token operator">+</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        view<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 在跳转链接时强制在当前webview中加载</span>
+
+        <span class="token comment" spellcheck="true">//此方法还有其他应用场景, 比如写一个超链接&lt;a href="tel:110">联系我们&lt;/a>, 当点击该超链接时,可以在此方法中获取链接地址tel:110, 解析该地址,获取电话号码, 然后跳转到本地打电话页面, 而不是加载网页, 从而实现了webView和本地代码的交互</span>
+
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>onPageStarted()onPageFinished()：页面加载时和页面加载完毕时调用。<br>shouldOverrideKeyEvent()：重写此方法才能处理浏览器中的按键事件。<br>shouldInterceptRequest()：页面每一次请求资源之前都会调用这个方法（非UI线程调用）。<br>onLoadResource()：页面加载资源时调用，每加载一个资源（比如图片）就调用一次。<br>onReceivedError()：加载页面的服务器出现错误（比如404）时回调。<br>onReceivedSslError()：重写此方法可以让webview处理https请求。<br>doUpdateVisitedHistory()：更新历史记录。<br>onFormResubmission()：应用程序重新请求网页数据。<br>onReceivedHttpAuthRequest()：获取返回信息授权请求。<br>onScaleChanged()：WebView发生缩放改变时调用。<br>onUnhandledKeyEvent()：Key事件未被加载时调用。</p>
+</li>
+<li><p>WebChromeClient </p>
+<blockquote>
+<p>辅助 WebView 处理 Javascript 的对话框，网站图标，网站标题等等</p>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java">mWebView<span class="token punctuation">.</span><span class="token function">setWebChromeClient</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebChromeClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onProgressChanged</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> <span class="token keyword">int</span> newProgress<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onProgressChanged</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> newProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 进度发生变化</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"进度:"</span> <span class="token operator">+</span> newProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onReceivedTitle</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String title<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onReceivedTitle</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> title<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 网页标题</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"网页标题:"</span> <span class="token operator">+</span> title<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>onReceivedTitle()：获得网页的标题时回调。<br>onReceivedIcon()：获得网页的图标时回调。<br>onCreateWindow()：打开新窗口时回调。<br>onCloseWindow()：关闭窗口时回调。</p>
+<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3></li>
+</ul>
+<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><ul>
+<li>缓存设置</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">WebSettings settings <span class="token operator">=</span> mWebView<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据</span>
+settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_CACHE_ELSE_NETWORK<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//只加载缓存</span>
+settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_CACHE_ONLY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//根据cache-control决定是否从网络上取数据</span>
+settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//不加载缓存</span>
+settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_NO_CACHE<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>缓存清楚</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//最简便的方式:</span>
+mWebView<span class="token punctuation">.</span><span class="token function">clearCache</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//另外一种方式:</span>
+<span class="token comment" spellcheck="true">//删除缓存文件夹</span>
+File file <span class="token operator">=</span> CacheManager<span class="token punctuation">.</span><span class="token function">getCacheFileBaseDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>file <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> file<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> file<span class="token punctuation">.</span><span class="token function">isDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>File item <span class="token operator">:</span> file<span class="token punctuation">.</span><span class="token function">listFiles</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    item<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">}</span> 
+  file<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> 
+<span class="token comment" spellcheck="true">//删除缓存数据库</span>
+context<span class="token punctuation">.</span><span class="token function">deleteDatabase</span><span class="token punctuation">(</span><span class="token string">"webview.db"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+context<span class="token punctuation">.</span><span class="token function">deleteDatabase</span><span class="token punctuation">(</span><span class="token string">"webviewCache.db"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//清除当前webview访问的历史记录</span>
+<span class="token comment" spellcheck="true">//只会webview访问历史记录里的所有记录除了当前访问记录</span>
+Webview<span class="token punctuation">.</span><span class="token function">clearHistory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//这个api仅仅清除自动完成填充的表单数据，并不会清除WebView存储到本地的数据</span>
+Webview<span class="token punctuation">.</span><span class="token function">clearFormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h4><ul>
+<li><p>Cookie设置</p>
+<pre class="line-numbers language-java"><code class="language-java">  CookieSyncManager<span class="token punctuation">.</span><span class="token function">createInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  cookieManager<span class="token punctuation">.</span><span class="token function">setAcceptCookie</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  String cookie <span class="token operator">=</span> <span class="token string">"name=xxx;age=18"</span><span class="token punctuation">;</span>
+  cookieManager<span class="token punctuation">.</span><span class="token function">setCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">,</span> cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  CookieSyncManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>获取Cookie</p>
+<pre class="line-numbers language-java"><code class="language-java">  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  String cookie <span class="token operator">=</span> cookieManager<span class="token punctuation">.</span><span class="token function">getCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>清除Cookie</p>
+<pre class="line-numbers language-java"><code class="language-java">  CookieSyncManager<span class="token punctuation">.</span><span class="token function">createInstance</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment" spellcheck="true">//这个两个在 API level 21 被抛弃</span>
+cookieManager<span class="token punctuation">.</span><span class="token function">removeSessionCookie</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+cookieManager<span class="token punctuation">.</span><span class="token function">removeAllCookie</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//Api 21 新增</span>
+<span class="token comment" spellcheck="true">//移除所有过期 cookie</span>
+cookieManager<span class="token punctuation">.</span><span class="token function">removeSessionCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//移除所有的 cookie</span>
+cookieManager<span class="token punctuation">.</span><span class="token function">removeAllCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//回调</span>
+CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">removeAllCookies</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ValueCallback</span><span class="token operator">&lt;</span>Boolean<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onReceiveValue</span><span class="token punctuation">(</span>Boolean value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 清除结果</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<pre><code>CookieSyncManager.getInstance().sync();  </code></pre><pre><code>#### 高级设置
+
+```java
+ //设置自适应屏幕，两者合用
+    webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+    webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
+    webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
+
+    //缩放操作
+    webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
+    webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
+    webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
+    webSettings.setTextZoom(2);//设置文本的缩放倍数，默认为 100
+
+    webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);  //提高渲染的优先级
+
+    webSettings.setStandardFontFamily(&quot;&quot;);//设置 WebView 的字体，默认字体为 &quot;sans-serif&quot;
+    webSettings.setDefaultFontSize(20);//设置 WebView 字体的大小，默认大小为 16
+    webSettings.setMinimumFontSize(12);//设置 WebView 支持的最小字体大小，默认为 8
+
+    // 5.1以上默认禁止了https和http混用，以下方式是开启
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
+        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+    }
+
+
+//其他
+    webSettings.setAllowFileAccess(true); //设置可以访问文件
+    webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
+    webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
+    webSettings.setDefaultTextEncodingName(&quot;utf-8&quot;);//设置编码格式
+    webSettings.setGeolocationEnabled(true);//允许网页执行定位操作</code></pre><h2 id="JavaScript-和-Native-交互"><a href="#JavaScript-和-Native-交互" class="headerlink" title="JavaScript 和 Native 交互"></a>JavaScript 和 Native 交互</h2><h3 id="DSBridge-Android"><a href="#DSBridge-Android" class="headerlink" title="DSBridge-Android"></a><a href="https://github.com/wendux/DSBridge-Android" target="_blank" rel="noopener">DSBridge-Android</a></h3><p>用于JavaScript and native applications 相互调用</p>
+<ol>
+<li><p>依赖引用</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">dependencies <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true">//compile 'com.github.wendux:DSBridge-Android:3.0-SNAPSHOT'</span>
+ <span class="token comment" spellcheck="true">//support the x5 browser core of Tencent</span>
+ <span class="token comment" spellcheck="true">//compile 'com.github.wendux:DSBridge-Android:x5-3.0-SNAPSHOT'</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>JavaScript 调用原生</p>
+<ul>
+<li><p>原生提供调用方法</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JsApi</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//for synchronous invocation</span>
+      <span class="token comment" spellcheck="true">//【err】易错点： msg 这个参数必须是Object否则JavaScript会不识别方法</span>
+    <span class="token annotation punctuation">@JavascriptInterface</span>
+    <span class="token keyword">public</span> String <span class="token function">testSyn</span><span class="token punctuation">(</span>Object msg<span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> msg <span class="token operator">+</span> <span class="token string">"［syn call］"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//for asynchronous invocation</span>
+    <span class="token annotation punctuation">@JavascriptInterface</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testAsyn</span><span class="token punctuation">(</span>Object msg<span class="token punctuation">,</span> CompletionHandler handler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        handler<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span>msg<span class="token operator">+</span><span class="token string">" [ asyn call]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>加入DWebView生效</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> wendu<span class="token punctuation">.</span>dsbridge<span class="token punctuation">.</span>DWebView
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+DWebView dwebView<span class="token operator">=</span> <span class="token punctuation">(</span>DWebView<span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>dwebview<span class="token punctuation">)</span><span class="token punctuation">;</span>
+dwebView<span class="token punctuation">.</span><span class="token function">addJavascriptObject</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">JsApi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>JavaScript  <a href="https://raw.githubusercontent.com/wendux/DSBridge-Android/master/app/src/main/assets/js-call-native.html" target="_blank" rel="noopener">项目demo js-call-native.html（需要配置科学上网）</a></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//cdn</span>
+<span class="token comment" spellcheck="true">//&lt;script src="https://unpkg.com/dsbridge@3.1.3/dist/dsbridge.js"> &lt;/script></span>
+<span class="token comment" spellcheck="true">//npm</span>
+<span class="token comment" spellcheck="true">//npm install dsbridge@3.1.3</span>
+<span class="token keyword">var</span> dsBridge<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"dsbridge"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//Call synchronously </span>
+<span class="token keyword">var</span> str<span class="token operator">=</span>dsBridge<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">"testSyn"</span><span class="token punctuation">,</span><span class="token string">"testSyn"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//Call asynchronously</span>
+dsBridge<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">"testAsyn"</span><span class="token punctuation">,</span><span class="token string">"testAsyn"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">alert</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//Register javascript API for Native</span>
+ dsBridge<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">'addValue'</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span>l<span class="token punctuation">,</span>r<span class="token punctuation">)</span><span class="token punctuation">{</span>
+     <span class="token keyword">return</span> l<span class="token operator">+</span>r<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="常用的第三方库"><a href="#常用的第三方库" class="headerlink" title="常用的第三方库"></a>常用的第三方库</h2><h3 id="cordova"><a href="#cordova" class="headerlink" title="cordova"></a>cordova</h3><blockquote>
+<p>Cordova提供了一组设备相关的API，通过这组API，移动应用能够以JavaScript访问原生的设备功能，如摄像头、麦克风等。</p>
+</blockquote>
+<ul>
+<li><a href="http://cordova.axuer.com/" target="_blank" rel="noopener">cordova 中文</a></li>
+</ul>
+<h3 id="mui"><a href="#mui" class="headerlink" title="mui"></a><a href="https://github.com/dcloudio/mui" target="_blank" rel="noopener">mui</a></h3><ul>
+<li>mui是最接近原生App体验的前端框架</li>
+</ul>
+<p>参考博文</p>
+<ul>
+<li><p><a href="https://blog.csdn.net/qq_42618969/article/details/102916085" target="_blank" rel="noopener">Android原生集成MUI框架进行混合开发</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_33018731/article/details/83650579?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">浅聊基于MUI框架的混合开发</a></p>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/vicwudi/article/details/81990467" target="_blank" rel="noopener">WebView全面解析</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于java-design-patterns白话图解设计模式（个人理解）</title>
+    <url>/2020/11/24/2020-02-15-Java-design-patterns-%E7%99%BD%E8%AF%9D%EF%BC%88%E5%8F%AF%E8%83%BD%E9%85%8D%E5%9B%BE%EF%BC%89/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer">
+
+<h1 id="Principle-设计原则"><a href="#Principle-设计原则" class="headerlink" title="Principle  设计原则"></a>Principle  设计原则</h1><h2 id="Generic"><a href="#Generic" class="headerlink" title="Generic"></a>Generic</h2><h3 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h3><p><a href="https://java-design-patterns.com/principles/#kiss" target="_blank" rel="noopener">KISS (Keep It Simple Stupid)</a></p>
+<h3 id="YAGNI"><a href="#YAGNI" class="headerlink" title="YAGNI"></a>YAGNI</h3><p> You Ain’t Gonna Need It (翻译：你可能不需要他，即不要过度设计，为了迎合某些产生概率极低的需求而设计的成本是非常高的软件)</p>
+<blockquote>
+<p>YAGNI stands for “you aren’t gonna need it”: don’t implement something until it is necessary.</p>
+</blockquote>
+<h3 id="DRY-Don’t-Repeat-Yourself"><a href="#DRY-Don’t-Repeat-Yourself" class="headerlink" title="DRY - Don’t Repeat Yourself"></a>DRY - Don’t Repeat Yourself</h3><p>使其每一个部件都是职责明确的并且可重用的</p>
+<h3 id="Do-The-Simplest-Thing-That-Could-Possibly-Work"><a href="#Do-The-Simplest-Thing-That-Could-Possibly-Work" class="headerlink" title="Do The Simplest Thing That Could Possibly Work"></a>Do The Simplest Thing That Could Possibly Work</h3><blockquote>
+<p>Ask yourself: “What is the simplest thing that could possibly work?”</p>
+</blockquote>
+<h3 id="SoC"><a href="#SoC" class="headerlink" title="SoC"></a>SoC</h3><p>Separation of concerns</p>
+<p>Break program functionality into separate modules that overlap as little as possible.</p>
+<p><a href="https://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Separation_of_concerns</a></p>
+<blockquote>
+<p><strong>separation of concerns</strong> (<strong>SoC</strong>) is a design principle for separating a <a href="https://en.wikipedia.org/wiki/Computer_program" target="_blank" rel="noopener">computer program</a> into distinct sections such that each section addresses a separate <a href="https://en.wikipedia.org/wiki/Concern_(computer_science)" target="_blank" rel="noopener">concern</a>. A concern is a set of information that affects the code of a computer program. </p>
+</blockquote>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ul>
+<li><a href="https://java-design-patterns.com/principles/" target="_blank" rel="noopener">https://java-design-patterns.com/principles/</a></li>
+<li><a href="https://www.cnblogs.com/cainiao-chuanqi/p/10959800.html" target="_blank" rel="noopener">https://www.cnblogs.com/cainiao-chuanqi/p/10959800.html</a></li>
+</ul>
+<h1 id="Patterns-设计模式"><a href="#Patterns-设计模式" class="headerlink" title="Patterns 设计模式"></a>Patterns 设计模式</h1><h2 id="Abstract-Document-（抽象文档模式）"><a href="#Abstract-Document-（抽象文档模式）" class="headerlink" title="Abstract Document （抽象文档模式）"></a>Abstract Document （抽象文档模式）</h2><h3 id="白话：总分总分"><a href="#白话：总分总分" class="headerlink" title="白话：总分总分"></a>白话：总分总分</h3><h3 id="故事：买车"><a href="#故事：买车" class="headerlink" title="故事：买车"></a>故事：买车</h3><p><img src="http://cdn.linz.tech/abstract_doc_car_show.jpeg" alt></p>
+<p>我想买一辆车，首先要知道它的品牌型号如：300SL，价格 16W<font color="red">起</font></p>
+<p>但是我最近狗屎运特别好，厕所捡到了10W块，当然买高配版，轮胎型号15C，价格100¥，车门型号 Lambo 价格300¥，最终用<font color="red">抽象文档模式</font>代码表示，我买到的车：</p>
+<p><a href="https://github.com/iluwatar/java-design-patterns/blob/master/abstract-document/src/main/java/com/iluwatar/abstractdocument/App.java" target="_blank" rel="noopener">App.java</a></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Constructing parts and car"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var wheelProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>TYPE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"wheel"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"15C"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 100L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var doorProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>TYPE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"door"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"Lambo"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 300L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var carProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
+        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"300SL"</span><span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 160400L<span class="token punctuation">,</span>
+        Property<span class="token punctuation">.</span>PARTS<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> List<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>wheelProperties<span class="token punctuation">,</span> doorProperties<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    var car <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span>carProperties<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Here is our car:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> model: {}"</span><span class="token punctuation">,</span> car<span class="token punctuation">.</span><span class="token function">getModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> price: {}"</span><span class="token punctuation">,</span> car<span class="token punctuation">.</span><span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> parts: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    car<span class="token punctuation">.</span><span class="token function">getParts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>p <span class="token operator">-</span><span class="token operator">></span> LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"\t{}/{}/{}"</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        p<span class="token punctuation">.</span><span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配一个网上找的类图</p>
+<p><img src="http://cdn.linz.tech/abstract_doc_class_diagram.png" alt></p>
+<h3 id="点评"><a href="#点评" class="headerlink" title="点评"></a>点评</h3><p>主要的优点是找到总体和局部共有的属性，通过简单的几个属性能详细描绘复杂的总体和部分。</p>
+<h2 id="Abstract-Factory-（抽象工厂模式）"><a href="#Abstract-Factory-（抽象工厂模式）" class="headerlink" title="Abstract Factory （抽象工厂模式）"></a>Abstract Factory （抽象工厂模式）</h2><h3 id="白话：-switch-一个抽象类"><a href="#白话：-switch-一个抽象类" class="headerlink" title="白话： switch 一个抽象类"></a>白话： switch 一个抽象类</h3><h3 id="故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"><a href="#故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记" class="headerlink" title="故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"></a>故事：“从0到100万”——中国鞋都<em>莆田口罩</em>生产攻坚记</h3><p><img src="http://cdn.linz.tech/%E4%B8%80%E6%AC%A1%E6%80%A7%E5%8F%A3%E7%BD%A9.jpg" alt></p>
+<p>说实话我听到这个故事还是震惊的，:dizzy_face: 我印象中的“莆田”不是这个样子的呀？应该是莆田系博爱男科，或者是莆田系博士男科啥的。想不到竟然是鞋都，虽然是“Costplay”正版。</p>
+<p>好进入正题，莆田通过<font color="red">抽象工厂模式</font> <font color="blue">从鞋子-&gt;(转换)口罩工厂</font> 就是典型的抽象工厂模式，代码上就是</p>
+<pre class="line-numbers language-java"><code class="language-java">莆田 <span class="token keyword">class</span><span class="token punctuation">{</span>
+
+  <span class="token keyword">public</span> FactoryImp <span class="token function">factory</span><span class="token punctuation">(</span>String type<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">switch</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">case</span> 鞋子<span class="token operator">:</span>
+            <span class="token keyword">return</span> 鞋子_factory<span class="token punctuation">;</span>
+      <span class="token keyword">case</span> 口罩<span class="token operator">:</span>
+            <span class="token keyword">return</span> 口罩_factory<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实本质是由于生产鞋子和生产口罩的原料和工艺大体是类似的，通过相对简单的整合原料，机器和生产工艺就能得到生产不同产品的工厂。这种做法好处在于充分利用现有资源的情况下，最高效快速的生产出口罩，解决由于疫情爆发导致的口罩稀缺的情况；java-design-patterns 给的例子是一个城堡的例子不太喜欢，感兴趣的可以去看一下，地址如下：<br><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929dcd874d63bb327f2339d5c07170565/abstract-factory/src/main/java/com/iluwatar/abstractfactory/App.java" target="_blank" rel="noopener">abstract factory github App.java</a></p>
+<h3 id="点评-1"><a href="#点评-1" class="headerlink" title="点评"></a>点评</h3><p>抽象工厂模式，通过的输入简单鞋子、口罩命令，并抽象规定这个工厂的产出，而具体复杂的资源整合及类的初始化调用的复杂逻辑流程等等都不需要使用者关心。</p>
+<h3 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h3><ul>
+<li><a href="https://raw.githubusercontent.com/Blankj/AndroidUtilCode/b01e17e36f022c21d8bd032ecb25384dd32e578b/lib/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java" target="_blank" rel="noopener">ToastUtils.java</a></li>
+</ul>
+<h2 id="Acyclic-Visitor-（非循环访问者模式）"><a href="#Acyclic-Visitor-（非循环访问者模式）" class="headerlink" title="Acyclic Visitor （非循环访问者模式）"></a>Acyclic Visitor （非循环访问者模式）</h2><h3 id="白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环"><a href="#白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环" class="headerlink" title="白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环"></a>白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环</h3><p><img src="http://cdn.linz.tech/key_door.jpeg" alt></p>
+<h3 id="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"><a href="#故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；" class="headerlink" title="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"></a>故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；</h3><p><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929/acyclic-visitor/src/main/java/com/iluwatar/acyclicvisitor/App.java" target="_blank" rel="noopener">App.java</a></p>
+<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/*分配到的玩项目的权限或钥匙集合*/</span>
+    var conUnix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigureForUnixVisitor</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    var conDos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigureForDosVisitor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//各种各样的游乐设施</span>
+    var zoom <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Zoom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    var hayes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Hayes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 开玩</span>
+    hayes<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conDos<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Hayes modem with Dos configurator</span>
+    zoom<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conDos<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Zoom modem with Dos configurator</span>
+    hayes<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conUnix<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Hayes modem with Unix configurator</span>
+    zoom<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conUnix<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Zoom modem with Unix configurator   </span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上一波项目类图</p>
+<p><img src="http://cdn.linz.tech/acyclic-visitor.png" alt></p>
+<h3 id="点评-2"><a href="#点评-2" class="headerlink" title="点评"></a>点评</h3><p>非循环访问者模式，很近似于我们用不同的钥匙打开不同的门，而打开不同的门，里面会有不同的资源提供给我们使用。</p>
+<ol>
+<li>钥匙和门的关系比较单一，具有固定属性。</li>
+<li>子门子钥匙可以继承父钥匙和门，实现层级结构的划分。</li>
+</ol>
+<p>使用场景</p>
+<ol>
+<li>当你想动态的向现有层次结构添加功能（资源）时，不想做修改或影响整体的层次结构，即增加一个门和钥匙无需对整体修改；</li>
+<li>当存在不同层级结构的资源（类比：门）访问操作时，不用修改层级结构，通过ConfigureXXX类进行管理控制；</li>
+</ol>
+<p>参考：<a href="https://java-design-patterns.com/patterns/acyclic-visitor/" target="_blank" rel="noopener">非循环访问者模式（ Acyclic Visitor）</a></p>
+<h2 id="Adapter-（适配器模式）"><a href="#Adapter-（适配器模式）" class="headerlink" title="Adapter （适配器模式）"></a>Adapter （适配器模式）</h2><p><img src="http://cdn.linz.tech/java_pattern_adapter_1.png" alt></p>
+<p><img src="http://cdn.linz.tech/java_pattern_adapter_2.jpeg" alt></p>
+<h3 id="白话-USB转视频接口-USB转高清视频接口"><a href="#白话-USB转视频接口-USB转高清视频接口" class="headerlink" title="白话 USB转视频接口/USB转高清视频接口"></a>白话 USB转视频接口/USB转高清视频接口</h3><h3 id="点评-3"><a href="#点评-3" class="headerlink" title="点评"></a>点评</h3><ul>
+<li>安卓原生最常用类，常用于数据处理类，处理完数据定义好格式，返回给调用类使用，往往数据（事件）处理类格式一定，而返回的数据需要处理展示千变万化，定义一个adapter抽象类，给数据处理类调用，满足数据处理类最小功能和最少改动的设计原则。</li>
+</ul>
+<h2 id="Ambassador（大使模式）"><a href="#Ambassador（大使模式）" class="headerlink" title="Ambassador（大使模式）"></a>Ambassador（大使模式）</h2><p><img src="http://cdn.linz.tech/java_pattern_ambassador.jpeg" alt></p>
+<p>为什么叫大使模式，无非二点</p>
+<ul>
+<li>大使是自己人</li>
+<li>大使负责处理非本国（远端）事务</li>
+</ul>
+<h3 id="白话"><a href="#白话" class="headerlink" title="白话"></a>白话</h3><p>大使为我们（Client）处理外国（Service）的关系，记录交往信息，分析外国局势，使我们更好的应对外围环境的变化。</p>
+<p><img src="http://cdn.linz.tech/ambassador.urm.png" alt></p>
+<blockquote>
+<p>本地和远端共同实现一个接口，client调用本地大使，大使调用远端服务</p>
+</blockquote>
+<h3 id="点评-4"><a href="#点评-4" class="headerlink" title="点评"></a>点评</h3><p>把维护service链接的功能放到大使类中处理，如</p>
+<ol>
+<li>访问控制，维护…</li>
+<li>访问日志记录</li>
+<li>链接维护，短路重连，掉包测试…</li>
+<li>卸载服务</li>
+<li>安全管理</li>
+</ol>
+<h2 id="API-Gateway-API-网关"><a href="#API-Gateway-API-网关" class="headerlink" title="API-Gateway API 网关"></a>API-Gateway API 网关</h2><p>  <img src="http://cdn.linz.tech/java-pattern-gateway.png" alt></p>
+<h3 id="白话-本地API统一交给API网关管理，对API进行整合及代理管理"><a href="#白话-本地API统一交给API网关管理，对API进行整合及代理管理" class="headerlink" title="白话 本地API统一交给API网关管理，对API进行整合及代理管理"></a>白话 本地API统一交给API网关管理，对API进行整合及代理管理</h3><h2 id="chain（责任链模式）"><a href="#chain（责任链模式）" class="headerlink" title="chain（责任链模式）"></a>chain（责任链模式）</h2><h3 id="白话-1"><a href="#白话-1" class="headerlink" title="白话"></a>白话</h3><p>传递命令，师长-&gt; 团长-&gt; 营长-&gt; 连长-&gt; 排长</p>
+<h3 id="点评-5"><a href="#点评-5" class="headerlink" title="点评"></a>点评</h3><p>每个节点都有接受和专递命令的作用，但是每个节点又有其处理权限处理他这个级别的命令</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">RequestHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Logger LOGGER <span class="token operator">=</span> LoggerFactory<span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span>RequestHandler<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> RequestHandler next<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token function">RequestHandler</span><span class="token punctuation">(</span>RequestHandler next<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>next <span class="token operator">=</span> next<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleRequest</span><span class="token punctuation">(</span>Request req<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      next<span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">printHandling</span><span class="token punctuation">(</span>Request req<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"{} handling request \"{}\""</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">,</span> req<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">abstract</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OrcCommander</span> <span class="token keyword">extends</span> <span class="token class-name">RequestHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token function">OrcCommander</span><span class="token punctuation">(</span>RequestHandler handler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleRequest</span><span class="token punctuation">(</span>Request req<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token function">getRequestType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>RequestType<span class="token punctuation">.</span>DEFEND_CASTLE<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">printHandling</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      req<span class="token punctuation">.</span><span class="token function">markHandled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">"Orc commander"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>案例： OKHttp 通过Intercepter这种连式设计，大大简化了请求访问的功能，并且提供了非常多的可扩展性</p>
+<p><img src="http://cdn.linz.tech/Okhttp_client_pattern.webp" alt></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">java-design-patterns</a></p>
+<p><a href="https://www.cnblogs.com/WindSun/p/10223126.html" target="_blank" rel="noopener">设计模式的分类</a></p>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Android studio 与 IntelliJ IDEA  使用总结</title>
     <url>/2020/09/17/2018-4-15-android-studio-usage/</url>
     <content><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a href="https://zhile.io/2018/08/17/jetbrains-license-server-crack.html" target="_blank" rel="noopener">intellj idea 破解安装</a></p>
@@ -4800,150 +5296,6 @@ You want to get hired in this century, right?</code></pre><ul>
       </categories>
       <tags>
         <tag>实践</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于java-design-patterns白话图解设计模式（个人理解）</title>
-    <url>/2020/02/15/2020-02-15-Java-design-patterns-%E7%99%BD%E8%AF%9D%EF%BC%88%E5%8F%AF%E8%83%BD%E9%85%8D%E5%9B%BE%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="Principle-设计原则"><a href="#Principle-设计原则" class="headerlink" title="Principle  设计原则"></a>Principle  设计原则</h1><h2 id="Generic"><a href="#Generic" class="headerlink" title="Generic"></a>Generic</h2><h3 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h3><p><a href="https://java-design-patterns.com/principles/#kiss" target="_blank" rel="noopener">KISS (Keep It Simple Stupid)</a></p>
-<h3 id="YAGNI"><a href="#YAGNI" class="headerlink" title="YAGNI"></a>YAGNI</h3><p> You Ain’t Gonna Need It (翻译：你可能不需要他，即不要过度设计，为了迎合某些产生概率极低的需求而设计的成本是非常高的软件)</p>
-<blockquote>
-<p>YAGNI stands for “you aren’t gonna need it”: don’t implement something until it is necessary.</p>
-</blockquote>
-<h3 id="DRY-Don’t-Repeat-Yourself"><a href="#DRY-Don’t-Repeat-Yourself" class="headerlink" title="DRY - Don’t Repeat Yourself"></a>DRY - Don’t Repeat Yourself</h3><p>使其每一个部件都是职责明确的并且可重用的</p>
-<h3 id="Do-The-Simplest-Thing-That-Could-Possibly-Work"><a href="#Do-The-Simplest-Thing-That-Could-Possibly-Work" class="headerlink" title="Do The Simplest Thing That Could Possibly Work"></a>Do The Simplest Thing That Could Possibly Work</h3><blockquote>
-<p>Ask yourself: “What is the simplest thing that could possibly work?”</p>
-</blockquote>
-<h3 id="SoC"><a href="#SoC" class="headerlink" title="SoC"></a>SoC</h3><p>Separation of concerns</p>
-<p>Break program functionality into separate modules that overlap as little as possible.</p>
-<p><a href="https://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Separation_of_concerns</a></p>
-<blockquote>
-<p><strong>separation of concerns</strong> (<strong>SoC</strong>) is a design principle for separating a <a href="https://en.wikipedia.org/wiki/Computer_program" target="_blank" rel="noopener">computer program</a> into distinct sections such that each section addresses a separate <a href="https://en.wikipedia.org/wiki/Concern_(computer_science)" target="_blank" rel="noopener">concern</a>. A concern is a set of information that affects the code of a computer program. </p>
-</blockquote>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ul>
-<li><a href="https://java-design-patterns.com/principles/" target="_blank" rel="noopener">https://java-design-patterns.com/principles/</a></li>
-<li><a href="https://www.cnblogs.com/cainiao-chuanqi/p/10959800.html" target="_blank" rel="noopener">https://www.cnblogs.com/cainiao-chuanqi/p/10959800.html</a></li>
-</ul>
-<h1 id="Patterns-设计模式"><a href="#Patterns-设计模式" class="headerlink" title="Patterns 设计模式"></a>Patterns 设计模式</h1><h2 id="Abstract-Document-（抽象文档模式）"><a href="#Abstract-Document-（抽象文档模式）" class="headerlink" title="Abstract Document （抽象文档模式）"></a>Abstract Document （抽象文档模式）</h2><h3 id="白话：总分总分"><a href="#白话：总分总分" class="headerlink" title="白话：总分总分"></a>白话：总分总分</h3><h3 id="故事：买车"><a href="#故事：买车" class="headerlink" title="故事：买车"></a>故事：买车</h3><p><img src="http://cdn.linz.tech/abstract_doc_car_show.jpeg" alt></p>
-<p>我想买一辆车，首先要知道它的品牌型号如：300SL，价格 16W<font color="red">起</font></p>
-<p>但是我最近狗屎运特别好，厕所捡到了10W块，当然买高配版，轮胎型号15C，价格100¥，车门型号 Lambo 价格300¥，最终用<font color="red">抽象文档模式</font>代码表示，我买到的车：</p>
-<p><a href="https://github.com/iluwatar/java-design-patterns/blob/master/abstract-document/src/main/java/com/iluwatar/abstractdocument/App.java" target="_blank" rel="noopener">App.java</a></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Constructing parts and car"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    var wheelProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
-        Property<span class="token punctuation">.</span>TYPE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"wheel"</span><span class="token punctuation">,</span>
-        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"15C"</span><span class="token punctuation">,</span>
-        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 100L<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    var doorProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
-        Property<span class="token punctuation">.</span>TYPE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"door"</span><span class="token punctuation">,</span>
-        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"Lambo"</span><span class="token punctuation">,</span>
-        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 300L<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    var carProperties <span class="token operator">=</span> Map<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>
-        Property<span class="token punctuation">.</span>MODEL<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"300SL"</span><span class="token punctuation">,</span>
-        Property<span class="token punctuation">.</span>PRICE<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 160400L<span class="token punctuation">,</span>
-        Property<span class="token punctuation">.</span>PARTS<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> List<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>wheelProperties<span class="token punctuation">,</span> doorProperties<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    var car <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span>carProperties<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Here is our car:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> model: {}"</span><span class="token punctuation">,</span> car<span class="token punctuation">.</span><span class="token function">getModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> price: {}"</span><span class="token punctuation">,</span> car<span class="token punctuation">.</span><span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"-> parts: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    car<span class="token punctuation">.</span><span class="token function">getParts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>p <span class="token operator">-</span><span class="token operator">></span> LOGGER<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"\t{}/{}/{}"</span><span class="token punctuation">,</span>
-        p<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        p<span class="token punctuation">.</span><span class="token function">getModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        p<span class="token punctuation">.</span><span class="token function">getPrice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElse</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>配一个网上找的类图</p>
-<p><img src="http://cdn.linz.tech/abstract_doc_class_diagram.png" alt></p>
-<h3 id="点评"><a href="#点评" class="headerlink" title="点评"></a>点评</h3><p>主要的优点是找到总体和局部共有的属性，通过简单的几个属性能详细描绘复杂的总体和部分。</p>
-<h2 id="Abstract-Factory-（抽象工厂模式）"><a href="#Abstract-Factory-（抽象工厂模式）" class="headerlink" title="Abstract Factory （抽象工厂模式）"></a>Abstract Factory （抽象工厂模式）</h2><h3 id="白话：-switch-一个抽象类"><a href="#白话：-switch-一个抽象类" class="headerlink" title="白话： switch 一个抽象类"></a>白话： switch 一个抽象类</h3><h3 id="故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"><a href="#故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记" class="headerlink" title="故事：“从0到100万”——中国鞋都莆田口罩生产攻坚记"></a>故事：“从0到100万”——中国鞋都<em>莆田口罩</em>生产攻坚记</h3><p><img src="http://cdn.linz.tech/%E4%B8%80%E6%AC%A1%E6%80%A7%E5%8F%A3%E7%BD%A9.jpg" alt></p>
-<p>说实话我听到这个故事还是震惊的，:dizzy_face: 我印象中的“莆田”不是这个样子的呀？应该是莆田系博爱男科，或者是莆田系博士男科啥的。想不到竟然是鞋都，虽然是“Costplay”正版。</p>
-<p>好进入正题，莆田通过<font color="red">抽象工厂模式</font> <font color="blue">从鞋子-&gt;(转换)口罩工厂</font> 就是典型的抽象工厂模式，代码上就是</p>
-<pre class="line-numbers language-java"><code class="language-java">莆田 <span class="token keyword">class</span><span class="token punctuation">{</span>
-
-  <span class="token keyword">public</span> FactoryImp <span class="token function">factory</span><span class="token punctuation">(</span>String type<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">switch</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">{</span>
-      <span class="token keyword">case</span> 鞋子<span class="token operator">:</span>
-            <span class="token keyword">return</span> 鞋子_factory<span class="token punctuation">;</span>
-      <span class="token keyword">case</span> 口罩<span class="token operator">:</span>
-            <span class="token keyword">return</span> 口罩_factory<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其实本质是由于生产鞋子和生产口罩的原料和工艺大体是类似的，通过相对简单的整合原料，机器和生产工艺就能得到生产不同产品的工厂。这种做法好处在于充分利用现有资源的情况下，最高效快速的生产出口罩，解决由于疫情爆发导致的口罩稀缺的情况；java-design-patterns 给的例子是一个城堡的例子不太喜欢，感兴趣的可以去看一下，地址如下：<br><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929dcd874d63bb327f2339d5c07170565/abstract-factory/src/main/java/com/iluwatar/abstractfactory/App.java" target="_blank" rel="noopener">abstract factory github App.java</a></p>
-<h3 id="点评-1"><a href="#点评-1" class="headerlink" title="点评"></a>点评</h3><p>抽象工厂模式，通过的输入简单鞋子、口罩命令，并抽象规定这个工厂的产出，而具体复杂的资源整合及类的初始化调用的复杂逻辑流程等等都不需要使用者关心。</p>
-<h3 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h3><ul>
-<li><a href="https://raw.githubusercontent.com/Blankj/AndroidUtilCode/b01e17e36f022c21d8bd032ecb25384dd32e578b/lib/utilcode/src/main/java/com/blankj/utilcode/util/ToastUtils.java" target="_blank" rel="noopener">ToastUtils.java</a></li>
-</ul>
-<h2 id="Acyclic-Visitor-（非循环访问者模式）"><a href="#Acyclic-Visitor-（非循环访问者模式）" class="headerlink" title="Acyclic Visitor （非循环访问者模式）"></a>Acyclic Visitor （非循环访问者模式）</h2><h3 id="白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环"><a href="#白话：-一把钥匙开一个门（项目），可以有动态的数量的钥匙环" class="headerlink" title="白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环"></a>白话： 一把钥匙开一个门（项目），可以有动态的数量的钥匙环</h3><p><img src="http://cdn.linz.tech/key_door.jpeg" alt></p>
-<h3 id="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"><a href="#故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；" class="headerlink" title="故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；"></a>故事：从小我就有一个开游乐园的爸爸，当有同学来游乐园玩的时候，他会根据同学们的要求，兴趣和胆量分配给他们游乐项目的钥匙，当然有的同学拿到多有的拿到少，还有几个拿到了比较危险的项目；</h3><p><a href="https://github.com/iluwatar/java-design-patterns/blob/1e76d91929/acyclic-visitor/src/main/java/com/iluwatar/acyclicvisitor/App.java" target="_blank" rel="noopener">App.java</a></p>
-<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">/*分配到的玩项目的权限或钥匙集合*/</span>
-    var conUnix <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigureForUnixVisitor</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    var conDos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigureForDosVisitor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">//各种各样的游乐设施</span>
-    var zoom <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Zoom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    var hayes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Hayes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">// 开玩</span>
-    hayes<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conDos<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Hayes modem with Dos configurator</span>
-    zoom<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conDos<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Zoom modem with Dos configurator</span>
-    hayes<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conUnix<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Hayes modem with Unix configurator</span>
-    zoom<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span>conUnix<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Zoom modem with Unix configurator   </span>
-  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上一波项目类图</p>
-<p><img src="http://cdn.linz.tech/acyclic-visitor.png" alt></p>
-<h3 id="点评-2"><a href="#点评-2" class="headerlink" title="点评"></a>点评</h3><p>非循环访问者模式，很近似于我们用不同的钥匙打开不同的门，而打开不同的门，里面会有不同的资源提供给我们使用。</p>
-<ol>
-<li>钥匙和门的关系比较单一，具有固定属性。</li>
-<li>子门子钥匙可以继承父钥匙和门，实现层级结构的划分。</li>
-</ol>
-<p>使用场景</p>
-<ol>
-<li>当你想动态的向现有层次结构添加功能（资源）时，不想做修改或影响整体的层次结构，即增加一个门和钥匙无需对整体修改；</li>
-<li>当存在不同层级结构的资源（类比：门）访问操作时，不用修改层级结构，通过ConfigureXXX类进行管理控制；</li>
-</ol>
-<p>参考：<a href="https://java-design-patterns.com/patterns/acyclic-visitor/" target="_blank" rel="noopener">非循环访问者模式（ Acyclic Visitor）</a></p>
-<h2 id="Adapter-（适配器模式）"><a href="#Adapter-（适配器模式）" class="headerlink" title="Adapter （适配器模式）"></a>Adapter （适配器模式）</h2><p><img src="http://cdn.linz.tech/java_pattern_adapter_1.png" alt></p>
-<p><img src="http://cdn.linz.tech/java_pattern_adapter_2.jpeg" alt></p>
-<h3 id="白话-USB转视频接口-USB转高清视频接口"><a href="#白话-USB转视频接口-USB转高清视频接口" class="headerlink" title="白话 USB转视频接口/USB转高清视频接口"></a>白话 USB转视频接口/USB转高清视频接口</h3><h3 id="点评-3"><a href="#点评-3" class="headerlink" title="点评"></a>点评</h3><ul>
-<li>安卓原生最常用类，常用于数据处理类，处理完数据定义好格式，返回给调用类使用，往往数据（事件）处理类格式一定，而返回的数据需要处理展示千变万化，定义一个adapter抽象类，给数据处理类调用，满足数据处理类最小功能和最少改动的设计原则。</li>
-</ul>
-<h2 id="Ambassador（大使模式）"><a href="#Ambassador（大使模式）" class="headerlink" title="Ambassador（大使模式）"></a>Ambassador（大使模式）</h2><p><img src="http://cdn.linz.tech/java_pattern_ambassador.jpeg" alt></p>
-<p>为什么叫大使模式，无非二点</p>
-<ul>
-<li>大使是自己人</li>
-<li>大使负责处理非本国（远端）事务</li>
-</ul>
-<h3 id="白话"><a href="#白话" class="headerlink" title="白话"></a>白话</h3><p>大使为我们（Client）处理外国（Service）的关系，记录交往信息，分析外国局势，使我们更好的应对外围环境的变化。</p>
-<p><img src="http://cdn.linz.tech/ambassador.urm.png" alt></p>
-<blockquote>
-<p>本地和远端共同实现一个接口，client调用本地大使，大使调用远端服务</p>
-</blockquote>
-<h3 id="点评-4"><a href="#点评-4" class="headerlink" title="点评"></a>点评</h3><p>把维护service链接的功能放到大使类中处理，如</p>
-<ol>
-<li>访问控制，维护…</li>
-<li>访问日志记录</li>
-<li>链接维护，短路重连，掉包测试…</li>
-<li>卸载服务</li>
-<li>安全管理</li>
-</ol>
-<h2 id="API-Gateway-API-网关"><a href="#API-Gateway-API-网关" class="headerlink" title="API-Gateway API 网关"></a>API-Gateway API 网关</h2><p>  <img src="http://cdn.linz.tech/java-pattern-gateway.png" alt></p>
-<h3 id="白话-本地API统一交给API网关管理，对API进行整合及代理管理"><a href="#白话-本地API统一交给API网关管理，对API进行整合及代理管理" class="headerlink" title="白话 本地API统一交给API网关管理，对API进行整合及代理管理"></a>白话 本地API统一交给API网关管理，对API进行整合及代理管理</h3><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">java-design-patterns</a></p>
-<p><a href="https://www.cnblogs.com/WindSun/p/10223126.html" target="_blank" rel="noopener">设计模式的分类</a></p>
-]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>实践</tag>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -18084,7 +18436,9 @@ yum install bridge-utils -y
 brctl show 
 docker network ls<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><p><a href="https://success.docker.com/article/networking" target="_blank" rel="noopener">Designing Scalable, Portable Docker Container Networks</a></p>
-<h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h1><h2 id="官方配置文档"><a href="#官方配置文档" class="headerlink" title="官方配置文档"></a>官方配置文档</h2><p><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener"> 官网 docker-compose.yml 文件参考</a> </p>
+<h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="line-numbers language-shell"><code class="language-shell">curl -L https://get.daocloud.io/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="官方配置文档"><a href="#官方配置文档" class="headerlink" title="官方配置文档"></a>官方配置文档</h2><p><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener"> 官网 docker-compose.yml 文件参考</a> </p>
 <p><a href="https://blog.csdn.net/qq_36148847/article/details/79427878" target="_blank" rel="noopener">docker-compose.yml 配置文件编写详解</a></p>
 <h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><pre class="line-numbers language-shell"><code class="language-shell"># one-off
 docker-compose run 
@@ -18252,6 +18606,23 @@ docker run -d -p 9000:9000 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     --name prtainer \
     portainer/portainer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>问题解决</p>
+<blockquote>
+<p>问题1. 设置密码后 选择<code>Local</code> -&gt; <code>conect</code> 报错</p>
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">Failure
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/_ping: dial unix /var/run/docker.sock: connect: permission denied<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p><strong>解决方案</strong></p>
+<ul>
+<li>原因<br>SELinux开启 主要作用就是最大限度地减小系统中服务进程可访问的资源（最小权限原则）</li>
+<li>解决<pre class="line-numbers language-shell"><code class="language-shell"># 第一步
+etenforce 0
+#第二步
+修改/etc/selinux/config 文件
+将SELINUX=enforcing改为SELINUX=disabled
+重启机器即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h2 id="Docker-传参"><a href="#Docker-传参" class="headerlink" title="Docker 传参"></a>Docker 传参</h2><h3 id="直接用-docker-inspect-lt-container-id-gt-查看"><a href="#直接用-docker-inspect-lt-container-id-gt-查看" class="headerlink" title="直接用 docker inspect &lt;container-id&gt; 查看"></a>直接用 <code>docker inspect &lt;container-id&gt;</code> 查看</h3><p>Dockerfile </p>
@@ -18993,14 +19364,24 @@ gitlab_rails['initial_root_password'] = File.read('/run/secrets/gitlab_root_pass
 <li><p><a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">downloads</a> ubuntu: dpkg -i xx.deb</p>
 </li>
 </ul>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><ul>
-<li>ubuntu：  docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.39/containers/create: dial unix /var/run/docker.sock: connect: permission denied.<br>See ‘docker run –help’.</li>
-</ul>
-<p>猜测是需ROOT权限， docker服务没有启动,解决方案</p>
-<pre class="line-numbers language-shell"><code class="language-shell">su root #切换到root用户
+<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><ol>
+<li>docker启动报错：WARNING: IPv4 forwarding is disabled. Networking will not work.<pre class="line-numbers language-shell"><code class="language-shell">vi /usr/lib/sysctl.d/00-system.conf
+添加如下代码：
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p>net.ipv4.ip_forward=1</p>
+<p>重启network服务<br>systemctl restart network</p>
+<pre><code>
+2.  ubuntu：  docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.39/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+    See &#39;docker run --help&#39;.
+
+猜测是需ROOT权限， docker服务没有启动,解决方案
+
+```shell
+su root #切换到root用户
 systemctl enable docker #设置开机自动启用docker服务
-systemctl start docker #启动docker 服务<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>或者赋予docker sudo 权限</p>
+systemctl start docker #启动docker 服务</code></pre><p>或者赋予docker sudo 权限</p>
 <pre class="line-numbers language-shell"><code class="language-shell">sudo groupadd docker
 sudo usermod -aG docker $USER
 sudo service docker restart
@@ -24890,6 +25271,8 @@ ssh root@example.com<span aria-hidden="true" class="line-numbers-rows"><span></s
 <li><a href="https://dns.console.aliyun.com/#/dns/setting/linz.tech" target="_blank" rel="noopener">linz.tech 域名配置界面</a></li>
 <li><a href="https://ecs.console.aliyun.com/?spm=a2c1d.8251892.aliyun_sidebar.aliyun_sidebar_ecs.34f85b76YnLmUP#/securityGroupDetail/region/cn-shenzhen/groupId/sg-wz933l0ge76qamrg3ng3/rule/intranetIngress" target="_blank" rel="noopener">后台端口开发设置界面</a></li>
 <li><a href="https://cloudmonitor.console.aliyun.com/index.htm?spm=5176.2020520101.223.d101.627a4df5vTHaWk&custom_trace=ecs_console#/hostDetail/alarm/instanceId=i-wz933l0ge76qamri4req&system=Linux&region=cn-shenzhen&aliyunhost=true&category=ecs" target="_blank" rel="noopener">新建报警机制</a></li>
+<li><a href="https://yundun.console.aliyun.com/?spm=5176.6660585.774526198.1.31926bf8YSEGxy&p=cas#/overview/cn-hangzhou" target="_blank" rel="noopener">ssl 证书申请</a></li>
+<li><a href="https://help.aliyun.com/document_detail/98737.html?spm=a2c4g.11186623.6.567.7ce447b9n5gZ2a&short_name=I3.ZW3uZ&app=chrome" target="_blank" rel="noopener">证书下载</a></li>
 </ul>
 <h1 id="亚马逊云学习"><a href="#亚马逊云学习" class="headerlink" title="亚马逊云学习"></a>亚马逊云学习</h1><p>Linux用r3.pem登录</p>
 <pre class="line-numbers language-shell"><code class="language-shell">/mnt/hgfs/ubuntu/workspace/tools/亚马逊服务器连接
@@ -24973,7 +25356,10 @@ exit 0
 <h1 id="Node-js"><a href="#Node-js" class="headerlink" title="Node js"></a>Node js</h1><p>nodejs 在linux上后台运行</p>
 <pre><code>1.用forever  进行管理搜索
 　　　　npm install -g forever
-　　　　forever start index.js</code></pre><h1 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h1><h2 id="Centos-virtual-box-安装"><a href="#Centos-virtual-box-安装" class="headerlink" title="Centos virtual-box 安装"></a>Centos virtual-box 安装</h2><ul>
+　　　　forever start index.js</code></pre><h1 id="域名配置"><a href="#域名配置" class="headerlink" title="域名配置"></a>域名配置</h1><ul>
+<li><a href="https://www.cnblogs.com/osfipin/p/freessl.html" target="_blank" rel="noopener">免费SSL证书(https网站)申请</a></li>
+</ul>
+<h1 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h1><h2 id="Centos-virtual-box-安装"><a href="#Centos-virtual-box-安装" class="headerlink" title="Centos virtual-box 安装"></a>Centos virtual-box 安装</h2><ul>
 <li><a href="https://www.virtualbox.org/wiki/Linux_Downloads" target="_blank" rel="noopener">Download VirtualBox for Linux Hosts</a></li>
 <li>配置版本仓库，在<code>/etc/yum.repos.d/</code>目录下新建<code>virtualbox.repo</code>并写入如下内容<pre class="line-numbers language-shell"><code class="language-shell">[virtualbox]
 name=Oracle Linux / RHEL / CentOS-$releasever / $basearch - VirtualBox
