@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="WebView 详解基本用法 加载网页 //加载网页链接 mWebView.loadUrl(&quot;http://www.itheima.com&quot;); //加载本地assets目录下的网页 mWebView.loadUrl(&quot;file:///android_asset/demo.html&quot;);  加载控制 webView.reload(); //刷新页面（当前页面的所有资源都会重新加载） webView">
+<meta name="description" content="WebView 详解基本用法 加载网页//加载网页链接 mWebView.loadUrl(&quot;http://www.itheima.com&quot;); //加载本地assets目录下的网页 mWebView.loadUrl(&quot;file:///android_asset/demo.html&quot;);  加载控制webView.reload(); //刷新页面（当前页面的所有资源都会重新加载） webView.">
 <meta name="keywords" content="实践">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 和网页端混合开发小计">
 <meta property="og:url" content="http://linz.tech/2020/11/25/2020-11-25-混合开发/index.html">
 <meta property="og:site_name" content="北疆的博客">
-<meta property="og:description" content="WebView 详解基本用法 加载网页 //加载网页链接 mWebView.loadUrl(&quot;http://www.itheima.com&quot;); //加载本地assets目录下的网页 mWebView.loadUrl(&quot;file:///android_asset/demo.html&quot;);  加载控制 webView.reload(); //刷新页面（当前页面的所有资源都会重新加载） webView">
+<meta property="og:description" content="WebView 详解基本用法 加载网页//加载网页链接 mWebView.loadUrl(&quot;http://www.itheima.com&quot;); //加载本地assets目录下的网页 mWebView.loadUrl(&quot;file:///android_asset/demo.html&quot;);  加载控制webView.reload(); //刷新页面（当前页面的所有资源都会重新加载） webView.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-25T09:28:37.618Z">
+<meta property="og:image" content="https://cdn.linz.tech/chrome.png">
+<meta property="og:image" content="https://cdn.linz.tech/1200px-Apache_Cordova_Logo.svg.png">
+<meta property="og:updated_time" content="2020-11-27T04:45:45.094Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 和网页端混合开发小计">
-<meta name="twitter:description" content="WebView 详解基本用法 加载网页 //加载网页链接 mWebView.loadUrl(&quot;http://www.itheima.com&quot;); //加载本地assets目录下的网页 mWebView.loadUrl(&quot;file:///android_asset/demo.html&quot;);  加载控制 webView.reload(); //刷新页面（当前页面的所有资源都会重新加载） webView">
+<meta name="twitter:description" content="WebView 详解基本用法 加载网页//加载网页链接 mWebView.loadUrl(&quot;http://www.itheima.com&quot;); //加载本地assets目录下的网页 mWebView.loadUrl(&quot;file:///android_asset/demo.html&quot;);  加载控制webView.reload(); //刷新页面（当前页面的所有资源都会重新加载） webView.">
+<meta name="twitter:image" content="https://cdn.linz.tech/chrome.png">
 
 
 
@@ -410,33 +413,28 @@
       
 
       
-        <h2 id="WebView-详解"><a href="#WebView-详解" class="headerlink" title="WebView 详解"></a>WebView 详解</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
-<li><p>加载网页</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//加载网页链接</span>
+        <p><img src="https://cdn.linz.tech/chrome.png" alt></p>
+<h2 id="WebView-详解"><a href="#WebView-详解" class="headerlink" title="WebView 详解"></a>WebView 详解</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
+<li>加载网页<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//加载网页链接</span>
 mWebView<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">"http://www.itheima.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">//加载本地assets目录下的网页</span>
 mWebView<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">"file:///android_asset/demo.html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>加载控制</p>
-<pre class="line-numbers language-java"><code class="language-java">webView<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//刷新页面（当前页面的所有资源都会重新加载）</span>
+<li>加载控制<pre class="line-numbers language-java"><code class="language-java">webView<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//刷新页面（当前页面的所有资源都会重新加载）</span>
 webView<span class="token punctuation">.</span><span class="token function">stopLoading</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//停止加载</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
-<li><p>控件高度距离</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取当前可见区域的顶端距整个页面顶端的距离，也就是当前内容滚动的距离。</span>
+<li>控件高度距离<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取当前可见区域的顶端距整个页面顶端的距离，也就是当前内容滚动的距离。</span>
 webView<span class="token punctuation">.</span><span class="token function">getScrollY</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">//获取WebView控件的高度。</span>
 webView<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>webView<span class="token punctuation">.</span><span class="token function">getBottom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">//获取HTML的高度（原始高度，不包括缩放后的高度）</span>
 webView<span class="token punctuation">.</span><span class="token function">getContentHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>WebView加载上一页和下一页</p>
+<li>WebView加载上一页和下一页<pre class="line-numbers language-java"><code class="language-java">mWebView<span class="token punctuation">.</span><span class="token function">goBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到上个页面</span>
+mWebView<span class="token punctuation">.</span><span class="token function">goForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到下个页面</span>
+mWebView<span class="token punctuation">.</span><span class="token function">canGoBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到上一页(如果返回false,说明已经是第一页)</span>
+mWebView<span class="token punctuation">.</span><span class="token function">canGoForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到下一页(如果返回false,说明已经是最后一页)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-</ul>
-<pre class="line-numbers language-java"><code class="language-java">  mWebView<span class="token punctuation">.</span><span class="token function">goBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到上个页面</span>
-  mWebView<span class="token punctuation">.</span><span class="token function">goForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到下个页面</span>
-  mWebView<span class="token punctuation">.</span><span class="token function">canGoBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到上一页(如果返回false,说明已经是第一页)</span>
-  mWebView<span class="token punctuation">.</span><span class="token function">canGoForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到下一页(如果返回false,说明已经是最后一页)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
 <li>WebView基本设置<pre class="line-numbers language-java"><code class="language-java">WebSettings settings <span class="token operator">=</span> mWebView<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 settings<span class="token punctuation">.</span><span class="token function">setBuiltInZoomControls</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 显示缩放按钮(wap网页不支持)</span>
 settings<span class="token punctuation">.</span><span class="token function">setUseWideViewPort</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 支持双击缩放(wap网页不支持)</span>
@@ -522,9 +520,9 @@ webView<span class="token punctuation">.</span><span class="token function">dest
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>onReceivedTitle()：获得网页的标题时回调。<br>onReceivedIcon()：获得网页的图标时回调。<br>onCreateWindow()：打开新窗口时回调。<br>onCloseWindow()：关闭窗口时回调。</p>
-<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3></li>
+</li>
 </ul>
-<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><ul>
+<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><ul>
 <li>缓存设置</li>
 </ul>
 <pre class="line-numbers language-java"><code class="language-java">WebSettings settings <span class="token operator">=</span> mWebView<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -562,15 +560,16 @@ Webview<span class="token punctuation">.</span><span class="token function">clea
 <span class="token comment" spellcheck="true">//这个api仅仅清除自动完成填充的表单数据，并不会清除WebView存储到本地的数据</span>
 Webview<span class="token punctuation">.</span><span class="token function">clearFormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h4><ul>
-<li><p>Cookie设置</p>
-<pre class="line-numbers language-java"><code class="language-java">  CookieSyncManager<span class="token punctuation">.</span><span class="token function">createInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  cookieManager<span class="token punctuation">.</span><span class="token function">setAcceptCookie</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<li>Cookie设置</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">    CookieSyncManager<span class="token punctuation">.</span><span class="token function">createInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cookieManager<span class="token punctuation">.</span><span class="token function">setAcceptCookie</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  String cookie <span class="token operator">=</span> <span class="token string">"name=xxx;age=18"</span><span class="token punctuation">;</span>
-  cookieManager<span class="token punctuation">.</span><span class="token function">setCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">,</span> cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  CookieSyncManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+    String cookie <span class="token operator">=</span> <span class="token string">"name=xxx;age=18"</span><span class="token punctuation">;</span>
+    cookieManager<span class="token punctuation">.</span><span class="token function">setCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">,</span> cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    CookieSyncManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
 <li><p>获取Cookie</p>
 <pre class="line-numbers language-java"><code class="language-java">  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   String cookie <span class="token operator">=</span> cookieManager<span class="token punctuation">.</span><span class="token function">getCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -684,11 +683,14 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
 </ul>
 </li>
 </ol>
-<h2 id="常用的第三方库"><a href="#常用的第三方库" class="headerlink" title="常用的第三方库"></a>常用的第三方库</h2><h3 id="cordova"><a href="#cordova" class="headerlink" title="cordova"></a>cordova</h3><blockquote>
+<h2 id="常用的第三方库"><a href="#常用的第三方库" class="headerlink" title="常用的第三方库"></a>常用的第三方库</h2><p><img src="https://cdn.linz.tech/1200px-Apache_Cordova_Logo.svg.png" alt></p>
+<h3 id="cordova"><a href="#cordova" class="headerlink" title="cordova"></a>cordova</h3><blockquote>
 <p>Cordova提供了一组设备相关的API，通过这组API，移动应用能够以JavaScript访问原生的设备功能，如摄像头、麦克风等。</p>
 </blockquote>
 <ul>
 <li><a href="http://cordova.axuer.com/" target="_blank" rel="noopener">cordova 中文</a></li>
+<li><a href="https://www.jianshu.com/p/43872edf70e2" target="_blank" rel="noopener">Android集成Cordova</a></li>
+<li><a href="https://blog.csdn.net/github_39500961/article/details/76270299" target="_blank" rel="noopener">cordova插件汇总大全</a></li>
 </ul>
 <h3 id="mui"><a href="#mui" class="headerlink" title="mui"></a><a href="https://github.com/dcloudio/mui" target="_blank" rel="noopener">mui</a></h3><ul>
 <li>mui是最接近原生App体验的前端框架</li>
@@ -700,7 +702,11 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
 <li><p><a href="https://blog.csdn.net/qq_33018731/article/details/83650579?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">浅聊基于MUI框架的混合开发</a></p>
 </li>
 </ul>
-<h2 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h2><h2 id="ndroid-webview处理404、500、断网、timeout页面的问题（by-星空武哥）"><a href="#ndroid-webview处理404、500、断网、timeout页面的问题（by-星空武哥）" class="headerlink" title="ndroid webview处理404、500、断网、timeout页面的问题（by 星空武哥）"></a>ndroid webview处理404、500、断网、timeout页面的问题（by 星空武哥）</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h2><ul>
+<li><a href="https://blog.csdn.net/lsyz0021/article/details/56677132" target="_blank" rel="noopener">Android webview处理404、500、断网、timeout页面的问题</a></li>
+<li></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://blog.csdn.net/vicwudi/article/details/81990467" target="_blank" rel="noopener">WebView全面解析</a></li>
 </ul>
 
@@ -733,8 +739,8 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/11/24/2020-02-15-Java-design-patterns-白话（可能配图）/" rel="next" title="基于java-design-patterns白话图解设计模式（个人理解）">
-                <i class="fa fa-chevron-left"></i> 基于java-design-patterns白话图解设计模式（个人理解）
+              <a href="/2020/09/17/2018-4-15-android-studio-usage/" rel="next" title="Android studio 与 IntelliJ IDEA  使用总结">
+                <i class="fa fa-chevron-left"></i> Android studio 与 IntelliJ IDEA  使用总结
               </a>
             
           </div>
@@ -742,6 +748,10 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/26/2020-02-15-Java-design-patterns-白话（可能配图）/" rel="prev" title="基于java-design-patterns白话图解设计模式（个人理解）">
+                基于java-design-patterns白话图解设计模式（个人理解） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -918,7 +928,7 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebView-详解"><span class="nav-number">1.</span> <span class="nav-text">WebView 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法"><span class="nav-number">1.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">1.2.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebViewClient-与-WebChromeClient"><span class="nav-number">1.3.</span> <span class="nav-text">WebViewClient 与 WebChromeClient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级用法"><span class="nav-number">1.4.</span> <span class="nav-text">高级用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存"><span class="nav-number">1.4.1.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie"><span class="nav-number">1.4.2.</span> <span class="nav-text">Cookie</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-和-Native-交互"><span class="nav-number">2.</span> <span class="nav-text">JavaScript 和 Native 交互</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DSBridge-Android"><span class="nav-number">2.1.</span> <span class="nav-text">DSBridge-Android</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的第三方库"><span class="nav-number">3.</span> <span class="nav-text">常用的第三方库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cordova"><span class="nav-number">3.1.</span> <span class="nav-text">cordova</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mui"><span class="nav-number">3.2.</span> <span class="nav-text">mui</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践案例"><span class="nav-number">4.</span> <span class="nav-text">实践案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ndroid-webview处理404、500、断网、timeout页面的问题（by-星空武哥）"><span class="nav-number">5.</span> <span class="nav-text">ndroid webview处理404、500、断网、timeout页面的问题（by 星空武哥）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebView-详解"><span class="nav-number">1.</span> <span class="nav-text">WebView 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法"><span class="nav-number">1.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">1.2.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebViewClient-与-WebChromeClient"><span class="nav-number">1.3.</span> <span class="nav-text">WebViewClient 与 WebChromeClient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级用法"><span class="nav-number">1.4.</span> <span class="nav-text">高级用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存"><span class="nav-number">1.4.1.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie"><span class="nav-number">1.4.2.</span> <span class="nav-text">Cookie</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-和-Native-交互"><span class="nav-number">2.</span> <span class="nav-text">JavaScript 和 Native 交互</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DSBridge-Android"><span class="nav-number">2.1.</span> <span class="nav-text">DSBridge-Android</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的第三方库"><span class="nav-number">3.</span> <span class="nav-text">常用的第三方库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cordova"><span class="nav-number">3.1.</span> <span class="nav-text">cordova</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mui"><span class="nav-number">3.2.</span> <span class="nav-text">mui</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践案例"><span class="nav-number">4.</span> <span class="nav-text">实践案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

@@ -1,315 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Android 和网页端混合开发小计</title>
-    <url>/2020/11/25/2020-11-25-%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h2 id="WebView-详解"><a href="#WebView-详解" class="headerlink" title="WebView 详解"></a>WebView 详解</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
-<li><p>加载网页</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//加载网页链接</span>
-mWebView<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">"http://www.itheima.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//加载本地assets目录下的网页</span>
-mWebView<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">"file:///android_asset/demo.html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>加载控制</p>
-<pre class="line-numbers language-java"><code class="language-java">webView<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//刷新页面（当前页面的所有资源都会重新加载）</span>
-webView<span class="token punctuation">.</span><span class="token function">stopLoading</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//停止加载</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>控件高度距离</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取当前可见区域的顶端距整个页面顶端的距离，也就是当前内容滚动的距离。</span>
-webView<span class="token punctuation">.</span><span class="token function">getScrollY</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//获取WebView控件的高度。</span>
-webView<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>webView<span class="token punctuation">.</span><span class="token function">getBottom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//获取HTML的高度（原始高度，不包括缩放后的高度）</span>
-webView<span class="token punctuation">.</span><span class="token function">getContentHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>WebView加载上一页和下一页</p>
-</li>
-</ul>
-<pre class="line-numbers language-java"><code class="language-java">  mWebView<span class="token punctuation">.</span><span class="token function">goBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到上个页面</span>
-  mWebView<span class="token punctuation">.</span><span class="token function">goForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到下个页面</span>
-  mWebView<span class="token punctuation">.</span><span class="token function">canGoBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到上一页(如果返回false,说明已经是第一页)</span>
-  mWebView<span class="token punctuation">.</span><span class="token function">canGoForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到下一页(如果返回false,说明已经是最后一页)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>WebView基本设置<pre class="line-numbers language-java"><code class="language-java">WebSettings settings <span class="token operator">=</span> mWebView<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-settings<span class="token punctuation">.</span><span class="token function">setBuiltInZoomControls</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 显示缩放按钮(wap网页不支持)</span>
-settings<span class="token punctuation">.</span><span class="token function">setUseWideViewPort</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 支持双击缩放(wap网页不支持)</span>
-settings<span class="token punctuation">.</span><span class="token function">setJavaScriptEnabled</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 支持js功能</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
-<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//恢复webview的状态（不靠谱）</span>
-    webView<span class="token punctuation">.</span><span class="token function">resumeTimers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//激活webView的状态，能正常加载网页</span>
-    webView<span class="token punctuation">.</span><span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token annotation punctuation">@Override</span>
-<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//当页面被失去焦点被切换到后台不可见状态，需要执行onPause</span>
-    <span class="token comment" spellcheck="true">//通过onPause动作通知内核暂停所有的动作，比如DOM的解析、plugin的执行、JavaScript执行。</span>
-    webView<span class="token punctuation">.</span><span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">//当应用程序(存在webview)被切换到后台时，这个方法不仅仅针对当前的webview而是全局的全应用程序的webview</span>
-    <span class="token comment" spellcheck="true">//它会暂停所有webview的layout，parsing，javascripttimer。降低CPU功耗。（不靠谱）</span>
-    webView<span class="token punctuation">.</span><span class="token function">pauseTimers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment" spellcheck="true">//在关闭了Activity时，如果Webview的音乐或视频，还在播放。就必须销毁Webview</span>
-<span class="token comment" spellcheck="true">//但是注意：webview调用destory时,webview仍绑定在Activity上</span>
-<span class="token comment" spellcheck="true">//这是由于自定义webview构建时传入了该Activity的context对象</span>
-<span class="token comment" spellcheck="true">//因此需要先从父容器中移除webview,然后再销毁webview:</span>
-ViewGroup parent <span class="token operator">=</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>container<span class="token punctuation">)</span><span class="token punctuation">;</span>
-parent<span class="token punctuation">.</span><span class="token function">removeView</span><span class="token punctuation">(</span>webView<span class="token punctuation">)</span><span class="token punctuation">;</span>
-webView<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="WebViewClient-与-WebChromeClient"><a href="#WebViewClient-与-WebChromeClient" class="headerlink" title="WebViewClient 与 WebChromeClient"></a>WebViewClient 与 WebChromeClient</h3><ul>
-<li><p>WebViewClient </p>
-<pre class="line-numbers language-java"><code class="language-java">mWebView<span class="token punctuation">.</span><span class="token function">setWebViewClient</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebViewClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 开始加载网页</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onPageStarted</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">,</span> Bitmap favicon<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPageStarted</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> url<span class="token punctuation">,</span> favicon<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"开始加载网页了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">// 网页加载结束</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onPageFinished</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPageFinished</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"网页加载结束"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">// 所有链接跳转会走此方法</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">shouldOverrideUrlLoading</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"跳转链接:"</span> <span class="token operator">+</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        view<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 在跳转链接时强制在当前webview中加载</span>
-
-        <span class="token comment" spellcheck="true">//此方法还有其他应用场景, 比如写一个超链接&lt;a href="tel:110">联系我们&lt;/a>, 当点击该超链接时,可以在此方法中获取链接地址tel:110, 解析该地址,获取电话号码, 然后跳转到本地打电话页面, 而不是加载网页, 从而实现了webView和本地代码的交互</span>
-
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>onPageStarted()onPageFinished()：页面加载时和页面加载完毕时调用。<br>shouldOverrideKeyEvent()：重写此方法才能处理浏览器中的按键事件。<br>shouldInterceptRequest()：页面每一次请求资源之前都会调用这个方法（非UI线程调用）。<br>onLoadResource()：页面加载资源时调用，每加载一个资源（比如图片）就调用一次。<br>onReceivedError()：加载页面的服务器出现错误（比如404）时回调。<br>onReceivedSslError()：重写此方法可以让webview处理https请求。<br>doUpdateVisitedHistory()：更新历史记录。<br>onFormResubmission()：应用程序重新请求网页数据。<br>onReceivedHttpAuthRequest()：获取返回信息授权请求。<br>onScaleChanged()：WebView发生缩放改变时调用。<br>onUnhandledKeyEvent()：Key事件未被加载时调用。</p>
-</li>
-<li><p>WebChromeClient </p>
-<blockquote>
-<p>辅助 WebView 处理 Javascript 的对话框，网站图标，网站标题等等</p>
-</blockquote>
-<pre class="line-numbers language-java"><code class="language-java">mWebView<span class="token punctuation">.</span><span class="token function">setWebChromeClient</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebChromeClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onProgressChanged</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> <span class="token keyword">int</span> newProgress<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onProgressChanged</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> newProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 进度发生变化</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"进度:"</span> <span class="token operator">+</span> newProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onReceivedTitle</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String title<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onReceivedTitle</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> title<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 网页标题</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"网页标题:"</span> <span class="token operator">+</span> title<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>onReceivedTitle()：获得网页的标题时回调。<br>onReceivedIcon()：获得网页的图标时回调。<br>onCreateWindow()：打开新窗口时回调。<br>onCloseWindow()：关闭窗口时回调。</p>
-<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3></li>
-</ul>
-<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><ul>
-<li>缓存设置</li>
-</ul>
-<pre class="line-numbers language-java"><code class="language-java">WebSettings settings <span class="token operator">=</span> mWebView<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据</span>
-settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_CACHE_ELSE_NETWORK<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//只加载缓存</span>
-settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_CACHE_ONLY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//根据cache-control决定是否从网络上取数据</span>
-settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//不加载缓存</span>
-settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_NO_CACHE<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>缓存清楚</li>
-</ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//最简便的方式:</span>
-mWebView<span class="token punctuation">.</span><span class="token function">clearCache</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">//另外一种方式:</span>
-<span class="token comment" spellcheck="true">//删除缓存文件夹</span>
-File file <span class="token operator">=</span> CacheManager<span class="token punctuation">.</span><span class="token function">getCacheFileBaseDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-
-<span class="token keyword">if</span> <span class="token punctuation">(</span>file <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> file<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> file<span class="token punctuation">.</span><span class="token function">isDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
-  <span class="token keyword">for</span> <span class="token punctuation">(</span>File item <span class="token operator">:</span> file<span class="token punctuation">.</span><span class="token function">listFiles</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
-    item<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-  <span class="token punctuation">}</span> 
-  file<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-<span class="token punctuation">}</span> 
-<span class="token comment" spellcheck="true">//删除缓存数据库</span>
-context<span class="token punctuation">.</span><span class="token function">deleteDatabase</span><span class="token punctuation">(</span><span class="token string">"webview.db"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-context<span class="token punctuation">.</span><span class="token function">deleteDatabase</span><span class="token punctuation">(</span><span class="token string">"webviewCache.db"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">//清除当前webview访问的历史记录</span>
-<span class="token comment" spellcheck="true">//只会webview访问历史记录里的所有记录除了当前访问记录</span>
-Webview<span class="token punctuation">.</span><span class="token function">clearHistory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//这个api仅仅清除自动完成填充的表单数据，并不会清除WebView存储到本地的数据</span>
-Webview<span class="token punctuation">.</span><span class="token function">clearFormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h4><ul>
-<li><p>Cookie设置</p>
-<pre class="line-numbers language-java"><code class="language-java">  CookieSyncManager<span class="token punctuation">.</span><span class="token function">createInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  cookieManager<span class="token punctuation">.</span><span class="token function">setAcceptCookie</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  String cookie <span class="token operator">=</span> <span class="token string">"name=xxx;age=18"</span><span class="token punctuation">;</span>
-  cookieManager<span class="token punctuation">.</span><span class="token function">setCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">,</span> cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  CookieSyncManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>获取Cookie</p>
-<pre class="line-numbers language-java"><code class="language-java">  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  String cookie <span class="token operator">=</span> cookieManager<span class="token punctuation">.</span><span class="token function">getCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>清除Cookie</p>
-<pre class="line-numbers language-java"><code class="language-java">  CookieSyncManager<span class="token punctuation">.</span><span class="token function">createInstance</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>  
-  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-<span class="token comment" spellcheck="true">//这个两个在 API level 21 被抛弃</span>
-cookieManager<span class="token punctuation">.</span><span class="token function">removeSessionCookie</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-cookieManager<span class="token punctuation">.</span><span class="token function">removeAllCookie</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//Api 21 新增</span>
-<span class="token comment" spellcheck="true">//移除所有过期 cookie</span>
-cookieManager<span class="token punctuation">.</span><span class="token function">removeSessionCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//移除所有的 cookie</span>
-cookieManager<span class="token punctuation">.</span><span class="token function">removeAllCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//回调</span>
-CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">removeAllCookies</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ValueCallback</span><span class="token operator">&lt;</span>Boolean<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token annotation punctuation">@Override</span>
-        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onReceiveValue</span><span class="token punctuation">(</span>Boolean value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 清除结果</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-<pre><code>CookieSyncManager.getInstance().sync();  </code></pre><pre><code>#### 高级设置
-
-```java
- //设置自适应屏幕，两者合用
-    webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-    webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-
-    webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
-
-    //缩放操作
-    webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
-    webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
-    webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
-    webSettings.setTextZoom(2);//设置文本的缩放倍数，默认为 100
-
-    webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);  //提高渲染的优先级
-
-    webSettings.setStandardFontFamily(&quot;&quot;);//设置 WebView 的字体，默认字体为 &quot;sans-serif&quot;
-    webSettings.setDefaultFontSize(20);//设置 WebView 字体的大小，默认大小为 16
-    webSettings.setMinimumFontSize(12);//设置 WebView 支持的最小字体大小，默认为 8
-
-    // 5.1以上默认禁止了https和http混用，以下方式是开启
-    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
-        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-    }
-
-
-//其他
-    webSettings.setAllowFileAccess(true); //设置可以访问文件
-    webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
-    webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
-    webSettings.setDefaultTextEncodingName(&quot;utf-8&quot;);//设置编码格式
-    webSettings.setGeolocationEnabled(true);//允许网页执行定位操作</code></pre><h2 id="JavaScript-和-Native-交互"><a href="#JavaScript-和-Native-交互" class="headerlink" title="JavaScript 和 Native 交互"></a>JavaScript 和 Native 交互</h2><h3 id="DSBridge-Android"><a href="#DSBridge-Android" class="headerlink" title="DSBridge-Android"></a><a href="https://github.com/wendux/DSBridge-Android" target="_blank" rel="noopener">DSBridge-Android</a></h3><p>用于JavaScript and native applications 相互调用</p>
-<ol>
-<li><p>依赖引用</p>
-<pre class="line-numbers language-groovy"><code class="language-groovy">dependencies <span class="token punctuation">{</span>
- <span class="token comment" spellcheck="true">//compile 'com.github.wendux:DSBridge-Android:3.0-SNAPSHOT'</span>
- <span class="token comment" spellcheck="true">//support the x5 browser core of Tencent</span>
- <span class="token comment" spellcheck="true">//compile 'com.github.wendux:DSBridge-Android:x5-3.0-SNAPSHOT'</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>JavaScript 调用原生</p>
-<ul>
-<li><p>原生提供调用方法</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JsApi</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//for synchronous invocation</span>
-      <span class="token comment" spellcheck="true">//【err】易错点： msg 这个参数必须是Object否则JavaScript会不识别方法</span>
-    <span class="token annotation punctuation">@JavascriptInterface</span>
-    <span class="token keyword">public</span> String <span class="token function">testSyn</span><span class="token punctuation">(</span>Object msg<span class="token punctuation">)</span>  <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> msg <span class="token operator">+</span> <span class="token string">"［syn call］"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">//for asynchronous invocation</span>
-    <span class="token annotation punctuation">@JavascriptInterface</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testAsyn</span><span class="token punctuation">(</span>Object msg<span class="token punctuation">,</span> CompletionHandler handler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        handler<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span>msg<span class="token operator">+</span><span class="token string">" [ asyn call]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>加入DWebView生效</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> wendu<span class="token punctuation">.</span>dsbridge<span class="token punctuation">.</span>DWebView
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-DWebView dwebView<span class="token operator">=</span> <span class="token punctuation">(</span>DWebView<span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>dwebview<span class="token punctuation">)</span><span class="token punctuation">;</span>
-dwebView<span class="token punctuation">.</span><span class="token function">addJavascriptObject</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">JsApi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>JavaScript  <a href="https://raw.githubusercontent.com/wendux/DSBridge-Android/master/app/src/main/assets/js-call-native.html" target="_blank" rel="noopener">项目demo js-call-native.html（需要配置科学上网）</a></p>
-<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//cdn</span>
-<span class="token comment" spellcheck="true">//&lt;script src="https://unpkg.com/dsbridge@3.1.3/dist/dsbridge.js"> &lt;/script></span>
-<span class="token comment" spellcheck="true">//npm</span>
-<span class="token comment" spellcheck="true">//npm install dsbridge@3.1.3</span>
-<span class="token keyword">var</span> dsBridge<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"dsbridge"</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">//Call synchronously </span>
-<span class="token keyword">var</span> str<span class="token operator">=</span>dsBridge<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">"testSyn"</span><span class="token punctuation">,</span><span class="token string">"testSyn"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">//Call asynchronously</span>
-dsBridge<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">"testAsyn"</span><span class="token punctuation">,</span><span class="token string">"testAsyn"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token function">alert</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true">//Register javascript API for Native</span>
- dsBridge<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">'addValue'</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span>l<span class="token punctuation">,</span>r<span class="token punctuation">)</span><span class="token punctuation">{</span>
-     <span class="token keyword">return</span> l<span class="token operator">+</span>r<span class="token punctuation">;</span>
- <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="常用的第三方库"><a href="#常用的第三方库" class="headerlink" title="常用的第三方库"></a>常用的第三方库</h2><h3 id="cordova"><a href="#cordova" class="headerlink" title="cordova"></a>cordova</h3><blockquote>
-<p>Cordova提供了一组设备相关的API，通过这组API，移动应用能够以JavaScript访问原生的设备功能，如摄像头、麦克风等。</p>
-</blockquote>
-<ul>
-<li><a href="http://cordova.axuer.com/" target="_blank" rel="noopener">cordova 中文</a></li>
-</ul>
-<h3 id="mui"><a href="#mui" class="headerlink" title="mui"></a><a href="https://github.com/dcloudio/mui" target="_blank" rel="noopener">mui</a></h3><ul>
-<li>mui是最接近原生App体验的前端框架</li>
-</ul>
-<p>参考博文</p>
-<ul>
-<li><p><a href="https://blog.csdn.net/qq_42618969/article/details/102916085" target="_blank" rel="noopener">Android原生集成MUI框架进行混合开发</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/qq_33018731/article/details/83650579?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">浅聊基于MUI框架的混合开发</a></p>
-</li>
-</ul>
-<h2 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h2><h2 id="ndroid-webview处理404、500、断网、timeout页面的问题（by-星空武哥）"><a href="#ndroid-webview处理404、500、断网、timeout页面的问题（by-星空武哥）" class="headerlink" title="ndroid webview处理404、500、断网、timeout页面的问题（by 星空武哥）"></a>ndroid webview处理404、500、断网、timeout页面的问题（by 星空武哥）</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://blog.csdn.net/vicwudi/article/details/81990467" target="_blank" rel="noopener">WebView全面解析</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>实践</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于java-design-patterns白话图解设计模式（个人理解）</title>
-    <url>/2020/11/24/2020-02-15-Java-design-patterns-%E7%99%BD%E8%AF%9D%EF%BC%88%E5%8F%AF%E8%83%BD%E9%85%8D%E5%9B%BE%EF%BC%89/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer">
-
-<h1 id="Principle-设计原则"><a href="#Principle-设计原则" class="headerlink" title="Principle  设计原则"></a>Principle  设计原则</h1><h2 id="Generic"><a href="#Generic" class="headerlink" title="Generic"></a>Generic</h2><h3 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h3><p><a href="https://java-design-patterns.com/principles/#kiss" target="_blank" rel="noopener">KISS (Keep It Simple Stupid)</a></p>
+    <url>/2020/11/26/2020-02-15-Java-design-patterns-%E7%99%BD%E8%AF%9D%EF%BC%88%E5%8F%AF%E8%83%BD%E9%85%8D%E5%9B%BE%EF%BC%89/</url>
+    <content><![CDATA[<p><img src="https://cdn.linz.tech/cat.jpg" alt></p>
+<h1 id="Principle-设计原则"><a href="#Principle-设计原则" class="headerlink" title="Principle  设计原则"></a>Principle  设计原则</h1><h2 id="Generic"><a href="#Generic" class="headerlink" title="Generic"></a>Generic</h2><h3 id="KISS"><a href="#KISS" class="headerlink" title="KISS"></a>KISS</h3><p><a href="https://java-design-patterns.com/principles/#kiss" target="_blank" rel="noopener">KISS (Keep It Simple Stupid)</a> 越简单越好</p>
 <h3 id="YAGNI"><a href="#YAGNI" class="headerlink" title="YAGNI"></a>YAGNI</h3><p> You Ain’t Gonna Need It (翻译：你可能不需要他，即不要过度设计，为了迎合某些产生概率极低的需求而设计的成本是非常高的软件)</p>
 <blockquote>
 <p>YAGNI stands for “you aren’t gonna need it”: don’t implement something until it is necessary.</p>
@@ -323,6 +18,20 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
 <p><a href="https://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Separation_of_concerns</a></p>
 <blockquote>
 <p><strong>separation of concerns</strong> (<strong>SoC</strong>) is a design principle for separating a <a href="https://en.wikipedia.org/wiki/Computer_program" target="_blank" rel="noopener">computer program</a> into distinct sections such that each section addresses a separate <a href="https://en.wikipedia.org/wiki/Concern_(computer_science)" target="_blank" rel="noopener">concern</a>. A concern is a set of information that affects the code of a computer program. </p>
+</blockquote>
+<h2 id="软件设计七大原则"><a href="#软件设计七大原则" class="headerlink" title="软件设计七大原则"></a>软件设计七大原则</h2><h3 id="一-、开闭原则"><a href="#一-、开闭原则" class="headerlink" title="一 、开闭原则"></a>一 、<strong>开闭原则</strong></h3><blockquote>
+<p>即软件实体如类、模块函数应该对扩展开发，对修改关闭</p>
+</blockquote>
+<ul>
+<li>梅耶开闭原则<br>一个类的实现只应该因错误而修改，新的或者改变的特性应该通过新建不同的类实现。新建的类可以通过继承的方式来重用原类的代码。衍生的子类可以或不可以拥有和原类相同的接口。</li>
+</ul>
+<p>理解：一个设计好的类错误才去修改【闭】，新功能新建类，扩展功能继承类实现【开】</p>
+<ul>
+<li>多态开闭原则<br>多态开闭原则的定义倡导由于抽象化接口的使用，在这中间实现可以被改变，多种实现可以被创建，并且多态化的替换不同的实现。</li>
+</ul>
+<p>理解：把类可能被修改的方法，抽象化接口化，即把确定性高的属性方法自己实现【闭】，其他的留给接口实现【开】</p>
+<h3 id="二、里氏替换原则"><a href="#二、里氏替换原则" class="headerlink" title="二、里氏替换原则"></a>二、里氏替换原则</h3><blockquote>
+<p>任何父类可以出现的地方，子类一定可以出现</p>
 </blockquote>
 <h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ul>
 <li><a href="https://java-design-patterns.com/principles/" target="_blank" rel="noopener">https://java-design-patterns.com/principles/</a></li>
@@ -485,6 +194,13 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>案例： OKHttp 通过Intercepter这种连式设计，大大简化了请求访问的功能，并且提供了非常多的可扩展性</p>
 <p><img src="http://cdn.linz.tech/Okhttp_client_pattern.webp" alt></p>
+<h2 id="Decorator-（装饰模式）"><a href="#Decorator-（装饰模式）" class="headerlink" title="Decorator （装饰模式）"></a>Decorator （装饰模式）</h2><blockquote>
+<p>按照接口的思维理解，非常清楚，即把类的部分固有方法（作用）抽象成接口，交给实现了该抽象接口的类来实现，具体怎么实现看实现类</p>
+</blockquote>
+<h3 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h3><ol>
+<li>部分方法抽象</li>
+<li>装饰类实现抽象方法的具体内容</li>
+</ol>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">java-design-patterns</a></p>
 <p><a href="https://www.cnblogs.com/WindSun/p/10223126.html" target="_blank" rel="noopener">设计模式的分类</a></p>
 ]]></content>
@@ -494,6 +210,313 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
       <tags>
         <tag>实践</tag>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 和网页端混合开发小计</title>
+    <url>/2020/11/25/2020-11-25-%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<p><img src="https://cdn.linz.tech/chrome.png" alt></p>
+<h2 id="WebView-详解"><a href="#WebView-详解" class="headerlink" title="WebView 详解"></a>WebView 详解</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
+<li>加载网页<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//加载网页链接</span>
+mWebView<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">"http://www.itheima.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//加载本地assets目录下的网页</span>
+mWebView<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span><span class="token string">"file:///android_asset/demo.html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>加载控制<pre class="line-numbers language-java"><code class="language-java">webView<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//刷新页面（当前页面的所有资源都会重新加载）</span>
+webView<span class="token punctuation">.</span><span class="token function">stopLoading</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//停止加载</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>控件高度距离<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取当前可见区域的顶端距整个页面顶端的距离，也就是当前内容滚动的距离。</span>
+webView<span class="token punctuation">.</span><span class="token function">getScrollY</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//获取WebView控件的高度。</span>
+webView<span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>webView<span class="token punctuation">.</span><span class="token function">getBottom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//获取HTML的高度（原始高度，不包括缩放后的高度）</span>
+webView<span class="token punctuation">.</span><span class="token function">getContentHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>WebView加载上一页和下一页<pre class="line-numbers language-java"><code class="language-java">mWebView<span class="token punctuation">.</span><span class="token function">goBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到上个页面</span>
+mWebView<span class="token punctuation">.</span><span class="token function">goForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//跳到下个页面</span>
+mWebView<span class="token punctuation">.</span><span class="token function">canGoBack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到上一页(如果返回false,说明已经是第一页)</span>
+mWebView<span class="token punctuation">.</span><span class="token function">canGoForward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是否可以跳到下一页(如果返回false,说明已经是最后一页)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>WebView基本设置<pre class="line-numbers language-java"><code class="language-java">WebSettings settings <span class="token operator">=</span> mWebView<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+settings<span class="token punctuation">.</span><span class="token function">setBuiltInZoomControls</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 显示缩放按钮(wap网页不支持)</span>
+settings<span class="token punctuation">.</span><span class="token function">setUseWideViewPort</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 支持双击缩放(wap网页不支持)</span>
+settings<span class="token punctuation">.</span><span class="token function">setJavaScriptEnabled</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 支持js功能</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//恢复webview的状态（不靠谱）</span>
+    webView<span class="token punctuation">.</span><span class="token function">resumeTimers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//激活webView的状态，能正常加载网页</span>
+    webView<span class="token punctuation">.</span><span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//当页面被失去焦点被切换到后台不可见状态，需要执行onPause</span>
+    <span class="token comment" spellcheck="true">//通过onPause动作通知内核暂停所有的动作，比如DOM的解析、plugin的执行、JavaScript执行。</span>
+    webView<span class="token punctuation">.</span><span class="token function">onPause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//当应用程序(存在webview)被切换到后台时，这个方法不仅仅针对当前的webview而是全局的全应用程序的webview</span>
+    <span class="token comment" spellcheck="true">//它会暂停所有webview的layout，parsing，javascripttimer。降低CPU功耗。（不靠谱）</span>
+    webView<span class="token punctuation">.</span><span class="token function">pauseTimers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//在关闭了Activity时，如果Webview的音乐或视频，还在播放。就必须销毁Webview</span>
+<span class="token comment" spellcheck="true">//但是注意：webview调用destory时,webview仍绑定在Activity上</span>
+<span class="token comment" spellcheck="true">//这是由于自定义webview构建时传入了该Activity的context对象</span>
+<span class="token comment" spellcheck="true">//因此需要先从父容器中移除webview,然后再销毁webview:</span>
+ViewGroup parent <span class="token operator">=</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+parent<span class="token punctuation">.</span><span class="token function">removeView</span><span class="token punctuation">(</span>webView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+webView<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="WebViewClient-与-WebChromeClient"><a href="#WebViewClient-与-WebChromeClient" class="headerlink" title="WebViewClient 与 WebChromeClient"></a>WebViewClient 与 WebChromeClient</h3><ul>
+<li><p>WebViewClient </p>
+<pre class="line-numbers language-java"><code class="language-java">mWebView<span class="token punctuation">.</span><span class="token function">setWebViewClient</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebViewClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 开始加载网页</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onPageStarted</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">,</span> Bitmap favicon<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPageStarted</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> url<span class="token punctuation">,</span> favicon<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"开始加载网页了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 网页加载结束</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onPageFinished</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onPageFinished</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"网页加载结束"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 所有链接跳转会走此方法</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">shouldOverrideUrlLoading</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"跳转链接:"</span> <span class="token operator">+</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        view<span class="token punctuation">.</span><span class="token function">loadUrl</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 在跳转链接时强制在当前webview中加载</span>
+
+        <span class="token comment" spellcheck="true">//此方法还有其他应用场景, 比如写一个超链接&lt;a href="tel:110">联系我们&lt;/a>, 当点击该超链接时,可以在此方法中获取链接地址tel:110, 解析该地址,获取电话号码, 然后跳转到本地打电话页面, 而不是加载网页, 从而实现了webView和本地代码的交互</span>
+
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>onPageStarted()onPageFinished()：页面加载时和页面加载完毕时调用。<br>shouldOverrideKeyEvent()：重写此方法才能处理浏览器中的按键事件。<br>shouldInterceptRequest()：页面每一次请求资源之前都会调用这个方法（非UI线程调用）。<br>onLoadResource()：页面加载资源时调用，每加载一个资源（比如图片）就调用一次。<br>onReceivedError()：加载页面的服务器出现错误（比如404）时回调。<br>onReceivedSslError()：重写此方法可以让webview处理https请求。<br>doUpdateVisitedHistory()：更新历史记录。<br>onFormResubmission()：应用程序重新请求网页数据。<br>onReceivedHttpAuthRequest()：获取返回信息授权请求。<br>onScaleChanged()：WebView发生缩放改变时调用。<br>onUnhandledKeyEvent()：Key事件未被加载时调用。</p>
+</li>
+<li><p>WebChromeClient </p>
+<blockquote>
+<p>辅助 WebView 处理 Javascript 的对话框，网站图标，网站标题等等</p>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java">mWebView<span class="token punctuation">.</span><span class="token function">setWebChromeClient</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebChromeClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onProgressChanged</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> <span class="token keyword">int</span> newProgress<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onProgressChanged</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> newProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 进度发生变化</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"进度:"</span> <span class="token operator">+</span> newProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onReceivedTitle</span><span class="token punctuation">(</span>WebView view<span class="token punctuation">,</span> String title<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onReceivedTitle</span><span class="token punctuation">(</span>view<span class="token punctuation">,</span> title<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 网页标题</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"网页标题:"</span> <span class="token operator">+</span> title<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>onReceivedTitle()：获得网页的标题时回调。<br>onReceivedIcon()：获得网页的图标时回调。<br>onCreateWindow()：打开新窗口时回调。<br>onCloseWindow()：关闭窗口时回调。</p>
+</li>
+</ul>
+<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><ul>
+<li>缓存设置</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">WebSettings settings <span class="token operator">=</span> mWebView<span class="token punctuation">.</span><span class="token function">getSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据</span>
+settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_CACHE_ELSE_NETWORK<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//只加载缓存</span>
+settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_CACHE_ONLY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//根据cache-control决定是否从网络上取数据</span>
+settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//不加载缓存</span>
+settings<span class="token punctuation">.</span><span class="token function">setCacheMode</span><span class="token punctuation">(</span>WebSettings<span class="token punctuation">.</span>LOAD_NO_CACHE<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>缓存清楚</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//最简便的方式:</span>
+mWebView<span class="token punctuation">.</span><span class="token function">clearCache</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//另外一种方式:</span>
+<span class="token comment" spellcheck="true">//删除缓存文件夹</span>
+File file <span class="token operator">=</span> CacheManager<span class="token punctuation">.</span><span class="token function">getCacheFileBaseDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>file <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> file<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> file<span class="token punctuation">.</span><span class="token function">isDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>File item <span class="token operator">:</span> file<span class="token punctuation">.</span><span class="token function">listFiles</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    item<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">}</span> 
+  file<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> 
+<span class="token comment" spellcheck="true">//删除缓存数据库</span>
+context<span class="token punctuation">.</span><span class="token function">deleteDatabase</span><span class="token punctuation">(</span><span class="token string">"webview.db"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+context<span class="token punctuation">.</span><span class="token function">deleteDatabase</span><span class="token punctuation">(</span><span class="token string">"webviewCache.db"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//清除当前webview访问的历史记录</span>
+<span class="token comment" spellcheck="true">//只会webview访问历史记录里的所有记录除了当前访问记录</span>
+Webview<span class="token punctuation">.</span><span class="token function">clearHistory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//这个api仅仅清除自动完成填充的表单数据，并不会清除WebView存储到本地的数据</span>
+Webview<span class="token punctuation">.</span><span class="token function">clearFormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h4><ul>
+<li>Cookie设置</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">    CookieSyncManager<span class="token punctuation">.</span><span class="token function">createInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cookieManager<span class="token punctuation">.</span><span class="token function">setAcceptCookie</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    String cookie <span class="token operator">=</span> <span class="token string">"name=xxx;age=18"</span><span class="token punctuation">;</span>
+    cookieManager<span class="token punctuation">.</span><span class="token function">setCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">,</span> cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    CookieSyncManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>获取Cookie</p>
+<pre class="line-numbers language-java"><code class="language-java">  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  String cookie <span class="token operator">=</span> cookieManager<span class="token punctuation">.</span><span class="token function">getCookie</span><span class="token punctuation">(</span>URL<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>清除Cookie</p>
+<pre class="line-numbers language-java"><code class="language-java">  CookieSyncManager<span class="token punctuation">.</span><span class="token function">createInstance</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+  CookieManager cookieManager <span class="token operator">=</span> CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment" spellcheck="true">//这个两个在 API level 21 被抛弃</span>
+cookieManager<span class="token punctuation">.</span><span class="token function">removeSessionCookie</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+cookieManager<span class="token punctuation">.</span><span class="token function">removeAllCookie</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//Api 21 新增</span>
+<span class="token comment" spellcheck="true">//移除所有过期 cookie</span>
+cookieManager<span class="token punctuation">.</span><span class="token function">removeSessionCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//移除所有的 cookie</span>
+cookieManager<span class="token punctuation">.</span><span class="token function">removeAllCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//回调</span>
+CookieManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">removeAllCookies</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ValueCallback</span><span class="token operator">&lt;</span>Boolean<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onReceiveValue</span><span class="token punctuation">(</span>Boolean value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 清除结果</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<pre><code>CookieSyncManager.getInstance().sync();  </code></pre><pre><code>#### 高级设置
+
+```java
+ //设置自适应屏幕，两者合用
+    webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+    webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
+    webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
+
+    //缩放操作
+    webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
+    webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
+    webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
+    webSettings.setTextZoom(2);//设置文本的缩放倍数，默认为 100
+
+    webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);  //提高渲染的优先级
+
+    webSettings.setStandardFontFamily(&quot;&quot;);//设置 WebView 的字体，默认字体为 &quot;sans-serif&quot;
+    webSettings.setDefaultFontSize(20);//设置 WebView 字体的大小，默认大小为 16
+    webSettings.setMinimumFontSize(12);//设置 WebView 支持的最小字体大小，默认为 8
+
+    // 5.1以上默认禁止了https和http混用，以下方式是开启
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
+        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+    }
+
+
+//其他
+    webSettings.setAllowFileAccess(true); //设置可以访问文件
+    webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
+    webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
+    webSettings.setDefaultTextEncodingName(&quot;utf-8&quot;);//设置编码格式
+    webSettings.setGeolocationEnabled(true);//允许网页执行定位操作</code></pre><h2 id="JavaScript-和-Native-交互"><a href="#JavaScript-和-Native-交互" class="headerlink" title="JavaScript 和 Native 交互"></a>JavaScript 和 Native 交互</h2><h3 id="DSBridge-Android"><a href="#DSBridge-Android" class="headerlink" title="DSBridge-Android"></a><a href="https://github.com/wendux/DSBridge-Android" target="_blank" rel="noopener">DSBridge-Android</a></h3><p>用于JavaScript and native applications 相互调用</p>
+<ol>
+<li><p>依赖引用</p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">dependencies <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true">//compile 'com.github.wendux:DSBridge-Android:3.0-SNAPSHOT'</span>
+ <span class="token comment" spellcheck="true">//support the x5 browser core of Tencent</span>
+ <span class="token comment" spellcheck="true">//compile 'com.github.wendux:DSBridge-Android:x5-3.0-SNAPSHOT'</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>JavaScript 调用原生</p>
+<ul>
+<li><p>原生提供调用方法</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JsApi</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//for synchronous invocation</span>
+      <span class="token comment" spellcheck="true">//【err】易错点： msg 这个参数必须是Object否则JavaScript会不识别方法</span>
+    <span class="token annotation punctuation">@JavascriptInterface</span>
+    <span class="token keyword">public</span> String <span class="token function">testSyn</span><span class="token punctuation">(</span>Object msg<span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> msg <span class="token operator">+</span> <span class="token string">"［syn call］"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//for asynchronous invocation</span>
+    <span class="token annotation punctuation">@JavascriptInterface</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testAsyn</span><span class="token punctuation">(</span>Object msg<span class="token punctuation">,</span> CompletionHandler handler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        handler<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span>msg<span class="token operator">+</span><span class="token string">" [ asyn call]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>加入DWebView生效</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> wendu<span class="token punctuation">.</span>dsbridge<span class="token punctuation">.</span>DWebView
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+DWebView dwebView<span class="token operator">=</span> <span class="token punctuation">(</span>DWebView<span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>dwebview<span class="token punctuation">)</span><span class="token punctuation">;</span>
+dwebView<span class="token punctuation">.</span><span class="token function">addJavascriptObject</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">JsApi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>JavaScript  <a href="https://raw.githubusercontent.com/wendux/DSBridge-Android/master/app/src/main/assets/js-call-native.html" target="_blank" rel="noopener">项目demo js-call-native.html（需要配置科学上网）</a></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//cdn</span>
+<span class="token comment" spellcheck="true">//&lt;script src="https://unpkg.com/dsbridge@3.1.3/dist/dsbridge.js"> &lt;/script></span>
+<span class="token comment" spellcheck="true">//npm</span>
+<span class="token comment" spellcheck="true">//npm install dsbridge@3.1.3</span>
+<span class="token keyword">var</span> dsBridge<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"dsbridge"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//Call synchronously </span>
+<span class="token keyword">var</span> str<span class="token operator">=</span>dsBridge<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">"testSyn"</span><span class="token punctuation">,</span><span class="token string">"testSyn"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//Call asynchronously</span>
+dsBridge<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">"testAsyn"</span><span class="token punctuation">,</span><span class="token string">"testAsyn"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">alert</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//Register javascript API for Native</span>
+ dsBridge<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">'addValue'</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span>l<span class="token punctuation">,</span>r<span class="token punctuation">)</span><span class="token punctuation">{</span>
+     <span class="token keyword">return</span> l<span class="token operator">+</span>r<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="常用的第三方库"><a href="#常用的第三方库" class="headerlink" title="常用的第三方库"></a>常用的第三方库</h2><p><img src="https://cdn.linz.tech/1200px-Apache_Cordova_Logo.svg.png" alt></p>
+<h3 id="cordova"><a href="#cordova" class="headerlink" title="cordova"></a>cordova</h3><blockquote>
+<p>Cordova提供了一组设备相关的API，通过这组API，移动应用能够以JavaScript访问原生的设备功能，如摄像头、麦克风等。</p>
+</blockquote>
+<ul>
+<li><a href="http://cordova.axuer.com/" target="_blank" rel="noopener">cordova 中文</a></li>
+<li><a href="https://www.jianshu.com/p/43872edf70e2" target="_blank" rel="noopener">Android集成Cordova</a></li>
+<li><a href="https://blog.csdn.net/github_39500961/article/details/76270299" target="_blank" rel="noopener">cordova插件汇总大全</a></li>
+</ul>
+<h3 id="mui"><a href="#mui" class="headerlink" title="mui"></a><a href="https://github.com/dcloudio/mui" target="_blank" rel="noopener">mui</a></h3><ul>
+<li>mui是最接近原生App体验的前端框架</li>
+</ul>
+<p>参考博文</p>
+<ul>
+<li><p><a href="https://blog.csdn.net/qq_42618969/article/details/102916085" target="_blank" rel="noopener">Android原生集成MUI框架进行混合开发</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_33018731/article/details/83650579?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">浅聊基于MUI框架的混合开发</a></p>
+</li>
+</ul>
+<h2 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h2><ul>
+<li><a href="https://blog.csdn.net/lsyz0021/article/details/56677132" target="_blank" rel="noopener">Android webview处理404、500、断网、timeout页面的问题</a></li>
+<li></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/vicwudi/article/details/81990467" target="_blank" rel="noopener">WebView全面解析</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
       </tags>
   </entry>
   <entry>
@@ -23875,32 +23898,6 @@ ta<span class="token punctuation">.</span><span class="token function">addEventL
       </tags>
   </entry>
   <entry>
-    <title>webpack笔记</title>
-    <url>/2019/07/22/2019-7-22-webpack/</url>
-    <content><![CDATA[<h1 id="webpack基础"><a href="#webpack基础" class="headerlink" title="webpack基础"></a>webpack基础</h1><h2 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h2><ol>
-<li>代码转换</li>
-<li>文件优化</li>
-<li>代码分割</li>
-<li>模块合并</li>
-<li>debug模式自动刷新</li>
-<li>代码验证</li>
-<li>自动发布</li>
-</ol>
-<h2 id="webpack-基础"><a href="#webpack-基础" class="headerlink" title="webpack 基础"></a>webpack 基础</h2><p>安装到本地</p>
-<pre class="line-numbers language-shell"><code class="language-shell">yarn init -y 
-#-D 表示开发依赖
-yarn add webpack webpack-cli -D
-npx webpack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>实践</tag>
-        <tag>网页</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue笔记</title>
     <url>/2019/07/22/2019-7-22-vue/</url>
     <content><![CDATA[<h1 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h1><ul>
@@ -23992,6 +23989,32 @@ var Child = {
       </categories>
       <tags>
         <tag>实践</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>webpack笔记</title>
+    <url>/2019/07/22/2019-7-22-webpack/</url>
+    <content><![CDATA[<h1 id="webpack基础"><a href="#webpack基础" class="headerlink" title="webpack基础"></a>webpack基础</h1><h2 id="webpack简介"><a href="#webpack简介" class="headerlink" title="webpack简介"></a>webpack简介</h2><ol>
+<li>代码转换</li>
+<li>文件优化</li>
+<li>代码分割</li>
+<li>模块合并</li>
+<li>debug模式自动刷新</li>
+<li>代码验证</li>
+<li>自动发布</li>
+</ol>
+<h2 id="webpack-基础"><a href="#webpack-基础" class="headerlink" title="webpack 基础"></a>webpack 基础</h2><p>安装到本地</p>
+<pre class="line-numbers language-shell"><code class="language-shell">yarn init -y 
+#-D 表示开发依赖
+yarn add webpack webpack-cli -D
+npx webpack<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>实践</tag>
+        <tag>网页</tag>
       </tags>
   </entry>
   <entry>
@@ -30550,8 +30573,8 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
         <category>note</category>
       </categories>
       <tags>
-        <tag>Android</tag>
         <tag>Material</tag>
+        <tag>Android</tag>
       </tags>
   </entry>
   <entry>
