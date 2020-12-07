@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="实践,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="【补充：刚看到华为Android相关的SDK，突然感受到华为在Android领域的深厚的技术积累，所以上两张图】 在一个技术从业者的角度看华为，牛掰佩服，这就是我的梦想呀！技术傍身披荆斩棘，格局宏大，战略深谋。 鱼翔浅底 鹰击长空, 万类霜天竞自由 希望我未来也能有这种类似精神和气质。   前言 最近好像着了拼夕夕的道了，成功成为拼夕夕重度用户，身为Android程序员，总觉得拼夕夕的更新App的">
+<meta name="keywords" content="实践">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【硬核】从新势力电商拼夕夕App洞察，电商App都需要引用什么库">
+<meta property="og:url" content="http://linz.tech/2020/12/05/2020-12-5-大厂都用什么开源库/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="【补充：刚看到华为Android相关的SDK，突然感受到华为在Android领域的深厚的技术积累，所以上两张图】 在一个技术从业者的角度看华为，牛掰佩服，这就是我的梦想呀！技术傍身披荆斩棘，格局宏大，战略深谋。 鱼翔浅底 鹰击长空, 万类霜天竞自由 希望我未来也能有这种类似精神和气质。   前言 最近好像着了拼夕夕的道了，成功成为拼夕夕重度用户，身为Android程序员，总觉得拼夕夕的更新App的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.linz.tech/%E5%8D%8E%E4%B8%BA%E7%A0%B4%E9%A3%9E%E6%9C%BA.jpg">
+<meta property="og:image" content="https://cdn.linz.tech/%E5%8D%8E%E4%B8%BA%E8%8A%AD%E8%95%BE%E8%88%9E%E9%9E%8B.jpeg">
+<meta property="og:image" content="https://cdn.linz.tech/top_2020_mobile_app.png">
+<meta property="og:image" content="https://cdn.linz.tech/%E6%8B%BC%E5%A4%95%E5%A4%95.jpeg">
+<meta property="og:image" content="https://cdn.linz.tech/80s_picture.jpg">
+<meta property="og:image" content="https://cdn.linz.tech/BoostMultiDex.jpg">
+<meta property="og:image" content="https://cdn.linz.tech/profile_android_mini.png">
+<meta property="og:image" content="https://cdn.linz.tech/roundImageView.png">
+<meta property="og:updated_time" content="2020-12-07T00:23:44.272Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【硬核】从新势力电商拼夕夕App洞察，电商App都需要引用什么库">
+<meta name="twitter:description" content="【补充：刚看到华为Android相关的SDK，突然感受到华为在Android领域的深厚的技术积累，所以上两张图】 在一个技术从业者的角度看华为，牛掰佩服，这就是我的梦想呀！技术傍身披荆斩棘，格局宏大，战略深谋。 鱼翔浅底 鹰击长空, 万类霜天竞自由 希望我未来也能有这种类似精神和气质。   前言 最近好像着了拼夕夕的道了，成功成为拼夕夕重度用户，身为Android程序员，总觉得拼夕夕的更新App的">
+<meta name="twitter:image" content="https://cdn.linz.tech/%E5%8D%8E%E4%B8%BA%E7%A0%B4%E9%A3%9E%E6%9C%BA.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2020/12/05/2020-12-5-大厂都用什么开源库/">
+
+
+
+
+
+  <title>【硬核】从新势力电商拼夕夕App洞察，电商App都需要引用什么库 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2020/12/05/2020-12-5-大厂都用什么开源库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【硬核】从新势力电商拼夕夕App洞察，电商App都需要引用什么库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-05T23:58:41+08:00">
+                2020-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/study/" itemprop="url" rel="index">
+                    <span itemprop="name">study</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/12/05/2020-12-5-大厂都用什么开源库/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/12/05/2020-12-5-大厂都用什么开源库/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>【<strong>补充：刚看到华为Android相关的SDK，突然感受到华为在Android领域的深厚的技术积累，所以上两张图</strong>】</p>
+<p>在一个技术从业者的角度看华为，牛掰佩服，这就是我的梦想呀！技术傍身披荆斩棘，格局宏大，战略深谋。</p>
+<p><strong>鱼翔浅底</strong></p>
+<p><strong>鹰击长空,</strong></p>
+<p><strong>万类霜天竞自由</strong></p>
+<p>希望我未来也能有这种类似精神和气质。</p>
+<p><img src="https://cdn.linz.tech/%E5%8D%8E%E4%B8%BA%E7%A0%B4%E9%A3%9E%E6%9C%BA.jpg" alt></p>
+<p><img src="https://cdn.linz.tech/%E5%8D%8E%E4%B8%BA%E8%8A%AD%E8%95%BE%E8%88%9E%E9%9E%8B.jpeg" alt></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://cdn.linz.tech/top_2020_mobile_app.png" alt></p>
+<p>最近好像着了拼夕夕的道了，成功成为拼夕夕重度用户，身为Android程序员，总觉得拼夕夕的更新App的频率有点低，不是有点低，在我手上半年没更新了，但是各种活动推陈出新，特别是最近我看到</p>
+<p><img src="https://cdn.linz.tech/%E6%8B%BC%E5%A4%95%E5%A4%95.jpeg" alt></p>
+<p>一个之前原生UI界面的功能突然冒出来（多多钱包功能），当然这个可能是后台配置数据而来，之前的功能原来就有，但是这个引起了我研究大厂App的兴致，撸起袖子开赶，把之前知道的反编译知识在捡起来用用。</p>
+<p><img src="https://cdn.linz.tech/80s_picture.jpg" alt></p>
+<h1 id="拼多多"><a href="#拼多多" class="headerlink" title="拼多多"></a>拼多多</h1><p>当然第一个下手的就是拼多多了</p>
+<ol>
+<li><p><strong>异常捕获</strong> <a href="https://github.com/iqiyi/xCrash" target="_blank" rel="noopener">xCrash</a>  2019 年由爱奇艺在 GitHub 上开源。</p>
+<h2 id="偏底层优化"><a href="#偏底层优化" class="headerlink" title="偏底层优化"></a>偏底层优化</h2></li>
+<li><p><a href="https://github.com/bytedance/BoostMultiDex" target="_blank" rel="noopener"><strong>BoostMultiDex</strong></a></p>
+<blockquote>
+<p>相比于 Android 官方原始 MultiDex 方案，它能够减少 80% 以上的黑屏等待时间<br><img src="https://cdn.linz.tech/BoostMultiDex.jpg" alt></p>
+</blockquote>
+</li>
+<li><p><strong><a href="https://github.com/Tencent/MMKV" target="_blank" rel="noopener">MMKV</a></strong> 基于 mmap 的高性能通用 key-value 组件</p>
+<blockquote>
+<p>MMKV 是基于 mmap 内存映射的 key-value 组件，底层序列化/反序列化使用 protobuf 实现，性能高，稳定性强。从 2015 年中至今在微信上使用，其性能和稳定性经过了时间的验证。近期也已移植到 Android / macOS / Win32 / POSIX 平台，一并开源。</p>
+<p>官方提供的性能对比图，这个有点凶残了，哈哈</p>
+<p><img src="https://cdn.linz.tech/profile_android_mini.png" alt></p>
+</blockquote>
+</li>
+<li><p><a href="https://github.com/iqiyi/xHook" target="_blank" rel="noopener">xHook</a>  </p>
+<blockquote>
+<p>官方描述：xhook 是一个针对 Android 平台 ELF (可执行文件和动态库) 的 PLT (Procedure Linkage Table) hook 库</p>
+<p>感觉有点吊so库都能hook感兴趣的小伙伴可以看看</p>
+</blockquote>
+</li>
+<li><p><a href="https://github.com/eclipsesource/J2V8" target="_blank" rel="noopener">J2V8</a>  不知道拼多多是否在Javascript引擎上做了优化，也可能是第三方引用</p>
+<blockquote>
+<p>J2V8是一套针对谷歌的V8 Javascript引擎的java绑定。J2V8的开发为Android平台带来了高效的Javascript的执行环境 </p>
+<p>教程：<a href="https://blog.csdn.net/zyzzate/article/details/52303376?locationNum=8&fps=1" target="_blank" rel="noopener">Java 调用Javascript 输出Hello World!</a></p>
+</blockquote>
+</li>
+<li><p><a href="https://github.com/protocolbuffers/protobuf" target="_blank" rel="noopener"><strong>protobuf</strong></a>  【已经45.1k start可见这个应用范围有多广】是二进制存储 所以比 json传输更快 更易于跨平台开发 但是读写更麻烦,这个在Google开源的时候就知道了，但是身为Android开发没有机会推行这个技术，先记录下来，来一段网上的性能测试，激发一下实践冲动</p>
+<blockquote>
+<p><strong>空间效率</strong></p>
+<p>Json:<strong>107个字节</strong></p>
+<p>Protobuf:<strong>32个字节</strong></p>
+<p><strong>时间效率</strong></p>
+<p>Json序列化: <strong>1ms</strong> , 反序列化:<strong>0ms</strong></p>
+<p>Protobuf 序列化: <strong>0ms</strong> 反序列化:<strong>0ms</strong></p>
+<p>将public List<phone> list和repeated PhoneInfo phoneInfoList =3;都赋值为1000个PhoneInfo</phone></p>
+<p><strong>空间效率</strong></p>
+<p>Json:<strong>4206个字节</strong></p>
+<p>Protobuf:<strong>1332个字节</strong></p>
+<p><strong>时间效率</strong></p>
+<p>Json序列化: <strong>4ms</strong> , 反序列化:<strong>1ms</strong></p>
+<p>Protobuf 序列化: <strong>1ms</strong> 反序列化:<strong>0ms</strong></p>
+</blockquote>
+<p>参考：<a href="https://blog.csdn.net/yyz_1987/article/details/81146925" target="_blank" rel="noopener">protobuf在java, Android下的使用总结</a></p>
+</li>
+<li><p><a href="https://github.com/Tencent/wcdb" target="_blank" rel="noopener">wcdb</a> </p>
+<blockquote>
+<p>WCDB是一个高效、完整、易用的移动数据库框架，基于<a href="https://github.com/sqlcipher/sqlcipher" target="_blank" rel="noopener">SQLCipher</a>，支持iOS, macOS和Android。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="调试运营维护"><a href="#调试运营维护" class="headerlink" title="调试运营维护"></a>调试运营维护</h2><ol>
+<li><p>LDNetDiagnoService_Android </p>
+<blockquote>
+<p>利用ping、tcp connect和traceroute的原理，对指定域名（通常为后台API的提供域名）进行网络诊断，并收集诊断日志</p>
+</blockquote>
+</li>
+<li><p><a href="https://github.com/KeepSafe/dexcount-gradle-plugin" target="_blank" rel="noopener">dexcount-gradle-plugin</a>  Android Studio 如何查看Android App的方法总数</p>
+</li>
+<li><p><a href="https://github.com/Tencent/tinker" target="_blank" rel="noopener"><em>tinker</em></a> 不出所料拼多多使用的是腾讯的tinker作为热修复工具，但是不知道是我的原因还是手机的原因，我在本公司项目中使用华为和三星手机都是升级失败，而且还有致命的生效问题有时候把应用杀掉3-4次才生效，毕竟支持UI相关的资源更新，这个避免不了提高复杂的度，使生产环境下升级成功率低。故我还是选择<a href="https://www.jianshu.com/p/f7e079480053" target="_blank" rel="noopener">Android——Sophix热修复接入</a> 成功率高点，试了几次都成功，绝对能解决老板发现bug夺命连环call，或者致命bug世界末日</p>
+<blockquote>
+<p>【画重点·经验之谈】在一些核心的功能上尽量考虑充分各种情况，有条件必须准备plan B，在不生效的情况下能救你一命，o(╥﹏╥)o。😎</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="UI布局相关"><a href="#UI布局相关" class="headerlink" title="UI布局相关"></a>UI布局相关</h2><ol>
+<li><p><a href="https://github.com/airbnb/lottie-android" target="_blank" rel="noopener">lottie-android</a> airbnb json 文件转换成动态图片的库</p>
+</li>
+<li><p><a href="https://github.com/alibaba/Virtualview-Android" target="_blank" rel="noopener">Virtualview-Android</a> 包名com.tmall.wireless.virtualview 天猫也就是阿里开源的库，想不到这两个劲敌在这里合作了，O(∩_∩)O哈哈~</p>
+<blockquote>
+<p>主要功能：Android 和 IOS都支持，动态下发XML模板数据动态刷新UI</p>
+<p>官方描述：</p>
+<ul>
+<li>一份模板，两端支持。</li>
+<li>提供基础的原子控件与容器控件，支持加入自定义组件。</li>
+<li>支持一种虚拟化实现控件的协议，在模板里混合使用虚拟控件和实体控件。</li>
+<li>支持在模板里编写数据绑定的表达式。</li>
+<li>支持在模板里写事件触发的逻辑表达式。</li>
+<li>提供配套的开发工具，辅助模板开发工具。</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong><a href="https://github.com/alibaba/vlayout" target="_blank" rel="noopener"> vlayout</a></strong> 又一个阿里开源的库</p>
+</li>
+<li><p><a href="https://github.com/vinc3m1/RoundedImageView" target="_blank" rel="noopener">RoundedImageView</a><br><img src="https://cdn.linz.tech/roundImageView.png" alt></p>
+</li>
+<li><p><a href="https://github.com/google/flexbox-layout" target="_blank" rel="noopener">flexbox-layout</a> </p>
+<blockquote>
+<p>FlexboxLayout is a library project which brings the similar capabilities of <a href="https://www.w3.org/TR/css-flexbox-1" target="_blank" rel="noopener">CSS Flexible Box Layout Module</a> to Android.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="常用第三方SDK"><a href="#常用第三方SDK" class="headerlink" title="常用第三方SDK"></a>常用第三方SDK</h2><ol>
+<li><p>QQ/微信/支付宝支付</p>
+</li>
+<li><p><a href="https://wiki.open.qq.com/wiki/mobile/Android_SDK%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E#1._Andriod_SDK.E7.AE.80.E4.BB.8B" target="_blank" rel="noopener">腾讯开发平台 Android_SDK</a></p>
+<blockquote>
+<p>Android SDK以Jar包形式提供，封装了QQ登录的登录授权以及大部分OpenAPI及社交渠道的分享、邀请、请求礼物、挑战炫耀、语音、应用评价、好友召回、获取附近的人API，移动应用只需要修改少量代码，即可快速实现QQ登录功能，并可调用平台 提供的OpenAPI及社交渠道API的功能。<br>主要提供的功能接口有：登录、注销、邀请好友、应用分享、获取用户信息、获取用户相册列表、发送分享、发表说说、上传图片、创建相册、设置QQ头像、增量授权、分享消息给QQ好友、发送带图微博发送请求、赠送礼物、发送挑战、炫耀等功能，Andriod_SDK_V2.1新增了好友召回，获取附近也在玩该应用的人等新功能。具体修改可参考《接口调用说明》文档。</p>
+</blockquote>
+</li>
+<li><p>【推送】小米推送/hentap(OPPO)推送/vivo推送/魅族推送/<a href="https://www.cnblogs.com/zt007/p/6222160.html" target="_blank" rel="noopener"><strong>腾讯信鸽推送</strong></a></p>
+</li>
+<li><p>wechat-sdk-android-without-mta:+ 是微信提供给第三方sdk（支付、登录和分享等）</p>
+</li>
+<li><p><a href="https://cloud.tencent.com/product/mta" target="_blank" rel="noopener">腾讯移动分析 MTA 接入文档</a> 没用过，但是bugly上面有提供相识的功能</p>
+<blockquote>
+<p>腾讯移动分析有专业的移动应用数据分析能力，为您的应用提供实时数据统计分析服务，监控版本质量、渠道状况、用户画像属性及用户细分行为，通过数据可视化展现，协助产品运营决策。</p>
+</blockquote>
+</li>
+<li><p><a href="https://x5.tencent.com/tbs/guide/sdkInit.html" target="_blank" rel="noopener">TBS腾讯X5浏览器SDK 接入文档</a></p>
+<blockquote>
+<p>官方【自卖自夸】大小250k完全可接受</p>
+<p>1) 速度快：相比系统webview的网页打开速度有30+%的提升；</p>
+<p>2) 省流量：使用云端优化技术使流量节省20+%；</p>
+<p>3) 更安全：安全问题可以在24小时内修复；</p>
+<p>4) 更稳定：经过亿级用户的使用考验，CRASH率低于0.15%；</p>
+<p>5) 兼容好：无系统内核的碎片化问题，更少的兼容性问题；</p>
+<p>6) 体验优：支持夜间模式、适屏排版、字体设置等浏览增强功能；</p>
+<p>7) 功能全：在Html5、ES6上有更完整支持；</p>
+<p>8) 更强大：集成强大的视频播放器，支持视频格式远多于系统webview；</p>
+<p>9) 视频和文件格式的支持x5内核多于系统内核</p>
+<p>10) 防劫持是x5内核的一大亮点</p>
+</blockquote>
+</li>
+<li><p><a href="https://github.com/Tencent/mars" target="_blank" rel="noopener">Github Mars</a><br><a href="https://github.com/Tencent/mars/wiki/Mars-Android-%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97" target="_blank" rel="noopener">官网 Mars Android 接入指南</a></p>
+<blockquote>
+<p>【官方说明】跨平台</p>
+<ul>
+<li>comm：可以独立使用的公共库，包括 socket、线程、消息队列、协程等；</li>
+<li>xlog：高可靠性高性能的运行期日志组件；</li>
+<li>SDT： 网络诊断组件；</li>
+<li>STN： 信令分发网络模块，也是 Mars 最主要的部分。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>facebook SDK 感觉这个功能应该提供给在中国的外国人使用的，大厂就是考虑周全👍</p>
+</li>
+</ol>
+<h3 id="华为SDK"><a href="#华为SDK" class="headerlink" title="华为SDK"></a>华为SDK</h3><blockquote>
+<p>特意单独列出华为SDK这么多年学Android，一直没有觉得华为在Android软件领域有和阿里腾讯的影响力，这次学到了，而且华为开源的一下SDK都是很有深度的，这里必须👍👍（点赞三连）</p>
+</blockquote>
+<ol>
+<li><p>华为推送 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fdeveloper.huawei.com%2Fconsumer%2Fcn%2Fservice%2Fhms%2Fcatalog%2Fhuaweipush.html%3Fpage%3Dhmssdk_huaweipush_devprepare%233%20%E9%9B%86%E6%88%90SDK" target="_blank" rel="noopener">华为开发者联盟&gt;HMS&gt;资源中心&gt;消息推送服务&gt;集成SDK</a></p>
+</li>
+<li><p><a href="https://developer.huawei.com/consumer/cn/doc/development/huaweihealth-Guides/introduction-0000001051004855" target="_blank" rel="noopener">HUAWEI HiHealth </a></p>
+<blockquote>
+<p>HUAWEI HiHealth 开放华为在运动健康领域的专业能力，为开发者提供了一个数据接入和服务汇聚的开放平台，满足各行各业的合作伙伴在运动健康方面的需求场景。</p>
+<p><a href="https://developer.huawei.com/consumer/cn/doc/#ZH-CN_TOPIC_0000001050060843__section1569462419384" target="_blank" rel="noopener">场景一：数据获取场景</a></p>
+<p><a href="https://developer.huawei.com/consumer/cn/doc/#ZH-CN_TOPIC_0000001050060843__section86051845123819" target="_blank" rel="noopener">场景二：数据写入场景</a></p>
+</blockquote>
+</li>
+<li><p>HiAI</p>
+<blockquote>
+</blockquote>
+</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li><p><a href="https://github.com/AlbieLiang/IPCInvoker" target="_blank" rel="noopener">IPCInvoker</a> start 个数不多而且是个人维护，这个应该是拼多多初期沿用至今的。 IPC通信建议使用爱奇艺开源维护的<a href="https://github.com/iqiyi/Andromeda" target="_blank" rel="noopener">Andromeda</a> 使用相对简单</p>
+<blockquote>
+<p><strong>基于Service的IPC通信</strong></p>
+<p>IPCInvoker就是一个用来简化跨进程调用的组件，IPCInvoker底层也是通过AIDL实现的，只是把接口封装得更加容易使用</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="学习过程偶遇"><a href="#学习过程偶遇" class="headerlink" title="学习过程偶遇"></a>学习过程偶遇</h1><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><ol>
+<li><a href="https://github.com/zhengcx/MethodTraceMan" target="_blank" rel="noopener">MethodTraceMan</a></li>
+</ol>
+<blockquote>
+<p>用于快速找到高耗时方法，定位解决Android App卡顿问题。通过gradle plugin+ASM实现可配置范围的方法插桩来统计所有方法的耗时，并在浏览器提供友好的界面展示，支持耗时筛选、线程筛选、方法名筛选等。</p>
+</blockquote>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ol>
+<li>HMS Scankit <a href="https://blog.csdn.net/winisit86/article/details/104807678" target="_blank" rel="noopener">超简单集成华为HMS Scankit扫码服务实现扫一扫二维码</a> 比zing识别率搞</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ul>
+<li><p><a href="https://developer.huawei.com/consumer/cn/doc/start/services-provided-by-huawei-developer-0000001053288028" target="_blank" rel="noopener">华为联盟开放的服务一览表</a> 【重点研究】很多有趣的内容，可以研究刷一遍</p>
+</li>
+<li><p><a href="https://blog.csdn.net/whumr1/article/details/81176494" target="_blank" rel="noopener">零基础开发AI应用–华为HiAI的应用</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/DevEco" target="_blank" rel="noopener">CSDN 官网 DevEco</a> 华为在CSDN的一个官方博客，提供了一下比较详细的教程</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/实践/" rel="tag"># 实践</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/05/2020-02-15-Java-design-patterns-白话（可能配图）/" rel="next" title="基于java-design-patterns白话图解设计模式（个人理解）">
+                <i class="fa fa-chevron-left"></i> 基于java-design-patterns白话图解设计模式（个人理解）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2020/12/05/2020-12-5-大厂都用什么开源库/" data-title="【硬核】从新势力电商拼夕夕App洞察，电商App都需要引用什么库" data-url="http://linz.tech/2020/12/05/2020-12-5-大厂都用什么开源库/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拼多多"><span class="nav-number">2.</span> <span class="nav-text">拼多多</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#偏底层优化"><span class="nav-number">2.1.</span> <span class="nav-text">偏底层优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试运营维护"><span class="nav-number">2.2.</span> <span class="nav-text">调试运营维护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI布局相关"><span class="nav-number">2.3.</span> <span class="nav-text">UI布局相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用第三方SDK"><span class="nav-number">2.4.</span> <span class="nav-text">常用第三方SDK</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#华为SDK"><span class="nav-number">2.4.1.</span> <span class="nav-text">华为SDK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.5.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习过程偶遇"><span class="nav-number">3.</span> <span class="nav-text">学习过程偶遇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-number">3.1.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">3.2.</span> <span class="nav-text">工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

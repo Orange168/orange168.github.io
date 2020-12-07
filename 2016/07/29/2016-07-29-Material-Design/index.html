@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Material,Android,">
+  <meta name="keywords" content="Android,Material,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="前言一、设计阶段Material Design 提供了跨设备和 Web 的一致性用户体验。它的四项原则：  有型的外观(Tangible surface)：应用像现实中的实物一样。 仿印刷品的设计(Print-like design)：内容醒目、形象生动、意图明确。 有意义的运动效果(Meaningful motion)：吸引用户的兴趣，在应用状态切换时保持连续性。 自适应设计(Adaptive">
-<meta name="keywords" content="Material,Android">
+<meta name="keywords" content="Android,Material">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Material Design">
 <meta property="og:url" content="http://linz.tech/2016/07/29/2016-07-29-Material-Design/index.html">
@@ -93,14 +93,13 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-bddcf5a56fa4f69d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://simg.open-open.com/show/bad78408db2cd78e7ce36308e992ae42.png">
 <meta property="og:image" content="https://simg.open-open.com/show/48cf6ec1a740fe95695805f636d69a0a.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg">
-<meta property="og:image" content="https://camo.githubusercontent.com/895f0065aa1d9c993569619853c81180c5d2658e/68747470733a2f2f6431337961637572716a676172612e636c6f756466726f6e742e6e65742f75736572732f36323331392f73637265656e73686f74732f313934353539332f73686f742e676966">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-983413370be2cf9d.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="https://raw.githubusercontent.com/mikepenz/Android-Iconics/develop/DEV/github/screenshots1.jpg">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-bb399ca3261ed312.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="https://camo.githubusercontent.com/11210be7db7aca27e0d27eeb388a5024ff15bdf5/687474703a2f2f692e696d6775722e636f6d2f785857446d4c622e706e67">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-ac6d83be32c98e2d.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-bbde458abf626b19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://cdn.linz.tech/screenshots_combined.jpg">
+<meta property="og:image" content="https://cdn.linz.tech/CircularAnimDemo.gif">
+<meta property="og:image" content="https://cdn.linz.tech/1321512-material_icon_libs.gif">
+<meta property="og:image" content="https://cdn.linz.tech/screenshots1.jpg">
+<meta property="og:image" content="https://cdn.linz.tech/material_tip.gif">
+<meta property="og:image" content="https://cdn.linz.tech/material-about-library.png">
+<meta property="og:image" content="https://cdn.linz.tech/material-code-input.gif">
 <meta property="og:image" content="https://github.com/Yellow5A5/ActSwitchAnimTool/raw/master/image/demo_show1.gif">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-f6649aa0a09f8b3f.gif?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-c3eebff44da714ea.gif?imageMogr2/auto-orient/strip">
@@ -108,7 +107,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-db769a9b6fa9face.gif?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-822426affad1682d.gif?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="http://cdn.linz.tech/motion_awsome_animation">
-<meta property="og:updated_time" content="2020-09-11T06:07:23.726Z">
+<meta property="og:updated_time" content="2020-12-05T15:31:01.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Material Design">
 <meta name="twitter:description" content="前言一、设计阶段Material Design 提供了跨设备和 Web 的一致性用户体验。它的四项原则：  有型的外观(Tangible surface)：应用像现实中的实物一样。 仿印刷品的设计(Print-like design)：内容醒目、形象生动、意图明确。 有意义的运动效果(Meaningful motion)：吸引用户的兴趣，在应用状态切换时保持连续性。 自适应设计(Adaptive">
@@ -716,7 +715,7 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
         wm<span class="token punctuation">.</span><span class="token function">getDefaultDisplay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span>point<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> point<span class="token punctuation">.</span>y<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol start="2">
+</li>
 <li><p>背景设置为透明,可以显示圆角</p>
 <pre class="line-numbers language-java"><code class="language-java">  <span class="token comment" spellcheck="true">//设置圆角背景不生效 原因：由于它上面蒙了一层布局 design_bottom_sheet是系统的布局，直接找到它，然后给它设全透明就好了</span>
         FrameLayout bottomSheet <span class="token operator">=</span> <span class="token punctuation">(</span>FrameLayout<span class="token punctuation">)</span> <span class="token function">getDelegate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>design_bottom_sheet<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -726,15 +725,13 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
         bottomSheetBehavior<span class="token punctuation">.</span><span class="token function">setPeekHeight</span><span class="token punctuation">(</span>bottomDialogHeight<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//此处是dialog设置的最大高度</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
-</li>
-</ol>
 <h1 id="图片文字资源"><a href="#图片文字资源" class="headerlink" title="图片文字资源"></a>图片文字资源</h1><h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
 <li><strong><a href="https://github.com/chrisbanes/cheesesquare" target="_blank" rel="noopener">Demos the new Android Design library</a></strong> github star 6300+</li>
-<li><strong><a href="https://github.com/mikepenz/MaterialDrawer" target="_blank" rel="noopener">MaterialDrawer</a></strong> The flexible, easy to use, all in one drawer library for your Android project<br><img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg" alt></li>
-<li><strong><a href="https://github.com/XunMengWinter/CircularAnim" target="_blank" rel="noopener">CircularAnim</a></strong> Android水波动画帮助类，一行代码实现View显示/隐藏/startActivity特效。(对 ViewAnimationUtils.createCircularReveal() 方法的封装)<br><img src="https://camo.githubusercontent.com/895f0065aa1d9c993569619853c81180c5d2658e/68747470733a2f2f6431337961637572716a676172612e636c6f756466726f6e742e6e65742f75736572732f36323331392f73637265656e73686f74732f313934353539332f73686f742e676966" alt></li>
+<li><strong><a href="https://github.com/mikepenz/MaterialDrawer" target="_blank" rel="noopener">MaterialDrawer</a></strong> The flexible, easy to use, all in one drawer library for your Android project<br><img src="https://cdn.linz.tech/screenshots_combined.jpg" alt></li>
+<li><strong><a href="https://github.com/XunMengWinter/CircularAnim" target="_blank" rel="noopener">CircularAnim</a></strong> Android水波动画帮助类，一行代码实现View显示/隐藏/startActivity特效。(对 ViewAnimationUtils.createCircularReveal() 方法的封装)<br><img src="https://cdn.linz.tech/CircularAnimDemo.gif" alt></li>
 </ul>
 <h2 id="字体和图片相关"><a href="#字体和图片相关" class="headerlink" title="字体和图片相关"></a>字体和图片相关</h2><ul>
-<li><strong><a href="https://github.com/code-mc/material-icon-lib" target="_blank" rel="noopener">Material Icon Library</a></strong> Github 1800+ star<br><img src="http://upload-images.jianshu.io/upload_images/1321512-983413370be2cf9d.gif?imageMogr2/auto-orient/strip" alt="material_icon_libs.gif"></li>
+<li><strong><a href="https://github.com/code-mc/material-icon-lib" target="_blank" rel="noopener">Material Icon Library</a></strong> Github 1800+ star<br><img src="https://cdn.linz.tech/1321512-material_icon_libs.gif" alt="material_icon_libs.gif"></li>
 </ul>
 <p><strong>主要特点：</strong></p>
 <ol>
@@ -744,7 +741,7 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
 </ol>
 <p>使用：1. 在<a href="https://materialdesignicons.com找矢量图；" target="_blank" rel="noopener">https://materialdesignicons.com找矢量图；</a> 2.集成库使用；</p>
 <ul>
-<li><strong><a href="https://github.com/mikepenz/Android-Iconics" target="_blank" rel="noopener">Android-Iconics</a></strong> 【推荐】<br><img src="https://raw.githubusercontent.com/mikepenz/Android-Iconics/develop/DEV/github/screenshots1.jpg" alt></li>
+<li><strong><a href="https://github.com/mikepenz/Android-Iconics" target="_blank" rel="noopener">Android-Iconics</a></strong> 【推荐】<br><img src="https://cdn.linz.tech/screenshots1.jpg" alt></li>
 </ul>
 <p><strong>主要特点：</strong></p>
 <ul>
@@ -759,18 +756,17 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
 </ul>
 <h2 id="New-Feature-新的特性"><a href="#New-Feature-新的特性" class="headerlink" title="New Feature  新的特性"></a>New Feature  新的特性</h2><hr>
 <ul>
-<li><strong><a href="https://github.com/fcannizzaro/material-tip" target="_blank" rel="noopener">material-tip</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-bb399ca3261ed312.gif?imageMogr2/auto-orient/strip" alt></li>
+<li><strong><a href="https://github.com/fcannizzaro/material-tip" target="_blank" rel="noopener">material-tip</a></strong><br><img src="https://cdn.linz.tech/material_tip.gif" alt></li>
 </ul>
 <h2 id="Theme-主题"><a href="#Theme-主题" class="headerlink" title="Theme 主题"></a>Theme 主题</h2><ul>
 <li><strong><a href="https://github.com/StevenByle/Android-Material-Themes-Demo" target="_blank" rel="noopener">Android-Material-Themes-Demo</a></strong></li>
 </ul>
 <h2 id="设置相关"><a href="#设置相关" class="headerlink" title="设置相关"></a>设置相关</h2><ul>
-<li><strong><a href="https://github.com/daniel-stoneuk/material-about-library" target="_blank" rel="noopener">material-about-library</a></strong> <img src="https://camo.githubusercontent.com/11210be7db7aca27e0d27eeb388a5024ff15bdf5/687474703a2f2f692e696d6775722e636f6d2f785857446d4c622e706e67" alt></li>
+<li><strong><a href="https://github.com/daniel-stoneuk/material-about-library" target="_blank" rel="noopener">material-about-library</a></strong> <img src="https://cdn.linz.tech/material-about-library.png" alt></li>
 </ul>
 <h2 id="原生控件的包装"><a href="#原生控件的包装" class="headerlink" title="原生控件的包装"></a>原生控件的包装</h2><ul>
 <li><strong><a href="https://github.com/Musenkishi/Atelier" target="_blank" rel="noopener">Atelier</a></strong> A fast and clean way of using Palette in lists</li>
-<li><strong><a href="https://github.com/glomadrian/material-code-input" target="_blank" rel="noopener">material-code-input</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-ac6d83be32c98e2d.gif?imageMogr2/auto-orient/strip" alt="codeInput1.gif"></li>
-<li><strong><a href="https://github.com/afollestad/material-dialogs" target="_blank" rel="noopener">material-dialogs</a></strong><br><img src="http://upload-images.jianshu.io/upload_images/1321512-bbde458abf626b19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="material-dialogs"></li>
+<li><strong><a href="https://github.com/glomadrian/material-code-input" target="_blank" rel="noopener">material-code-input</a></strong><br><img src="https://cdn.linz.tech/material-code-input.gif" alt="codeInput1.gif"></li>
 </ul>
 <h1 id="兼容开源库"><a href="#兼容开源库" class="headerlink" title="兼容开源库"></a>兼容开源库</h1><ul>
 <li><p><strong><a href="https://github.com/Yellow5A5/ActSwitchAnimTool" target="_blank" rel="noopener">ActSwitchAnimTool</a></strong> ActSwitchAnimTool make the Animation easy to implements, and it compat the version of Android 4.0 or above.<br><img src="https://github.com/Yellow5A5/ActSwitchAnimTool/raw/master/image/demo_show1.gif" alt></p>
@@ -828,9 +824,9 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
       
         <div class="post-tags">
           
-            <a href="/tags/Material/" rel="tag"># Material</a>
-          
             <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Material/" rel="tag"># Material</a>
           
         </div>
       
@@ -937,7 +933,7 @@ compile 'com.android.support:design:25.0.0'<span aria-hidden="true" class="line-
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
