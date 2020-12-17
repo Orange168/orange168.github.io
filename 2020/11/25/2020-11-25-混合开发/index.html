@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.linz.tech/chrome.png">
 <meta property="og:image" content="https://cdn.linz.tech/1200px-Apache_Cordova_Logo.svg.png">
-<meta property="og:updated_time" content="2020-11-27T04:45:45.094Z">
+<meta property="og:updated_time" content="2020-12-10T07:29:47.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 和网页端混合开发小计">
 <meta name="twitter:description" content="WebView 详解基本用法 加载网页//加载网页链接 mWebView.loadUrl(&quot;http://www.itheima.com&quot;); //加载本地assets目录下的网页 mWebView.loadUrl(&quot;file:///android_asset/demo.html&quot;);  加载控制webView.reload(); //刷新页面（当前页面的所有资源都会重新加载） webView.">
@@ -616,6 +616,8 @@ CookieManager<span class="token punctuation">.</span><span class="token function
     webSettings.setStandardFontFamily(&quot;&quot;);//设置 WebView 的字体，默认字体为 &quot;sans-serif&quot;
     webSettings.setDefaultFontSize(20);//设置 WebView 字体的大小，默认大小为 16
     webSettings.setMinimumFontSize(12);//设置 WebView 支持的最小字体大小，默认为 8
+        webSettings.setVerticalScrollBarEnabled(false); //vertical bar 不显示
+        webSettings.setHorizontalScrollBarEnabled(false); // horizontal bar 不显示
 
     // 5.1以上默认禁止了https和http混用，以下方式是开启
     if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
@@ -623,12 +625,17 @@ CookieManager<span class="token punctuation">.</span><span class="token function
     }
 
 
-//其他
+        //其他
     webSettings.setAllowFileAccess(true); //设置可以访问文件
     webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
     webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
     webSettings.setDefaultTextEncodingName(&quot;utf-8&quot;);//设置编码格式
-    webSettings.setGeolocationEnabled(true);//允许网页执行定位操作</code></pre><h2 id="JavaScript-和-Native-交互"><a href="#JavaScript-和-Native-交互" class="headerlink" title="JavaScript 和 Native 交互"></a>JavaScript 和 Native 交互</h2><h3 id="DSBridge-Android"><a href="#DSBridge-Android" class="headerlink" title="DSBridge-Android"></a><a href="https://github.com/wendux/DSBridge-Android" target="_blank" rel="noopener">DSBridge-Android</a></h3><p>用于JavaScript and native applications 相互调用</p>
+    webSettings.setGeolocationEnabled(true);//允许网页执行定位操作
+
+        //分段加载HTML文件
+        if (VERSION.SDK_INT &gt;= 21) {
+        WebView.enableSlowWholeDocumentDraw();
+    }</code></pre><h2 id="JavaScript-和-Native-交互"><a href="#JavaScript-和-Native-交互" class="headerlink" title="JavaScript 和 Native 交互"></a>JavaScript 和 Native 交互</h2><h3 id="DSBridge-Android"><a href="#DSBridge-Android" class="headerlink" title="DSBridge-Android"></a><a href="https://github.com/wendux/DSBridge-Android" target="_blank" rel="noopener">DSBridge-Android</a></h3><p>用于JavaScript and native applications 相互调用</p>
 <ol>
 <li><p>依赖引用</p>
 <pre class="line-numbers language-groovy"><code class="language-groovy">dependencies <span class="token punctuation">{</span>
@@ -833,7 +840,7 @@ dsBridge<span class="token punctuation">.</span><span class="token function">cal
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

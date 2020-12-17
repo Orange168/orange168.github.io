@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="总结,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础基础用法Glide.with(this)      .load(url) //资源地址 本地uri，网络资源，图片路径      .asGif() // 指定资源样式 还可以asBitmap()，但是glide会自动判断,非特殊情况不用指定      .placeholder(R.drawable.loading) //加载过程显示      .error(R.drawable.error)">
+<meta name="keywords" content="总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Glide4.x使用总结">
+<meta property="og:url" content="http://linz.tech/2020/12/16/2020-12-8-glide复习/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="基础基础用法Glide.with(this)      .load(url) //资源地址 本地uri，网络资源，图片路径      .asGif() // 指定资源样式 还可以asBitmap()，但是glide会自动判断,非特殊情况不用指定      .placeholder(R.drawable.loading) //加载过程显示      .error(R.drawable.error)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.linz.tech/%E5%B0%8F%E8%88%B9.jpg">
+<meta property="og:image" content="https://cdn.linz.tech/glide_transformation.gif">
+<meta property="og:image" content="https://cdn.linz.tech/glide_%E6%97%B6%E5%BA%8F%E5%9B%BE.jpg">
+<meta property="og:updated_time" content="2020-12-17T16:48:31.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Glide4.x使用总结">
+<meta name="twitter:description" content="基础基础用法Glide.with(this)      .load(url) //资源地址 本地uri，网络资源，图片路径      .asGif() // 指定资源样式 还可以asBitmap()，但是glide会自动判断,非特殊情况不用指定      .placeholder(R.drawable.loading) //加载过程显示      .error(R.drawable.error)">
+<meta name="twitter:image" content="https://cdn.linz.tech/%E5%B0%8F%E8%88%B9.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2020/12/16/2020-12-8-glide复习/">
+
+
+
+
+
+  <title>Glide4.x使用总结 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2020/12/16/2020-12-8-glide复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Glide4.x使用总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-16T22:54:53+08:00">
+                2020-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/study/" itemprop="url" rel="index">
+                    <span itemprop="name">study</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/12/16/2020-12-8-glide复习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/12/16/2020-12-8-glide复习/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.linz.tech/%E5%B0%8F%E8%88%B9.jpg" alt></p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//资源地址 本地uri，网络资源，图片路径</span>
+     <span class="token punctuation">.</span><span class="token function">asGif</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 指定资源样式 还可以asBitmap()，但是glide会自动判断,非特殊情况不用指定</span>
+     <span class="token punctuation">.</span><span class="token function">placeholder</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>drawable<span class="token punctuation">.</span>loading<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//加载过程显示</span>
+     <span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>drawable<span class="token punctuation">.</span>error<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 加载错误显示</span>
+     <span class="token punctuation">.</span><span class="token function">diskCacheStrategy</span><span class="token punctuation">(</span>DiskCacheStrategy<span class="token punctuation">.</span>NONE<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//缓存设置</span>
+     <span class="token punctuation">.</span><span class="token function">centerCrop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 图片剪切样式</span>
+     <span class="token punctuation">.</span><span class="token function">priority</span><span class="token punctuation">(</span>Priority<span class="token punctuation">.</span>HIGH<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//加载优先级</span>
+     <span class="token punctuation">.</span><span class="token function">thumbnail</span><span class="token punctuation">(</span><span class="token number">0.2f</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//缩略图,显示较小图片时用</span>
+     <span class="token punctuation">.</span><span class="token function">override</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//指定图片大小，这样可以节省内存消耗</span>
+     <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>清理缓存</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clearDiskCache</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//清理磁盘缓存 需要在子线程中执行 </span>
+Glide<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clearMemory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//清理内存缓存 可以在UI主线程中进行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>停止/重启请求</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">    Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">resumeRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">resumeRequestsRecursive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">pauseRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">pauseAllRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="基处知识"><a href="#基处知识" class="headerlink" title="基处知识"></a>基处知识</h3><p><strong>内存使用量计算</strong></p>
+<pre class="line-numbers language-shell"><code class="language-shell">ARGB_8888 :32位图,带透明度,每个像素占4个字节
+ARGB_4444 :16位图,带透明度,每个像素占2个字节
+RGB_565 :16位图,不带透明度,每个像素占2个字节
+ALPHA_8 :32位图,只有透明度,不带颜色,每个像素占4个字节<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>glide 默认使用<strong>RGB_565</strong>加载 <strong>一张4000 * 2000</strong>图片</p>
+<pre><code>4000 * 2000 * 2(Byte) / 1024 / 1024 = 15 (MB)</code></pre><p><strong>缓存</strong></p>
+<p>Glide不仅仅缓存文件，还会缓存与缓存文件相关的内容，如图片大小，使用时应用的变化和设置等等</p>
+<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><h4 id="Requestions"><a href="#Requestions" class="headerlink" title="Requestions"></a>Requestions</h4><pre class="line-numbers language-java"><code class="language-java">RequestOptions cropOptions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">centerCrop</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>cropOptions<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/RequestBuilder.html#apply-com.bumptech.glide.request.RequestOptions-" target="_blank" rel="noopener"><code>apply()</code></a> 方法可以被调用多次，因此 <code>RequestOption</code> 可以被组合使用</li>
+<li>如果 <code>RequestOptions</code> 对象之间存在相互冲突的设置，那么只有最后一个被应用的 <code>RequestOptions</code> 会生效。</li>
+</ol>
+<p><strong>bitmapTransform</strong> 把bitmap转变为各种样式</p>
+<pre class="line-numbers language-java"><code class="language-java">  Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>headUrl <span class="token operator">+</span> url<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>RequestOptions<span class="token punctuation">.</span><span class="token function">bitmapTransform</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">CircleCrop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="TransitionOptions"><a href="#TransitionOptions" class="headerlink" title="TransitionOptions"></a><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/TransitionOptions.html" target="_blank" rel="noopener">TransitionOptions</a></h4><blockquote>
+<p>使用场景</p>
+<ol>
+<li>view淡入</li>
+<li>占位符交叉淡入</li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> <span class="token keyword">static</span> com<span class="token punctuation">.</span>bumptech<span class="token punctuation">.</span>glide<span class="token punctuation">.</span>load<span class="token punctuation">.</span>resource<span class="token punctuation">.</span>drawable<span class="token punctuation">.</span>DrawableTransitionOptions<span class="token punctuation">.</span>withCrossFade<span class="token punctuation">;</span>
+
+Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">transition</span><span class="token punctuation">(</span><span class="token function">withCrossFade</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>view<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用动画效果</p>
+<pre class="line-numbers language-java"><code class="language-java">ViewPropertyAnimation<span class="token punctuation">.</span>Animator animationObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ViewPropertyAnimation<span class="token punctuation">.</span>Animator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">animate</span><span class="token punctuation">(</span>View view<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// if it's a custom view class, cast it here</span>
+        <span class="token comment" spellcheck="true">// then find subviews and do the animations</span>
+        <span class="token comment" spellcheck="true">// here, we just use the entire view for the fade animation</span>
+        view<span class="token punctuation">.</span><span class="token function">setAlpha</span><span class="token punctuation">(</span> <span class="token number">0f</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        ObjectAnimator fadeAnim <span class="token operator">=</span> ObjectAnimator<span class="token punctuation">.</span><span class="token function">ofFloat</span><span class="token punctuation">(</span> view<span class="token punctuation">,</span> <span class="token string">"alpha"</span><span class="token punctuation">,</span> <span class="token number">0f</span><span class="token punctuation">,</span> <span class="token number">1f</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fadeAnim<span class="token punctuation">.</span><span class="token function">setDuration</span><span class="token punctuation">(</span> <span class="token number">2500</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fadeAnim<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+GlideApp  
+    <span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>eatFoodyImages<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">transition</span><span class="token punctuation">(</span>GenericTransitionOptions<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>animationObject<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//      .transition(GenericTransitionOptions.with(R.anim.zoom_in)) 支持xml形式</span>
+      <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView2<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/resource/bitmap/BitmapTransitionOptions.html" target="_blank" rel="noopener">BitmapTransitionOptions</a></li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/resource/drawable/DrawableTransitionOptions.html" target="_blank" rel="noopener">DrawableTransitionOptions</a> </li>
+</ol>
+<h4 id="RequestBuilder"><a href="#RequestBuilder" class="headerlink" title="RequestBuilder"></a>RequestBuilder</h4><ul>
+<li>你想加载的资源类型(Bitmap, Drawable, 或其他)</li>
+<li>你要加载的资源地址(url/model)</li>
+<li>你想最终加载到的View</li>
+<li>任何你想应用的（一个或多个）<code>RequestOption</code> 对象</li>
+<li>任何你想应用的（一个或多个）<code>TransitionOption</code> 对象</li>
+<li>任何你想加载的缩略图 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/RequestBuilder.html#thumbnail-com.bumptech.glide.RequestBuilder-" target="_blank" rel="noopener"><code>thumbnail()</code></a></li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//构造</span>
+RequestBuilder<span class="token operator">&lt;</span>Drawable<span class="token operator">></span> requestBuilder <span class="token operator">=</span> Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">asDrawable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+RequestBuilder<span class="token operator">&lt;</span>Drawable<span class="token operator">></span> requestBuilder <span class="token operator">=</span> Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//as.. 选择资源类型</span>
+RequestBuilder<span class="token operator">&lt;</span>Bitmap<span class="token operator">></span> requestBuilder <span class="token operator">=</span> Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">asBitmap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//requestOptions transition</span>
+RequestBuilder<span class="token operator">&lt;</span>Drawable<span class="token operator">></span> requestBuilder <span class="token operator">=</span> Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">asDrawable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+requestBuilder<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>requestOptions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+requestBuilder<span class="token punctuation">.</span><span class="token function">transition</span><span class="token punctuation">(</span>transitionOptions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//复用</span>
+RequestBuilder<span class="token operator">&lt;</span>Drawable<span class="token operator">></span> requestBuilder <span class="token operator">=</span>
+        Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">asDrawable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>requestOptions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numViews<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   ImageView view <span class="token operator">=</span> viewGroup<span class="token punctuation">.</span><span class="token function">getChildAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   String url <span class="token operator">=</span> urls<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   requestBuilder<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>view<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="缩略图-Thumbnail-请求"><a href="#缩略图-Thumbnail-请求" class="headerlink" title="缩略图 (Thumbnail) 请求"></a>缩略图 (Thumbnail) 请求</h4><p>优先加载本地低分辨率图，在加载无损版本</p>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">thumbnail</span><span class="token punctuation">(</span> 
+    <span class="token comment" spellcheck="true">//.override 设置本地版本加载大小</span>
+    Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>thumbnailUrl<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="在失败时开始新的请求"><a href="#在失败时开始新的请求" class="headerlink" title="在失败时开始新的请求"></a>在失败时开始新的请求</h4><pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>primaryUrl<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>fallbackUrl<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="组件选项"><a href="#组件选项" class="headerlink" title="组件选项"></a>组件选项</h4><blockquote>
+<p><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/Option.html" target="_blank" rel="noopener"><code>Option</code></a> 类是给Glide的组件添加参数的通用办法，包括 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/model/ModelLoader.html" target="_blank" rel="noopener"><code>ModelLoaders</code></a> , <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/ResourceDecoder.html" target="_blank" rel="noopener"><code>ResourceDecoders</code></a> , <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/ResourceEncoder.html" target="_blank" rel="noopener"><code>ResourceEncoders</code></a> , <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/Encoder.html" target="_blank" rel="noopener"><code>Encoders</code></a> 等等</p>
+</blockquote>
+<p>用法设置请求超时时间</p>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">option</span><span class="token punctuation">(</span>MyCustomModelLoader<span class="token punctuation">.</span>TIMEOUT_MS<span class="token punctuation">,</span> 1000L<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+RequestOptions options <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>MyCustomModelLoader<span class="token punctuation">.</span>TIMEOUT_MS<span class="token punctuation">,</span> 1000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Transformations"><a href="#Transformations" class="headerlink" title="Transformations"></a><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/Transformation.html" target="_blank" rel="noopener">Transformations</a></h3><h4 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h4><ul>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/resource/bitmap/CenterCrop.html" target="_blank" rel="noopener">CenterCrop</a></li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/resource/bitmap/FitCenter.html" target="_blank" rel="noopener">FitCenter</a></li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/resource/bitmap/CircleCrop.html" target="_blank" rel="noopener">CircleCrop</a></li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">fitCenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+RequestOptions options <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+options<span class="token punctuation">.</span><span class="token function">centerCrop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="多重变换"><a href="#多重变换" class="headerlink" title="多重变换"></a>多重变换</h4><pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+  <span class="token comment" spellcheck="true">// .transform(new FitCenter(), new YourCustomTransformation())</span>
+  <span class="token punctuation">.</span><span class="token function">transform</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MultiTransformation</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FitCenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">YourCustomTransformation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>【注意】： 传入变换参数的顺序，决定了这些变换的应用顺序</p>
+<h4 id="定制变换"><a href="#定制变换" class="headerlink" title="定制变换"></a>定制变换</h4><p>CircleCrop.java</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CircleCrop</span> <span class="token keyword">extends</span> <span class="token class-name">BitmapTransformation</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// The version of this transformation, incremented to correct an error in a previous version.</span>
+  <span class="token comment" spellcheck="true">// See #455.</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> VERSION <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String ID <span class="token operator">=</span> <span class="token string">"com.bumptech.glide.load.resource.bitmap.CircleCrop."</span> <span class="token operator">+</span> VERSION<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ID_BYTES <span class="token operator">=</span> ID<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span>CHARSET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">// Bitmap doesn't implement equals, so == and .equals are equivalent here.</span>
+  <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"PMD.CompareObjectsWithEquals"</span><span class="token punctuation">)</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">protected</span> Bitmap <span class="token function">transform</span><span class="token punctuation">(</span>
+      <span class="token annotation punctuation">@NonNull</span> BitmapPool pool<span class="token punctuation">,</span> <span class="token annotation punctuation">@NonNull</span> Bitmap toTransform<span class="token punctuation">,</span> <span class="token keyword">int</span> outWidth<span class="token punctuation">,</span> <span class="token keyword">int</span> outHeight<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> TransformationUtils<span class="token punctuation">.</span><span class="token function">circleCrop</span><span class="token punctuation">(</span>pool<span class="token punctuation">,</span> toTransform<span class="token punctuation">,</span> outWidth<span class="token punctuation">,</span> outHeight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span>Object o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> o <span class="token keyword">instanceof</span> <span class="token class-name">CircleCrop</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> ID<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">updateDiskCacheKey</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> MessageDigest messageDigest<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    messageDigest<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>ID_BYTES<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用</p>
+<pre class="line-numbers language-java"><code class="language-java">    Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>headUrl <span class="token operator">+</span> url<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>RequestOptions<span class="token punctuation">.</span><span class="token function">bitmapTransform</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">CircleCrop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h3><blockquote>
+<p>常用的实现类 ViewTarget、 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/request/target/ImageViewTarget.html" target="_blank" rel="noopener"><code>ImageViewTargets</code></a> 、DrawableImageViewTarget</p>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java">Target<span class="token operator">&lt;</span>Drawable<span class="token operator">></span> target <span class="token operator">=</span> 
+   Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Target</span><span class="token operator">&lt;</span>Drawable<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onStart</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onStop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onLoadStarted</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Drawable placeholder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onLoadFailed</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Drawable errorDrawable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onResourceReady</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> Drawable resource<span class="token punctuation">,</span>
+              <span class="token annotation punctuation">@Nullable</span> Transition<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> Drawable<span class="token operator">></span> transition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onLoadCleared</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Drawable placeholder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> SizeReadyCallback cb<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">removeCallback</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> SizeReadyCallback cb<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setRequest</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Request request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+          <span class="token punctuation">}</span>
+
+          <span class="token annotation punctuation">@Nullable</span> <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> Request <span class="token function">getRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="取消和重用"><a href="#取消和重用" class="headerlink" title="取消和重用"></a>取消和重用</h4><ul>
+<li>Glide.with(fragment).clear(target); 返回的 <code>Target</code> 来 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/431/com/bumptech/glide/RequestManager.html#clear-com.bumptech.glide.request.target.Target-" target="_blank" rel="noopener"><code>clear()</code></a> 之前的加载，这将在不需要开始新的加载的情况下释放掉任何相关资源：</li>
+<li>仅对ViewTarget而言，你可以在每次加载或清理调用时都传入一个新的实例，而 Glide 仍然可以从 View 的 tag 中取回之前一次加载的信息，从而达到复用的效果</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DrawableImageViewTarget</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Some time in the future:</span>
+Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>newUrl<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DrawableImageViewTarget</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="尺寸-Sizes-and-dimensions"><a href="#尺寸-Sizes-and-dimensions" class="headerlink" title="尺寸 (Sizes and dimensions)"></a>尺寸 (Sizes and dimensions)</h4><blockquote>
+<p>默认情况下，Glide 使用目标通过 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/request/target/Target.html#getSize-com.bumptech.glide.request.target.SizeReadyCallback-" target="_blank" rel="noopener"><code>getSize</code></a> 方法提供的尺寸来作为请求的目标尺寸。这允许 Glide 选取合适的 URL，下采样，裁剪和变换合适的图片以减少内存占用，并确保加载尽可能快地完成。</p>
+<p><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/431/com/bumptech/glide/request/target/ViewTarget.html" target="_blank" rel="noopener"><code>ViewTarget</code></a> 通过检查 View 的属性和/或使用一个 <a href="https://developer.android.com/reference/android/view/ViewTreeObserver.OnPreDrawListener.html" target="_blank" rel="noopener"><code>OnPreDrawListener</code></a> 在 View 绘制之前直接测量尺寸来实现 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/request/target/Target.html#getSize-com.bumptech.glide.request.target.SizeReadyCallback-" target="_blank" rel="noopener"><code>getSize()</code></a> 方法。因此， Glide 可以自动调整大部分图片以匹配目标 <code>View</code></p>
+</blockquote>
+<p> 请参考 <a href="https://github.com/bumptech/glide/blob/e9cf41fbc190c9d29ce683728f52c061809c749b/library/src/main/java/com/bumptech/glide/request/target/ViewTarget.java#L89" target="_blank" rel="noopener"><code>ViewTarget</code></a> 中的逻辑。</p>
+<h4 id="动画资源和定制目标"><a href="#动画资源和定制目标" class="headerlink" title="动画资源和定制目标"></a>动画资源和定制目标</h4><pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">asGif</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SimpleTarget</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onResourceReady</span><span class="token punctuation">(</span>GifDrawable resource<span class="token punctuation">,</span> Transition<span class="token operator">&lt;</span>GifDrawable<span class="token operator">></span> transition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//gif </span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>resource <span class="token keyword">instanceof</span> <span class="token class-name">Animatable</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        resource<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="过渡"><a href="#过渡" class="headerlink" title="过渡"></a>过渡</h3><blockquote>
+<p>允许你定义 Glide 如何从占位符到新加载的图片，或从缩略图到全尺寸图像过渡。</p>
+</blockquote>
+<ol>
+<li>4.x 默认不会使用交叉淡入动画</li>
+<li>过渡动画效果在安卓中消耗 比较大需要谨慎使用</li>
+</ol>
+<p><strong>定制过渡</strong></p>
+<p>请查看 <a href="https://github.com/bumptech/glide/blob/8f22bd9b82349bf748e335b4a31e70c9383fb15a/library/src/main/java/com/bumptech/glide/request/transition/DrawableCrossFadeFactory.java#L35" target="_blank" rel="noopener"><code>DrawableCrossFadeFactory</code></a>.</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/module/AppGlideModule.html" target="_blank" rel="noopener"><code>AppGlideModule</code></a> 全局唯一，多个冲突</li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/module/LibraryGlideModule.html" target="_blank" rel="noopener"><code>LibraryGlideModule</code></a> 可添加多个</li>
+</ol>
+<p><strong>基本用法</strong></p>
+<p><strong>加入依赖</strong></p>
+<pre><code>compile &#39;com.github.bumptech.glide:annotations:4.11.0&#39;
+annotationProcessor &#39;com.github.bumptech.glide:compiler:4.11.0&#39;</code></pre><p><strong>混淆</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token operator">-</span>keep <span class="token keyword">public</span> <span class="token keyword">class</span>  <span class="token class-name">extends</span> com<span class="token punctuation">.</span>bumptech<span class="token punctuation">.</span>glide<span class="token punctuation">.</span>module<span class="token punctuation">.</span>AppGlideModule
+<span class="token operator">-</span>keep <span class="token keyword">class</span> <span class="token class-name">com<span class="token punctuation">.</span>bumptech<span class="token punctuation">.</span>glide<span class="token punctuation">.</span>GeneratedAppGlideModuleImpl</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>在 Glide 的 <a href="https://github.com/bumptech/glide/blob/master/samples/flickr/src/main/java/com/bumptech/glide/samples/flickr/FlickrGlideModule.java" target="_blank" rel="noopener">Flickr 示例应用</a> 中</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@GlideModule</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FlickrGlideModule</span> <span class="token keyword">extends</span> <span class="token class-name">AppGlideModule</span> <span class="token punctuation">{</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerComponents</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> Registry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Photo.class 是一个普通的bean</span>
+    registry<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>Photo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> InputStream<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">FlickrModelLoader<span class="token punctuation">.</span>Factory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@GlideModule</span>
+<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">OkHttpLibraryGlideModule</span> <span class="token keyword">extends</span> <span class="token class-name">LibraryGlideModule</span> <span class="token punctuation">{</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerComponents</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> Glide glide<span class="token punctuation">,</span> Registry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    registry<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>GlideUrl<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> InputStream<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">OkHttpUrlLoader<span class="token punctuation">.</span>Factory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="应用程序选项"><a href="#应用程序选项" class="headerlink" title="应用程序选项"></a>应用程序选项</h3><p><strong>GlideBuilder 属性</strong></p>
+<ul>
+<li>.setMemoryCache(MemoryCache memoryCache)</li>
+<li>.setBitmapPool(BitmapPool bitmapPool)</li>
+<li>.setDiskCache(DiskCache.Factory diskCacheFactory)</li>
+<li>.setDiskCacheService(ExecutorService service)</li>
+<li>.setResizeService(ExecutorService service)</li>
+<li>.setDecodeFormat(DecodeFormat decodeFormat)</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@GlideModule</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">YourAppGlideModule</span> <span class="token keyword">extends</span> <span class="token class-name">AppGlideModule</span> <span class="token punctuation">{</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">applyOptions</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> GlideBuilder builder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">//自定义 MemoryCache 的大小</span>
+    MemorySizeCalculator calculator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemorySizeCalculator<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">setMemoryCacheScreens</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    builder<span class="token punctuation">.</span><span class="token function">setMemoryCache</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">LruResourceCache</span><span class="token punctuation">(</span>calculator<span class="token punctuation">.</span><span class="token function">getMemoryCacheSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">//直接覆写缓存大小</span>
+       <span class="token keyword">int</span> memoryCacheSizeBytes <span class="token operator">=</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">20</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 20mb</span>
+    builder<span class="token punctuation">.</span><span class="token function">setMemoryCache</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">LruResourceCache</span><span class="token punctuation">(</span>memoryCacheSizeBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>Bitmap 池</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">YourAppGlideModule<span class="token punctuation">{</span> 
+MemorySizeCalculator calculator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemorySizeCalculator<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">setBitmapPoolScreens</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    builder<span class="token punctuation">.</span><span class="token function">setBitmapPool</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">LruBitmapPool</span><span class="token punctuation">(</span>calculator<span class="token punctuation">.</span><span class="token function">getBitmapPoolSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">int</span> bitmapPoolSizeBytes <span class="token operator">=</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">30</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 30mb</span>
+    builder<span class="token punctuation">.</span><span class="token function">setBitmapPool</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">LruBitmapPool</span><span class="token punctuation">(</span>bitmapPoolSizeBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>磁盘缓存</strong> 默认磁盘大小为 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/engine/cache/DiskCache.Factory.html#DEFAULT_DISK_CACHE_SIZE" target="_blank" rel="noopener">250 MB</a></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//存位置改到外部存储 </span>
+builder<span class="token punctuation">.</span><span class="token function">setDiskCache</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ExternalCacheDiskCacheFactory</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//改变磁盘缓存的大小：</span>
+<span class="token keyword">int</span> diskCacheSizeBytes <span class="token operator">=</span> <span class="token number">1024</span>  <span class="token number">1024</span>  <span class="token number">100</span><span class="token punctuation">;</span>  <span class="token number">100</span> MB
+builder<span class="token punctuation">.</span><span class="token function">setDiskCache</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">InternalCacheDiskCacheFactory</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> diskCacheSizeBytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="默认请求选项"><a href="#默认请求选项" class="headerlink" title="默认请求选项"></a>默认请求选项</h3><ol>
+<li>全局生效</li>
+<li>会覆盖之前设置</li>
+</ol>
+<p>方式一， APPGlideModule设置方式</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@GlideModule</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">YourAppGlideModule</span> <span class="token keyword">extends</span> <span class="token class-name">AppGlideModule</span> <span class="token punctuation">{</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">applyOptions</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> GlideBuilder builder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    builder<span class="token punctuation">.</span><span class="token function">setDefaultRequestOptions</span><span class="token punctuation">(</span>
+        <span class="token keyword">new</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>DecodeFormat<span class="token punctuation">.</span>RGB_565<span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">disallowHardwareBitmaps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方式二. RequestOptions</p>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">applyDefaultRequestOptions</span><span class="token punctuation">(</span>
+      <span class="token keyword">new</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>DecodeFormat<span class="token punctuation">.</span>RGB_565<span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">disallowHardwareBitmaps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="注册组件"><a href="#注册组件" class="headerlink" title="注册组件"></a>注册组件</h3><ol>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/model/ModelLoaderFactory.html" target="_blank" rel="noopener"><code>ModelLoader</code></a>, 用于加载自定义的 Model(Url, Uri,任意的 POJO )和 Data(InputStreams, FileDescriptors)。</li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/ResourceDecoder.html" target="_blank" rel="noopener"><code>ResourceDecoder</code></a>, 用于对新的 Resources(Drawables, Bitmaps)或新的 Data 类型(InputStreams, FileDescriptors)进行解码。</li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/Encoder.html" target="_blank" rel="noopener"><code>Encoder</code></a>, 用于向 Glide 的磁盘缓存写 Data (InputStreams, FileDesciptors)。</li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/resource/transcode/ResourceTranscoder.html" target="_blank" rel="noopener"><code>ResourceTranscoder</code></a>，用于在不同的资源类型之间做转换，例如，从 BitmapResource 转换为 DrawableResource 。</li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/ResourceEncoder.html" target="_blank" rel="noopener"><code>ResourceEncoder</code></a>，用于向 Glide 的磁盘缓存写 Resources(BitmapResource, DrawableResource)。</li>
+</ol>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@GlideModule</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">YourAppGlideModule</span> <span class="token keyword">extends</span> <span class="token class-name">AppGlideModule</span> <span class="token punctuation">{</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerComponents</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> Registry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">//prepend</span>
+      <span class="token comment" spellcheck="true">//replace</span>
+    registry<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>Photo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> InputStream<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">CustomModelLoader<span class="token punctuation">.</span>Factory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>案例：<a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/model/ModelLoaderFactory.html" target="_blank" rel="noopener"><code>ModelLoader</code></a> 和 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/ResourceDecoder.html" target="_blank" rel="noopener"><code>ResourceDecoder</code></a></p>
+<h3 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h3><ol>
+<li><strong>提高glide图片加载质量</strong></li>
+</ol>
+<blockquote>
+<p>Android 中有两个主要的方法对图片进行解码：ARGB8888 和 RGB565。前者为每个像素使用了 4 个字节，后者仅为每个像素使用了 2 个字节。ARGB8888 的优势是图像质量更高以及能存储一个 alpha 通道。Glide 默认使用低质量的 RGB565</p>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleGlideModule</span> <span class="token keyword">implements</span> <span class="token class-name">GlideModule</span> <span class="token punctuation">{</span>  
+    <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">applyOptions</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> GlideBuilder builder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        builder<span class="token punctuation">.</span><span class="token function">setDecodeFormat</span><span class="token punctuation">(</span>DecodeFormat<span class="token punctuation">.</span>PREFER_ARGB_8888<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerComponents</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> Glide glide<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// nothing to do here</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li><a href="https://mrfu.me/2016/02/28/Glide_Module_Example_Accepting_Self-Signed_HTTPS_Certificates/" target="_blank" rel="noopener">Module 实例：接受自签名证书的 HTTPS</a></li>
+</ol>
+<h4 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h4><p><strong>未捕获异常策略</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@GlideModule</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">YourAppGlideModule</span> <span class="token keyword">extends</span> <span class="token class-name">AppGlideModule</span> <span class="token punctuation">{</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">applyOptions</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> GlideBuilder builder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">final</span> UncaughtThrowableStrategy myUncaughtThrowableStrategy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></span>
+    builder<span class="token punctuation">.</span><span class="token function">setDiskCacheExecutor</span><span class="token punctuation">(</span><span class="token function">newDiskCacheExecutor</span><span class="token punctuation">(</span>myUncaughtThrowableStrategy<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    builder<span class="token punctuation">.</span><span class="token function">setResizeExecutor</span><span class="token punctuation">(</span><span class="token function">newSourceExecutor</span><span class="token punctuation">(</span>myUncaughtThrowableStrategy<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>日志级别</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@GlideModule</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">YourAppGlideModule</span> <span class="token keyword">extends</span> <span class="token class-name">AppGlideModule</span> <span class="token punctuation">{</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">applyOptions</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> GlideBuilder builder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    builder<span class="token punctuation">.</span><span class="token function">setLogLevel</span><span class="token punctuation">(</span>Log<span class="token punctuation">.</span>DEBUG<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p><strong>缓存四个级别</strong></p>
+<p>Active Resources(View 正在显示) &gt; Memory cache（加载过并在内存） &gt;  Resource（解密并存在磁盘） &gt; Data （曾经写入过文件）</p>
+<p><strong>配置缓存</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+   <span class="token comment" spellcheck="true">//.onlyRetrieveFromCache(true)</span>
+   <span class="token comment" spellcheck="true">//.skipMemoryCache(true)</span>
+    <span class="token comment" spellcheck="true">//.diskCacheStrategy(DiskCacheStrategy.NONE)</span>
+  <span class="token punctuation">.</span><span class="token function">diskCacheStrategy</span><span class="token punctuation">(</span>DiskCacheStrategy<span class="token punctuation">.</span>ALL<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>定制缓存刷新Key值</strong></p>
+<p>文件 <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/signature/ObjectKey.html" target="_blank" rel="noopener"><code>ObjectKey</code></a></p>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>yourFragment<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>yourFileDataModel<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">signature</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ObjectKey</span><span class="token punctuation">(</span>yourVersionMetadata<span class="token comment" spellcheck="true">/*修改日期*/</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>yourImageView<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>媒体存储签名MediaStore </p>
+<pre class="line-numbers language-java"><code class="language-java">Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>mediaStoreUri<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">signature</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MediaStoreSignature</span><span class="token punctuation">(</span>mimeType<span class="token punctuation">,</span> dateModified<span class="token punctuation">,</span> orientation<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>view<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>定义你自己的签名</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IntegerVersionSignature</span> <span class="token keyword">implements</span> <span class="token class-name">Key</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> currentVersion<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">IntegerVersionSignature</span><span class="token punctuation">(</span><span class="token keyword">int</span> currentVersion<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">this</span><span class="token punctuation">.</span>currentVersion <span class="token operator">=</span> currentVersion<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span>Object o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token keyword">instanceof</span> <span class="token class-name">IntegerVersionSignature</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            IntegerVersionSignature other <span class="token operator">=</span> <span class="token punctuation">(</span>IntegerVersionSignature<span class="token punctuation">)</span> o<span class="token punctuation">;</span>
+            <span class="token keyword">return</span> currentVersion <span class="token operator">==</span> other<span class="token punctuation">.</span>currentVersion<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> currentVersion<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">updateDiskCacheKey</span><span class="token punctuation">(</span>MessageDigest md<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        messageDigest<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>ByteBuffer<span class="token punctuation">.</span><span class="token function">allocate</span><span class="token punctuation">(</span>Integer<span class="token punctuation">.</span>SIZE<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">putInt</span><span class="token punctuation">(</span>signature<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p><strong>常用的组件概述</strong></p>
+<ol>
+<li><p><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/model/ModelLoader.html" target="_blank" rel="noopener">ModelLoader</a></p>
+<blockquote>
+<p>A factory interface for translating an arbitrarily complex data model into a</p>
+<p> concrete data type that can be used by an <a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/data/DataFetcher.html" target="_blank" rel="noopener"><code>DataFetcher</code></a> to obtain the data for a resource represented by the model.</p>
+</blockquote>
+</li>
+<li><p><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/ResourceDecoder.html" target="_blank" rel="noopener">ResourceDecoder&lt;T,Z&gt;</a></p>
+<blockquote>
+<p><code>T</code> - The type the resource will be decoded from (File, InputStream etc).</p>
+<p><code>Z</code> - The type of the decoded resource (Bitmap, Drawable etc).</p>
+</blockquote>
+</li>
+<li><p><a href="https://muyangmin.github.io/glide-docs-cn/javadocs/400/com/bumptech/glide/load/ResourceEncoder.html" target="_blank" rel="noopener">ResourceEncoder<t></t></a></p>
+<blockquote>
+<p><code>T</code> - The type of the data contained by the resource.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="1-加载加载角图片度"><a href="#1-加载加载角图片度" class="headerlink" title="1. 加载加载角图片度"></a>1. 加载<strong><em>加载角图片</em>度</strong></h3><p><strong>开源库</strong></p>
+<p><a href="https://github.com/wasabeef/glide-transformations" target="_blank" rel="noopener">glide-transformations</a></p>
+<p><img src="https://cdn.linz.tech/glide_transformation.gif" alt></p>
+<h3 id="2-下载文件-获取缓存文件路径"><a href="#2-下载文件-获取缓存文件路径" class="headerlink" title="2. 下载文件/获取缓存文件路径"></a>2. 下载文件/获取缓存文件路径</h3><pre class="line-numbers language-java"><code class="language-java">FutureTarget<span class="token operator">&lt;</span>File<span class="token operator">></span> target <span class="token operator">=</span> Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">downloadOnly</span><span class="token punctuation">(</span>Target<span class="token punctuation">.</span>SIZE_ORIGINAL<span class="token punctuation">,</span> Target<span class="token punctuation">.</span>SIZE_ORIGINAL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> File imageFile <span class="token operator">=</span> target<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="3-根据加载的资源动态设置ImageView大小"><a href="#3-根据加载的资源动态设置ImageView大小" class="headerlink" title="3. 根据加载的资源动态设置ImageView大小"></a>3. 根据加载的资源动态设置ImageView大小</h3><blockquote>
+<p>主要是RequestListener 的应用， 获取资源的数据resource.getIntrinsicHeight()</p>
+</blockquote>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+     * 自适应宽度加载图片。保持图片的长宽比例不变，通过修改imageView的高度来完全显示图片。
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">loadIntoUseFitWidth</span><span class="token punctuation">(</span>Context context<span class="token punctuation">,</span> <span class="token keyword">final</span> String imageUrl<span class="token punctuation">,</span> <span class="token keyword">int</span> errorImageId<span class="token punctuation">,</span> <span class="token keyword">final</span> ImageView imageView<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>imageUrl<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">diskCacheStrategy</span><span class="token punctuation">(</span>DiskCacheStrategy<span class="token punctuation">.</span>SOURCE<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">listener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">RequestListener</span><span class="token operator">&lt;</span>String<span class="token punctuation">,</span> GlideDrawable<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token annotation punctuation">@Override</span>
+                    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">onException</span><span class="token punctuation">(</span>Exception e<span class="token punctuation">,</span> String model<span class="token punctuation">,</span> Target<span class="token operator">&lt;</span>GlideDrawable<span class="token operator">></span> target<span class="token punctuation">,</span> <span class="token keyword">boolean</span> isFirstResource<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    <span class="token annotation punctuation">@Override</span>
+                    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">onResourceReady</span><span class="token punctuation">(</span>GlideDrawable resource<span class="token punctuation">,</span> String model<span class="token punctuation">,</span> Target<span class="token operator">&lt;</span>GlideDrawable<span class="token operator">></span> target<span class="token punctuation">,</span> <span class="token keyword">boolean</span> isFromMemoryCache<span class="token punctuation">,</span> <span class="token keyword">boolean</span> isFirstResource<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>imageView <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>imageView<span class="token punctuation">.</span><span class="token function">getScaleType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> ImageView<span class="token punctuation">.</span>ScaleType<span class="token punctuation">.</span>FIT_XY<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            imageView<span class="token punctuation">.</span><span class="token function">setScaleType</span><span class="token punctuation">(</span>ImageView<span class="token punctuation">.</span>ScaleType<span class="token punctuation">.</span>FIT_XY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        ViewGroup<span class="token punctuation">.</span>LayoutParams params <span class="token operator">=</span> imageView<span class="token punctuation">.</span><span class="token function">getLayoutParams</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">int</span> vw <span class="token operator">=</span> imageView<span class="token punctuation">.</span><span class="token function">getWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> imageView<span class="token punctuation">.</span><span class="token function">getPaddingLeft</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> imageView<span class="token punctuation">.</span><span class="token function">getPaddingRight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">float</span> scale <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> vw <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> resource<span class="token punctuation">.</span><span class="token function">getIntrinsicWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">int</span> vh <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span>resource<span class="token punctuation">.</span><span class="token function">getIntrinsicHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> scale<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        params<span class="token punctuation">.</span>height <span class="token operator">=</span> vh <span class="token operator">+</span> imageView<span class="token punctuation">.</span><span class="token function">getPaddingTop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> imageView<span class="token punctuation">.</span><span class="token function">getPaddingBottom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        imageView<span class="token punctuation">.</span><span class="token function">setLayoutParams</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">placeholder</span><span class="token punctuation">(</span>errorImageId<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>errorImageId<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>imageView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-【官方】编写定制的-ModelLoader"><a href="#4-【官方】编写定制的-ModelLoader" class="headerlink" title="4. 【官方】编写定制的 ModelLoader"></a>4. 【官方】<a href="https://muyangmin.github.io/glide-docs-cn/tut/custom-modelloader.html" target="_blank" rel="noopener">编写定制的 ModelLoader</a></h3><h2 id="相关开源库"><a href="#相关开源库" class="headerlink" title="相关开源库"></a>相关开源库</h2><ul>
+<li><strong><a href="https://github.com/SherlockGougou/BigImageViewPager" target="_blank" rel="noopener"> BigImageViewPager</a></strong> 基于glide的大图预览库</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">glide github官网</a></li>
+<li><a href="https://muyangmin.github.io/glide-docs-cn/" target="_blank" rel="noopener"> Glide 官网中文文档</a> 【重点.科学上网】</li>
+<li><a href="https://blog.csdn.net/sinyu890807/column/info/15318" target="_blank" rel="noopener">Glide最全解析（郭霖的glide系列）</a> （以Glide3.7.0源码为例 共8篇 第2篇较难懂 如果不太理解可以跳过直接从第3篇 缓存开始读 ）</li>
+<li><a href="https://blog.csdn.net/songzi1228/article/details/84426165" target="_blank" rel="noopener">Android面试题：Glide</a></li>
+<li><a href="https://mrfu.me/2016/02/27/Glide_Image_Resizing_&_Scaling/" target="_blank" rel="noopener">Glide 3.6.1 系列预览 </a></li>
+</ul>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><ul>
+<li><a href="https://github.com/bumptech/glide" target="_blank" rel="noopener">glide github网址</a></li>
+</ul>
+<p><a href="https://blog.csdn.net/qq_24675479/article/details/79498250" target="_blank" rel="noopener"><img src="https://cdn.linz.tech/glide_%E6%97%B6%E5%BA%8F%E5%9B%BE.jpg" alt></a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/总结/" rel="tag"># 总结</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/15/2020-02-15-Java-design-patterns-白话（可能配图）/" rel="next" title="基于java-design-patterns白话图解设计模式（个人理解）">
+                <i class="fa fa-chevron-left"></i> 基于java-design-patterns白话图解设计模式（个人理解）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/17/2020-12-17-live-template/" rel="prev" title="Android & vue Live Template">
+                Android & vue Live Template <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2020/12/16/2020-12-8-glide复习/" data-title="Glide4.x使用总结" data-url="http://linz.tech/2020/12/16/2020-12-8-glide复习/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础用法"><span class="nav-number">1.1.</span> <span class="nav-text">基础用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基处知识"><span class="nav-number">1.2.</span> <span class="nav-text">基处知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项"><span class="nav-number">1.3.</span> <span class="nav-text">选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Requestions"><span class="nav-number">1.3.1.</span> <span class="nav-text">Requestions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TransitionOptions"><span class="nav-number">1.3.2.</span> <span class="nav-text">TransitionOptions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestBuilder"><span class="nav-number">1.3.3.</span> <span class="nav-text">RequestBuilder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缩略图-Thumbnail-请求"><span class="nav-number">1.3.4.</span> <span class="nav-text">缩略图 (Thumbnail) 请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在失败时开始新的请求"><span class="nav-number">1.3.5.</span> <span class="nav-text">在失败时开始新的请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件选项"><span class="nav-number">1.3.6.</span> <span class="nav-text">组件选项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transformations"><span class="nav-number">1.4.</span> <span class="nav-text">Transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内置类型"><span class="nav-number">1.4.1.</span> <span class="nav-text">内置类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多重变换"><span class="nav-number">1.4.2.</span> <span class="nav-text">多重变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定制变换"><span class="nav-number">1.4.3.</span> <span class="nav-text">定制变换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Target"><span class="nav-number">1.5.</span> <span class="nav-text">Target</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#取消和重用"><span class="nav-number">1.5.1.</span> <span class="nav-text">取消和重用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尺寸-Sizes-and-dimensions"><span class="nav-number">1.5.2.</span> <span class="nav-text">尺寸 (Sizes and dimensions)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动画资源和定制目标"><span class="nav-number">1.5.3.</span> <span class="nav-text">动画资源和定制目标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过渡"><span class="nav-number">1.6.</span> <span class="nav-text">过渡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用程序选项"><span class="nav-number">2.1.</span> <span class="nav-text">应用程序选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认请求选项"><span class="nav-number">2.2.</span> <span class="nav-text">默认请求选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册组件"><span class="nav-number">2.3.</span> <span class="nav-text">注册组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实践案例"><span class="nav-number">2.4.</span> <span class="nav-text">实践案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#其他配置"><span class="nav-number">2.4.1.</span> <span class="nav-text">其他配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number">3.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">4.</span> <span class="nav-text">组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例"><span class="nav-number">5.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-加载加载角图片度"><span class="nav-number">5.1.</span> <span class="nav-text">1. 加载加载角图片度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-下载文件-获取缓存文件路径"><span class="nav-number">5.2.</span> <span class="nav-text">2. 下载文件/获取缓存文件路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-根据加载的资源动态设置ImageView大小"><span class="nav-number">5.3.</span> <span class="nav-text">3. 根据加载的资源动态设置ImageView大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-【官方】编写定制的-ModelLoader"><span class="nav-number">5.4.</span> <span class="nav-text">4. 【官方】编写定制的 ModelLoader</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关开源库"><span class="nav-number">6.</span> <span class="nav-text">相关开源库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">8.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
