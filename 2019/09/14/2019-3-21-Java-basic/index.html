@@ -157,6 +157,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -1031,7 +1033,7 @@ ERROR
 DONE
 <span class="token comment" spellcheck="true">//======================</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><ul>
-<li>assert false ; 在jvm的参数，参数是-ea或者-enableassertions 抛出java.lang.AssertionErro。增加错误信息，<code>assert  false : &quot;这个异常没有性格&quot;;</code></li>
+<li>assert false ; 在jvm的参数，参数是-ea或者-enableassertions 抛出java.lang.AssertionErro。增加错误信息，<code>assert  false : "这个异常没有性格";</code></li>
 </ul>
 <h3 id="Clone"><a href="#Clone" class="headerlink" title="Clone"></a><strong>Clone</strong></h3><p>浅度拷贝/深度拷贝</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//1.直接强转只能克隆基本数据类型，原因是clone方法只是复制了相同的内存块</span>
@@ -1421,7 +1423,7 @@ DONE
 <h4 id="JVM自带的几种加载器"><a href="#JVM自带的几种加载器" class="headerlink" title="JVM自带的几种加载器"></a>JVM自带的几种加载器</h4><p>根（Bootstrap）</p>
 <ol>
 <li>负责加载核心类库，如java.lang.*等。</li>
-<li>指定加载目录为<code>System.getProperty(&quot;sun.boot.class.path&quot;)</code></li>
+<li>指定加载目录为<code>System.getProperty("sun.boot.class.path")</code></li>
 <li>没有继承ClassLoader类，没有父加载器；</li>
 </ol>
 <p>扩展（Extension）类加载器</p>
@@ -1646,7 +1648,7 @@ tail -f nohup.out<span aria-hidden="true" class="line-numbers-rows"><span></span
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1668,7 +1670,7 @@ tail -f nohup.out<span aria-hidden="true" class="line-numbers-rows"><span></span
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

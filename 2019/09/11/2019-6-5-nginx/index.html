@@ -157,6 +157,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -596,12 +598,12 @@ nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><
     set $foo hello;
     location /test/ {
         default_type application/json;
-        return 200 &#39;{&quot;status&quot;:&quot;${foo}/$foo&quot;}&#39;;
+        return 200 '{"status":"${foo}/$foo"}';
     }
 }</code></pre><ul>
 <li><p>定义范围：<code>server{}</code> 内</p>
 <blockquote>
-<p>放到外面报错<code>nginx: [emerg] &quot;set&quot; directive is not allowed here</code></p>
+<p>放到外面报错<code>nginx: [emerg] "set" directive is not allowed here</code></p>
 </blockquote>
 </li>
 <li><p>初始化：在加载conf的时候，故没有set变量直接引用无法启动 </p>
@@ -617,14 +619,14 @@ nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span><
 
     location /bar {
         #可以看出定义在location范围之外，赋值是在location内
-        echo &quot;a = [$a]&quot;; 
+        echo "a = [$a]"; 
     }
 }
 </code></pre><p>测试</p>
 <pre><code>[root@localhost html]# curl localhost/foo
 #内部跳转a值不变
 a = [hello]
-[root@localhost html]# curl &#39;http://localhost/bar&#39;
+[root@localhost html]# curl 'http://localhost/bar'
 #外部跳转没有赋值
 a = []</code></pre><h4 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h4><p>参考 深度学习之 <code>Nginx 变量</code></p>
 <h4 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h4><p>参考 <code>附录二 Nginx全局变量解析</code></p>
@@ -651,8 +653,8 @@ a = []</code></pre><h4 id="内建变量"><a href="#内建变量" class="headerli
 <p>编译选项：  <code>--with-http_sub_module</code></p>
 <blockquote>
 <pre><code>location / {
-    sub_filter &#39;&lt;a href=&quot;http://127.0.0.1:8080/&#39;  &#39;&lt;a href=&quot;https://$host/&#39;;
-    sub_filter &#39;&lt;img src=&quot;http://127.0.0.1:8080/&#39; &#39;&lt;img src=&quot;https://$host/&#39;;
+    sub_filter '&lt;a href="http://127.0.0.1:8080/'  '&lt;a href="https://$host/';
+    sub_filter '&lt;img src="http://127.0.0.1:8080/' '&lt;img src="https://$host/';
     sub_filter_once on; ## 默认为全部替换，开启替换一次
 }</code></pre></blockquote>
 <h3 id="Nginx-请求限制"><a href="#Nginx-请求限制" class="headerlink" title="Nginx 请求限制"></a>Nginx 请求限制</h3><h4 id="链接频率限制"><a href="#链接频率限制" class="headerlink" title="链接频率限制 :"></a>链接频率限制 :</h4><p><a href="https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html" target="_blank" rel="noopener">ngx_http_limit_conn_module</a></p>
@@ -1513,7 +1515,7 @@ Email Address []:zhilinchn@126.com<span aria-hidden="true" class="line-numbers-r
 </li>
 <li><p>run Hello World </p>
 <ul>
-<li><p>terminal input lua <code>print(&quot;Hello World!&quot;)</code></p>
+<li><p>terminal input lua <code>print("Hello World!")</code></p>
 </li>
 <li><p>script：test.lua , <code>chmod a+x text.lua</code> <code>./test.lua</code></p>
 <pre class="line-numbers language-shell"><code class="language-shell">#!/usr/bin/lua
@@ -2172,7 +2174,7 @@ $document_uri：与$uri相同<span aria-hidden="true" class="line-numbers-rows">
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2194,7 +2196,7 @@ $document_uri：与$uri相同<span aria-hidden="true" class="line-numbers-rows">
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

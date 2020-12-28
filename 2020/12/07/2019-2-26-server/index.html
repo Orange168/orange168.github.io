@@ -149,6 +149,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -1010,7 +1012,7 @@ String result <span class="token operator">=</span> restTemplate<span class="tok
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>配注：</p>
 <ol>
-<li><code>@Value(&quot;${didispace.title:}&quot;)</code> 读取配置信息</li>
+<li><code>@Value("${didispace.title:}")</code> 读取配置信息</li>
 <li><code>@RefreshScope</code> 这个类配置内容支持动态更新</li>
 </ol>
 <p>第三步：创建配置文件<code>bootstrap.properties</code></p>
@@ -1135,9 +1137,9 @@ ssh root@example.com<span aria-hidden="true" class="line-numbers-rows"><span></s
 <h2 id="常用配置界面"><a href="#常用配置界面" class="headerlink" title="常用配置界面"></a>常用配置界面</h2><ul>
 <li><a href="https://dns.console.aliyun.com/#/dns/setting/linz.tech" target="_blank" rel="noopener">linz.tech 域名配置界面</a></li>
 <li><a href="https://ecs.console.aliyun.com/?spm=a2c1d.8251892.aliyun_sidebar.aliyun_sidebar_ecs.34f85b76YnLmUP#/securityGroupDetail/region/cn-shenzhen/groupId/sg-wz933l0ge76qamrg3ng3/rule/intranetIngress" target="_blank" rel="noopener">后台端口开发设置界面</a></li>
-<li><a href="https://cloudmonitor.console.aliyun.com/index.htm?spm=5176.2020520101.223.d101.627a4df5vTHaWk&custom_trace=ecs_console#/hostDetail/alarm/instanceId=i-wz933l0ge76qamri4req&system=Linux&region=cn-shenzhen&aliyunhost=true&category=ecs" target="_blank" rel="noopener">新建报警机制</a></li>
-<li><a href="https://yundun.console.aliyun.com/?spm=5176.6660585.774526198.1.31926bf8YSEGxy&p=cas#/overview/cn-hangzhou" target="_blank" rel="noopener">ssl 证书申请</a></li>
-<li><a href="https://help.aliyun.com/document_detail/98737.html?spm=a2c4g.11186623.6.567.7ce447b9n5gZ2a&short_name=I3.ZW3uZ&app=chrome" target="_blank" rel="noopener">证书下载</a></li>
+<li><a href="https://cloudmonitor.console.aliyun.com/index.htm?spm=5176.2020520101.223.d101.627a4df5vTHaWk&amp;custom_trace=ecs_console#/hostDetail/alarm/instanceId=i-wz933l0ge76qamri4req&amp;system=Linux&amp;region=cn-shenzhen&amp;aliyunhost=true&amp;category=ecs" target="_blank" rel="noopener">新建报警机制</a></li>
+<li><a href="https://yundun.console.aliyun.com/?spm=5176.6660585.774526198.1.31926bf8YSEGxy&amp;p=cas#/overview/cn-hangzhou" target="_blank" rel="noopener">ssl 证书申请</a></li>
+<li><a href="https://help.aliyun.com/document_detail/98737.html?spm=a2c4g.11186623.6.567.7ce447b9n5gZ2a&amp;short_name=I3.ZW3uZ&amp;app=chrome" target="_blank" rel="noopener">证书下载</a></li>
 </ul>
 <h1 id="亚马逊云学习"><a href="#亚马逊云学习" class="headerlink" title="亚马逊云学习"></a>亚马逊云学习</h1><p>Linux用r3.pem登录</p>
 <pre class="line-numbers language-shell"><code class="language-shell">/mnt/hgfs/ubuntu/workspace/tools/亚马逊服务器连接
@@ -1327,7 +1329,7 @@ as root.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 </li>
 </ul>
 <h2 id="七牛云测试域名过渡"><a href="#七牛云测试域名过渡" class="headerlink" title="七牛云测试域名过渡"></a>七牛云测试域名过渡</h2><ol>
-<li><p>操作界面：<a href="https://portal.qiniu.com/cdn/domain/create?bucket=image&fixBucket" target="_blank" rel="noopener"> 域名管理-&gt; 创建域名  </a><br>操作： 如域名为 linz.tech, 填写加速域名为 cdn.linz.tech 其他默认点击创建即可。<br>说明：cdn是可以随意取名的二级域名<br>操作结果：  <a href="https://portal.qiniu.com/cdn/domain?ref=developer.qiniu.com" target="_blank" rel="noopener"><strong>域名管理</strong></a> 界面新增一个域名列表，点击配置 获取如: <code>CNAME：cdn.linz.tech.qiniudns.com</code>的域名映射；</p>
+<li><p>操作界面：<a href="https://portal.qiniu.com/cdn/domain/create?bucket=image&amp;fixBucket" target="_blank" rel="noopener"> 域名管理-&gt; 创建域名  </a><br>操作： 如域名为 linz.tech, 填写加速域名为 cdn.linz.tech 其他默认点击创建即可。<br>说明：cdn是可以随意取名的二级域名<br>操作结果：  <a href="https://portal.qiniu.com/cdn/domain?ref=developer.qiniu.com" target="_blank" rel="noopener"><strong>域名管理</strong></a> 界面新增一个域名列表，点击配置 获取如: <code>CNAME：cdn.linz.tech.qiniudns.com</code>的域名映射；</p>
 </li>
 <li><p>配置CNAME：<a href="https://dns.console.aliyun.com/?spm=5176.100251.111252.28.6dc04f157ZpxzS#/dns/setting/linz.tech" target="_blank" rel="noopener">到域名解析管理里面增加二级域名</a><br>操作步骤： </p>
 <ol>
@@ -1471,7 +1473,7 @@ netstat -tunlp |grep 8000<span aria-hidden="true" class="line-numbers-rows"><spa
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1493,7 +1495,7 @@ netstat -tunlp |grep 8000<span aria-hidden="true" class="line-numbers-rows"><spa
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -149,6 +149,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -485,7 +487,7 @@ ListItemBinding binding <span class="token operator">=</span> DataBindingUtil<sp
 MainFragmentBinding binding <span class="token operator">=</span>
           DataBindingUtil<span class="token punctuation">.</span><span class="token function">inflate</span><span class="token punctuation">(</span>inflater<span class="token punctuation">,</span> R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>main_fragment<span class="token punctuation">,</span> container<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li>如果想操作对应的控件需要设置id号，如main_activity.xml, 设置<code>android:id=&quot;@+id/mFirstName&quot;</code> ，可以直接用<code>binding.mFirstName</code> 找到控件 ；</li>
+<li>如果想操作对应的控件需要设置id号，如main_activity.xml, 设置<code>android:id="@+id/mFirstName"</code> ，可以直接用<code>binding.mFirstName</code> 找到控件 ；</li>
 </ul>
 <p>【待处理】<br>测试中得到binding</p>
 <pre class="line-numbers language-java"><code class="language-java">MainActivityBinding binding <span class="token operator">=</span> MainActivityBinding<span class="token punctuation">.</span><span class="token function">inflate</span><span class="token punctuation">(</span><span class="token function">getLayoutInflater</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -534,7 +536,7 @@ ListItemBinding binding <span class="token operator">=</span> ListItemBinding<sp
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onSaveClick</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>传入View方式</p>
-<pre><code> android:onClick=&quot;@{(theView) -&gt; handlers.onSaveClick(theView, user)}&quot;</code></pre><p>或</p>
+<pre><code> android:onClick="@{(theView) -&gt; handlers.onSaveClick(theView, user)}"</code></pre><p>或</p>
 <pre class="line-numbers language-xml"><code class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>CheckBox</span> <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
         <span class="token attr-name"><span class="token namespace">android:</span>onCheckedChanged</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@{(cb, isChecked) -<span class="token punctuation">></span> handlers.completeChanged(user, isChecked)}<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
@@ -595,12 +597,12 @@ ListItemBinding binding <span class="token operator">=</span> ListItemBinding<sp
 <li>Ternary operator ?:</li>
 </ul>
 <p>Examples:</p>
-<pre><code>android:text=&quot;@{String.valueOf(index + 1)}&quot;
-android:visibility=&quot;@{age &lt; 13 ? View.GONE : View.VISIBLE}&quot;
-android:transitionName=&#39;@{&quot;image_&quot; + id}&#39; 
+<pre><code>android:text="@{String.valueOf(index + 1)}"
+android:visibility="@{age &lt; 13 ? View.GONE : View.VISIBLE}"
+android:transitionName='@{"image_" + id}' 
 
-android:text=&quot;@{user.displayName ?? user.lastName}&quot; 【重点】&lt;==&gt; 等价于
-android:text=&quot;@{user.displayName != null ? user.displayName : user.lastName}&quot;
+android:text="@{user.displayName ?? user.lastName}" 【重点】&lt;==&gt; 等价于
+android:text="@{user.displayName != null ? user.displayName : user.lastName}"
 </code></pre><h4 id="Resources引用"><a href="#Resources引用" class="headerlink" title="Resources引用"></a>Resources引用</h4><table>
 <thead>
 <tr>
@@ -862,7 +864,7 @@ user<span class="token punctuation">.</span><span class="token function">put</sp
 <blockquote>
 <p>特殊说明: MasteringAndroidDataBinding中是用<code>declare-styleable</code>加自定义控件的方法来处理数据变化，上面的例子最能达到实践效果，在<strong>原生控件中加入自定义是属性</strong>,简洁易用；</p>
 </blockquote>
-<h3 id="BindingAdapter进价用法"><a href="#BindingAdapter进价用法" class="headerlink" title="BindingAdapter进价用法"></a>BindingAdapter进价用法</h3><h4 id="观察多个属性-如：-BindingAdapter-value-quot-url-quot-quot-drawable-quot-requireAll-false-requireAll指-布局控件中是否需要-quot-url-quot-quot-drawable-quot-属性都存在，默认为true；"><a href="#观察多个属性-如：-BindingAdapter-value-quot-url-quot-quot-drawable-quot-requireAll-false-requireAll指-布局控件中是否需要-quot-url-quot-quot-drawable-quot-属性都存在，默认为true；" class="headerlink" title="观察多个属性 如： @BindingAdapter(value = {&quot;url&quot;,&quot;drawable&quot;},requireAll = false) requireAll指 布局控件中是否需要&quot;url&quot;``&quot;drawable&quot; 属性都存在，默认为true；"></a>观察多个属性 如： <code>@BindingAdapter(value = {&quot;url&quot;,&quot;drawable&quot;},requireAll = false)</code> requireAll指 布局控件中是否需要<code>&quot;url&quot;``&quot;drawable&quot;</code> 属性都存在，默认为true；</h4><h4 id="监听原生控件的属性变化，做响应的处理（重写），如："><a href="#监听原生控件的属性变化，做响应的处理（重写），如：" class="headerlink" title="监听原生控件的属性变化，做响应的处理（重写），如："></a>监听原生控件的属性变化，做响应的处理（重写），如：</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@BindingAdapter</span><span class="token punctuation">(</span><span class="token string">"android:paddingLeft"</span><span class="token punctuation">)</span>
+<h3 id="BindingAdapter进价用法"><a href="#BindingAdapter进价用法" class="headerlink" title="BindingAdapter进价用法"></a>BindingAdapter进价用法</h3><h4 id="观察多个属性-如：-BindingAdapter-value-quot-url-quot-quot-drawable-quot-requireAll-false-requireAll指-布局控件中是否需要-quot-url-quot-quot-drawable-quot-属性都存在，默认为true；"><a href="#观察多个属性-如：-BindingAdapter-value-quot-url-quot-quot-drawable-quot-requireAll-false-requireAll指-布局控件中是否需要-quot-url-quot-quot-drawable-quot-属性都存在，默认为true；" class="headerlink" title="观察多个属性 如： @BindingAdapter(value = {&quot;url&quot;,&quot;drawable&quot;},requireAll = false) requireAll指 布局控件中是否需要&quot;url&quot;``&quot;drawable&quot; 属性都存在，默认为true；"></a>观察多个属性 如： <code>@BindingAdapter(value = {"url","drawable"},requireAll = false)</code> requireAll指 布局控件中是否需要<code>"url"``"drawable"</code> 属性都存在，默认为true；</h4><h4 id="监听原生控件的属性变化，做响应的处理（重写），如："><a href="#监听原生控件的属性变化，做响应的处理（重写），如：" class="headerlink" title="监听原生控件的属性变化，做响应的处理（重写），如："></a>监听原生控件的属性变化，做响应的处理（重写），如：</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@BindingAdapter</span><span class="token punctuation">(</span><span class="token string">"android:paddingLeft"</span><span class="token punctuation">)</span>
 <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">setPaddingLeft</span><span class="token punctuation">(</span>View view<span class="token punctuation">,</span> <span class="token keyword">int</span> padding<span class="token punctuation">)</span> <span class="token punctuation">{</span>
    view<span class="token punctuation">.</span><span class="token function">setPadding</span><span class="token punctuation">(</span>padding<span class="token punctuation">,</span>
                    view<span class="token punctuation">.</span><span class="token function">getPaddingTop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -949,42 +951,42 @@ user<span class="token punctuation">.</span><span class="token function">put</sp
 <td></td>
 </tr>
 <tr>
-<td>空格          &nbsp;           &#160;</td>
+<td>空格          &nbsp;           &nbsp;</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>&lt;          小于号         &lt;            &#60;</td>
+<td>&lt;          小于号         &lt;            &lt;</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>&gt;          大于号         &gt;            &#62;</td>
+<td>&gt;          大于号         &gt;            &gt;</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>&amp;          与号          &amp;            &#38;</td>
+<td>&amp;          与号          &amp;            &amp;</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>“          引号          &quot;           &#34;</td>
+<td>“          引号          "           "</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>‘          撇号          &apos;           &#39;</td>
+<td>‘          撇号          '           '</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>×          乘号          &times;          &#215;</td>
+<td>×          乘号          ×          ×</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>÷          除号          &divide;         &#247;</td>
+<td>÷          除号          ÷         ÷</td>
 <td></td>
 <td></td>
 </tr>
@@ -1126,7 +1128,7 @@ user<span class="token punctuation">.</span><span class="token function">put</sp
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1148,7 +1150,7 @@ user<span class="token punctuation">.</span><span class="token function">put</sp
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

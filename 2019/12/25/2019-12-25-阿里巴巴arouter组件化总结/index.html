@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="北疆的博客">
 <meta property="og:description" content="第1节 组件化原因 第2节 组件化须考虑的问题 第3节 ARouter使用 3.1 初始化配置 3.2 高阶使用 1. 模块间调用 2. 全局分组拦截 3. 降级处理 4. 路径替换 5. 默认JavaBean序列化控制类     第4节 Arouter采坑记录 前言 4.1 AutoWrite 4.2 navigation 4.3 finish 时机不对产生白屏   第5节 实战总结 ARou">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/2753.png?v8">
 <meta property="og:updated_time" content="2020-01-15T11:30:28.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阿里巴巴arouter组件化总结">
 <meta name="twitter:description" content="第1节 组件化原因 第2节 组件化须考虑的问题 第3节 ARouter使用 3.1 初始化配置 3.2 高阶使用 1. 模块间调用 2. 全局分组拦截 3. 降级处理 4. 路径替换 5. 默认JavaBean序列化控制类     第4节 Arouter采坑记录 前言 4.1 AutoWrite 4.2 navigation 4.3 finish 时机不对产生白屏   第5节 实战总结 ARou">
+<meta name="twitter:image" content="https://github.githubassets.com/images/icons/emoji/unicode/2753.png?v8">
 
 
 
@@ -146,6 +148,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -678,7 +682,7 @@ dependencies<span class="token punctuation">{</span>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Autowired</span>
 <span class="token keyword">private</span> <span class="token keyword">int</span> type <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
-<p>:question:原因： 自动注入是不能用<code>private</code>关键字的</p>
+<p><span class="github-emoji" style="display:inline;vertical-align:middle"><span>❓</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2753.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>原因： 自动注入是不能用<code>private</code>关键字的</p>
 </blockquote>
 <h2 id="4-2-navigation"><a href="#4-2-navigation" class="headerlink" title="4.2 navigation"></a>4.2 navigation</h2><pre><code>navigation() vs navigation(Context)</code></pre><p>使用过ARouter的同学，有知道区别的吗？当然我也是被坑才知道，之前也扫了一遍源码，还是没有get关键点</p>
 <h2 id="4-3-finish-时机不对产生白屏"><a href="#4-3-finish-时机不对产生白屏" class="headerlink" title="4.3  finish 时机不对产生白屏"></a>4.3  finish 时机不对产生白屏</h2><h1 id="第5节-实战总结-ARouter封装类"><a href="#第5节-实战总结-ARouter封装类" class="headerlink" title="第5节 实战总结 ARouter封装类"></a>第5节 实战总结 ARouter封装类</h1><h2 id="Postcard-的包装类"><a href="#Postcard-的包装类" class="headerlink" title="Postcard 的包装类"></a>Postcard 的包装类</h2><blockquote>
@@ -1223,7 +1227,7 @@ dependencies<span class="token punctuation">{</span>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1245,7 +1249,7 @@ dependencies<span class="token punctuation">{</span>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

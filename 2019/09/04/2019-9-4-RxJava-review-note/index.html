@@ -146,6 +146,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -428,7 +430,7 @@ buffer(3,TimeUnit.SECONDS) #缓存3s,统一发出<span aria-hidden="true" class=
 <p>GroupBy</p>
 <pre><code>Observable
 .just(1, 2, 3, 4, 5, 6, 7, 8, 9)
-.groupBy(integer -&gt; integer % 2, integer -&gt; &quot;groupByKeyValue:&quot; + integer);
+.groupBy(integer -&gt; integer % 2, integer -&gt; "groupByKeyValue:" + integer);
 # keyValue 分别输出：2,4,6,8
 Observable
 .just(1, 2, 3, 4, 5, 6, 7, 8, 9)
@@ -437,7 +439,7 @@ Observable
     groupedObservable
             .count()
             .subscribe(integer -&gt;
-                XLog.e(&quot;key&quot; + groupedObservable.getKey() + &quot; contains:&quot; + integer + &quot; numbers&quot;)));
+                XLog.e("key" + groupedObservable.getKey() + " contains:" + integer + " numbers")));
 #输出
 key 0 contains:4 numbers 
 key 1 contains:5 numbers</code></pre><p>Map、Cast</p>
@@ -454,7 +456,7 @@ key 1 contains:5 numbers</code></pre><p>Map、Cast</p>
 <li>throttleFirst(1000, TimeUnit.MILLISECONDS)  1秒中最先到达的数据</li>
 <li>sample(1000, TimeUnit.MILLISECONDS)  1秒中最后到达的数据<h3 id="Combining"><a href="#Combining" class="headerlink" title="Combining"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-4/" target="_blank" rel="noopener">Combining</a></h3></li>
 <li>CombineLatest 2~9个Observable每个都发射一个然后组装 【直到最后一个发出才组装】<pre><code>Observable.combineLatest(createObserver(1), createObserver(2), (num1, num2) -&gt; {
-      log(&quot;left:&quot; + num1 + &quot; right:&quot; + num2);
+      log("left:" + num1 + " right:" + num2);
       return num1 + num2;
   }</code></pre></li>
 <li>Join/groupJoin Observable（时间窗内有效）<pre><code>// 分别匹配
@@ -462,7 +464,7 @@ private Observable&lt;String&gt; createObserver2() {
   return Observable.create(new ObservableOnSubscribe&lt;String&gt;() {
     @Override public void subscribe(ObservableEmitter&lt;String&gt; emitter) throws Exception {
       for (int i = 1; i &lt; 5; i++) {
-        emitter.onNext(&quot;Right-&quot; + i);
+        emitter.onNext("Right-" + i);
         try {
           Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -472,13 +474,13 @@ private Observable&lt;String&gt; createObserver2() {
     }
   });
 }
-Observable.just(&quot;Left-&quot;,&quot;L2&quot;).join(createObserver2(),
+Observable.just("Left-","L2").join(createObserver2(),
       integer -&gt; Observable.timer(3000, TimeUnit.MILLISECONDS),//源Observable
       integer -&gt; Observable.timer(1000, TimeUnit.MILLISECONDS),//加入Ob
       (i, j) -&gt; i + j
   ).subscribe(new Consumer&lt;String&gt;() {
     @Override public void accept(String s) throws Exception {
-      Log.e(&quot;TAG&quot;,&quot;join:&quot; + s + &quot;\n&quot;);
+      Log.e("TAG","join:" + s + "\n");
     }
   });</code></pre></li>
 <li>Merege 多个发射整合，有交错（没交错cconcat）/ mergeDelayError 合并完成才发送错误</li>
@@ -486,10 +488,10 @@ Observable.just(&quot;Left-&quot;,&quot;L2&quot;).join(createObserver2(),
 <span class="token comment" spellcheck="true">//输出：-1,0,1,2,3 可以插入list Observable</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li>Zip，zipWith 按顺序，每个数据只能组合一次，发射次数由最少的决定<pre><code>//只发射了2次
-createObserver(2).zipWith(createObserver(3), (s, s2) -&gt; s + &quot;-&quot; + s2);
+createObserver(2).zipWith(createObserver(3), (s, s2) -&gt; s + "-" + s2);
 //只发射2次
 Observable
-  .zip(createObserver(2), createObserver(3), createObserver(4), (s, s2, s3) -&gt; s + &quot;-&quot; + s2 + &quot;-&quot; + s3);</code></pre><h3 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-5/" target="_blank" rel="noopener">Error Handling</a></h3><h4 id="一、Catch"><a href="#一、Catch" class="headerlink" title="一、Catch"></a>一、Catch</h4></li>
+  .zip(createObserver(2), createObserver(3), createObserver(4), (s, s2, s3) -&gt; s + "-" + s2 + "-" + s3);</code></pre><h3 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a><a href="http://mushuichuan.com/2015/12/11/rxjava-operator-5/" target="_blank" rel="noopener">Error Handling</a></h3><h4 id="一、Catch"><a href="#一、Catch" class="headerlink" title="一、Catch"></a>一、Catch</h4></li>
 <li>OnErrorReturn 返回预先值</li>
 <li>OnErrorResume 返回另一个Observable</li>
 <li>OnExceptionResumeNext 如果是Exception（同Resume），否专递给Subscriber<h4 id="Retry-，RetryWhen"><a href="#Retry-，RetryWhen" class="headerlink" title="Retry ，RetryWhen"></a>Retry ，RetryWhen</h4>尝试了几次还是产生错误后，retry会将错误分发给观察者，而retryWhen会正常结束，并不会讲错误分发出去<pre class="line-numbers language-gradle"><code class="language-gradle">createObserver().retry(2)
@@ -506,7 +508,7 @@ createObserver().retryWhen(observable -> observable.zipWith(Observable.just(1, 2
         .subscribe(new Consumer&lt;List&lt;Integer&gt;&gt;() {
              @Override
              public void accept(List&lt;Integer&gt; integers) throws Exception {
-               Log.e(&quot;zhao&quot;, &quot;accept: &quot; + integers);
+               Log.e("zhao", "accept: " + integers);
          }
    });</code></pre></li>
 <li>Delay / DelaySubscription</li>
@@ -589,7 +591,7 @@ publishSubject <span class="token punctuation">.</span><span class="token functi
       Subscriber&lt;Integer&gt; downstream = new Subscriber&lt;Integer&gt;() {
             @Override
             public void onSubscribe(Subscription s) {
-                Log.d(TAG, &quot;onSubscribe&quot;);
+                Log.d(TAG, "onSubscribe");
                 s.request(Long.MAX_VALUE);  //注意这句代码
             }  
             .......
@@ -751,7 +753,7 @@ upstream.subscribe(downstream);</code></pre><h3 id="subscribers"><a href="#subsc
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -773,7 +775,7 @@ upstream.subscribe(downstream);</code></pre><h3 id="subscribers"><a href="#subsc
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

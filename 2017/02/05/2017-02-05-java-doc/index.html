@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="官方学习文档 How to Write Doc Comments for the Javadoc Tool  常用的HTML标签    标签 含义    &amp;lt;strong&amp;gt;&amp;lt;/strong&amp;gt; 字体加粗   &amp;lt;p&amp;gt; 换行   &amp;lt;img src=&amp;quot;&amp;quot; width=&amp;quot;&amp;quot; height=&amp;quot;&amp;quot;&amp;gt; 图片引">
+<meta name="description" content="官方学习文档 How to Write Doc Comments for the Javadoc Tool  常用的HTML标签    标签 含义    &amp;lt;strong&amp;gt;&amp;lt;/strong&amp;gt; 字体加粗   &amp;lt;p&amp;gt; 换行   &amp;lt;img src=&quot;&quot; width=&quot;&quot; height=&quot;&quot;&amp;gt; 图片引用   &amp;lt;a href=&quot;&quot;&amp;gt;&amp;lt;/a&amp;gt">
 <meta name="keywords" content="经验,Java,API">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaDoc学习笔记">
 <meta property="og:url" content="http://linz.tech/2017/02/05/2017-02-05-java-doc/index.html">
 <meta property="og:site_name" content="北疆的博客">
-<meta property="og:description" content="官方学习文档 How to Write Doc Comments for the Javadoc Tool  常用的HTML标签    标签 含义    &amp;lt;strong&amp;gt;&amp;lt;/strong&amp;gt; 字体加粗   &amp;lt;p&amp;gt; 换行   &amp;lt;img src=&amp;quot;&amp;quot; width=&amp;quot;&amp;quot; height=&amp;quot;&amp;quot;&amp;gt; 图片引">
+<meta property="og:description" content="官方学习文档 How to Write Doc Comments for the Javadoc Tool  常用的HTML标签    标签 含义    &amp;lt;strong&amp;gt;&amp;lt;/strong&amp;gt; 字体加粗   &amp;lt;p&amp;gt; 换行   &amp;lt;img src=&quot;&quot; width=&quot;&quot; height=&quot;&quot;&amp;gt; 图片引用   &amp;lt;a href=&quot;&quot;&amp;gt;&amp;lt;/a&amp;gt">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2020-01-15T02:39:44.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaDoc学习笔记">
-<meta name="twitter:description" content="官方学习文档 How to Write Doc Comments for the Javadoc Tool  常用的HTML标签    标签 含义    &amp;lt;strong&amp;gt;&amp;lt;/strong&amp;gt; 字体加粗   &amp;lt;p&amp;gt; 换行   &amp;lt;img src=&amp;quot;&amp;quot; width=&amp;quot;&amp;quot; height=&amp;quot;&amp;quot;&amp;gt; 图片引">
+<meta name="twitter:description" content="官方学习文档 How to Write Doc Comments for the Javadoc Tool  常用的HTML标签    标签 含义    &amp;lt;strong&amp;gt;&amp;lt;/strong&amp;gt; 字体加粗   &amp;lt;p&amp;gt; 换行   &amp;lt;img src=&quot;&quot; width=&quot;&quot; height=&quot;&quot;&amp;gt; 图片引用   &amp;lt;a href=&quot;&quot;&amp;gt;&amp;lt;/a&amp;gt">
 
 
 
@@ -146,6 +146,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -430,20 +432,20 @@
 <td>换行</td>
 </tr>
 <tr>
-<td><code>&lt;img src=&quot;&quot; width=&quot;&quot; height=&quot;&quot;&gt;</code></td>
+<td><code>&lt;img src="" width="" height=""&gt;</code></td>
 <td>图片引用</td>
 </tr>
 <tr>
-<td><code>&lt;a href=&quot;&quot;&gt;&lt;/a&gt;</code></td>
+<td><code>&lt;a href=""&gt;&lt;/a&gt;</code></td>
 <td>超链接内容</td>
 </tr>
 </tbody></table>
 <h4 id="加粗-strong"><a href="#加粗-strong" class="headerlink" title="加粗 strong"></a>加粗 strong</h4><p><code>&lt;strong&gt;Strong&lt;/strong&gt;</code></p>
-<h4 id="超链接-href"><a href="#超链接-href" class="headerlink" title="超链接 href"></a>超链接 href</h4><p><code>&lt;a href=&quot;http://go.microsoft.com/fwlink/?LinkID=205219&quot;&gt;Rx Design Guidelines (PDF)&lt;/a&gt;</code></p>
+<h4 id="超链接-href"><a href="#超链接-href" class="headerlink" title="超链接 href"></a>超链接 href</h4><p><code>&lt;a href="http://go.microsoft.com/fwlink/?LinkID=205219"&gt;Rx Design Guidelines (PDF)&lt;/a&gt;</code></p>
 <h4 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/** &lt;p>
 *
 **/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h4 id="图片引用"><a href="#图片引用" class="headerlink" title="图片引用"></a>图片引用</h4><p><code>&lt;img width=&quot;640&quot; height=&quot;200&quot; src=&quot;https://raw.github.com/create.png&quot; alt=&quot;&quot;&gt;</code></p>
+<h4 id="图片引用"><a href="#图片引用" class="headerlink" title="图片引用"></a>图片引用</h4><p><code>&lt;img width="640" height="200" src="https://raw.github.com/create.png" alt=""&gt;</code></p>
 <h3 id="常用的格式"><a href="#常用的格式" class="headerlink" title="常用的格式"></a>常用的格式</h3><hr>
 <h4 id="标题加粗换行"><a href="#标题加粗换行" class="headerlink" title="标题加粗换行"></a>标题加粗换行</h4><pre class="line-numbers language-java"><code class="language-java"> <span class="token comment" spellcheck="true">/**
  * &lt;dl>
@@ -583,7 +585,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -605,7 +607,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

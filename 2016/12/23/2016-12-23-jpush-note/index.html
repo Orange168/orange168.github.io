@@ -148,6 +148,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -425,22 +427,22 @@ allprojects <span class="token punctuation">{</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="集成依赖"><a href="#集成依赖" class="headerlink" title="集成依赖"></a>集成依赖</h4><pre><code>android {
     defaultConfig {
-        applicationId &quot;com.xxx.xxx&quot; //JPush上注册的包名.
+        applicationId "com.xxx.xxx" //JPush上注册的包名.
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters &#39;armeabi&#39;, &#39;armeabi-v7a&#39;, &#39;armeabi-v8a&#39;
-            // 还可以添加 &#39;x86&#39;, &#39;x86_64&#39;, &#39;mips&#39;, &#39;mips64&#39;
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
         manifestPlaceholders = [
             JPUSH_PKGNAME : applicationId,
-            JPUSH_APPKEY : &quot;你的appkey&quot;, //JPush上注册的包名对应的appkey.
-            JPUSH_CHANNEL : &quot;developer-default&quot;, //暂时填写默认值即可.
+            JPUSH_APPKEY : "你的appkey", //JPush上注册的包名对应的appkey.
+            JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
     }
 }
 dependencies {
-    compile &#39;cn.jiguang.sdk:jpush:3.0.0&#39;  // 此处以JPush 3.0.0 版本为例。
-    compile &#39;cn.jiguang.sdk:jcore:1.0.0&#39;  // 此处以JCore 1.0.0 版本为例。
+    compile 'cn.jiguang.sdk:jpush:3.0.0'  // 此处以JPush 3.0.0 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.0.0'  // 此处以JCore 1.0.0 版本为例。
 }</code></pre><h4 id="Manifest自定义广播设置"><a href="#Manifest自定义广播设置" class="headerlink" title="Manifest自定义广播设置"></a>Manifest自定义广播设置</h4><pre class="line-numbers language-xml"><code class="language-xml">        <span class="token comment" spellcheck="true">&lt;!-- ************************************* --></span>
         <span class="token comment" spellcheck="true">&lt;!--      The begin setting of JPush       --></span>
         <span class="token comment" spellcheck="true">&lt;!-- ************************************* --></span>
@@ -504,7 +506,7 @@ JPushInterface.setAliasAndTags(getApplicationContext(), null, (Set&lt;String&gt;
         builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;  //设置为点击后自动消失
         builder.notificationDefaults = Notification.DEFAULT_SOUND;  //设置为铃声（ Notification.DEFAULT_SOUND）或者震动（ Notification.DEFAULT_VIBRATE）
         JPushInterface.setPushNotificationBuilder(1, builder);
-        Toast.makeText(PushSetActivity.this, &quot;Basic Builder - 1&quot;, Toast.LENGTH_SHORT).show();
+        Toast.makeText(PushSetActivity.this, "Basic Builder - 1", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -514,20 +516,20 @@ JPushInterface.setAliasAndTags(getApplicationContext(), null, (Set&lt;String&gt;
     private void setStyleCustom() {
         CustomPushNotificationBuilder builder = new CustomPushNotificationBuilder(PushSetActivity.this, R.layout.customer_notitfication_layout, R.id.icon, R.id.title, R.id.text);
         builder.layoutIconDrawable = R.drawable.ic_launcher;
-        builder.developerArg0 = &quot;developerArg2&quot;;
+        builder.developerArg0 = "developerArg2";
         JPushInterface.setPushNotificationBuilder(2, builder);
-        Toast.makeText(PushSetActivity.this, &quot;Custom Builder - 2&quot;, Toast.LENGTH_SHORT).show();
+        Toast.makeText(PushSetActivity.this, "Custom Builder - 2", Toast.LENGTH_SHORT).show();
     }
 
 
     private void setAddActionsStyle() {
         MultiActionsNotificationBuilder builder = new MultiActionsNotificationBuilder(PushSetActivity.this);
-        builder.addJPushAction(R.drawable.jpush_ic_richpush_actionbar_back, &quot;first&quot;, &quot;my_extra1&quot;);
-        builder.addJPushAction(R.drawable.jpush_ic_richpush_actionbar_back, &quot;second&quot;, &quot;my_extra2&quot;);
-        builder.addJPushAction(R.drawable.jpush_ic_richpush_actionbar_back, &quot;third&quot;, &quot;my_extra3&quot;);
+        builder.addJPushAction(R.drawable.jpush_ic_richpush_actionbar_back, "first", "my_extra1");
+        builder.addJPushAction(R.drawable.jpush_ic_richpush_actionbar_back, "second", "my_extra2");
+        builder.addJPushAction(R.drawable.jpush_ic_richpush_actionbar_back, "third", "my_extra3");
         JPushInterface.setPushNotificationBuilder(10, builder);
 
-        Toast.makeText(PushSetActivity.this, &quot;AddActions Builder - 10&quot;, Toast.LENGTH_SHORT).show();
+        Toast.makeText(PushSetActivity.this, "AddActions Builder - 10", Toast.LENGTH_SHORT).show();
     }</code></pre><h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><h3 id="gradle-properties-增加-android-useDeprecatedNdk-true-使用旧版本的ndk集成方式-不添加会报错"><a href="#gradle-properties-增加-android-useDeprecatedNdk-true-使用旧版本的ndk集成方式-不添加会报错" class="headerlink" title="gradle.properties 增加 android.useDeprecatedNdk=true 使用旧版本的ndk集成方式,不添加会报错:"></a>gradle.properties 增加 <code>android.useDeprecatedNdk=true</code> 使用旧版本的ndk集成方式,不添加会报错:</h3><blockquote>
 <p>NDK integration is deprecated in the current plugin. Consider trying the new experimental plugin.</p>
 </blockquote>
@@ -657,7 +659,7 @@ JPushInterface.setAliasAndTags(getApplicationContext(), null, (Set&lt;String&gt;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -679,7 +681,7 @@ JPushInterface.setAliasAndTags(getApplicationContext(), null, (Set&lt;String&gt;
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -150,6 +150,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -639,7 +641,7 @@ ignoreElements操作符忽略所有源Observable产生的结果，只把Observab
     <span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 取前5个</span>
     <span class="token punctuation">.</span><span class="token function">doOnNext</span><span class="token punctuation">(</span>title <span class="token operator">-</span><span class="token operator">></span> <span class="token function">saveTitle</span><span class="token punctuation">(</span>title<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 在得到结果前保存标题到Disk里</span>
     <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>title <span class="token operator">-</span><span class="token operator">></span> System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>title<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="按顺序从内存–-gt-文件–-gt-网络获取资源-成功程序停止"><a href="#按顺序从内存–-gt-文件–-gt-网络获取资源-成功程序停止" class="headerlink" title="按顺序从内存–&gt;文件–&gt;网络获取资源,成功程序停止"></a>按顺序从内存–&gt;文件–&gt;网络获取资源,成功程序停止</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">final</span> Observable<span class="token operator">&lt;</span>String<span class="token operator">></span> memory <span class="token operator">=</span> Observable<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Observable<span class="token punctuation">.</span>OnSubscribe</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h4 id="按顺序从内存–-gt-文件–-gt-网络获取资源-成功程序停止"><a href="#按顺序从内存–-gt-文件–-gt-网络获取资源-成功程序停止" class="headerlink" title="按顺序从内存–>文件–>网络获取资源,成功程序停止"></a>按顺序从内存–&gt;文件–&gt;网络获取资源,成功程序停止</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">final</span> Observable<span class="token operator">&lt;</span>String<span class="token operator">></span> memory <span class="token operator">=</span> Observable<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Observable<span class="token punctuation">.</span>OnSubscribe</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token annotation punctuation">@Override</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span>Subscriber<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> String<span class="token operator">></span> subscriber<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>memoryCache <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -994,7 +996,7 @@ Observable<span class="token punctuation">.</span><span class="token function">r
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1016,7 +1018,7 @@ Observable<span class="token punctuation">.</span><span class="token function">r
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

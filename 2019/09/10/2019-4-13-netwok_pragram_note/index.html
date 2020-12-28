@@ -157,6 +157,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -498,7 +500,7 @@ Accept: */*  </code></pre><h3 id="属性详解"><a href="#属性详解" class="h
 <p>案例：</p>
 <pre class="line-numbers language-url"><code class="language-url">http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereInTheDocument<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="浏览器处理URL完整过程"><a href="#浏览器处理URL完整过程" class="headerlink" title="浏览器处理URL完整过程"></a>浏览器处理URL完整过程</h3><p><img src="http://cdn.linz.tech/web-process-url.png" alt="1556472466987"></p>
-<h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><h3 id="经典五层模型"><a href="#经典五层模型" class="headerlink" title="经典五层模型"></a>经典五层模型</h3><p><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561132064&di=cc967a2bf193d68f4abcdebb215c85ce&imgtype=jpg&er=1&src=http%3A%2F%2Fseo-1255598498.file.myqcloud.com%2Ffull%2Fa1b608d8a924f451f5538a13996e023be1d904f4.jpg" alt></p>
+<h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><h3 id="经典五层模型"><a href="#经典五层模型" class="headerlink" title="经典五层模型"></a>经典五层模型</h3><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1561132064&amp;di=cc967a2bf193d68f4abcdebb215c85ce&amp;imgtype=jpg&amp;er=1&amp;src=http%3A%2F%2Fseo-1255598498.file.myqcloud.com%2Ffull%2Fa1b608d8a924f451f5538a13996e023be1d904f4.jpg" alt></p>
 <h3 id="HTTP基础"><a href="#HTTP基础" class="headerlink" title="HTTP基础"></a>HTTP基础</h3><h4 id="HTTP历史"><a href="#HTTP历史" class="headerlink" title="HTTP历史"></a>HTTP历史</h4><ol>
 <li><p>HTTP/1.1<br>持久连接， Pipeline（并行/串行传输），增加host命令</p>
 </li>
@@ -951,7 +953,7 @@ curl -v --http1.1 test.com # 强制使用http1.1 <span aria-hidden="true" class=
 <p><strong>条件GET请求</strong></p>
 <ul>
 <li>Last-Modified-Date<br>客户端第一次请求时，服务器返回：<code>Last-Modified: Tue, 12 Jan 2016 09:31:27 GMT</code>,当客户端二次请求时，可以头部加上如下header:<code>If-Modified-Since: Tue, 12 Jan 2016 09:31:27 GMT</code>如果当前资源没有被二次修改，服务器返回304告知客户端直接复用本地缓存。</li>
-<li>ETag: ETag是对资源文件的一种摘要. 当客户端第一次请求某资源时，服务器返回：<br><code>ETag: &quot;5694c7ef-24dc&quot;</code>客户端再次请求时，可在头部加上如下域：<code>If-None-Match: &quot;5694c7ef-24dc&quot;</code>如果文件并未改变，则服务器返回304告知客户端可以复用本地缓存。</li>
+<li>ETag: ETag是对资源文件的一种摘要. 当客户端第一次请求某资源时，服务器返回：<br><code>ETag: "5694c7ef-24dc"</code>客户端再次请求时，可在头部加上如下域：<code>If-None-Match: "5694c7ef-24dc"</code>如果文件并未改变，则服务器返回304告知客户端可以复用本地缓存。</li>
 <li>no-cache/no-store: 不使用缓存</li>
 <li>only-if-cached:只使用缓存</li>
 </ul>
@@ -1079,7 +1081,7 @@ curl -v --http1.1 test.com # 强制使用http1.1 <span aria-hidden="true" class=
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1101,7 +1103,7 @@ curl -v --http1.1 test.com # 强制使用http1.1 <span aria-hidden="true" class=
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

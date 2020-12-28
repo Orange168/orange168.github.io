@@ -149,6 +149,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -684,7 +686,7 @@ allprojects <span class="token punctuation">{</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="gradle-lt-gt-maven"><a href="#gradle-lt-gt-maven" class="headerlink" title="gradle &lt;=&gt; maven"></a>gradle &lt;=&gt; maven</h2><h3 id="1-gradle-gt-maven"><a href="#1-gradle-gt-maven" class="headerlink" title="1. gradle -&gt; maven"></a>1. gradle -&gt; maven</h3><p>build.gradle  <project></project></p>
+<h2 id="gradle-lt-gt-maven"><a href="#gradle-lt-gt-maven" class="headerlink" title="gradle <=> maven"></a>gradle &lt;=&gt; maven</h2><h3 id="1-gradle-gt-maven"><a href="#1-gradle-gt-maven" class="headerlink" title="1. gradle -> maven"></a>1. gradle -&gt; maven</h3><p>build.gradle  <project></project></p>
 <pre class="line-numbers language-gradle"><code class="language-gradle">apply plugin: 'java'
 apply plugin: 'maven'
 
@@ -706,7 +708,7 @@ task writeNewPom << {
         }
     }.writeTo("$buildDir/pom.xml")
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="2-maven-gt-gradle"><a href="#2-maven-gt-gradle" class="headerlink" title="2. maven -&gt; gradle"></a>2. maven -&gt; gradle</h3><pre class="line-numbers language-shell"><code class="language-shell">gradle init --type pom<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="2-maven-gt-gradle"><a href="#2-maven-gt-gradle" class="headerlink" title="2. maven -> gradle"></a>2. maven -&gt; gradle</h3><pre class="line-numbers language-shell"><code class="language-shell">gradle init --type pom<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
       
     </div>
@@ -833,7 +835,7 @@ task writeNewPom << {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -855,7 +857,7 @@ task writeNewPom << {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

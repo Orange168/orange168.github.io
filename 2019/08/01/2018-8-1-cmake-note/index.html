@@ -148,6 +148,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -467,8 +469,8 @@ target_link_libraries( # Specifies the target library.
 <li><p>并在build.gradle下关联CMakeLists.txt</p>
 <pre><code>externalNativeBuild {
  cmake {
-   //默认和build.gradle同一目录： path &quot;CMakeLists.txt&quot;
-   path &quot;/src/main/jni/CMakeLists.txt&quot;
+   //默认和build.gradle同一目录： path "CMakeLists.txt"
+   path "/src/main/jni/CMakeLists.txt"
  }
 }</code></pre></li>
 <li><p>配置gradle脚本</p>
@@ -614,8 +616,8 @@ set_target_properties( # Specifies the target library.
 <h5 id="导入-a静态库"><a href="#导入-a静态库" class="headerlink" title="导入.a静态库"></a><a href="https://blog.csdn.net/yoyo_newbie/article/details/74427938" target="_blank" rel="noopener"><strong>导入.a静态库</strong></a></h5><p>android studio cmake 配置.a连接库</p>
 <h3 id="实战小案例"><a href="#实战小案例" class="headerlink" title="实战小案例"></a>实战小案例</h3><h4 id="指定-C-标准"><a href="#指定-C-标准" class="headerlink" title="指定 C++标准"></a>指定 C++标准</h4><pre><code>externalNativeBuild {
   cmake {
-    cppFlags &quot;-frtti -fexceptions -std=c++14&quot;
-    arguments &#39;-DANDROID_STL=c++_shared&#39;
+    cppFlags "-frtti -fexceptions -std=c++14"
+    arguments '-DANDROID_STL=c++_shared'
   }
 }</code></pre><h4 id="编译一个目录中所有源文件"><a href="#编译一个目录中所有源文件" class="headerlink" title="编译一个目录中所有源文件"></a>编译一个目录中所有源文件</h4><pre><code># aux_source_directory 方法将路径列表全部放到一个变量中
 aux_source_directory(${CMAKE_HOME_DIRECTORY}/src/api SRC_LIST)
@@ -624,7 +626,7 @@ aux_source_directory(${CMAKE_HOME_DIRECTORY}/src/core CORE_SRC_LIST)
 list(APPEND SRC_LIST ${CORE_SRC_LIST})
 add_library(native-lib SHARED ${SRC_LIST})</code></pre><h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><ul>
 <li>message 方法打印<pre><code>cmake_minimum_required(VERSION 3.4.1)
-message(STATUS &quot;execute CMakeLists&quot;)
+message(STATUS "execute CMakeLists")
 # 日志输出==&gt; .externalNativeBuild/cmake/debug/{abi}/cmake_build_output.txt</code></pre><h4 id="CMakeLists-txt-改动什么时候执行"><a href="#CMakeLists-txt-改动什么时候执行" class="headerlink" title="CMakeLists.txt 改动什么时候执行"></a>CMakeLists.txt 改动什么时候执行</h4><code>sync</code> 其他的时候只是出来缓存<blockquote>
 <p>测试了下，好像在 sync 的时候会执行。执行一次后会生成 makefile 的文件缓存之类的东西放在 externalNativeBuild 中。所以如果 CMakeLists.txt 中没有修改的话再次同步好像是不会重新执行的。（或者删除 .externalNativeBuild 目录）<br>真正编译的时候好像只是读取.externalNativeBuild 目录中已经解析好的 makefile 去编译。不会再去执行 CMakeLists.txt</p>
 </blockquote>
@@ -788,7 +790,7 @@ message(STATUS &quot;execute CMakeLists&quot;)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -810,7 +812,7 @@ message(STATUS &quot;execute CMakeLists&quot;)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

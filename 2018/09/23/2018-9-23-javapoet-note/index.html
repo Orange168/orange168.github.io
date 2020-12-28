@@ -146,6 +146,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -435,7 +437,7 @@
 <p> 基本使用逻辑，按照正常的新建.java，按照逻辑编写对应的代码，编写的代码替换为Javapoet的语法就可以了，<font color="red">Javapoet 的语法过一遍不用记忆,甚至看一下最小案例，直接开车都木有问题</font>，<a href="https://github.com/square/javapoet" target="_blank" rel="noopener">使用的时候不记得访问GitHub主页对应搜索</a></p>
 </blockquote>
 <p>引用配置</p>
-<pre><code>compile &#39;com.squareup:javapoet:1.11.1&#39;
+<pre><code>compile 'com.squareup:javapoet:1.11.1'
 &lt;dependency&gt;
   &lt;groupId&gt;com.squareup&lt;/groupId&gt;
   &lt;artifactId&gt;javapoet&lt;/artifactId&gt;
@@ -477,18 +479,18 @@ javaFile<span class="token punctuation">.</span><span class="token function">wri
 <h3 id="公共"><a href="#公共" class="headerlink" title="公共"></a>公共</h3><ul>
 <li><p>String.format() 字符串格式化</p>
 <ul>
-<li><p>$L for Literals <code>.addStatement(&quot;result = result $L i&quot;, op)</code></p>
+<li><p>$L for Literals <code>.addStatement("result = result $L i", op)</code></p>
 </li>
-<li><p>$S for Strings <code>.addStatement(&quot;return $S&quot;, name)</code></p>
+<li><p>$S for Strings <code>.addStatement("return $S", name)</code></p>
 </li>
-<li><p>$T for Types  <code>.addStatement(&quot;return new $T()&quot;, Date.class)</code> 会自动<code>import java.util.Date;</code>包名</p>
+<li><p>$T for Types  <code>.addStatement("return new $T()", Date.class)</code> 会自动<code>import java.util.Date;</code>包名</p>
 <ul>
-<li>手动指定包名：<code>ClassName hoverboard = ClassName.get(&quot;com.mattel&quot;, &quot;Hoverboard&quot;);</code></li>
+<li>手动指定包名：<code>ClassName hoverboard = ClassName.get("com.mattel", "Hoverboard");</code></li>
 </ul>
 </li>
 <li><p>Code block 代码块</p>
 <ul>
-<li><code>CodeBlock.builder().add(&quot;I ate $2L $1L&quot;, &quot;tacos&quot;, 3)</code></li>
+<li><code>CodeBlock.builder().add("I ate $2L $1L", "tacos", 3)</code></li>
 <li>map<pre class="line-numbers language-java"><code class="language-java">Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedHashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"food"</span><span class="token punctuation">,</span> <span class="token string">"tacos"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"count"</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -730,7 +732,7 @@ MethodSpec welcomeOverlords <span class="token operator">=</span> MethodSpec<spa
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -752,7 +754,7 @@ MethodSpec welcomeOverlords <span class="token operator">=</span> MethodSpec<spa
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

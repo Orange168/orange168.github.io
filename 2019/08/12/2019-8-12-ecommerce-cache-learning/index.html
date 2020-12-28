@@ -146,6 +146,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -498,7 +500,7 @@ $ src/redis-cli
 redis&gt; set foo bar
 OK
 redis&gt; get foo
-&quot;bar&quot;</code></pre><h4 id="1-生产环境启动方案"><a href="#1-生产环境启动方案" class="headerlink" title="(1) 生产环境启动方案"></a>(1) 生产环境启动方案</h4><p>第一步：修改redis.conf</p>
+"bar"</code></pre><h4 id="1-生产环境启动方案"><a href="#1-生产环境启动方案" class="headerlink" title="(1) 生产环境启动方案"></a>(1) 生产环境启动方案</h4><p>第一步：修改redis.conf</p>
 <pre class="line-numbers language-shell"><code class="language-shell">vi redis.conf
 daemonize    yes                            #让redis以daemon进程运行
 pidfile        /var/run/redis_6379.pid       #设置redis的pid文件位置
@@ -1306,7 +1308,7 @@ sysctl -p<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1328,7 +1330,7 @@ sysctl -p<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

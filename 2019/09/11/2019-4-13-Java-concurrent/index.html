@@ -154,6 +154,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -2236,7 +2238,7 @@ JNIEXPORT <span class="token keyword">void</span> JNICALL <span class="token fun
 <span class="token punctuation">}</span>
 <span class="token macro property">#<span class="token directive keyword">endif</span></span>
 <span class="token macro property">#<span class="token directive keyword">endif</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>编译C<code>gcc -fPIC -D_REENETRANT -I &quot;$JAVA_HOME/include&quot; -I &quot;$JAVA_HOME/include/linux&quot; -c Hello.c</code></p>
+<p>编译C<code>gcc -fPIC -D_REENETRANT -I "$JAVA_HOME/include" -I "$JAVA_HOME/include/linux" -c Hello.c</code></p>
 <p>生成连接库 <code>gcc -shared Hello.o -o libhello.so</code></p>
 <p>运行java Hello 如下异常，需配置<code>LD_LIBRARY_PATH</code>为当前路径</p>
 <p> <code>export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH</code></p>
@@ -3377,7 +3379,7 @@ completionService<span class="token punctuation">.</span><span class="token func
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3399,7 +3401,7 @@ completionService<span class="token punctuation">.</span><span class="token func
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

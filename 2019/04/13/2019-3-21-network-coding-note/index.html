@@ -155,6 +155,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -521,7 +523,7 @@ Accept: */*  </code></pre><h4 id="属性详解"><a href="#属性详解" class="h
 <p><strong>条件GET请求</strong></p>
 <ul>
 <li>Last-Modified-Date<br>客户端第一次请求时，服务器返回：<code>Last-Modified: Tue, 12 Jan 2016 09:31:27 GMT</code>,当客户端二次请求时，可以头部加上如下header:<code>If-Modified-Since: Tue, 12 Jan 2016 09:31:27 GMT</code>如果当前资源没有被二次修改，服务器返回304告知客户端直接复用本地缓存。</li>
-<li>ETag: ETag是对资源文件的一种摘要. 当客户端第一次请求某资源时，服务器返回：<br><code>ETag: &quot;5694c7ef-24dc&quot;</code>客户端再次请求时，可在头部加上如下域：<code>If-None-Match: &quot;5694c7ef-24dc&quot;</code>如果文件并未改变，则服务器返回304告知客户端可以复用本地缓存。</li>
+<li>ETag: ETag是对资源文件的一种摘要. 当客户端第一次请求某资源时，服务器返回：<br><code>ETag: "5694c7ef-24dc"</code>客户端再次请求时，可在头部加上如下域：<code>If-None-Match: "5694c7ef-24dc"</code>如果文件并未改变，则服务器返回304告知客户端可以复用本地缓存。</li>
 <li>no-cache/no-store: 不使用缓存</li>
 <li>only-if-cached:只使用缓存<h4 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h4></li>
 </ul>
@@ -584,8 +586,8 @@ Accept: */*  </code></pre><h4 id="属性详解"><a href="#属性详解" class="h
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/13/2019-3-3-MarkDown-grammar-plugs/" rel="next" title="MarkDown 语法补全">
-                <i class="fa fa-chevron-left"></i> MarkDown 语法补全
+              <a href="/2019/04/13/2019-3-7-web-note/" rel="next" title="网页WEB笔记汇总">
+                <i class="fa fa-chevron-left"></i> 网页WEB笔记汇总
               </a>
             
           </div>
@@ -594,8 +596,8 @@ Accept: */*  </code></pre><h4 id="属性详解"><a href="#属性详解" class="h
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/13/2019-3-7-web-note/" rel="prev" title="网页WEB笔记汇总">
-                网页WEB笔记汇总 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/14/2019-4-17-database/" rel="prev" title="数据库学习笔记">
+                数据库学习笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -678,7 +680,7 @@ Accept: */*  </code></pre><h4 id="属性详解"><a href="#属性详解" class="h
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -700,7 +702,7 @@ Accept: */*  </code></pre><h4 id="属性详解"><a href="#属性详解" class="h
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

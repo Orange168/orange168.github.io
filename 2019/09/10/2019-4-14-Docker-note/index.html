@@ -150,6 +150,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -1537,7 +1539,7 @@ etenforce 0
 重启机器即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<h2 id="Docker-传参"><a href="#Docker-传参" class="headerlink" title="Docker 传参"></a>Docker 传参</h2><h3 id="直接用-docker-inspect-lt-container-id-gt-查看"><a href="#直接用-docker-inspect-lt-container-id-gt-查看" class="headerlink" title="直接用 docker inspect &lt;container-id&gt; 查看"></a>直接用 <code>docker inspect &lt;container-id&gt;</code> 查看</h3><p>Dockerfile </p>
+<h2 id="Docker-传参"><a href="#Docker-传参" class="headerlink" title="Docker 传参"></a>Docker 传参</h2><h3 id="直接用-docker-inspect-lt-container-id-gt-查看"><a href="#直接用-docker-inspect-lt-container-id-gt-查看" class="headerlink" title="直接用 docker inspect <container-id> 查看"></a>直接用 <code>docker inspect &lt;container-id&gt;</code> 查看</h3><p>Dockerfile </p>
 <pre class="line-numbers language-shell"><code class="language-shell">ENTRYPOINT java -Xmx256M -jar /app.jar
 CMD ["echo", "hello"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>docker inspect <container-id>  实际启动的命令及参数</container-id></p>
@@ -1568,7 +1570,7 @@ hello 111 2222 333<span aria-hidden="true" class="line-numbers-rows"><span></spa
 <h3 id="环境变量方式"><a href="#环境变量方式" class="headerlink" title="环境变量方式"></a>环境变量方式</h3><p>Dockerfile </p>
 <pre class="line-numbers language-shell"><code class="language-shell">FROM ubuntu
 ENTRYPOINT echo hello $0 ${OPT}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>编译 tag=test， 运行<code>docker run -e OPT=&quot;-Xmx5G -Xms2G&quot; test aa bb</code>,输出</p>
+<p>编译 tag=test， 运行<code>docker run -e OPT="-Xmx5G -Xms2G" test aa bb</code>,输出</p>
 <pre class="line-numbers language-shell"><code class="language-shell">hello aa -Xmx5G -Xms2G<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="Alpine-Linux"><a href="#Alpine-Linux" class="headerlink" title="Alpine Linux"></a><strong>Alpine</strong> Linux</h2><blockquote>
 <p>alpine linux 是一个基于安全的轻量级 Linux 发行版，基于 musl libc 和 busybox。alpine linux 由于简单安全，非常适合 docker 的 linux 发行版，并且被 docker 官方所推荐用来取代 ubuntu。它不但非常小，仅有 5m 左右，而且经过优化可以在 RAM 中运行  <a href="https://wiki.alpinelinux.org/wiki/Main_Page" target="_blank" rel="noopener">官方说明文档</a></p>
@@ -2067,7 +2069,7 @@ sudo sh get-docker.sh --mirror Aliyun<span aria-hidden="true" class="line-number
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<p>注意：vi /etc/docker/demo.json  <code>[Linux vi编辑后无法保存出现E212：Can&#39;t open file for writing](https://www.cnblogs.com/hujunwei/p/11335565.html)</code>  先创建路径</p>
+<p>注意：vi /etc/docker/demo.json  <code>[Linux vi编辑后无法保存出现E212：Can't open file for writing](https://www.cnblogs.com/hujunwei/p/11335565.html)</code>  先创建路径</p>
 <h2 id="Docker-网络配置"><a href="#Docker-网络配置" class="headerlink" title="Docker 网络配置"></a>Docker 网络配置</h2><blockquote>
 <p>docker c/s 模式客户端和服务器通信的方式</p>
 <pre class="line-numbers language-shell"><code class="language-shell">unix:///var/run/docker.sock
@@ -2286,7 +2288,7 @@ gitlab_rails['initial_root_password'] = File.read('/run/secrets/gitlab_root_pass
 <p>重启network服务<br>systemctl restart network</p>
 <pre><code>
 2.  ubuntu：  docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.39/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
-    See &#39;docker run --help&#39;.
+    See 'docker run --help'.
 
 猜测是需ROOT权限， docker服务没有启动,解决方案
 
@@ -2514,7 +2516,7 @@ sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><sp
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2536,7 +2538,7 @@ sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><sp
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

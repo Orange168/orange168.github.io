@@ -148,6 +148,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -1083,8 +1085,8 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 <p>a. 去除空格 http.conf 文件空行或开头#号的行</p>
 <pre class="line-numbers language-shell"><code class="language-shell">grep -E -v "^$|^#" /etc/httpd/conf/httpd.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
-<li><code>grep -n &#39;de$&#39;</code> 匹配 de 字符结尾</li>
-<li><code>echo &quot;a bc de&quot; |xargs -n1 |grep &#39;^b&#39;</code> -&gt; 匹配 b 字符开头的行</li>
+<li><code>grep -n 'de$'</code> 匹配 de 字符结尾</li>
+<li><code>echo "a bc de" |xargs -n1 |grep '^b'</code> -&gt; 匹配 b 字符开头的行</li>
 </ul>
 <p>b. 不区分大小写</p>
 <pre class="line-numbers language-shell"><code class="language-shell">echo "A a b c" |xargs -n1 |grep -i a
@@ -1834,7 +1836,7 @@ passwd: password updated successfully<span aria-hidden="true" class="line-number
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1856,7 +1858,7 @@ passwd: password updated successfully<span aria-hidden="true" class="line-number
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

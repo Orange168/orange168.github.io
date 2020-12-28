@@ -148,6 +148,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -421,34 +423,34 @@ npm install json-server -g</code></pre><p>新建db.json用于测试<code>json-se
 <li><code>json-server --watch db.json</code>  在db.json 改变的时候不用重启服务器</li>
 </ul>
 <pre><code>{
-  &quot;news&quot;:[
+  "news":[
     {
-      &quot;id&quot;: 1,
-      &quot;title&quot;: &quot;曹县宣布昨日晚间登日成功&quot;,
-      &quot;date&quot;: &quot;2016-08-12&quot;,
-      &quot;likes&quot;: 55,
-      &quot;views&quot;: 100086
+      "id": 1,
+      "title": "曹县宣布昨日晚间登日成功",
+      "date": "2016-08-12",
+      "likes": 55,
+      "views": 100086
     },
     {
-      &quot;id&quot;: 2,
-      &quot;title&quot;: &quot;长江流域首次发现海豚&quot;,
-      &quot;date&quot;: &quot;2016-08-12&quot;,
-      &quot;likes&quot;: 505,
-      &quot;views&quot;: 9800
+      "id": 2,
+      "title": "长江流域首次发现海豚",
+      "date": "2016-08-12",
+      "likes": 505,
+      "views": 9800
     }
   ],
-  &quot;comments&quot;:[
+  "comments":[
     {
-      &quot;id&quot;: 1,
-      &quot;news_id&quot;: 1,
-      &quot;data&quot;: [
+      "id": 1,
+      "news_id": 1,
+      "data": [
         {
-          &quot;id&quot;: 1,
-          &quot;content&quot;: &quot;支持党中央决定&quot;
+          "id": 1,
+          "content": "支持党中央决定"
         },
         {
-          &quot;id&quot;: 2,
-          &quot;content&quot;: &quot;抄写党章势在必行！&quot;
+          "id": 2,
+          "content": "抄写党章势在必行！"
         }
       ]
     }
@@ -459,8 +461,8 @@ npm install json-server -g</code></pre><p>新建db.json用于测试<code>json-se
 sudo npm install -g n
 sudo n stable</code></pre><h2 id="快速启动脚本"><a href="#快速启动脚本" class="headerlink" title="快速启动脚本"></a>快速启动脚本</h2><p>db.json 目录下新建<code>package.json</code>, 运行<code>npm run mock</code></p>
 <pre><code>{
-  &quot;scripts&quot;: {
-    &quot;mock&quot;: &quot;json-server db.json --port 3003&quot;
+  "scripts": {
+    "mock": "json-server db.json --port 3003"
   }
 }</code></pre><h1 id="简单的数据操作"><a href="#简单的数据操作" class="headerlink" title="简单的数据操作"></a>简单的数据操作</h1><ul>
 <li><a href="https://blog.csdn.net/u011108439/article/details/80612917" target="_blank" rel="noopener">json-server和postman 简单教程</a> postman是模拟请求的开发神器</li>
@@ -472,11 +474,11 @@ sudo n stable</code></pre><h2 id="快速启动脚本"><a href="#快速启动脚�
 <p><strong>&lt; font color=red &gt; 注意：必须存在id这个属性,并且类型为Integer</strong></p>
 <h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>Postman向<code>http://localhost:3003/news</code> 新增id=3的参数</p>
 <pre><code>{
-    &quot;id&quot;: 3,
-    &quot;title&quot;: &quot;我是新加入的新闻&quot;,
-    &quot;date&quot;: &quot;2016-08-12&quot;,
-    &quot;likes&quot;: 0,
-    &quot;views&quot;: 0
+    "id": 3,
+    "title": "我是新加入的新闻",
+    "date": "2016-08-12",
+    "likes": 0,
+    "views": 0
 }</code></pre><p>json-server 后台反应</p>
 <pre><code>POST /news?id=3&amp;title=%E6%88%91%E6%98%AF%E6%96%B0%E5%8A%A0%E5%85%A5%E7%9A%84%E6%96%B0%E9%97%BB&amp;date=2016-08-12&amp;likes=0&amp;views=0 201 2.622 ms - 13</code></pre><p>使用<a href="http://tool.chinaz.com/tools/urlencode.aspx" target="_blank" rel="noopener">url encode 解码</a>点击UrlDecode解码</p>
 <pre><code>POST /news?id=3&amp;title=我是新加入的新闻&amp;date=2016-08-12&amp;likes=0&amp;views=0 201 2.622 ms - 13</code></pre><p>##DELETE</p>
@@ -557,7 +559,7 @@ GET /comments?author.name=Steven-jobs</code></pre><h3 id="Paginate-分页"><a hr
 GET /posts?_page=7&amp;_limit=20</code></pre><ul>
 <li>默认返回 10 items</li>
 <li>表头会出现 first, prev, next and last 的直接访问地址，x-total-count数据总数信息<pre><code>access-control-expose-headers →X-Total-Count, Link
-link →&lt;http://localhost:3000/news?_page=1&gt;; rel=&quot;first&quot;, &lt;http://localhost:3000/news?_page=2&gt;; rel=&quot;next&quot;, &lt;http://localhost:3000/news?_page=2&gt;; rel=&quot;last&quot;
+link →&lt;http://localhost:3000/news?_page=1&gt;; rel="first", &lt;http://localhost:3000/news?_page=2&gt;; rel="next", &lt;http://localhost:3000/news?_page=2&gt;; rel="last"
 x-total-count →20</code></pre></li>
 </ul>
 <h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><strong>排序</strong><br>默认升序</p>
@@ -576,36 +578,36 @@ GET /posts?q=internet
 # 直接获取数据
 GET /db</code></pre><h3 id="关系图谱"><a href="#关系图谱" class="headerlink" title="关系图谱"></a>关系图谱</h3><p>posts id 和comments id 是关联的</p>
 <pre><code>{
-  &quot;posts&quot;: [
-    { &quot;id&quot;: 1, &quot;title&quot;: &quot;post的第一个title&quot;, &quot;author&quot;: &quot;typicode&quot; },
-    { &quot;id&quot;: 2, &quot;title&quot;: &quot;post的第二个title&quot;, &quot;author&quot;: &quot;tangcaiye&quot; }
+  "posts": [
+    { "id": 1, "title": "post的第一个title", "author": "typicode" },
+    { "id": 2, "title": "post的第二个title", "author": "tangcaiye" }
   ],
-  &quot;comments&quot;: [
-    { &quot;id&quot;: 1, &quot;body&quot;: &quot;some comment1111&quot;, &quot;postId&quot;: 2 },
-    { &quot;id&quot;: 2, &quot;body&quot;: &quot;some comment2222&quot;, &quot;postId&quot;: 1 }
+  "comments": [
+    { "id": 1, "body": "some comment1111", "postId": 2 },
+    { "id": 2, "body": "some comment2222", "postId": 1 }
   ],
-  &quot;profile&quot;: { &quot;name&quot;: &quot;typicode&quot; }
+  "profile": { "name": "typicode" }
 }</code></pre><ul>
 <li>_embed <code>http://localhost:3000/posts/2?_embed=comments</code> 返回<code>posts/2</code>下级关联数据<code>comments</code><pre><code>{
-&quot;id&quot;: 2,
-&quot;title&quot;: &quot;post的第二个title&quot;,
-&quot;author&quot;: &quot;tangcaiye&quot;,
-&quot;comments&quot;: [
+"id": 2,
+"title": "post的第二个title",
+"author": "tangcaiye",
+"comments": [
   {
-    &quot;id&quot;: 1,
-    &quot;body&quot;: &quot;some comment1111&quot;,
-    &quot;postId&quot;: 2
+    "id": 1,
+    "body": "some comment1111",
+    "postId": 2
   }
 ]
 }</code></pre></li>
 <li>_expand <code>http://localhost:3000/comments/2?_expand=post</code> 返回comments上级关联数据<code>post</code><pre><code>{
-&quot;id&quot;: 2,
-&quot;body&quot;: &quot;some comment2222&quot;,
-&quot;postId&quot;: 1,
-&quot;post&quot;: {
-  &quot;id&quot;: 1,
-  &quot;title&quot;: &quot;post的第一个title&quot;,
-  &quot;author&quot;: &quot;typicode&quot;
+"id": 2,
+"body": "some comment2222",
+"postId": 1,
+"post": {
+  "id": 1,
+  "title": "post的第一个title",
+  "author": "typicode"
 }
 }</code></pre></li>
 </ul>
@@ -614,7 +616,7 @@ GET /db</code></pre><h3 id="关系图谱"><a href="#关系图谱" class="headerl
   var data = { users: [] }
   // Create 1000 users
   for (var i = 0; i &lt; 1000; i++) {
-    data.users.push({ id: i, name: &#39;user&#39; + i })
+    data.users.push({ id: i, name: 'user' + i })
   }
   return data
 }</code></pre><p>运行</p>
@@ -622,19 +624,19 @@ GET /db</code></pre><h3 id="关系图谱"><a href="#关系图谱" class="headerl
 <pre><code>http://localhost:3003/users</code></pre><p>返回</p>
 <pre><code>[
     {
-        &quot;id&quot;: 0,
-        &quot;name&quot;: &quot;user0&quot;
+        "id": 0,
+        "name": "user0"
     },
     {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;user1&quot;
+        "id": 1,
+        "name": "user1"
     }
     ......
 ]</code></pre><h2 id="拒绝僵硬的数据，引入mockjs"><a href="#拒绝僵硬的数据，引入mockjs" class="headerlink" title="拒绝僵硬的数据，引入mockjs"></a>拒绝僵硬的数据，引入mockjs</h2><p>安装mockjs 在 <code>/mock</code> 目录下安装</p>
 <pre><code>npm install mockjs --save</code></pre><p><em>示例:返回100条新闻数据</em></p>
 <pre><code>// # /mock/db.js
 
-let Mock  = require(&#39;mockjs&#39;);
+let Mock  = require('mockjs');
 let Random = Mock.Random;
 
 module.exports = function() {
@@ -642,7 +644,7 @@ module.exports = function() {
       news: []
   };
 
-  var images = [1,2,3].map(x=&gt;Random.image(&#39;200x100&#39;, Random.color(), Random.word(2,6)));
+  var images = [1,2,3].map(x=&gt;Random.image('200x100', Random.color(), Random.word(2,6)));
 
   for (var i = 0; i &lt; 100; i++) {
 
@@ -663,45 +665,45 @@ module.exports = function() {
 <pre><code>json-server db.js -p 3000</code></pre><p>访问<code>http://localhost:3000/news</code>返回</p>
 <pre><code>[
     {
-        &quot;id&quot;: 0,
-        &quot;title&quot;: &quot;元小总小把清保住影办历战资和总由&quot;,
-        &quot;desc&quot;: &quot;共先定制向向圆适者定书她规置斗平相。要广确但教金更前三响角面等以白。眼查何参提适&quot;,
-        &quot;tag&quot;: &quot;值集空&quot;,
-        &quot;views&quot;: 3810,
-        &quot;images&quot;: [
-            &quot;http://dummyimage.com/200x100/79f2a5&amp;text=别角置&quot;,
-            &quot;http://dummyimage.com/200x100/f28279&amp;text=收面几容受取&quot;,
-            &quot;http://dummyimage.com/200x100/7993f2&amp;text=做件&quot;
+        "id": 0,
+        "title": "元小总小把清保住影办历战资和总由",
+        "desc": "共先定制向向圆适者定书她规置斗平相。要广确但教金更前三响角面等以白。眼查何参提适",
+        "tag": "值集空",
+        "views": 3810,
+        "images": [
+            "http://dummyimage.com/200x100/79f2a5&amp;text=别角置",
+            "http://dummyimage.com/200x100/f28279&amp;text=收面几容受取",
+            "http://dummyimage.com/200x100/7993f2&amp;text=做件"
         ]
     },
     ......
 ]</code></pre><h3 id="Mock-语法"><a href="#Mock-语法" class="headerlink" title="Mock 语法"></a>Mock 语法</h3><p><strong>Mock.mock</strong><br>repeat 方法（部分）</p>
 <pre><code>Mock.mock({
-  &quot;string|5&quot;: &quot;★&quot;       =&gt;   &quot;string&quot;: &quot;★★★★★&quot;
-  &quot;string|1-10&quot;: &quot;★&quot;    =&gt;   &quot;string&quot;: &quot;★★&quot;
-  &quot;number|1-100&quot;: 100    =&gt;   &quot;number&quot;: 85
-  &quot;number|1-100.2&quot;: 100  =&gt;   &quot;number&quot;: 25.69
+  "string|5": "★"       =&gt;   "string": "★★★★★"
+  "string|1-10": "★"    =&gt;   "string": "★★"
+  "number|1-100": 100    =&gt;   "number": 85
+  "number|1-100.2": 100  =&gt;   "number": 25.69
 })</code></pre><p><strong>Mock.Random</strong></p>
 <pre><code>Random.boolean()           =&gt; true false 各50%
 Random.integer(60, 100)    =&gt; 78
 Random.float(60, 100)      =&gt; 89.565475
 Random.range(60, 100)      =&gt; [60,61,62,...,99]
-Random.date()              =&gt; &quot;2018-12-28&quot;
-Random.image(&#39;200x100&#39;,&#39;#396&#39;) =&gt; &quot;http://dummyimage.com/200x100/396&quot;
-Random.color()             =&gt; &quot;#79d8f2&quot;  (默认使用hex颜色)
-Random.county(true)        =&gt; &quot;浙江省 舟山市 岱山县&quot;</code></pre><ul>
+Random.date()              =&gt; "2018-12-28"
+Random.image('200x100','#396') =&gt; "http://dummyimage.com/200x100/396"
+Random.color()             =&gt; "#79d8f2"  (默认使用hex颜色)
+Random.county(true)        =&gt; "浙江省 舟山市 岱山县"</code></pre><ul>
 <li>Rnadom.image<pre><code>Random.image()
-// =&gt; &quot;http://dummyimage.com/125x125&quot;
-Random.image(&#39;200x100&#39;)
-// =&gt; &quot;http://dummyimage.com/200x100&quot;
-Random.image(&#39;200x100&#39;, &#39;#fb0a2a&#39;)
-// =&gt; &quot;http://dummyimage.com/200x100/fb0a2a&quot;
-Random.image(&#39;200x100&#39;, &#39;#02adea&#39;, &#39;Hello&#39;)
-// =&gt; &quot;http://dummyimage.com/200x100/02adea&amp;text=Hello&quot;
-Random.image(&#39;200x100&#39;, &#39;#00405d&#39;, &#39;#FFF&#39;, &#39;Mock.js&#39;)
-// =&gt; &quot;http://dummyimage.com/200x100/00405d/FFF&amp;text=Mock.js&quot;
-Random.image(&#39;200x100&#39;, &#39;#ffcc33&#39;, &#39;#FFF&#39;, &#39;png&#39;, &#39;!&#39;)
-// =&gt; &quot;http://dummyimage.com/200x100/ffcc33/FFF.png&amp;text=!&quot;</code></pre></li>
+// =&gt; "http://dummyimage.com/125x125"
+Random.image('200x100')
+// =&gt; "http://dummyimage.com/200x100"
+Random.image('200x100', '#fb0a2a')
+// =&gt; "http://dummyimage.com/200x100/fb0a2a"
+Random.image('200x100', '#02adea', 'Hello')
+// =&gt; "http://dummyimage.com/200x100/02adea&amp;text=Hello"
+Random.image('200x100', '#00405d', '#FFF', 'Mock.js')
+// =&gt; "http://dummyimage.com/200x100/00405d/FFF&amp;text=Mock.js"
+Random.image('200x100', '#ffcc33', '#FFF', 'png', '!')
+// =&gt; "http://dummyimage.com/200x100/ffcc33/FFF.png&amp;text=!"</code></pre></li>
 <li>Text<pre><code>paragraph-&gt; centence -&gt; word -&gt; title
 #中文
 Random.cparagraph()
@@ -733,33 +735,33 @@ Random.cword( pool, min, max )</code></pre></li>
 <li>直接命令行指定路由文件<pre><code>json-server db.js -p 3003 -d 500 -q -r ./routes.json</code></pre></li>
 <li><code>json-server.json</code> 文件进行配置后，直接<code>json-server db.json</code><pre><code># /mock/json-server.json
 {
-  &quot;host&quot;: &quot;0.0.0.0&quot;,
-  &quot;port&quot;: &quot;3003&quot;,
-  &quot;watch&quot;: false,
-  &quot;delay&quot;: 500,
-  &quot;quiet&quot;: true,
-  &quot;routes&quot;: &quot;./routes.json&quot;
+  "host": "0.0.0.0",
+  "port": "3003",
+  "watch": false,
+  "delay": 500,
+  "quiet": true,
+  "routes": "./routes.json"
 }</code></pre>自定义路由，可以指定访问链接返回指定的数据，而且可以动态修改</li>
 </ul>
 <p><strong>routes.json</strong></p>
 <pre><code>{
-  &quot;/api/*&quot;: &quot;/$1&quot;,
-  &quot;/:resource/:id/show&quot;: &quot;/:resource/:id&quot;,
-  &quot;/posts/:category&quot;: &quot;/posts?category=:category&quot;,
-  &quot;/articles\\?id=:id&quot;: &quot;/posts/:id&quot;
+  "/api/*": "/$1",
+  "/:resource/:id/show": "/:resource/:id",
+  "/posts/:category": "/posts?category=:category",
+  "/articles\\?id=:id": "/posts/:id"
 }</code></pre><p>对应的效果</p>
 <pre><code>/api/posts # → /posts
 /api/posts/1  # → /posts/1
 /posts/1/show # → /posts/1
 /posts/javascript # → /posts?category=javascript
 /articles?id=1 # → /posts/1</code></pre><ul>
-<li><code>&quot;/api/*&quot;: &quot;/$1&quot;</code> 相当于把api路径给忽略掉</li>
+<li><code>"/api/*": "/$1"</code> 相当于把api路径给忽略掉</li>
 <li><code>/:resource</code> 取值是变动的</li>
 <li>每个路径必须以<code>/</code>开头<h3 id="增加中间件"><a href="#增加中间件" class="headerlink" title="增加中间件"></a>增加中间件</h3></li>
 </ul>
 <pre><code>// hello.js
 module.exports = (req, res, next) =&gt; {
-  res.header(&#39;X-Hello&#39;, &#39;World&#39;)
+  res.header('X-Hello', 'World')
   next()
 }
 
@@ -772,29 +774,29 @@ json-server db.json --middlewares ./first.js ./second.js</code></pre><h3 id="Nod
 </ul>
 <h4 id="最简单案例"><a href="#最简单案例" class="headerlink" title="最简单案例"></a>最简单案例</h4><p>node 安装 json-server模块</p>
 <pre><code>$ npm install json-server --save-dev</code></pre><pre><code>// server.js
-const jsonServer = require(&#39;json-server&#39;)
+const jsonServer = require('json-server')
 const server = jsonServer.create()
-const router = jsonServer.router(&#39;db.json&#39;) //默认为当前目录
-//const path = require(&#39;path&#39;) 指定其他目录
-//const router = jsonServer.router(path.join(__dirname, &#39;db.json&#39;))
+const router = jsonServer.router('db.json') //默认为当前目录
+//const path = require('path') 指定其他目录
+//const router = jsonServer.router(path.join(__dirname, 'db.json'))
 const middlewares = jsonServer.defaults()
 
 server.use(middlewares)
 server.use(router)
 server.listen(3000, () =&gt; {
-  console.log(&#39;JSON Server is running&#39;)
+  console.log('JSON Server is running')
 })
 // 运行
-$ node server.js</code></pre><h4 id="自定义路由"><a href="#自定义路由" class="headerlink" title="自定义路由"></a>自定义路由</h4><pre><code>const jsonServer = require(&#39;json-server&#39;)
+$ node server.js</code></pre><h4 id="自定义路由"><a href="#自定义路由" class="headerlink" title="自定义路由"></a>自定义路由</h4><pre><code>const jsonServer = require('json-server')
 const server = jsonServer.create()
-const router = jsonServer.router(&#39;db.json&#39;)
+const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares)
 
 // Add custom routes before JSON Server router
-server.get(&#39;/echo&#39;, (req, res) =&gt; {
+server.get('/echo', (req, res) =&gt; {
   res.jsonp(req.query)
 })
 
@@ -802,7 +804,7 @@ server.get(&#39;/echo&#39;, (req, res) =&gt; {
 // You can use the one used by JSON Server
 server.use(jsonServer.bodyParser)
 server.use((req, res, next) =&gt; {
-  if (req.method === &#39;POST&#39;) {
+  if (req.method === 'POST') {
     req.body.createdAt = Date.now()
   }
   // Continue to JSON Server router
@@ -812,45 +814,45 @@ server.use((req, res, next) =&gt; {
 // Use default router
 server.use(router)
 server.listen(3000, () =&gt; {
-  console.log(&#39;JSON Server is running&#39;)
+  console.log('JSON Server is running')
 })</code></pre><p>对上面的几点进行说明<br>res.jsonp res ==&gt; respose</p>
 <pre><code>res.status(500).jsonp({
-      error: &quot;error message here&quot;
-      &quot;id&quot;: 21,
-      &quot;title&quot;: &quot;长江&quot;,
-      &quot;date&quot;: &quot;2016-09-12&quot;,
-      &quot;likes&quot;: 509,
-      &quot;views&quot;: 9900
+      error: "error message here"
+      "id": 21,
+      "title": "长江",
+      "date": "2016-09-12",
+      "likes": 509,
+      "views": 9900
   })</code></pre><p>请求的返回Json格式</p>
 <pre><code>{
-  &quot;error&quot;: &quot;error message here&quot;
-  &quot;id&quot;: 21,
-  &quot;title&quot;: &quot;长江&quot;,
-  &quot;date&quot;: &quot;2016-09-12&quot;,
-  &quot;likes&quot;: 509,
-  &quot;views&quot;: 9900
+  "error": "error message here"
+  "id": 21,
+  "title": "长江",
+  "date": "2016-09-12",
+  "likes": 509,
+  "views": 9900
 }</code></pre><p>req.body.createdAt = Date.now() 往返回的jons中插入createAt字段，如本应返回</p>
 <pre><code>{
-      &quot;id&quot;: 21,
-      &quot;title&quot;: &quot;长江&quot;,
-      &quot;date&quot;: &quot;2016-09-12&quot;,
-      &quot;likes&quot;: 509,
-      &quot;views&quot;: 9900
+      "id": 21,
+      "title": "长江",
+      "date": "2016-09-12",
+      "likes": 509,
+      "views": 9900
  }</code></pre><p>加入req.body.createdAt = Date.now()后返回</p>
 <pre><code>{
-    &quot;id&quot;: 21,
-    &quot;title&quot;: &quot;长江&quot;,
-    &quot;date&quot;: &quot;2016-09-12&quot;,
-    &quot;likes&quot;: 509,
-    &quot;views&quot;: 9900,
-    &quot;createdAt&quot;: 1536476508883,
+    "id": 21,
+    "title": "长江",
+    "date": "2016-09-12",
+    "likes": 509,
+    "views": 9900,
+    "createdAt": 1536476508883,
 }</code></pre><h4 id="js-增加router-json-配置"><a href="#js-增加router-json-配置" class="headerlink" title="js 增加router.json 配置"></a>js 增加router.json 配置</h4><pre><code>// Add this before server.use(router)
 server.use(jsonServer.rewriter({
-  &#39;/api/*&#39;: &#39;/$1&#39;,
-  &#39;/blog/:resource/:id/show&#39;: &#39;/:resource/:id&#39;
-}))</code></pre><h4 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h4><pre><code>const jsonServer = require(&#39;json-server&#39;)
+  '/api/*': '/$1',
+  '/blog/:resource/:id/show': '/:resource/:id'
+}))</code></pre><h4 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h4><pre><code>const jsonServer = require('json-server')
 const server = jsonServer.create()
-const router = jsonServer.router(&#39;db.json&#39;)
+const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
 server.use(middlewares)
@@ -863,7 +865,7 @@ server.use((req, res, next) =&gt; {
 })
 server.use(router)
 server.listen(3000, () =&gt; {
-  console.log(&#39;JSON Server is running&#39;)
+  console.log('JSON Server is running')
 })</code></pre><h4 id="自定义输出"><a href="#自定义输出" class="headerlink" title="自定义输出"></a>自定义输出</h4><pre><code>// In this example, returned resources will be wrapped in a body property
 router.render = (req, res) =&gt; {
   res.jsonp({
@@ -873,69 +875,69 @@ router.render = (req, res) =&gt; {
   //res.send  =&gt; 直接发送字符串
 }</code></pre><p>访问本应返回</p>
 <pre><code>{
-      &quot;id&quot;: 21,
-      &quot;title&quot;: &quot;长江&quot;,
-      &quot;date&quot;: &quot;2016-09-12&quot;
+      "id": 21,
+      "title": "长江",
+      "date": "2016-09-12"
  }</code></pre><p>增加 body: res.locals.data后返回</p>
 <pre><code>{
     body: {
         id: 1,
-        title: &quot;曹县宣布昨日晚间登日成功&quot;,
-        date: &quot;2016-08-12&quot;,
+        title: "曹县宣布昨日晚间登日成功",
+        date: "2016-08-12",
         likes: 55,
         views: 100086
     }
 }</code></pre><h3 id="终极Demo"><a href="#终极Demo" class="headerlink" title="终极Demo"></a>终极Demo</h3><p>访问<code>http://localhost:3000/echo</code> 返回模拟数据</p>
-<pre><code>const jsonServer = require(&#39;json-server&#39;)
+<pre><code>const jsonServer = require('json-server')
 const server = jsonServer.create()
-const router = jsonServer.router(&#39;db.json&#39;)
+const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
-let Mock  = require(&#39;mockjs&#39;);
+let Mock  = require('mockjs');
 
 server.use(middlewares)
 
 var template = {
-    &#39;titles&#39;: &#39;Syntax Demo&#39;,
+    'titles': 'Syntax Demo',
 
-    &#39;string1|1-10&#39;: &#39;★&#39;,
-    &#39;string2|3&#39;: &#39;value&#39;,
+    'string1|1-10': '★',
+    'string2|3': 'value',
 
-    &#39;number1|+1&#39;: 100,
-    &#39;number2|1-100&#39;: 100,
-    &#39;number3|1-100.1-10&#39;: 1,
-    &#39;number4|123.1-10&#39;: 1,
-    &#39;number5|123.3&#39;: 1,
-    &#39;number6|123.10&#39;: 1.123,
+    'number1|+1': 100,
+    'number2|1-100': 100,
+    'number3|1-100.1-10': 1,
+    'number4|123.1-10': 1,
+    'number5|123.3': 1,
+    'number6|123.10': 1.123,
 
-    &#39;boolean1|1&#39;: true,
-    &#39;boolean2|1-2&#39;: true,
+    'boolean1|1': true,
+    'boolean2|1-2': true,
 
-    &#39;object1|2-4&#39;: {
-        &#39;110000&#39;: &#39;北京市&#39;,
-        &#39;120000&#39;: &#39;天津市&#39;,
-        &#39;130000&#39;: &#39;河北省&#39;,
-        &#39;140000&#39;: &#39;山西省&#39;
+    'object1|2-4': {
+        '110000': '北京市',
+        '120000': '天津市',
+        '130000': '河北省',
+        '140000': '山西省'
     },
-    &#39;object2|2&#39;: {
-        &#39;310000&#39;: &#39;上海市&#39;,
-        &#39;320000&#39;: &#39;江苏省&#39;,
-        &#39;330000&#39;: &#39;浙江省&#39;,
-        &#39;340000&#39;: &#39;安徽省&#39;
+    'object2|2': {
+        '310000': '上海市',
+        '320000': '江苏省',
+        '330000': '浙江省',
+        '340000': '安徽省'
     },
 
-    &#39;array1|1&#39;: [&#39;AMD&#39;, &#39;CMD&#39;, &#39;KMD&#39;, &#39;UMD&#39;],
-    &#39;array2|1-10&#39;: [&#39;Mock.js&#39;],
-    &#39;array3|3&#39;: [&#39;Mock.js&#39;],
+    'array1|1': ['AMD', 'CMD', 'KMD', 'UMD'],
+    'array2|1-10': ['Mock.js'],
+    'array3|3': ['Mock.js'],
 
-    &#39;function&#39;: function() {
+    'function': function() {
         return this.titles
     }
 }
 
-server.get(&#39;/echo&#39;, (req, res) =&gt; {
+server.get('/echo', (req, res) =&gt; {
     var data = Mock.mock(template)
     var json = JSON.stringify(data, null, 4)
-    console.log(&#39;-----------------\n&#39; + json)
+    console.log('-----------------\n' + json)
     res.send(json)
 })
 
@@ -943,8 +945,8 @@ server.get(&#39;/echo&#39;, (req, res) =&gt; {
 // You can use the one used by JSON Server
 server.use(jsonServer.bodyParser)
 server.use((req, res, next) =&gt; {
-  console.log(&#39;--------------&#39;+req.method)
-  if (req.method === &#39;POST&#39;) {
+  console.log('--------------'+req.method)
+  if (req.method === 'POST') {
     req.body.createdAt = Date.now()
     req.body.test = 1
   }
@@ -955,19 +957,19 @@ server.use((req, res, next) =&gt; {
 // 返回错误码，和指定json格式的数据
 //router.render = (req, res) =&gt; {
 //   res.status(500).jsonp({
-//        error: &quot;error message here&quot;
-//        &quot;id&quot;: 21,
-//      &quot;title&quot;: &quot;长江&quot;,
-//      &quot;date&quot;: &quot;2016-09-12&quot;,
-//      &quot;likes&quot;: 509,
-//      &quot;views&quot;: 9900
+//        error: "error message here"
+//        "id": 21,
+//      "title": "长江",
+//      "date": "2016-09-12",
+//      "likes": 509,
+//      "views": 9900
 //  })
 //}
 
 // Add this before server.use(router)
 server.use(jsonServer.rewriter({
-  &#39;/api/*&#39;: &#39;/$1&#39;,
-  &#39;/blog/:resource/:id/show&#39;: &#39;/:resource/:id&#39;
+  '/api/*': '/$1',
+  '/blog/:resource/:id/show': '/:resource/:id'
 }))
 
 router.render = (req, res) =&gt; {
@@ -979,14 +981,14 @@ router.render = (req, res) =&gt; {
 server.use(router)
 
 server.listen(3000, () =&gt; {
-  console.log(&#39;JSON Server is running&#39;)
+  console.log('JSON Server is running')
 })</code></pre><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="json-server-命令参数"><a href="#json-server-命令参数" class="headerlink" title="json-server 命令参数"></a>json-server 命令参数</h2><pre><code> json-server
 index.js [options] &lt;source&gt;
 
 选项：
-  --config, -c               Path to config file    [默认值: &quot;json-server.json&quot;]
+  --config, -c               Path to config file    [默认值: "json-server.json"]
   --port, -p                 Set port                             [默认值: 3000]
-  --host, -H                 Set host                      [默认值: &quot;localhost&quot;]
+  --host, -H                 Set host                      [默认值: "localhost"]
   --watch, -w                Watch file(s)                                [布尔]
   --routes, -r               Path to routes file
   --middlewares, -m          Paths to middleware files                    [数组]
@@ -994,11 +996,11 @@ index.js [options] &lt;source&gt;
   --read-only, --ro          Allow only GET requests                      [布尔]
   --no-cors, --nc            Disable Cross-Origin Resource Sharing        [布尔]
   --no-gzip, --ng            Disable GZIP Content-Encoding                [布尔]
-  --snapshots, -S            Set snapshots directory               [默认值: &quot;.&quot;]
+  --snapshots, -S            Set snapshots directory               [默认值: "."]
   --delay, -d                Add delay to responses (ms)
-  --id, -i                   Set database id property (e.g. _id)  [默认值: &quot;id&quot;]
+  --id, -i                   Set database id property (e.g. _id)  [默认值: "id"]
   --foreignKeySuffix, --fks  Set foreign key suffix (e.g. _id as in post_id)
-                                                                  [默认值: &quot;Id&quot;]
+                                                                  [默认值: "Id"]
   --quiet, -q                Suppress log messages from output            [布尔]
   --help, -h                 显示帮助信息                                 [布尔]
   --version, -v              显示版本号                                   [布尔]
@@ -1147,7 +1149,7 @@ Missing &lt;source&gt; argument</code></pre><h2 id="URL-加密解密工具"><a h
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1169,7 +1171,7 @@ Missing &lt;source&gt; argument</code></pre><h2 id="URL-加密解密工具"><a h
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

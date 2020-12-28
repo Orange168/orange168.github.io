@@ -146,6 +146,8 @@
 
 
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -474,7 +476,7 @@
    SALARY         <span class="token keyword">REAL</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><pre><code>INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
-VALUES (1, &#39;Paul&#39;, 32, &#39;California&#39;, 20000.00 );</code></pre><h3 id="使用一个表来填充另一个表"><a href="#使用一个表来填充另一个表" class="headerlink" title="使用一个表来填充另一个表"></a>使用一个表来填充另一个表</h3><p>语法：</p>
+VALUES (1, 'Paul', 32, 'California', 20000.00 );</code></pre><h3 id="使用一个表来填充另一个表"><a href="#使用一个表来填充另一个表" class="headerlink" title="使用一个表来填充另一个表"></a>使用一个表来填充另一个表</h3><p>语法：</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> first_table_name <span class="token punctuation">[</span><span class="token punctuation">(</span>column1<span class="token punctuation">,</span> column2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> columnN<span class="token punctuation">)</span><span class="token punctuation">]</span>
    <span class="token keyword">SELECT</span> column1<span class="token punctuation">,</span> column2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>columnN
    <span class="token keyword">FROM</span> second_table_name
@@ -514,7 +516,7 @@ INDEXED BY (index_name)
 table_name
 WHERE (CONDITION);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="常用命令："><a href="#常用命令：" class="headerlink" title="常用命令："></a>常用命令：</h3><p>查出数据库所有索引</p>
-<pre><code>SELECT * FROM sqlite_master WHERE type = &#39;index&#39;;</code></pre><h2 id="PRAGMA"><a href="#PRAGMA" class="headerlink" title="PRAGMA"></a>PRAGMA</h2><p><a href="http://www.runoob.com/sqlite/sqlite-pragma.html" target="_blank" rel="noopener">PRAGMA 网址</a></p>
+<pre><code>SELECT * FROM sqlite_master WHERE type = 'index';</code></pre><h2 id="PRAGMA"><a href="#PRAGMA" class="headerlink" title="PRAGMA"></a>PRAGMA</h2><p><a href="http://www.runoob.com/sqlite/sqlite-pragma.html" target="_blank" rel="noopener">PRAGMA 网址</a></p>
 <p>作用读写Sqlite内部环境变量和状态，操作如下：</p>
 <pre class="line-numbers language-txt"><code class="language-txt">PRAGMA pragma_name; #读取
 PRAGMA pragma_name = value; #设置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -655,9 +657,9 @@ FROM  COMPANY;</code></pre><p>案例2：</p>
 </blockquote>
 <pre><code>db.beginTransaction(); // 开启事务
 try {
-    db.execSQL（&quot;insert into person (name, age) values(?,?)&quot;, new Object[]{&quot;张三&quot;, 4});
+    db.execSQL（"insert into person (name, age) values(?,?)", new Object[]{"张三", 4});
 
-    db.execSQL(&quot;update person set name=? where personid=?&quot;, new Object[]{&quot;李四&quot;, 1});
+    db.execSQL("update person set name=? where personid=?", new Object[]{"李四", 1});
 
     db.setTransactionSuccessful(); // 标记事务完成
 } finally {
@@ -821,7 +823,7 @@ order       from        detail
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -843,7 +845,7 @@ order       from        detail
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
