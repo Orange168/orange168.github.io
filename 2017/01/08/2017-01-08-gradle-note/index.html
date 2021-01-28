@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://cdn.linz.tech/basic-demo-build-scan.png">
 <meta property="og:image" content="http://cdn.linz.tech/logger_level-2019-6-13.webp">
-<meta property="og:updated_time" content="2020-03-29T04:03:38.006Z">
+<meta property="og:updated_time" content="2021-01-01T07:58:42.312Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gradle 学习积累">
 <meta name="twitter:description" content="基础 Gradle Guides Creating New Gradle Builds  命令 # 多任务顺序执行 gradlew clean jar Groovy 基本D:\workspace\project\gradle\basic-demo\build.gradle Gradle Task 语法 D:\workspace\project\gradle\basic-demo\build.gra">
@@ -585,6 +585,20 @@ Group
 <li><strong><a href="https://github.com/JcMinarro/ProperDroid" target="_blank" rel="noopener">ProperDroid</a></strong>  simplifies the way that config different variant on your project.</li>
 <li><strong><a href="https://github.com/KeepSafe/dexcount-gradle-plugin" target="_blank" rel="noopener">dexcount-gradle-plugin</a></strong>  A Gradle plugin to report the number of method references in your APK on every build.</li>
 </ul>
+<h1 id="Android-studio-使用"><a href="#Android-studio-使用" class="headerlink" title="Android studio 使用"></a>Android studio 使用</h1><h2 id="gradle-properties"><a href="#gradle-properties" class="headerlink" title="gradle.properties"></a>gradle.properties</h2><ol>
+<li><p><strong>build.gradle使用gradle.properties</strong></p>
+<p>gradle.properties </p>
+<pre class="line-numbers language-shell"><code class="language-shell">VERSION_CODE=111
+VERSION_NAME=2.8.5
+STORE_PASSWORD=123456<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>build.gradle <font color="red">读取出来默认为String类型</font></p>
+<pre class="line-numbers language-groovy"><code class="language-groovy">versionCode Integer<span class="token operator">.</span><span class="token function">parseInt</span><span class="token punctuation">(</span>VERSION_CODE<span class="token punctuation">)</span>
+versionName VERSION_NAME
+<span class="token comment" spellcheck="true">//或</span>
+versionCode Integer<span class="token operator">.</span><span class="token function">parseInt</span><span class="token punctuation">(</span>project<span class="token operator">.</span>VERSION_CODE<span class="token punctuation">)</span>
+versionName project<span class="token operator">.</span>VERSION_NAME<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
 <h1 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h1><ul>
 <li><p><a href="http://blog.csdn.net/qinxiandiqi/article/details/44458707" target="_blank" rel="noopener">  建立企业内部maven服务器并使用Android Studio发布公共项目</a>。</p>
 </li>
@@ -835,7 +849,7 @@ task writeNewPom << {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">86</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -857,7 +871,7 @@ task writeNewPom << {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -930,7 +944,7 @@ task writeNewPom << {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Guides"><span class="nav-number">1.1.</span> <span class="nav-text">Gradle Guides</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Groovy-基本"><span class="nav-number">1.2.</span> <span class="nav-text">Groovy 基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Task-语法"><span class="nav-number">1.3.</span> <span class="nav-text">Gradle Task 语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖管理"><span class="nav-number">1.4.</span> <span class="nav-text">依赖管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查看当前依赖关系"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 查看当前依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-排除传递依赖"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 排除传递依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置相关"><span class="nav-number">1.4.3.</span> <span class="nav-text">配置相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试"><span class="nav-number">1.5.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看属性-ext"><span class="nav-number">1.5.1.</span> <span class="nav-text">查看属性(ext)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务调试"><span class="nav-number">1.5.2.</span> <span class="nav-text">任务调试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">1.6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#博客"><span class="nav-number">1.6.1.</span> <span class="nav-text">博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资料"><span class="nav-number">1.6.2.</span> <span class="nav-text">资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Google"><span class="nav-number">1.6.3.</span> <span class="nav-text">Google</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件"><span class="nav-number">2.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开源插件"><span class="nav-number">2.1.</span> <span class="nav-text">开源插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用案例"><span class="nav-number">3.</span> <span class="nav-text">使用案例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题解决"><span class="nav-number">4.</span> <span class="nav-text">问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖更新"><span class="nav-number">4.1.</span> <span class="nav-text">依赖更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle下载慢5个解决方案"><span class="nav-number">4.2.</span> <span class="nav-text">Gradle下载慢5个解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖下载慢，使用阿里云国内镜像"><span class="nav-number">4.3.</span> <span class="nav-text">依赖下载慢，使用阿里云国内镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradle-lt-gt-maven"><span class="nav-number">4.4.</span> <span class="nav-text">gradle &lt;=&gt; maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-gradle-gt-maven"><span class="nav-number">4.4.1.</span> <span class="nav-text">1. gradle -&gt; maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-maven-gt-gradle"><span class="nav-number">4.4.2.</span> <span class="nav-text">2. maven -&gt; gradle</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Guides"><span class="nav-number">1.1.</span> <span class="nav-text">Gradle Guides</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Groovy-基本"><span class="nav-number">1.2.</span> <span class="nav-text">Groovy 基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Task-语法"><span class="nav-number">1.3.</span> <span class="nav-text">Gradle Task 语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖管理"><span class="nav-number">1.4.</span> <span class="nav-text">依赖管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查看当前依赖关系"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 查看当前依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-排除传递依赖"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 排除传递依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置相关"><span class="nav-number">1.4.3.</span> <span class="nav-text">配置相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试"><span class="nav-number">1.5.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看属性-ext"><span class="nav-number">1.5.1.</span> <span class="nav-text">查看属性(ext)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务调试"><span class="nav-number">1.5.2.</span> <span class="nav-text">任务调试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">1.6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#博客"><span class="nav-number">1.6.1.</span> <span class="nav-text">博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资料"><span class="nav-number">1.6.2.</span> <span class="nav-text">资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Google"><span class="nav-number">1.6.3.</span> <span class="nav-text">Google</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件"><span class="nav-number">2.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开源插件"><span class="nav-number">2.1.</span> <span class="nav-text">开源插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-studio-使用"><span class="nav-number">3.</span> <span class="nav-text">Android studio 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gradle-properties"><span class="nav-number">3.1.</span> <span class="nav-text">gradle.properties</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用案例"><span class="nav-number">4.</span> <span class="nav-text">使用案例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题解决"><span class="nav-number">5.</span> <span class="nav-text">问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖更新"><span class="nav-number">5.1.</span> <span class="nav-text">依赖更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle下载慢5个解决方案"><span class="nav-number">5.2.</span> <span class="nav-text">Gradle下载慢5个解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖下载慢，使用阿里云国内镜像"><span class="nav-number">5.3.</span> <span class="nav-text">依赖下载慢，使用阿里云国内镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradle-lt-gt-maven"><span class="nav-number">5.4.</span> <span class="nav-text">gradle &lt;=&gt; maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-gradle-gt-maven"><span class="nav-number">5.4.1.</span> <span class="nav-text">1. gradle -&gt; maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-maven-gt-gradle"><span class="nav-number">5.4.2.</span> <span class="nav-text">2. maven -&gt; gradle</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -950,7 +964,7 @@ task writeNewPom << {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

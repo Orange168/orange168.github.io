@@ -88,7 +88,7 @@
 <meta property="og:description" content="框架结构 目录结构┌─cloudfunctions        云函数目录（阿里云为aliyun，腾讯云为tcb，详见uniCloud）│─components            符合vue组件规范的uni-app组件目录│  └─comp-a.vue         可复用的a组件├─hybrid                存放本地网页的目录，详见├─platforms">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.linz.tech/uni-app-framework.png">
-<meta property="og:updated_time" content="2020-12-23T09:29:18.080Z">
+<meta property="og:updated_time" content="2021-01-01T07:58:42.222Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="uni-app 学习笔记">
 <meta name="twitter:description" content="框架结构 目录结构┌─cloudfunctions        云函数目录（阿里云为aliyun，腾讯云为tcb，详见uniCloud）│─components            符合vue组件规范的uni-app组件目录│  └─comp-a.vue         可复用的a组件├─hybrid                存放本地网页的目录，详见├─platforms">
@@ -416,6 +416,25 @@
       
         <h1 id="框架结构"><a href="#框架结构" class="headerlink" title="框架结构"></a>框架结构</h1><p><img src="https://cdn.linz.tech/uni-app-framework.png" alt></p>
 <h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>┌─cloudfunctions        云函数目录（阿里云为aliyun，腾讯云为tcb，详见uniCloud）<br>│─components            符合vue组件规范的uni-app组件目录<br>│  └─comp-a.vue         可复用的a组件<br>├─hybrid                存放本地网页的目录，<a href="https://uniapp.dcloud.io/component/web-view" target="_blank" rel="noopener">详见</a><br>├─platforms             存放各平台专用页面的目录，<a href="https://uniapp.dcloud.io/platform?id=%E6%95%B4%E4%BD%93%E7%9B%AE%E5%BD%95%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91" target="_blank" rel="noopener">详见</a><br>├─pages                 业务页面文件存放的目录<br>│  ├─index<br>│  │  └─index.vue       index页面<br>│  └─list<br>│     └─list.vue        list页面<br>├─static                存放应用引用静态资源（如图片、视频等）的目录，注意：静态资源只能存放于此<br>├─wxcomponents          存放小程序组件的目录，详见<br>├─main.js               Vue初始化入口文件<br>├─App.vue               应用配置，用来配置App全局样式以及监听 应用生命周期<br>├─manifest.json         配置应用名称、appid、logo、版本等打包信息，详见<br>└─pages.json            配置页面路由、导航条、选项卡等页面类信息，详见</p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="vue和nvue"><a href="#vue和nvue" class="headerlink" title="vue和nvue"></a>vue和nvue</h2><blockquote>
+<p><code>uni-app</code>是逻辑和渲染分离的。渲染层，在app端提供了<font color="black"><strong>两套排版引擎</strong></font>：<font color="red">小程序方式的webview渲染和weex方式的原生渲染</font>。  两种渲染引擎可以自己根据需要选。vue文件走的webview渲染，nvue走的原生渲染，二者可以混用，根据需要采用不同的渲染引擎。  组件和JavaScript写法是一样的，css不一样，原生排版的能用的css必须是flex布局，这是web的css的子集。</p>
+</blockquote>
+<p><strong>nvue优势</strong></p>
+<blockquote>
+<p>总结：在一些复杂交互或要求极致体验上</p>
+</blockquote>
+<ol>
+<li>需要高性能的区域长列表或瀑布流滚动==&gt; 使用nvue的list、recycle-list、waterfall等组件</li>
+<li>复杂高性能的自定义下拉刷新。==&gt; 推荐使用nvue的refresh组件</li>
+<li>左右拖动的长列表。</li>
+<li>实现区域滚动长列表+左右拖动列表+吸顶的复杂排版效果 ==&gt; hello uni-app模板里的swiper-list</li>
+<li>原生软盘交互，如软盘显示发送/搜索</li>
+<li>解决前端控件无法覆盖原生控件的层级问题</li>
+</ol>
+<p><strong>vue优势</strong></p>
+<ol>
+<li>nvue的canvas性能不高，尤其是Android App平台</li>
+</ol>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="第1节-教学资源"><a href="#第1节-教学资源" class="headerlink" title="第1节 教学资源"></a>第1节 教学资源</h2><p><strong>四大教育网站</strong></p>
 <ul>
 <li><a href="https://ke.qq.com/course/list/uni-app?tuin=269fe6b" target="_blank" rel="noopener">腾讯课堂的uni-app相关课程</a></li>
@@ -549,7 +568,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">86</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +590,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -644,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#框架结构"><span class="nav-number">1.</span> <span class="nav-text">框架结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录结构"><span class="nav-number">1.1.</span> <span class="nav-text">目录结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">2.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1节-教学资源"><span class="nav-number">2.1.</span> <span class="nav-text">第1节 教学资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2节-官方文档"><span class="nav-number">2.2.</span> <span class="nav-text">第2节 官方文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3节-常用配置"><span class="nav-number">2.3.</span> <span class="nav-text">第3节 常用配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方SDK"><span class="nav-number">2.4.</span> <span class="nav-text">第三方SDK</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#框架结构"><span class="nav-number">1.</span> <span class="nav-text">框架结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录结构"><span class="nav-number">1.1.</span> <span class="nav-text">目录结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vue和nvue"><span class="nav-number">2.1.</span> <span class="nav-text">vue和nvue</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1节-教学资源"><span class="nav-number">3.1.</span> <span class="nav-text">第1节 教学资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2节-官方文档"><span class="nav-number">3.2.</span> <span class="nav-text">第2节 官方文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3节-常用配置"><span class="nav-number">3.3.</span> <span class="nav-text">第3节 常用配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方SDK"><span class="nav-number">3.4.</span> <span class="nav-text">第三方SDK</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -664,7 +683,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
