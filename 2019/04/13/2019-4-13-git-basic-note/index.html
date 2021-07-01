@@ -122,7 +122,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-c6f141e8343b590e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-3a5d7629205a8ff2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1321512-87d9eef790f21405.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2020-03-19T03:06:18.266Z">
+<meta property="og:updated_time" content="2021-04-25T09:43:16.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 基础比较">
 <meta name="twitter:description" content="[TOC] Open source git-flow git-extras  Git常用Git 表情 git commit 时 emoji表情使用指南 gitmoji github 版本仓库 表情提交时使用规范 交全的表情列表     emoji emoji 代码 commit 说明    🎨 (调色板) :art: 改进代码结构/代码格式   ⚡ (闪电)🐎 (赛马) :zap:“:race">
@@ -647,6 +647,19 @@ git config --global alias.br branch
 git config --global alias.last 'log -1 HEAD'
 git log -1 HEAD ==> git last<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
+<li><p>代理设置 【】</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#socket
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+
+#http/https    
+git config --global https.proxy http://127.0.0.1:8080
+git config --global https.proxy https://127.0.0.1:8080
+
+#取消
+git config --global --unset http.proxy
+git config --global --unset https.proxy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ol>
 <p><img src="http://upload-images.jianshu.io/upload_images/1321512-eeab7ed5307766f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="File Status Lifecycle"><br><strong>对比文件的不同</strong></p>
 <ul>
@@ -969,7 +982,7 @@ git pull<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -991,7 +1004,7 @@ git pull<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

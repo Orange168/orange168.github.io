@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://cdn.linz.tech/threads-executor.png">
 <meta property="og:image" content="https://img-blog.csdn.net/20160929103820068">
 <meta property="og:image" content="https://img-blog.csdn.net/20171010212146188?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3dkMTE1NDk3ODM1Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:updated_time" content="2020-01-15T11:27:44.647Z">
+<meta property="og:updated_time" content="2021-04-21T12:57:22.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程并发学习笔记">
 <meta name="twitter:description" content="阶段一：多线基础知识入门思考为什么要学习并发 发挥CPU多处理器的强大能力  更符合现实生活中的多事件同时处理 简化异步事件的处理 更加灵敏的响应用户界面  并发的缺点 安全性 活跃性（饥饿）问题 性能问题（并发不一定快） 线程切换有消耗ccc    学习并发的四个阶段 熟练掌握API，能够完成并发编程 熟读API源码，掌握其原理 理解Java虚拟机的内存模型 【待看】 操作系统对并发的支持 【待">
@@ -460,6 +460,23 @@
         <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">interrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a href="https://www.jianshu.com/p/0821801170dd" target="_blank" rel="noopener">如何优雅的”中断”一个线程？</a></p>
+<pre class="line-numbers language-java"><code class="language-java">      <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
+        Thread thred<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token punctuation">{</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">boolean</span> in<span class="token operator">=</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isInterrupted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>in<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"before:"</span><span class="token operator">+</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">interrupted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置复位</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"after:"</span><span class="token operator">+</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isInterrupted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"==>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thred<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thred<span class="token punctuation">.</span><span class="token function">interrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//终端</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ol start="2">
 <li>用守护进程,</li>
 </ol>
@@ -3379,7 +3396,7 @@ completionService<span class="token punctuation">.</span><span class="token func
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">87</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3401,7 +3418,7 @@ completionService<span class="token punctuation">.</span><span class="token func
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
