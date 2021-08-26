@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="北疆的博客">
 <meta property="og:description" content="第一章 环境搭建1.1 CentOS1.1.1 网络设置第一步： IP设置  配置虚拟机网络环境为桥接 修改I虚拟机网络设置  vi /etc/sysconfig/network-scripts/ifcfg-eth0 修改为 DEVICE=eth0 TYPE=Ethernet ONBOOT=yes BOOTPROTO=dhcp 重启网络分配IP service network restart固定I">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-07-23T03:00:01.846Z">
+<meta property="og:updated_time" content="2021-07-14T13:22:09.878Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="亿级电商缓存项目学习">
 <meta name="twitter:description" content="第一章 环境搭建1.1 CentOS1.1.1 网络设置第一步： IP设置  配置虚拟机网络环境为桥接 修改I虚拟机网络设置  vi /etc/sysconfig/network-scripts/ifcfg-eth0 修改为 DEVICE=eth0 TYPE=Ethernet ONBOOT=yes BOOTPROTO=dhcp 重启网络分配IP service network restart固定I">
@@ -717,8 +717,9 @@ redis-server /etc/redis/redis.conf : 容器中以配置文件方式启动redis<s
 <p>第二步：设置密码, 登录安装的镜像terminal</p>
 <pre class="line-numbers language-shell"><code class="language-shell">>redis-cli -h 127.0.0.1 -p 6379<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>第三步：设置密码</p>
-<pre class="line-numbers language-shell"><code class="language-shell">config set requirepass  “T1%z$1u3Q#zi”<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="第二章-软件使用"><a href="#第二章-软件使用" class="headerlink" title="第二章 软件使用"></a>第二章 软件使用</h1><h2 id="2-1-Redis"><a href="#2-1-Redis" class="headerlink" title="2.1  Redis"></a>2.1  Redis</h2><h3 id="2-1-1-基本应用"><a href="#2-1-1-基本应用" class="headerlink" title="2.1.1 基本应用"></a>2.1.1 基本应用</h3><p>四个方向应用</p>
+<pre class="line-numbers language-shell"><code class="language-shell">config set requirepass  “4s6X3DRgRStdb#yFNB”<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第四步：查看设置的密码</p>
+<pre><code>config get requirepass</code></pre><h1 id="第二章-软件使用"><a href="#第二章-软件使用" class="headerlink" title="第二章 软件使用"></a>第二章 软件使用</h1><h2 id="2-1-Redis"><a href="#2-1-Redis" class="headerlink" title="2.1  Redis"></a>2.1  Redis</h2><h3 id="2-1-1-基本应用"><a href="#2-1-1-基本应用" class="headerlink" title="2.1.1 基本应用"></a>2.1.1 基本应用</h3><p>四个方向应用</p>
 <ul>
 <li>redis各种数据结构和命令的使用，包括java api的使用</li>
 <li>redis一些特殊的解决方案的使用，pub/sub消息系统，分布式锁，输入的自动完成，等等</li>
@@ -1109,9 +1110,7 @@ redis-cli --cluster add-node 192.168.1.9:7000 192.168.1.13:7000<span aria-hidden
 <p>–cluster-yes：不回显需要迁移的slot，直接迁移。</p>
 <p>（3）下线（删除）节点</p>
 <p>redis-cli –cluster del-node 127.0.0.1:6385 46f0b68b3f605b3369d3843a89a2b4a164ed21e8</p>
-</li>
-</ol>
-<h4 id="5-redis-实战记录"><a href="#5-redis-实战记录" class="headerlink" title="(5) redis 实战记录"></a>(5) redis 实战记录</h4><ol>
+<h4 id="5-redis-实战记录"><a href="#5-redis-实战记录" class="headerlink" title="(5) redis 实战记录"></a>(5) redis 实战记录</h4></li>
 <li><p>提供冗余的slave（有的master就有2个slave了或多个slave），防止两个节点master和slave相继宕机，提高系统安全性；</p>
 </li>
 <li><p>【重点】实践部署过程中要导入数据后模拟正式环境进行实战测试</p>
@@ -1330,7 +1329,7 @@ sysctl -p<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

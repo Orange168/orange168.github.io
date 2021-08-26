@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/starsliao/Prometheus/master/screenshot.jpg">
 <meta property="og:image" content="http://cdn.linz.tech/threads-gateway-2019-6-13.png">
 <meta property="og:image" content="http://cdn.linz.tech/1555683876672.png">
-<meta property="og:updated_time" content="2020-11-25T02:35:05.535Z">
+<meta property="og:updated_time" content="2021-07-10T08:30:47.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习笔记">
 <meta name="twitter:description" content="Containerdocker build --tag=friendlyhello . #or add version   docker build -tag= friendlyhello:v0.0.1 .  docker image ls docker run -p 4000:80 friendlyhello  Docker for Linux network set  Set proxy se">
@@ -1521,13 +1521,21 @@ docker run -d -p 9000:9000 \
     --name prtainer \
     portainer/portainer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>问题解决</p>
+</li>
+</ul>
+<p><em>问题1</em>： Unable to connect to the Docker endpoint</p>
+<p><code>--privileged</code> 即</p>
+<pre><code>$ docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock --name portainer portainer/portainer</code></pre><p>解决方案：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">docker run -d -p 9000:9000 \
+    --restart=always \
+    --privileged -v /var/run/docker.sock:/var/run/docker.sock \
+    --name prtainer \
+    portainer/portainer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>问题1. 设置密码后 选择<code>Local</code> -&gt; <code>conect</code> 报错</p>
+<p>问题2. 设置密码后 选择<code>Local</code> -&gt; <code>conect</code> 报错</p>
 </blockquote>
 <pre class="line-numbers language-shell"><code class="language-shell">Failure
 Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/_ping: dial unix /var/run/docker.sock: connect: permission denied<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-</ul>
 <p><strong>解决方案</strong></p>
 <ul>
 <li>原因<br>SELinux开启 主要作用就是最大限度地减小系统中服务进程可访问的资源（最小权限原则）</li>
@@ -2538,7 +2546,7 @@ sudo rm /var/lib/dpkg/lock<span aria-hidden="true" class="line-numbers-rows"><sp
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

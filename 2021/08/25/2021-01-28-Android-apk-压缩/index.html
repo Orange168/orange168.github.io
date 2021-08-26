@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="frp,文档,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="frp README | 中文文档 What is frp?frp is a fast reverse proxy to help you expose a local server behind a NAT or firewall to the Internet. As of now, it supports TCP and UDP, as well as HTTP and HTTPS prot">
+<meta name="keywords" content="frp,文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="frp翻墙文档">
+<meta property="og:url" content="http://linz.tech/2021/08/25/2021-01-28-Android-apk-压缩/index.html">
+<meta property="og:site_name" content="北疆的博客">
+<meta property="og:description" content="frp README | 中文文档 What is frp?frp is a fast reverse proxy to help you expose a local server behind a NAT or firewall to the Internet. As of now, it supports TCP and UDP, as well as HTTP and HTTPS prot">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://circleci.com/gh/fatedier/frp.svg?style=shield">
+<meta property="og:image" content="https://img.shields.io/github/tag/fatedier/frp.svg?label=release">
+<meta property="og:image" content="http://linz.tech/doc/pic/architecture.png">
+<meta property="og:image" content="http://linz.tech/doc/pic/dashboard.png">
+<meta property="og:image" content="http://linz.tech/doc/pic/donate-alipay.png">
+<meta property="og:image" content="http://linz.tech/doc/pic/donate-wechatpay.png">
+<meta property="og:updated_time" content="2021-08-24T16:47:41.631Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="frp翻墙文档">
+<meta name="twitter:description" content="frp README | 中文文档 What is frp?frp is a fast reverse proxy to help you expose a local server behind a NAT or firewall to the Internet. As of now, it supports TCP and UDP, as well as HTTP and HTTPS prot">
+<meta name="twitter:image" content="https://circleci.com/gh/fatedier/frp.svg?style=shield">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'CD2IHLO3Q2',
+      apiKey: 'f3890b1e9cf212771f29d3258b186372',
+      indexName: 'LocalSearch',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://linz.tech/2021/08/25/2021-01-28-Android-apk-压缩/">
+
+
+
+
+
+  <title>frp翻墙文档 | 北疆的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dd275ba96bfa28cb8bd3809466f17419";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北疆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://linz.tech/2021/08/25/2021-01-28-Android-apk-压缩/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="北疆">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://cdn.linz.tech/a.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北疆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">frp翻墙文档</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-25T00:46:55+08:00">
+                2021-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/08/25/2021-01-28-Android-apk-压缩/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2021/08/25/2021-01-28-Android-apk-压缩/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="frp"><a href="#frp" class="headerlink" title="frp"></a>frp</h1><p><a href="https://circleci.com/gh/fatedier/frp" target="_blank" rel="noopener"><img src="https://circleci.com/gh/fatedier/frp.svg?style=shield" alt="Build Status"></a><br><a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener"><img src="https://img.shields.io/github/tag/fatedier/frp.svg?label=release" alt="GitHub release"></a></p>
+<p><a href="README.md">README</a> | <a href="README_zh.md">中文文档</a></p>
+<h2 id="What-is-frp"><a href="#What-is-frp" class="headerlink" title="What is frp?"></a>What is frp?</h2><p>frp is a fast reverse proxy to help you expose a local server behind a NAT or firewall to the Internet. As of now, it supports <strong>TCP</strong> and <strong>UDP</strong>, as well as <strong>HTTP</strong> and <strong>HTTPS</strong> protocols, where requests can be forwarded to internal services by domain name.</p>
+<p>frp also has a P2P connect mode.</p>
+<h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><!-- vim-markdown-toc GFM -->
+
+<ul>
+<li><a href="#development-status">Development Status</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#example-usage">Example Usage</a><ul>
+<li><a href="#access-your-computer-in-lan-by-ssh">Access your computer in LAN by SSH</a></li>
+<li><a href="#visit-your-web-service-in-lan-by-custom-domains">Visit your web service in LAN by custom domains</a></li>
+<li><a href="#forward-dns-query-request">Forward DNS query request</a></li>
+<li><a href="#forward-unix-domain-socket">Forward Unix domain socket</a></li>
+<li><a href="#expose-a-simple-http-file-server">Expose a simple HTTP file server</a></li>
+<li><a href="#enable-https-for-local-https-service">Enable HTTPS for local HTTP(S) service</a></li>
+<li><a href="#expose-your-service-privately">Expose your service privately</a></li>
+<li><a href="#p2p-mode">P2P Mode</a></li>
+</ul>
+</li>
+<li><a href="#features">Features</a><ul>
+<li><a href="#configuration-files">Configuration Files</a></li>
+<li><a href="#using-environment-variables">Using Environment Variables</a></li>
+<li><a href="#split-configures-into-different-files">Split Configures Into Different Files</a></li>
+<li><a href="#dashboard">Dashboard</a></li>
+<li><a href="#admin-ui">Admin UI</a></li>
+<li><a href="#monitor">Monitor</a><ul>
+<li><a href="#prometheus">Prometheus</a></li>
+</ul>
+</li>
+<li><a href="#authenticating-the-client">Authenticating the Client</a><ul>
+<li><a href="#token-authentication">Token Authentication</a></li>
+<li><a href="#oidc-authentication">OIDC Authentication</a></li>
+</ul>
+</li>
+<li><a href="#encryption-and-compression">Encryption and Compression</a><ul>
+<li><a href="#tls">TLS</a></li>
+</ul>
+</li>
+<li><a href="#hot-reloading-frpc-configuration">Hot-Reloading frpc configuration</a></li>
+<li><a href="#get-proxy-status-from-client">Get proxy status from client</a></li>
+<li><a href="#only-allowing-certain-ports-on-the-server">Only allowing certain ports on the server</a></li>
+<li><a href="#port-reuse">Port Reuse</a></li>
+<li><a href="#bandwidth-limit">Bandwidth Limit</a><ul>
+<li><a href="#for-each-proxy">For Each Proxy</a></li>
+</ul>
+</li>
+<li><a href="#tcp-stream-multiplexing">TCP Stream Multiplexing</a></li>
+<li><a href="#support-kcp-protocol">Support KCP Protocol</a></li>
+<li><a href="#connection-pooling">Connection Pooling</a></li>
+<li><a href="#load-balancing">Load balancing</a></li>
+<li><a href="#service-health-check">Service Health Check</a></li>
+<li><a href="#rewriting-the-http-host-header">Rewriting the HTTP Host Header</a></li>
+<li><a href="#setting-other-http-headers">Setting other HTTP Headers</a></li>
+<li><a href="#get-real-ip">Get Real IP</a><ul>
+<li><a href="#http-x-forwarded-for">HTTP X-Forwarded-For</a></li>
+<li><a href="#proxy-protocol">Proxy Protocol</a></li>
+</ul>
+</li>
+<li><a href="#require-http-basic-auth-password-for-web-services">Require HTTP Basic Auth (Password) for Web Services</a></li>
+<li><a href="#custom-subdomain-names">Custom Subdomain Names</a></li>
+<li><a href="#url-routing">URL Routing</a></li>
+<li><a href="#tcp-port-multiplexing">TCP Port Multiplexing</a></li>
+<li><a href="#connecting-to-frps-via-http-proxy">Connecting to frps via HTTP PROXY</a></li>
+<li><a href="#range-ports-mapping">Range ports mapping</a></li>
+<li><a href="#client-plugins">Client Plugins</a></li>
+<li><a href="#server-manage-plugins">Server Manage Plugins</a></li>
+</ul>
+</li>
+<li><a href="#development-plan">Development Plan</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#donation">Donation</a><ul>
+<li><a href="#alipay">AliPay</a></li>
+<li><a href="#wechat-pay">Wechat Pay</a></li>
+<li><a href="#paypal">PayPal</a></li>
+</ul>
+</li>
+</ul>
+<!-- vim-markdown-toc -->
+
+<h2 id="Development-Status"><a href="#Development-Status" class="headerlink" title="Development Status"></a>Development Status</h2><p>frp is under development. Try the latest release version in the <code>master</code> branch, or use the <code>dev</code> branch for the version in development.</p>
+<p><strong>The protocol might change at a release and we don’t promise backwards compatibility. Please check the release log when upgrading the client and the server.</strong></p>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><img src="/doc/pic/architecture.png" alt="architecture"></p>
+<h2 id="Example-Usage"><a href="#Example-Usage" class="headerlink" title="Example Usage"></a>Example Usage</h2><p>Firstly, download the latest programs from <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">Release</a> page according to your operating system and architecture.</p>
+<p>Put <code>frps</code> and <code>frps.ini</code> onto your server A with public IP.</p>
+<p>Put <code>frpc</code> and <code>frpc.ini</code> onto your server B in LAN (that can’t be connected from public Internet).</p>
+<h3 id="Access-your-computer-in-LAN-by-SSH"><a href="#Access-your-computer-in-LAN-by-SSH" class="headerlink" title="Access your computer in LAN by SSH"></a>Access your computer in LAN by SSH</h3><ol>
+<li><p>Modify <code>frps.ini</code> on server A and set the <code>bind_port</code> to be connected to frp clients:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token selector">[common]</span>
+<span class="token constant">bind_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Start <code>frps</code> on server A:</p>
+<p><code>./frps -c ./frps.ini</code></p>
+</li>
+<li><p>On server B, modify <code>frpc.ini</code> to put in your <code>frps</code> server public IP as <code>server_addr</code> field:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[ssh]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_ip</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 22</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p>Note that <code>local_port</code> (listened on client) and <code>remote_port</code> (exposed on server) are for traffic goes in/out the frp system, whereas <code>server_port</code> is used between frps.</p>
+<ol start="4">
+<li><p>Start <code>frpc</code> on server B:</p>
+<p><code>./frpc -c ./frpc.ini</code></p>
+</li>
+<li><p>From another machine, SSH to server B like this (assuming that username is <code>test</code>):</p>
+<p><code>ssh -oPort=6000 test@x.x.x.x</code></p>
+</li>
+</ol>
+<h3 id="Visit-your-web-service-in-LAN-by-custom-domains"><a href="#Visit-your-web-service-in-LAN-by-custom-domains" class="headerlink" title="Visit your web service in LAN by custom domains"></a>Visit your web service in LAN by custom domains</h3><p>Sometimes we want to expose a local web service behind a NAT network to others for testing with your own domain name and unfortunately we can’t resolve a domain name to a local IP.</p>
+<p>However, we can expose an HTTP(S) service using frp.</p>
+<ol>
+<li><p>Modify <code>frps.ini</code>, set the vhost HTTP port to 8080:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token selector">[common]</span>
+<span class="token constant">bind_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+<span class="token constant">vhost_http_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 8080</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Start <code>frps</code>:</p>
+<p><code>./frps -c ./frps.ini</code></p>
+</li>
+<li><p>Modify <code>frpc.ini</code> and set <code>server_addr</code> to the IP address of the remote frps server. The <code>local_port</code> is the port of your web service:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[web]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> www.example.com</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Start <code>frpc</code>:</p>
+<p><code>./frpc -c ./frpc.ini</code></p>
+</li>
+<li><p>Resolve A record of <code>www.example.com</code> to the public IP of the remote frps server or CNAME record to your origin domain.</p>
+</li>
+<li><p>Now visit your local web service using url <code>http://www.example.com:8080</code>.</p>
+</li>
+</ol>
+<h3 id="Forward-DNS-query-request"><a href="#Forward-DNS-query-request" class="headerlink" title="Forward DNS query request"></a>Forward DNS query request</h3><ol>
+<li><p>Modify <code>frps.ini</code>:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token selector">[common]</span>
+<span class="token constant">bind_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Start <code>frps</code>:</p>
+<p><code>./frps -c ./frps.ini</code></p>
+</li>
+<li><p>Modify <code>frpc.ini</code> and set <code>server_addr</code> to the IP address of the remote frps server, forward DNS query request to Google Public DNS server <code>8.8.8.8:53</code>:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[dns]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> udp</span>
+<span class="token constant">local_ip</span> <span class="token attr-value"><span class="token punctuation">=</span> 8.8.8.8</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 53</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Start frpc:</p>
+<p><code>./frpc -c ./frpc.ini</code></p>
+</li>
+<li><p>Test DNS resolution using <code>dig</code> command:</p>
+<p><code>dig @x.x.x.x -p 6000 www.google.com</code></p>
+</li>
+</ol>
+<h3 id="Forward-Unix-domain-socket"><a href="#Forward-Unix-domain-socket" class="headerlink" title="Forward Unix domain socket"></a>Forward Unix domain socket</h3><p>Expose a Unix domain socket (e.g. the Docker daemon socket) as TCP.</p>
+<p>Configure <code>frps</code> same as above.</p>
+<ol>
+<li><p>Start <code>frpc</code> with configuration:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[unix_domain_socket]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span>
+<span class="token constant">plugin</span> <span class="token attr-value"><span class="token punctuation">=</span> unix_domain_socket</span>
+<span class="token constant">plugin_unix_path</span> <span class="token attr-value"><span class="token punctuation">=</span> /var/run/docker.sock</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Test: Get Docker version using <code>curl</code>:</p>
+<p><code>curl http://x.x.x.x:6000/version</code></p>
+</li>
+</ol>
+<h3 id="Expose-a-simple-HTTP-file-server"><a href="#Expose-a-simple-HTTP-file-server" class="headerlink" title="Expose a simple HTTP file server"></a>Expose a simple HTTP file server</h3><p>Browser your files stored in the LAN, from public Internet.</p>
+<p>Configure <code>frps</code> same as above.</p>
+<ol>
+<li><p>Start <code>frpc</code> with configuration:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[test_static_file]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span>
+<span class="token constant">plugin</span> <span class="token attr-value"><span class="token punctuation">=</span> static_file</span>
+<span class="token constant">plugin_local_path</span> <span class="token attr-value"><span class="token punctuation">=</span> /tmp/files</span>
+<span class="token constant">plugin_strip_prefix</span> <span class="token attr-value"><span class="token punctuation">=</span> static</span>
+<span class="token constant">plugin_http_user</span> <span class="token attr-value"><span class="token punctuation">=</span> abc</span>
+<span class="token constant">plugin_http_passwd</span> <span class="token attr-value"><span class="token punctuation">=</span> abc</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Visit <code>http://x.x.x.x:6000/static/</code> from your browser and specify correct user and password to view files in <code>/tmp/files</code> on the <code>frpc</code> machine.</p>
+</li>
+</ol>
+<h3 id="Enable-HTTPS-for-local-HTTP-S-service"><a href="#Enable-HTTPS-for-local-HTTP-S-service" class="headerlink" title="Enable HTTPS for local HTTP(S) service"></a>Enable HTTPS for local HTTP(S) service</h3><p>You may substitute <code>https2https</code> for the plugin, and point the <code>plugin_local_addr</code> to a HTTPS endpoint.</p>
+<ol>
+<li><p>Start <code>frpc</code> with configuration:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[test_https2http]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> https</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> test.example.com</span>
+
+<span class="token constant">plugin</span> <span class="token attr-value"><span class="token punctuation">=</span> https2http</span>
+<span class="token constant">plugin_local_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1:80</span>
+<span class="token constant">plugin_crt_path</span> <span class="token attr-value"><span class="token punctuation">=</span> ./server.crt</span>
+<span class="token constant">plugin_key_path</span> <span class="token attr-value"><span class="token punctuation">=</span> ./server.key</span>
+<span class="token constant">plugin_host_header_rewrite</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">plugin_header_X-From-Where</span> <span class="token attr-value"><span class="token punctuation">=</span> frp</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Visit <code>https://test.example.com</code>.</p>
+</li>
+</ol>
+<h3 id="Expose-your-service-privately"><a href="#Expose-your-service-privately" class="headerlink" title="Expose your service privately"></a>Expose your service privately</h3><p>Some services will be at risk if exposed directly to the public network. With <strong>STCP</strong> (secret TCP) mode, a preshared key is needed to access the service from another client.</p>
+<p>Configure <code>frps</code> same as above.</p>
+<ol>
+<li><p>Start <code>frpc</code> on machine B with the following config. This example is for exposing the SSH service (port 22), and note the <code>sk</code> field for the preshared key, and that the <code>remote_port</code> field is removed here:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[secret_ssh]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> stcp</span>
+<span class="token constant">sk</span> <span class="token attr-value"><span class="token punctuation">=</span> abcdefg</span>
+<span class="token constant">local_ip</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 22</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Start another <code>frpc</code> (typically on another machine C) with the following config to access the SSH service with a security key (<code>sk</code> field):</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[secret_ssh_visitor]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> stcp</span>
+<span class="token constant">role</span> <span class="token attr-value"><span class="token punctuation">=</span> visitor</span>
+<span class="token constant">server_name</span> <span class="token attr-value"><span class="token punctuation">=</span> secret_ssh</span>
+<span class="token constant">sk</span> <span class="token attr-value"><span class="token punctuation">=</span> abcdefg</span>
+<span class="token constant">bind_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">bind_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>On machine C, connect to SSH on machine B, using this command:</p>
+<p><code>ssh -oPort=6000 127.0.0.1</code></p>
+</li>
+</ol>
+<h3 id="P2P-Mode"><a href="#P2P-Mode" class="headerlink" title="P2P Mode"></a>P2P Mode</h3><p><strong>xtcp</strong> is designed for transmitting large amounts of data directly between clients. A frps server is still needed, as P2P here only refers the actual data transmission.</p>
+<p>Note it can’t penetrate all types of NAT devices. You might want to fallback to <strong>stcp</strong> if <strong>xtcp</strong> doesn’t work.</p>
+<ol>
+<li><p>In <code>frps.ini</code> configure a UDP port for xtcp:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token constant">bind_udp_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7001</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>Start <code>frpc</code> on machine B, expose the SSH port. Note that <code>remote_port</code> field is removed:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[p2p_ssh]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> xtcp</span>
+<span class="token constant">sk</span> <span class="token attr-value"><span class="token punctuation">=</span> abcdefg</span>
+<span class="token constant">local_ip</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 22</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Start another <code>frpc</code> (typically on another machine C) with the config to connect to SSH using P2P mode:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[p2p_ssh_visitor]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> xtcp</span>
+<span class="token constant">role</span> <span class="token attr-value"><span class="token punctuation">=</span> visitor</span>
+<span class="token constant">server_name</span> <span class="token attr-value"><span class="token punctuation">=</span> p2p_ssh</span>
+<span class="token constant">sk</span> <span class="token attr-value"><span class="token punctuation">=</span> abcdefg</span>
+<span class="token constant">bind_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">bind_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>On machine C, connect to SSH on machine B, using this command:</p>
+<p><code>ssh -oPort=6000 127.0.0.1</code></p>
+</li>
+</ol>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><h3 id="Configuration-Files"><a href="#Configuration-Files" class="headerlink" title="Configuration Files"></a>Configuration Files</h3><p>Read the full example configuration files to find out even more features not described here.</p>
+<p><a href="./conf/frps_full.ini">Full configuration file for frps (Server)</a></p>
+<p><a href="./conf/frpc_full.ini">Full configuration file for frpc (Client)</a></p>
+<h3 id="Using-Environment-Variables"><a href="#Using-Environment-Variables" class="headerlink" title="Using Environment Variables"></a>Using Environment Variables</h3><p>Environment variables can be referenced in the configuration file, using Go’s standard format:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> {{ .Envs.FRP_SERVER_ADDR }}</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[ssh]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_ip</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 22</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> {{ .Envs.FRP_SSH_REMOTE_PORT }}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>With the config above, variables can be passed into <code>frpc</code> program like this:</p>
+<pre><code>export FRP_SERVER_ADDR="x.x.x.x"
+export FRP_SSH_REMOTE_PORT="6000"
+./frpc -c ./frpc.ini</code></pre><p><code>frpc</code> will render configuration file template using OS environment variables. Remember to prefix your reference with <code>.Envs</code>.</p>
+<h3 id="Split-Configures-Into-Different-Files"><a href="#Split-Configures-Into-Different-Files" class="headerlink" title="Split Configures Into Different Files"></a>Split Configures Into Different Files</h3><p>You can split multiple proxy configs into different files and include them in the main file.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+<span class="token constant">includes</span><span class="token attr-value"><span class="token punctuation">=</span>./confd/*.ini</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-ini"><code class="language-ini"># ./confd/test.ini
+<span class="token selector">[ssh]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_ip</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 22</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Dashboard"><a href="#Dashboard" class="headerlink" title="Dashboard"></a>Dashboard</h3><p>Check frp’s status and proxies’ statistics information by Dashboard.</p>
+<p>Configure a port for dashboard to enable this feature:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"><span class="token selector">[common]</span>
+<span class="token constant">dashboard_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7500</span>
+# dashboard's username and password are both optional
+<span class="token constant">dashboard_user</span> <span class="token attr-value"><span class="token punctuation">=</span> admin</span>
+<span class="token constant">dashboard_pwd</span> <span class="token attr-value"><span class="token punctuation">=</span> admin</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Then visit <code>http://[server_addr]:7500</code> to see the dashboard, with username and password both being <code>admin</code>.</p>
+<p><img src="/doc/pic/dashboard.png" alt="dashboard"></p>
+<h3 id="Admin-UI"><a href="#Admin-UI" class="headerlink" title="Admin UI"></a>Admin UI</h3><p>The Admin UI helps you check and manage frpc’s configuration.</p>
+<p>Configure an address for admin UI to enable this feature:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"><span class="token selector">[common]</span>
+<span class="token constant">admin_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">admin_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7400</span>
+<span class="token constant">admin_user</span> <span class="token attr-value"><span class="token punctuation">=</span> admin</span>
+<span class="token constant">admin_pwd</span> <span class="token attr-value"><span class="token punctuation">=</span> admin</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Then visit <code>http://127.0.0.1:7400</code> to see admin UI, with username and password both being <code>admin</code>.</p>
+<h3 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h3><p>When dashboard is enabled, frps will save monitor data in cache. It will be cleared after process restart.</p>
+<p>Prometheus is also supported.</p>
+<h4 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h4><p>Enable dashboard first, then configure <code>enable_prometheus = true</code> in <code>frps.ini</code>.</p>
+<p><code>http://{dashboard_addr}/metrics</code> will provide prometheus monitor data.</p>
+<h3 id="Authenticating-the-Client"><a href="#Authenticating-the-Client" class="headerlink" title="Authenticating the Client"></a>Authenticating the Client</h3><p>There are 2 authentication methods to authenticate frpc with frps. </p>
+<p>You can decide which one to use by configuring <code>authentication_method</code> under <code>[common]</code> in <code>frpc.ini</code> and <code>frps.ini</code>.</p>
+<p>Configuring <code>authenticate_heartbeats = true</code> under <code>[common]</code> will use the configured authentication method to add and validate authentication on every heartbeat between frpc and frps.</p>
+<p>Configuring <code>authenticate_new_work_conns = true</code> under <code>[common]</code> will do the same for every new work connection between frpc and frps.</p>
+<h4 id="Token-Authentication"><a href="#Token-Authentication" class="headerlink" title="Token Authentication"></a>Token Authentication</h4><p>When specifying <code>authentication_method = token</code> under <code>[common]</code> in <code>frpc.ini</code> and <code>frps.ini</code> - token based authentication will be used.</p>
+<p>Make sure to specify the same <code>token</code> in the <code>[common]</code> section in <code>frps.ini</code> and <code>frpc.ini</code> for frpc to pass frps validation</p>
+<h4 id="OIDC-Authentication"><a href="#OIDC-Authentication" class="headerlink" title="OIDC Authentication"></a>OIDC Authentication</h4><p>When specifying <code>authentication_method = oidc</code> under <code>[common]</code> in <code>frpc.ini</code> and <code>frps.ini</code> - OIDC based authentication will be used.</p>
+<p>OIDC stands for OpenID Connect, and the flow used is called <a href="https://tools.ietf.org/html/rfc6749#section-4.4" target="_blank" rel="noopener">Client Credentials Grant</a>.</p>
+<p>To use this authentication type - configure <code>frpc.ini</code> and <code>frps.ini</code> as follows:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token selector">[common]</span>
+<span class="token constant">authentication_method</span> <span class="token attr-value"><span class="token punctuation">=</span> oidc</span>
+<span class="token constant">oidc_issuer</span> <span class="token attr-value"><span class="token punctuation">=</span> https://example-oidc-issuer.com/</span>
+<span class="token constant">oidc_audience</span> <span class="token attr-value"><span class="token punctuation">=</span> https://oidc-audience.com/.default</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">authentication_method</span> <span class="token attr-value"><span class="token punctuation">=</span> oidc</span>
+<span class="token constant">oidc_client_id</span> <span class="token attr-value"><span class="token punctuation">=</span> 98692467-37de-409a-9fac-bb2585826f18 # Replace with OIDC client ID</span>
+<span class="token constant">oidc_client_secret</span> <span class="token attr-value"><span class="token punctuation">=</span> oidc_secret</span>
+<span class="token constant">oidc_audience</span> <span class="token attr-value"><span class="token punctuation">=</span> https://oidc-audience.com/.default</span>
+<span class="token constant">oidc_token_endpoint_url</span> <span class="token attr-value"><span class="token punctuation">=</span> https://example-oidc-endpoint.com/oauth2/v2.0/token</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Encryption-and-Compression"><a href="#Encryption-and-Compression" class="headerlink" title="Encryption and Compression"></a>Encryption and Compression</h3><p>The features are off by default. You can turn on encryption and/or compression:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[ssh]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 22</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span>
+<span class="token constant">use_encryption</span> <span class="token attr-value"><span class="token punctuation">=</span> true</span>
+<span class="token constant">use_compression</span> <span class="token attr-value"><span class="token punctuation">=</span> true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h4><p>frp supports the TLS protocol between <code>frpc</code> and <code>frps</code> since v0.25.0.</p>
+<p>For port multiplexing, frp sends a first byte <code>0x17</code> to dial a TLS connection.</p>
+<p>Configure <code>tls_enable = true</code> in the <code>[common]</code> section to <code>frpc.ini</code> to enable this feature.</p>
+<p>To <strong>enforce</strong> <code>frps</code> to only accept TLS connections - configure <code>tls_only = true</code> in the <code>[common]</code> section in <code>frps.ini</code>. <strong>This is optional.</strong></p>
+<p><strong><code>frpc</code> TLS settings (under the <code>[common]</code> section):</strong></p>
+<pre class="line-numbers language-ini"><code class="language-ini"><span class="token constant">tls_enable</span> <span class="token attr-value"><span class="token punctuation">=</span> true</span>
+<span class="token constant">tls_cert_file</span> <span class="token attr-value"><span class="token punctuation">=</span> certificate.crt</span>
+<span class="token constant">tls_key_file</span> <span class="token attr-value"><span class="token punctuation">=</span> certificate.key</span>
+<span class="token constant">tls_trusted_ca_file</span> <span class="token attr-value"><span class="token punctuation">=</span> ca.crt</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong><code>frps</code> TLS settings (under the <code>[common]</code> section):</strong></p>
+<pre class="line-numbers language-ini"><code class="language-ini"><span class="token constant">tls_only</span> <span class="token attr-value"><span class="token punctuation">=</span> true</span>
+<span class="token constant">tls_enable</span> <span class="token attr-value"><span class="token punctuation">=</span> true</span>
+<span class="token constant">tls_cert_file</span> <span class="token attr-value"><span class="token punctuation">=</span> certificate.crt</span>
+<span class="token constant">tls_key_file</span> <span class="token attr-value"><span class="token punctuation">=</span> certificate.key</span>
+<span class="token constant">tls_trusted_ca_file</span> <span class="token attr-value"><span class="token punctuation">=</span> ca.crt</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>You will need <strong>a root CA cert</strong> and <strong>at least one SSL/TLS certificate</strong>. It <strong>can</strong> be self-signed or regular (such as Let’s Encrypt or another SSL/TLS certificate provider).</p>
+<p>If you using <code>frp</code> via IP address and not hostname, make sure to set the appropriate IP address in the Subject Alternative Name (SAN) area when generating SSL/TLS Certificates.</p>
+<p>Given an example:</p>
+<ul>
+<li><p>Prepare openssl config file. It exists at <code>/etc/pki/tls/openssl.cnf</code> in Linux System and <code>/System/Library/OpenSSL/openssl.cnf</code> in MacOS, and you can copy it to current path, like <code>cp /etc/pki/tls/openssl.cnf ./my-openssl.cnf</code>. If not, you can build it by yourself, like:</p>
+<pre><code>cat &gt; my-openssl.cnf &lt;&lt; EOF
+[ ca ]
+default_ca = CA_default
+[ CA_default ]
+x509_extensions = usr_cert
+[ req ]
+default_bits        = 2048
+default_md          = sha256
+default_keyfile     = privkey.pem
+distinguished_name  = req_distinguished_name
+attributes          = req_attributes
+x509_extensions     = v3_ca
+string_mask         = utf8only
+[ req_distinguished_name ]
+[ req_attributes ]
+[ usr_cert ]
+basicConstraints       = CA:FALSE
+nsComment              = "OpenSSL Generated Certificate"
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid,issuer
+[ v3_ca ]
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints       = CA:true
+EOF</code></pre></li>
+<li><p>build ca certificates:</p>
+<pre><code>openssl genrsa -out ca.key 2048
+openssl req -x509 -new -nodes -key ca.key -subj "/CN=example.ca.com" -days 5000 -out ca.crt</code></pre></li>
+<li><p>build frps certificates:</p>
+<pre><code>openssl genrsa -out server.key 2048
+</code></pre></li>
+</ul>
+<p>openssl req -new -sha256 -key server.key <br>    -subj “/C=XX/ST=DEFAULT/L=DEFAULT/O=DEFAULT/CN=server.com” <br>    -reqexts SAN <br>    -config &lt;(cat my-openssl.cnf &lt;(printf “\n[SAN]\nsubjectAltName=DNS:localhost,IP:127.0.0.1,DNS:example.server.com”)) <br>    -out server.csr</p>
+<p>openssl x509 -req -days 365 <br>    -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial <br>    -extfile &lt;(printf “subjectAltName=DNS:localhost,IP:127.0.0.1,DNS:example.server.com”) <br>    -out server.crt</p>
+<pre><code>
+* build frpc certificates：</code></pre><p>openssl genrsa -out client.key 2048<br>openssl req -new -sha256 -key client.key <br>    -subj “/C=XX/ST=DEFAULT/L=DEFAULT/O=DEFAULT/CN=client.com” <br>    -reqexts SAN <br>    -config &lt;(cat my-openssl.cnf &lt;(printf “\n[SAN]\nsubjectAltName=DNS:client.com,DNS:example.client.com”)) <br>    -out client.csr</p>
+<p>openssl x509 -req -days 365 <br>    -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial <br>    -extfile &lt;(printf “subjectAltName=DNS:client.com,DNS:example.client.com”) <br>    -out client.crt</p>
+<pre><code>
+### Hot-Reloading frpc configuration
+
+The `admin_addr` and `admin_port` fields are required for enabling HTTP API:
+
+```ini
+# frpc.ini
+[common]
+admin_addr = 127.0.0.1
+admin_port = 7400</code></pre><p>Then run command <code>frpc reload -c ./frpc.ini</code> and wait for about 10 seconds to let <code>frpc</code> create or update or remove proxies.</p>
+<p><strong>Note that parameters in [common] section won’t be modified except ‘start’.</strong></p>
+<p>You can run command <code>frpc verify -c ./frpc.ini</code> before reloading to check if there are config errors.</p>
+<h3 id="Get-proxy-status-from-client"><a href="#Get-proxy-status-from-client" class="headerlink" title="Get proxy status from client"></a>Get proxy status from client</h3><p>Use <code>frpc status -c ./frpc.ini</code> to get status of all proxies. The <code>admin_addr</code> and <code>admin_port</code> fields are required for enabling HTTP API.</p>
+<h3 id="Only-allowing-certain-ports-on-the-server"><a href="#Only-allowing-certain-ports-on-the-server" class="headerlink" title="Only allowing certain ports on the server"></a>Only allowing certain ports on the server</h3><p><code>allow_ports</code> in <code>frps.ini</code> is used to avoid abuse of ports:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token selector">[common]</span>
+<span class="token constant">allow_ports</span> <span class="token attr-value"><span class="token punctuation">=</span> 2000-3000,3001,3003,4000-50000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><code>allow_ports</code> consists of specific ports or port ranges (lowest port number, dash <code>-</code>, highest port number), separated by comma <code>,</code>.</p>
+<h3 id="Port-Reuse"><a href="#Port-Reuse" class="headerlink" title="Port Reuse"></a>Port Reuse</h3><p><code>vhost_http_port</code> and <code>vhost_https_port</code> in frps can use same port with <code>bind_port</code>. frps will detect the connection’s protocol and handle it correspondingly.</p>
+<p>We would like to try to allow multiple proxies bind a same remote port with different protocols in the future.</p>
+<h3 id="Bandwidth-Limit"><a href="#Bandwidth-Limit" class="headerlink" title="Bandwidth Limit"></a>Bandwidth Limit</h3><h4 id="For-Each-Proxy"><a href="#For-Each-Proxy" class="headerlink" title="For Each Proxy"></a>For Each Proxy</h4><pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[ssh]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 22</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span>
+<span class="token constant">bandwidth_limit</span> <span class="token attr-value"><span class="token punctuation">=</span> 1MB</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Set <code>bandwidth_limit</code> in each proxy’s configure to enable this feature. Supported units are <code>MB</code> and <code>KB</code>.</p>
+<h3 id="TCP-Stream-Multiplexing"><a href="#TCP-Stream-Multiplexing" class="headerlink" title="TCP Stream Multiplexing"></a>TCP Stream Multiplexing</h3><p>frp supports tcp stream multiplexing since v0.10.0 like HTTP2 Multiplexing, in which case all logic connections to the same frpc are multiplexed into the same TCP connection.</p>
+<p>You can disable this feature by modify <code>frps.ini</code> and <code>frpc.ini</code>:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini and frpc.ini, must be same
+<span class="token selector">[common]</span>
+<span class="token constant">tcp_mux</span> <span class="token attr-value"><span class="token punctuation">=</span> false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="Support-KCP-Protocol"><a href="#Support-KCP-Protocol" class="headerlink" title="Support KCP Protocol"></a>Support KCP Protocol</h3><p>KCP is a fast and reliable protocol that can achieve the transmission effect of a reduction of the average latency by 30% to 40% and reduction of the maximum delay by a factor of three, at the cost of 10% to 20% more bandwidth wasted than TCP.</p>
+<p>KCP mode uses UDP as the underlying transport. Using KCP in frp:</p>
+<ol>
+<li><p>Enable KCP in frps:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token selector">[common]</span>
+<span class="token constant">bind_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+# Specify a UDP port for KCP.
+<span class="token constant">kcp_bind_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The <code>kcp_bind_port</code> number can be the same number as <code>bind_port</code>, since <code>bind_port</code> field specifies a TCP port.</p>
+</li>
+<li><p>Configure <code>frpc.ini</code> to use KCP to connect to frps:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+# Same as the 'kcp_bind_port' in frps.ini
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+<span class="token constant">protocol</span> <span class="token attr-value"><span class="token punctuation">=</span> kcp</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h3 id="Connection-Pooling"><a href="#Connection-Pooling" class="headerlink" title="Connection Pooling"></a>Connection Pooling</h3><p>By default, frps creates a new frpc connection to the backend service upon a user request. With connection pooling, frps keeps a certain number of pre-established connections, reducing the time needed to establish a connection.</p>
+<p>This feature is suitable for a large number of short connections.</p>
+<ol>
+<li><p>Configure the limit of pool count each proxy can use in <code>frps.ini</code>:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token selector">[common]</span>
+<span class="token constant">max_pool_count</span> <span class="token attr-value"><span class="token punctuation">=</span> 5</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Enable and specify the number of connection pool:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">pool_count</span> <span class="token attr-value"><span class="token punctuation">=</span> 1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h3 id="Load-balancing"><a href="#Load-balancing" class="headerlink" title="Load balancing"></a>Load balancing</h3><p>Load balancing is supported by <code>group</code>.</p>
+<p>This feature is only available for types <code>tcp</code>, <code>http</code>, <code>tcpmux</code> now.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[test1]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 8080</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">group</span> <span class="token attr-value"><span class="token punctuation">=</span> web</span>
+<span class="token constant">group_key</span> <span class="token attr-value"><span class="token punctuation">=</span> 123</span>
+
+<span class="token selector">[test2]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 8081</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">group</span> <span class="token attr-value"><span class="token punctuation">=</span> web</span>
+<span class="token constant">group_key</span> <span class="token attr-value"><span class="token punctuation">=</span> 123</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>group_key</code> is used for authentication.</p>
+<p>Connections to port 80 will be dispatched to proxies in the same group randomly.</p>
+<p>For type <code>tcp</code>, <code>remote_port</code> in the same group should be the same.</p>
+<p>For type <code>http</code>, <code>custom_domains</code>, <code>subdomain</code>, <code>locations</code> should be the same.</p>
+<h3 id="Service-Health-Check"><a href="#Service-Health-Check" class="headerlink" title="Service Health Check"></a>Service Health Check</h3><p>Health check feature can help you achieve high availability with load balancing.</p>
+<p>Add <code>health_check_type = tcp</code> or <code>health_check_type = http</code> to enable health check.</p>
+<p>With health check type <strong>tcp</strong>, the service port will be pinged (TCPing):</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[test1]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 22</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span>
+# Enable TCP health check
+<span class="token constant">health_check_type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+# TCPing timeout seconds
+<span class="token constant">health_check_timeout_s</span> <span class="token attr-value"><span class="token punctuation">=</span> 3</span>
+# If health check failed 3 times in a row, the proxy will be removed from frps
+<span class="token constant">health_check_max_failed</span> <span class="token attr-value"><span class="token punctuation">=</span> 3</span>
+# A health check every 10 seconds
+<span class="token constant">health_check_interval_s</span> <span class="token attr-value"><span class="token punctuation">=</span> 10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>With health check type <strong>http</strong>, an HTTP request will be sent to the service and an HTTP 2xx OK response is expected:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[web]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+<span class="token constant">local_ip</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> test.example.com</span>
+# Enable HTTP health check
+<span class="token constant">health_check_type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+# frpc will send a GET request to '/status'
+# and expect an HTTP 2xx OK response
+<span class="token constant">health_check_url</span> <span class="token attr-value"><span class="token punctuation">=</span> /status</span>
+<span class="token constant">health_check_timeout_s</span> <span class="token attr-value"><span class="token punctuation">=</span> 3</span>
+<span class="token constant">health_check_max_failed</span> <span class="token attr-value"><span class="token punctuation">=</span> 3</span>
+<span class="token constant">health_check_interval_s</span> <span class="token attr-value"><span class="token punctuation">=</span> 10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Rewriting-the-HTTP-Host-Header"><a href="#Rewriting-the-HTTP-Host-Header" class="headerlink" title="Rewriting the HTTP Host Header"></a>Rewriting the HTTP Host Header</h3><p>By default frp does not modify the tunneled HTTP requests at all as it’s a byte-for-byte copy.</p>
+<p>However, speaking of web servers and HTTP requests, your web server might rely on the <code>Host</code> HTTP header to determine the website to be accessed. frp can rewrite the <code>Host</code> header when forwarding the HTTP requests, with the <code>host_header_rewrite</code> field:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[web]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> test.example.com</span>
+<span class="token constant">host_header_rewrite</span> <span class="token attr-value"><span class="token punctuation">=</span> dev.example.com</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The HTTP request will have the the <code>Host</code> header rewritten to <code>Host: dev.example.com</code> when it reaches the actual web server, although the request from the browser probably has <code>Host: test.example.com</code>.</p>
+<h3 id="Setting-other-HTTP-Headers"><a href="#Setting-other-HTTP-Headers" class="headerlink" title="Setting other HTTP Headers"></a>Setting other HTTP Headers</h3><p>Similar to <code>Host</code>, You can override other HTTP request headers with proxy type <code>http</code>.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[web]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> test.example.com</span>
+<span class="token constant">host_header_rewrite</span> <span class="token attr-value"><span class="token punctuation">=</span> dev.example.com</span>
+<span class="token constant">header_X-From-Where</span> <span class="token attr-value"><span class="token punctuation">=</span> frp</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Note that parameter(s) prefixed with <code>header_</code> will be added to HTTP request headers.</p>
+<p>In this example, it will set header <code>X-From-Where: frp</code> in the HTTP request.</p>
+<h3 id="Get-Real-IP"><a href="#Get-Real-IP" class="headerlink" title="Get Real IP"></a>Get Real IP</h3><h4 id="HTTP-X-Forwarded-For"><a href="#HTTP-X-Forwarded-For" class="headerlink" title="HTTP X-Forwarded-For"></a>HTTP X-Forwarded-For</h4><p>This feature is for http proxy only.</p>
+<p>You can get user’s real IP from HTTP request headers <code>X-Forwarded-For</code> and <code>X-Real-IP</code>.</p>
+<h4 id="Proxy-Protocol"><a href="#Proxy-Protocol" class="headerlink" title="Proxy Protocol"></a>Proxy Protocol</h4><p>frp supports Proxy Protocol to send user’s real IP to local services. It support all types except UDP.</p>
+<p>Here is an example for https service:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[web]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> https</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 443</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> test.example.com</span>
+
+# now v1 and v2 are supported
+<span class="token constant">proxy_protocol_version</span> <span class="token attr-value"><span class="token punctuation">=</span> v2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>You can enable Proxy Protocol support in nginx to expose user’s real IP in HTTP header <code>X-Real-IP</code>, and then read <code>X-Real-IP</code> header in your web service for the real IP.</p>
+<h3 id="Require-HTTP-Basic-Auth-Password-for-Web-Services"><a href="#Require-HTTP-Basic-Auth-Password-for-Web-Services" class="headerlink" title="Require HTTP Basic Auth (Password) for Web Services"></a>Require HTTP Basic Auth (Password) for Web Services</h3><p>Anyone who can guess your tunnel URL can access your local web server unless you protect it with a password.</p>
+<p>This enforces HTTP Basic Auth on all requests with the username and password specified in frpc’s configure file.</p>
+<p>It can only be enabled when proxy type is http.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[web]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> test.example.com</span>
+<span class="token constant">http_user</span> <span class="token attr-value"><span class="token punctuation">=</span> abc</span>
+<span class="token constant">http_pwd</span> <span class="token attr-value"><span class="token punctuation">=</span> abc</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Visit <code>http://test.example.com</code> in the browser and now you are prompted to enter the username and password.</p>
+<h3 id="Custom-Subdomain-Names"><a href="#Custom-Subdomain-Names" class="headerlink" title="Custom Subdomain Names"></a>Custom Subdomain Names</h3><p>It is convenient to use <code>subdomain</code> configure for http and https types when many people share one frps server.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token constant">subdomain_host</span> <span class="token attr-value"><span class="token punctuation">=</span> frps.com</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Resolve <code>*.frps.com</code> to the frps server’s IP. This is usually called a Wildcard DNS record.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[web]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">subdomain</span> <span class="token attr-value"><span class="token punctuation">=</span> test</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Now you can visit your web service on <code>test.frps.com</code>.</p>
+<p>Note that if <code>subdomain_host</code> is not empty, <code>custom_domains</code> should not be the subdomain of <code>subdomain_host</code>.</p>
+<h3 id="URL-Routing"><a href="#URL-Routing" class="headerlink" title="URL Routing"></a>URL Routing</h3><p>frp supports forwarding HTTP requests to different backend web services by url routing.</p>
+<p><code>locations</code> specifies the prefix of URL used for routing. frps first searches for the most specific prefix location given by literal strings regardless of the listed order.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[web01]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 80</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> web.example.com</span>
+<span class="token constant">locations</span> <span class="token attr-value"><span class="token punctuation">=</span> /</span>
+
+<span class="token selector">[web02]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> http</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 81</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> web.example.com</span>
+<span class="token constant">locations</span> <span class="token attr-value"><span class="token punctuation">=</span> /news,/about</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>HTTP requests with URL prefix <code>/news</code> or <code>/about</code> will be forwarded to <strong>web02</strong> and other requests to <strong>web01</strong>.</p>
+<h3 id="TCP-Port-Multiplexing"><a href="#TCP-Port-Multiplexing" class="headerlink" title="TCP Port Multiplexing"></a>TCP Port Multiplexing</h3><p>frp supports receiving TCP sockets directed to different proxies on a single port on frps, similar to <code>vhost_http_port</code> and <code>vhost_https_port</code>.</p>
+<p>The only supported TCP port multiplexing method available at the moment is <code>httpconnect</code> - HTTP CONNECT tunnel.</p>
+<p>When setting <code>tcpmux_httpconnect_port</code> to anything other than 0 in frps under <code>[common]</code>, frps will listen on this port for HTTP CONNECT requests.</p>
+<p>The host of the HTTP CONNECT request will be used to match the proxy in frps. Proxy hosts can be configured in frpc by configuring <code>custom_domain</code> and / or <code>subdomain</code> under <code>type = tcpmux</code> proxies, when <code>multiplexer = httpconnect</code>.</p>
+<p>For example:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frps.ini
+<span class="token selector">[common]</span>
+<span class="token constant">bind_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+<span class="token constant">tcpmux_httpconnect_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 1337</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+
+<span class="token selector">[proxy1]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcpmux</span>
+<span class="token constant">multiplexer</span> <span class="token attr-value"><span class="token punctuation">=</span> httpconnect</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> test1</span>
+
+<span class="token selector">[proxy2]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcpmux</span>
+<span class="token constant">multiplexer</span> <span class="token attr-value"><span class="token punctuation">=</span> httpconnect</span>
+<span class="token constant">custom_domains</span> <span class="token attr-value"><span class="token punctuation">=</span> test2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>In the above configuration - frps can be contacted on port 1337 with a HTTP CONNECT header such as:</p>
+<pre><code>CONNECT test1 HTTP/1.1\r\n\r\n</code></pre><p>and the connection will be routed to <code>proxy1</code>.</p>
+<h3 id="Connecting-to-frps-via-HTTP-PROXY"><a href="#Connecting-to-frps-via-HTTP-PROXY" class="headerlink" title="Connecting to frps via HTTP PROXY"></a>Connecting to frps via HTTP PROXY</h3><p>frpc can connect to frps using HTTP proxy if you set OS environment variable <code>HTTP_PROXY</code>, or if <code>http_proxy</code> is set in frpc.ini file.</p>
+<p>It only works when protocol is tcp.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[common]</span>
+<span class="token constant">server_addr</span> <span class="token attr-value"><span class="token punctuation">=</span> x.x.x.x</span>
+<span class="token constant">server_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 7000</span>
+<span class="token constant">http_proxy</span> <span class="token attr-value"><span class="token punctuation">=</span> http://user:pwd@192.168.1.128:8080</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Range-ports-mapping"><a href="#Range-ports-mapping" class="headerlink" title="Range ports mapping"></a>Range ports mapping</h3><p>Proxy with names that start with <code>range:</code> will support mapping range ports.</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[range:test_tcp]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">local_ip</span> <span class="token attr-value"><span class="token punctuation">=</span> 127.0.0.1</span>
+<span class="token constant">local_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000-6006,6007</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000-6006,6007</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>frpc will generate 8 proxies like <code>test_tcp_0</code>, <code>test_tcp_1</code>, …, <code>test_tcp_7</code>.</p>
+<h3 id="Client-Plugins"><a href="#Client-Plugins" class="headerlink" title="Client Plugins"></a>Client Plugins</h3><p>frpc only forwards requests to local TCP or UDP ports by default.</p>
+<p>Plugins are used for providing rich features. There are built-in plugins such as <code>unix_domain_socket</code>, <code>http_proxy</code>, <code>socks5</code>, <code>static_file</code>, <code>http2https</code>, <code>https2http</code>, <code>https2https</code> and you can see <a href="#example-usage">example usage</a>.</p>
+<p>Specify which plugin to use with the <code>plugin</code> parameter. Configuration parameters of plugin should be started with <code>plugin_</code>. <code>local_ip</code> and <code>local_port</code> are not used for plugin.</p>
+<p>Using plugin <strong>http_proxy</strong>:</p>
+<pre class="line-numbers language-ini"><code class="language-ini"># frpc.ini
+<span class="token selector">[http_proxy]</span>
+<span class="token constant">type</span> <span class="token attr-value"><span class="token punctuation">=</span> tcp</span>
+<span class="token constant">remote_port</span> <span class="token attr-value"><span class="token punctuation">=</span> 6000</span>
+<span class="token constant">plugin</span> <span class="token attr-value"><span class="token punctuation">=</span> http_proxy</span>
+<span class="token constant">plugin_http_user</span> <span class="token attr-value"><span class="token punctuation">=</span> abc</span>
+<span class="token constant">plugin_http_passwd</span> <span class="token attr-value"><span class="token punctuation">=</span> abc</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>plugin_http_user</code> and <code>plugin_http_passwd</code> are configuration parameters used in <code>http_proxy</code> plugin.</p>
+<h3 id="Server-Manage-Plugins"><a href="#Server-Manage-Plugins" class="headerlink" title="Server Manage Plugins"></a>Server Manage Plugins</h3><p>Read the <a href="/doc/server_plugin.md">document</a>.</p>
+<p>Find more plugins in <a href="https://github.com/gofrp/plugin" target="_blank" rel="noopener">gofrp/plugin</a>.</p>
+<h2 id="Development-Plan"><a href="#Development-Plan" class="headerlink" title="Development Plan"></a>Development Plan</h2><ul>
+<li>Log HTTP request information in frps.</li>
+</ul>
+<h2 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h2><p>Interested in getting involved? We would like to help you!</p>
+<ul>
+<li>Take a look at our <a href="https://github.com/fatedier/frp/issues" target="_blank" rel="noopener">issues list</a> and consider sending a Pull Request to <strong>dev branch</strong>.</li>
+<li>If you want to add a new feature, please create an issue first to describe the new feature, as well as the implementation approach. Once a proposal is accepted, create an implementation of the new features and submit it as a pull request.</li>
+<li>Sorry for my poor English. Improvements for this document are welcome, even some typo fixes.</li>
+<li>If you have great ideas, send an email to <a href="mailto:fatedier@gmail.com" target="_blank" rel="noopener">fatedier@gmail.com</a>.</li>
+</ul>
+<p><strong>Note: We prefer you to give your advise in <a href="https://github.com/fatedier/frp/issues" target="_blank" rel="noopener">issues</a>, so others with a same question can search it quickly and we don’t need to answer them repeatedly.</strong></p>
+<h2 id="Donation"><a href="#Donation" class="headerlink" title="Donation"></a>Donation</h2><p>If frp helps you a lot, you can support us by:</p>
+<p>frp QQ group: 606194980</p>
+<h3 id="AliPay"><a href="#AliPay" class="headerlink" title="AliPay"></a>AliPay</h3><p><img src="/doc/pic/donate-alipay.png" alt="donation-alipay"></p>
+<h3 id="Wechat-Pay"><a href="#Wechat-Pay" class="headerlink" title="Wechat Pay"></a>Wechat Pay</h3><p><img src="/doc/pic/donate-wechatpay.png" alt="donation-wechatpay"></p>
+<h3 id="PayPal"><a href="#PayPal" class="headerlink" title="PayPal"></a>PayPal</h3><p>Donate money by <a href="https://www.paypal.me/fatedier" target="_blank" rel="noopener">PayPal</a> to my account <strong><a href="mailto:fatedier@gmail.com" target="_blank" rel="noopener">fatedier@gmail.com</a></strong>.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/frp/" rel="tag"># frp</a>
+          
+            <a href="/tags/文档/" rel="tag"># 文档</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/08/2017-04-02-Data-Binding/" rel="next" title="Android Data Binding 详解及使用案例">
+                <i class="fa fa-chevron-left"></i> Android Data Binding 详解及使用案例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/08/26/2020-02-15-Java-design-patterns-白话（可能配图）/" rel="prev" title="基于java-design-patterns白话图解设计模式（个人理解）">
+                基于java-design-patterns白话图解设计模式（个人理解） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2021/08/25/2021-01-28-Android-apk-压缩/" data-title="frp翻墙文档" data-url="http://linz.tech/2021/08/25/2021-01-28-Android-apk-压缩/">
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cdn.linz.tech/a.gif" alt="北疆">
+            
+              <p class="site-author-name" itemprop="name">北疆</p>
+              <p class="site-description motion-element" itemprop="description">自古以来，所谓豪杰之士，必有过人之节。人情有所不能忍着，匹夫见辱.拔剑而起.挺身而斗，此不足为勇也。天下有大勇者,猝然临之而不惊,无故加之而不怒。而其挟持者甚大，其志甚远也。 ——苏东坡《留候论》</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Orange168" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/bonanzas" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/users/53927a5b90c8/latest_articles" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                常用网站
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.net/" title="Androidweekly English" target="_blank">Androidweekly English</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://androidweekly.cn/" title="Androidweekly Chinese" target="_blank">Androidweekly Chinese</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#frp"><span class="nav-number">1.</span> <span class="nav-text">frp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-frp"><span class="nav-number">1.1.</span> <span class="nav-text">What is frp?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Table-of-Contents"><span class="nav-number">1.2.</span> <span class="nav-text">Table of Contents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Development-Status"><span class="nav-number">1.3.</span> <span class="nav-text">Development Status</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture"><span class="nav-number">1.4.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-Usage"><span class="nav-number">1.5.</span> <span class="nav-text">Example Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Access-your-computer-in-LAN-by-SSH"><span class="nav-number">1.5.1.</span> <span class="nav-text">Access your computer in LAN by SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Visit-your-web-service-in-LAN-by-custom-domains"><span class="nav-number">1.5.2.</span> <span class="nav-text">Visit your web service in LAN by custom domains</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forward-DNS-query-request"><span class="nav-number">1.5.3.</span> <span class="nav-text">Forward DNS query request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forward-Unix-domain-socket"><span class="nav-number">1.5.4.</span> <span class="nav-text">Forward Unix domain socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expose-a-simple-HTTP-file-server"><span class="nav-number">1.5.5.</span> <span class="nav-text">Expose a simple HTTP file server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enable-HTTPS-for-local-HTTP-S-service"><span class="nav-number">1.5.6.</span> <span class="nav-text">Enable HTTPS for local HTTP(S) service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expose-your-service-privately"><span class="nav-number">1.5.7.</span> <span class="nav-text">Expose your service privately</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P-Mode"><span class="nav-number">1.5.8.</span> <span class="nav-text">P2P Mode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Features"><span class="nav-number">1.6.</span> <span class="nav-text">Features</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuration-Files"><span class="nav-number">1.6.1.</span> <span class="nav-text">Configuration Files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-Environment-Variables"><span class="nav-number">1.6.2.</span> <span class="nav-text">Using Environment Variables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Split-Configures-Into-Different-Files"><span class="nav-number">1.6.3.</span> <span class="nav-text">Split Configures Into Different Files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dashboard"><span class="nav-number">1.6.4.</span> <span class="nav-text">Dashboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Admin-UI"><span class="nav-number">1.6.5.</span> <span class="nav-text">Admin UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Monitor"><span class="nav-number">1.6.6.</span> <span class="nav-text">Monitor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Prometheus"><span class="nav-number">1.6.6.1.</span> <span class="nav-text">Prometheus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authenticating-the-Client"><span class="nav-number">1.6.7.</span> <span class="nav-text">Authenticating the Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Token-Authentication"><span class="nav-number">1.6.7.1.</span> <span class="nav-text">Token Authentication</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OIDC-Authentication"><span class="nav-number">1.6.7.2.</span> <span class="nav-text">OIDC Authentication</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encryption-and-Compression"><span class="nav-number">1.6.8.</span> <span class="nav-text">Encryption and Compression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TLS"><span class="nav-number">1.6.8.1.</span> <span class="nav-text">TLS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-proxy-status-from-client"><span class="nav-number">1.6.9.</span> <span class="nav-text">Get proxy status from client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Only-allowing-certain-ports-on-the-server"><span class="nav-number">1.6.10.</span> <span class="nav-text">Only allowing certain ports on the server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Port-Reuse"><span class="nav-number">1.6.11.</span> <span class="nav-text">Port Reuse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bandwidth-Limit"><span class="nav-number">1.6.12.</span> <span class="nav-text">Bandwidth Limit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#For-Each-Proxy"><span class="nav-number">1.6.12.1.</span> <span class="nav-text">For Each Proxy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-Stream-Multiplexing"><span class="nav-number">1.6.13.</span> <span class="nav-text">TCP Stream Multiplexing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Support-KCP-Protocol"><span class="nav-number">1.6.14.</span> <span class="nav-text">Support KCP Protocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Connection-Pooling"><span class="nav-number">1.6.15.</span> <span class="nav-text">Connection Pooling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Load-balancing"><span class="nav-number">1.6.16.</span> <span class="nav-text">Load balancing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Service-Health-Check"><span class="nav-number">1.6.17.</span> <span class="nav-text">Service Health Check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rewriting-the-HTTP-Host-Header"><span class="nav-number">1.6.18.</span> <span class="nav-text">Rewriting the HTTP Host Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-other-HTTP-Headers"><span class="nav-number">1.6.19.</span> <span class="nav-text">Setting other HTTP Headers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-Real-IP"><span class="nav-number">1.6.20.</span> <span class="nav-text">Get Real IP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-X-Forwarded-For"><span class="nav-number">1.6.20.1.</span> <span class="nav-text">HTTP X-Forwarded-For</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proxy-Protocol"><span class="nav-number">1.6.20.2.</span> <span class="nav-text">Proxy Protocol</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Require-HTTP-Basic-Auth-Password-for-Web-Services"><span class="nav-number">1.6.21.</span> <span class="nav-text">Require HTTP Basic Auth (Password) for Web Services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Custom-Subdomain-Names"><span class="nav-number">1.6.22.</span> <span class="nav-text">Custom Subdomain Names</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL-Routing"><span class="nav-number">1.6.23.</span> <span class="nav-text">URL Routing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-Port-Multiplexing"><span class="nav-number">1.6.24.</span> <span class="nav-text">TCP Port Multiplexing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Connecting-to-frps-via-HTTP-PROXY"><span class="nav-number">1.6.25.</span> <span class="nav-text">Connecting to frps via HTTP PROXY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Range-ports-mapping"><span class="nav-number">1.6.26.</span> <span class="nav-text">Range ports mapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Client-Plugins"><span class="nav-number">1.6.27.</span> <span class="nav-text">Client Plugins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Server-Manage-Plugins"><span class="nav-number">1.6.28.</span> <span class="nav-text">Server Manage Plugins</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Development-Plan"><span class="nav-number">1.7.</span> <span class="nav-text">Development Plan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Contributing"><span class="nav-number">1.8.</span> <span class="nav-text">Contributing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Donation"><span class="nav-number">1.9.</span> <span class="nav-text">Donation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AliPay"><span class="nav-number">1.9.1.</span> <span class="nav-text">AliPay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wechat-Pay"><span class="nav-number">1.9.2.</span> <span class="nav-text">Wechat Pay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PayPal"><span class="nav-number">1.9.3.</span> <span class="nav-text">PayPal</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">北疆</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhilinchn"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === '') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
